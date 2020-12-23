@@ -1,0 +1,56 @@
+import React, {useState, useEffect} from 'react';
+
+// Redux
+import {useSelector, useDispatch} from 'react-redux';
+import {setLoading} from '../redux/actions/AppStateAction';
+
+// Translations
+import i18n from 'i18n-js';
+import '../translations';
+import LocalizationContext from './LocalizationContext';
+
+// Screen
+import {MainTabScreen, OnboardingAndAuthorizingStackScreen} from './Navigator';
+import DrawerContent from './drawer/DrawerContent';
+
+// Navigation
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import SnackbarNotification from '../components/snackbar/SnackbarNotification';
+
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  const locale = useSelector((state) => state.appState.lang);
+  const isSignedIn = useSelector((state) => state.appState.isSignedIn);
+  const dispatch = useDispatch();
+  const localizationContext = React.useMemo(
+    () => ({
+      t: (scope, options) => i18n.t(scope, {locale, ...options}),
+    }),
+    [locale],
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 1000);
+  }, []);
+
+  return (
+    <LocalizationContext.Provider value={localizationContext}>
+      <NavigationContainer>
+        {isSignedIn ? (
+          <Drawer.Navigator
+            drawerContent={(props) => <DrawerContent {...props} />}
+            drawerStyle={{backgroundColor: 'transparent'}}>
+            <Drawer.Screen name="Home" component={MainTabScreen} />
+          </Drawer.Navigator>
+        ) : (
+          <OnboardingAndAuthorizingStackScreen />
+        )}
+      </NavigationContainer>
+      <SnackbarNotification />
+    </LocalizationContext.Provider>
+  );
+}

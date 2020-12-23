@@ -1,0 +1,112 @@
+import {Dimensions} from 'react-native';
+const {width, height} = Dimensions.get('window');
+
+export const COLORS = {
+  // colors
+  primary: '#FFCCD9',
+  success: '#5cb85c',
+  error: '#d9534f',
+  waring: '#f0ad4e',
+  pinkPastel: '#FFCCD9',
+  pinkText: '#e05297',
+  orangePastel: '#FFD6A5',
+  bluePastel: '#bfeaf5',
+  greenPastel: '#CDEAC0',
+  yellowPastel: '#E3E5A4',
+  inactiveColor: '#C4BABA',
+  inputPlaceholderColor: '#C8C8C8',
+  greyText: '#aaaaaa',
+  background: '#fafafa',
+  startDate: '#50cebb',
+  endDate: '#50cebb',
+  pickedRangeDate: '#70d7c7',
+  pickedDateText: '#fff',
+};
+
+export const SHADOW = {
+  default: {
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  },
+};
+
+export const SIZES = {
+  // global sizes
+  base: 8,
+  radius: {
+    small: 5,
+    medium: 10,
+    large: 20,
+  },
+  padding: 20,
+
+  // font sizes
+  navTitle: 25,
+  h1: 30,
+  h2: 22,
+  h3: 16,
+  h4: 14,
+  h5: 12,
+  body1: 24,
+  body2: 20,
+  body3: 16,
+  body4: 14,
+  body5: 12,
+
+  // app dimensions
+  width,
+  height,
+};
+
+export const FONTS = {
+  default: 'SF-Pro-Text-Regular',
+  navTitle: {fontFamily: 'Mitr-Light', fontSize: SIZES.navTitle},
+  largeTitleBold: {fontFamily: 'Mitr-SemiBold', fontSize: SIZES.h2},
+  onboardinghero: {
+    fontSize: 80,
+    fontFamily: 'SF-Pro-Text-Bold',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: 80,
+  },
+  h1: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h1, lineHeight: 36},
+  h2: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h2, lineHeight: 30},
+  h3: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h3, lineHeight: 22},
+  h4: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h4, lineHeight: 22},
+  h5: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h5, lineHeight: 22},
+  body1: {
+    fontFamily: 'SF-Pro-Text-Regular',
+    fontSize: SIZES.body1,
+    lineHeight: 30,
+  },
+  body2: {
+    fontFamily: 'SF-Pro-Text-Regular',
+    fontSize: SIZES.body2,
+    lineHeight: 30,
+  },
+  body3: {
+    fontFamily: 'SF-Pro-Text-Regular',
+    fontSize: SIZES.body3,
+    lineHeight: 22,
+  },
+  body4: {
+    fontFamily: 'SF-Pro-Text-Regular',
+    fontSize: SIZES.body4,
+    lineHeight: 22,
+  },
+  body5: {
+    fontFamily: 'SF-Pro-Text-Regular',
+    fontSize: SIZES.body5,
+    lineHeight: 22,
+  },
+};
+
+const appTheme = {COLORS, SIZES, FONTS};
+
+export default appTheme;
