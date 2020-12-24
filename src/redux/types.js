@@ -17,3 +17,4 @@ export const AddEmergencyContactModal = 'AddEmergencyContactModal';
 export const SET_ACTIVITY = 'SET_ACTIVITY';
 export const SET_UPCOMING_ACTIVITIES = 'SET_UPCOMING_ACTIVITIES';
 export const SET_HISTORY_ACTIVITIES = 'SET_HISTORY_ACTIVITIES';
+export const SET_FILTERED_ACTIVITIES = 'SET_FILTERED_ACTIVITIES';

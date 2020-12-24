@@ -47,11 +47,7 @@ const DrawerContent = (props) => {
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
             icon={({color, size}) => (
-              <Feather
-                name="home"
-                color={COLORS.inputPlaceholderColor}
-                size={25}
-              />
+              <Feather name="home" color={COLORS.primary} size={25} />
             )}
             label={t('drawer.home')}
             labelStyle={[FONTS.h4]}
@@ -64,11 +60,7 @@ const DrawerContent = (props) => {
           />
           <DrawerItem
             icon={({color, size}) => (
-              <Feather
-                name="activity"
-                color={COLORS.inputPlaceholderColor}
-                size={25}
-              />
+              <Feather name="activity" color={COLORS.primary} size={25} />
             )}
             label={t('drawer.upcoming')}
             labelStyle={[FONTS.h4]}
@@ -83,7 +75,7 @@ const DrawerContent = (props) => {
             icon={({color, size}) => (
               <MaterialCommunityIcons
                 name="history"
-                color={COLORS.inputPlaceholderColor}
+                color={COLORS.primary}
                 size={25}
               />
             )}
@@ -100,7 +92,7 @@ const DrawerContent = (props) => {
             icon={({color, size}) => (
               <MaterialCommunityIcons
                 name="post"
-                color={COLORS.inputPlaceholderColor}
+                color={COLORS.primary}
                 size={25}
               />
             )}
@@ -120,7 +112,7 @@ const DrawerContent = (props) => {
           icon={({color, size}) => (
             <MaterialCommunityIcons
               name="account"
-              color={COLORS.inputPlaceholderColor}
+              color={COLORS.primary}
               size={25}
             />
           )}
@@ -137,7 +129,7 @@ const DrawerContent = (props) => {
           icon={({color, size}) => (
             <Ionicons
               name="location-outline"
-              color={COLORS.inputPlaceholderColor}
+              color={COLORS.primary}
               size={25}
             />
           )}
@@ -154,7 +146,7 @@ const DrawerContent = (props) => {
           icon={({color, size}) => (
             <MaterialCommunityIcons
               name="contacts"
-              color={COLORS.inputPlaceholderColor}
+              color={COLORS.primary}
               size={25}
             />
           )}

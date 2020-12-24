@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,9 +10,25 @@ import {
 import Button from '../../components/Button';
 import {FONTS, COLORS, SIZES} from '../../constants';
 import ImageModal from 'react-native-image-modal';
+import {post} from '../../redux/actions/request';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const PaymentScreen = ({navigation, route}) => {
-  const {course, size, activity_title} = route.params;
+  const {course, size, activity_title, userActivityId} = route.params;
+  const [image, setImage] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  const getQrcode = async () => {
+    const res = await post(`/api/users/requestpayment/${userActivityId}`, {
+      amount: +course.price + 80,
+      activity_title: activity_title,
+    });
+
+    if (res) {
+      setImage(res.data.qrImage);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     const backAction = () => {
@@ -25,8 +41,23 @@ const PaymentScreen = ({navigation, route}) => {
       'hardwareBackPress',
       backAction,
     );
+    getQrcode();
     return () => backHandler.remove();
   }, []);
+
+  if (loading) {
+    return (
+      <Spinner
+        visible={true}
+        textContent={'Loading...'}
+        textStyle={{
+          color: '#FFF',
+        }}
+        color={COLORS.pinkPastel}
+      />
+    );
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{padding: 20}}>
       <Text style={[FONTS.h2, {textAlign: 'center'}]}>ยืนยันการลงทะเบียน</Text>
@@ -70,19 +101,24 @@ const PaymentScreen = ({navigation, route}) => {
           {course.price} บาท
         </Text>
       </View>
+      <View style={{marginTop: 10}}>
+        <Text style={[FONTS.h3, {marginBottom: 10}]}>ค่าส่ง</Text>
+        <Text style={[FONTS.body4, {marginLeft: 20, marginBottom: 10}]}>
+          80 บาท
+        </Text>
+      </View>
       <View
         style={{
-          width: 150,
-          height: 150,
+          width: 200,
+          height: 200,
           borderRadius: 10,
           alignSelf: 'center',
         }}>
         <Image
-          source={require('../../../assets/qrcode/qrcode.png')}
+          source={{uri: `data:image/jpg;base64,${image}`}}
           style={{
-            width: 150,
-            height: 150,
-            borderRadius: 10,
+            width: 200,
+            height: 200,
           }}
         />
       </View>
@@ -96,7 +132,7 @@ const PaymentScreen = ({navigation, route}) => {
       </View>
       <View style={{alignItems: 'center'}}>
         <Button
-          label="ชำระแล้ว"
+          label="กลับสู่หน้าหลัก"
           color={COLORS.pinkPastel}
           onPress={() => {
             navigation.replace('Home');

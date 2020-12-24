@@ -44,6 +44,11 @@ const th = {
     address: 'ที่อยู่',
     home: 'Home',
   },
+  home: {
+    upcomingactivity: 'Upcoming Activity',
+    historyactivity: 'History Activity',
+    seeall: 'ดูทั้งหมด',
+  },
   userrecode: {
     activitiesinthisyear: 'กิจกรรมในปีนี้',
     howfardidyougo: 'ระยะทางทั้งหมด',
@@ -68,20 +73,24 @@ const th = {
     moredetail: 'รายละเอียดเพิ่มเติม',
     revealinfoterm: 'ฉันยืนยอมที่จะเปิดเผยข้อมูลการติดต่อ',
     createpost: 'สร้างโพสต์',
+    selectprovince: 'เลือกจังหวัด',
+    pleaseacceptterms: 'กรุณายอมรับข้อตกลง',
+    searchprovince: 'ค้นหาจังหวัด',
   },
   communityfilter: {
     activity: 'กิจกรรม',
     find: 'ค้นหา',
+    selectone: 'เลือกกิจกรรม',
   },
   activityfilter: {
     course: 'คอร์สวิ่ง',
-    5: '5 กม. ลงมา',
-    '6-10': '6-10 กม.',
-    '11-20': '11-20 กม.',
-    '21-40': '21-40 กม.',
-    40: '40 กม. ขึ้นไป',
     during: 'ห้วงวันที่',
     find: 'ค้นหากิจกรรม',
+    region: 'ภูมิภาค',
+    noregion: 'ยังไม่ได้เลือกภูมิภาค',
+    selectone: 'กรุณาเลือกภูมิภาค',
+    noactivity: 'ไม่มีกิจกรรมที่คุณค้นหา',
+    clickhere: 'รีเฟชร',
   },
   activity: {
     place: 'สถานที่',
@@ -91,7 +100,7 @@ const th = {
     detail: 'รายละเอียด และกำหนดการ',
     gifts: 'ของที่ระลึก',
     shirt_style: 'สไตส์เสื้อ',
-    rule: 'กติกาและรางวัลสำหรับผู้ชนะ',
+    rule: 'รางวัล',
     moredetail: 'รายละเอียดเพิ่มเติม',
     apply: 'ลงทะเบียน',
     findfriend: 'ค้นหาเพื่อนร่วมทริป',
@@ -136,6 +145,7 @@ const th = {
     tryagain: 'ลองอีกครั้ง',
   },
   coupon: {use: 'ใช้คูปอง'},
+  promoteactivity: {detail: 'ข้อมูลเพิ่มเติม'},
 };
 
 export default th;

@@ -3,11 +3,11 @@ const {width, height} = Dimensions.get('window');
 
 export const COLORS = {
   // colors
-  primary: '#FFCCD9',
+  primary: '#8a1776',
   success: '#5cb85c',
   error: '#d9534f',
   waring: '#f0ad4e',
-  pinkPastel: '#FFCCD9',
+  pinkPastel: '#8a1776',
   pinkText: '#e05297',
   orangePastel: '#FFD6A5',
   bluePastel: '#bfeaf5',
@@ -21,6 +21,7 @@ export const COLORS = {
   endDate: '#50cebb',
   pickedRangeDate: '#70d7c7',
   pickedDateText: '#fff',
+  backgroundColor: '#fff',
 };
 
 export const SHADOW = {

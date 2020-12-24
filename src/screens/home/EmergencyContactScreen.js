@@ -15,6 +15,7 @@ import {deleteEmergencyContact} from '../../redux/actions/UserAction';
 import {useDispatch} from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import EmergencyCard from '../../components/card/EmergencyCard';
+import TopBackground from '../../components/layout/TopBackground';
 
 const EmergencyContactScreen = () => {
   const emergency_contacts = useSelector(
@@ -25,8 +26,8 @@ const EmergencyContactScreen = () => {
   return (
     <Fragment>
       <ScrollView
-        style={{marginHorizontal: 20}}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        style={{marginHorizontal: 20}}>
         {emergency_contacts.map((item, index) => {
           return (
             <View
@@ -34,7 +35,6 @@ const EmergencyContactScreen = () => {
               style={[
                 SHADOW.default,
                 {
-                  backgroundColor: '#fff',
                   borderRadius: 10,
                   marginVertical: 10,
                 },

@@ -16,6 +16,7 @@ import {FONTS, COLORS} from '../../constants';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {setUpcomeActivities} from '../../redux/actions/ActivityAction';
+import TitleHeader from '../layout/TitleHeader';
 
 const UpcomingActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -77,9 +78,15 @@ const UpcomingActivity = () => {
 
   return (
     <View>
-      <View style={{paddingHorizontal: 20}}>
-        <Text style={[FONTS.h2_en]}>Up Coming Activity</Text>
-      </View>
+      <TitleHeader
+        title={t('home.upcomingactivity')}
+        seeAll={() => {
+          navigation.jumpTo('home', {
+            screen: 'UpcomingActivity',
+          });
+        }}
+        paddingHorizontal={20}
+      />
       {loading ? (
         <View
           style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>

@@ -166,7 +166,7 @@ export const registerActivity = (data, navigateUser) => async (dispatch) => {
       type: AddEmergencyContactModal,
       payload: false,
     });
-    navigateUser();
+    navigateUser(res.id);
     setTimeout(() => {
       dispatch({
         type: SET_LOADING,
@@ -257,6 +257,38 @@ export const useCoupon = (userActivityId, couponId, setUserActivity) => async (
         payload: false,
       });
     }, 2000);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  }
+};
+
+export const createUserPost = (data, navigateUser) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+  try {
+    const res = await post(`/api/users/createuserpost`, data);
+    const user = await get('/api/users/getuserbyjwt');
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    dispatch({
+      type: AddEmergencyContactModal,
+      payload: false,
+    });
+    navigateUser();
+    setTimeout(() => {
+      dispatch({
+        type: SET_LOADING,
+        payload: false,
+      });
+    }, 700);
   } catch (error) {
     console.log(error);
     dispatch({

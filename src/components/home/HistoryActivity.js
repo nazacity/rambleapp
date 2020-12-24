@@ -16,6 +16,7 @@ import {FONTS, COLORS} from '../../constants';
 import {Icon} from 'react-native-elements';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {setHisActivities} from '../../redux/actions/ActivityAction';
+import TitleHeader from '../layout/TitleHeader';
 
 const HistoryActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -50,9 +51,6 @@ const HistoryActivity = () => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => {
-          // navigation.navigate('ActivityHistory', {
-          //   activity_picture_url: item.activity.activity_picture_url,
-          // });
           navigation.navigate('ActivityHistory', {
             userActivity: item,
           });
@@ -75,9 +73,15 @@ const HistoryActivity = () => {
 
   return (
     <View>
-      <View style={{paddingHorizontal: 20}}>
-        <Text style={[FONTS.h2_en]}>History Activity</Text>
-      </View>
+      <TitleHeader
+        title={t('home.historyactivity')}
+        seeAll={() => {
+          navigation.jumpTo('home', {
+            screen: 'HistoryActivity',
+          });
+        }}
+        paddingHorizontal={20}
+      />
       {loading ? (
         <View
           style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>

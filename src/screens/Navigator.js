@@ -120,26 +120,15 @@ const HomeStackScreen = ({navigation}) => {
         name="Home"
         component={HomeScreen}
         options={{
-          headerLeft: () => {
-            return (
-              <View style={{paddingLeft: 10}}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                  <Ionicons
-                    name="ios-menu"
-                    size={25}
-                    borderRadius={50}
-                    backgroundColor={COLORS.pinkPastel}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-              </View>
-            );
-          },
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
         name="ActivityDetail"
         component={ActivityDetailScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       <HomeStack.Screen
         name="ActivityRegister"
@@ -164,15 +153,7 @@ const HomeStackScreen = ({navigation}) => {
         name="ActivityUpcoming"
         component={ActivityUpcomingScreen}
         options={{
-          headerStyle: {
-            backgroundColor: COLORS.primary,
-            elevation: 0,
-            shadowOpacity: 0,
-            shadowOffset: {
-              height: 0,
-            },
-            shadowRadius: 0,
-          },
+          headerShown: false,
         }}
       />
       <HomeStack.Screen name="Payment" component={PaymentScreen} />
@@ -255,6 +236,7 @@ const HomeStackScreen = ({navigation}) => {
         name="HistoryActivity"
         component={HistoryActivityScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -276,6 +258,7 @@ const HomeStackScreen = ({navigation}) => {
         name="UpcomingActivity"
         component={UpcomingActivityScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -372,6 +355,7 @@ const ActivityStackScreen = ({navigation}) => {
         name="Activity"
         component={ActivityScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -408,6 +392,7 @@ const ActivityStackScreen = ({navigation}) => {
       <ActivityStack.Screen
         name="ActivityFilter"
         component={ActivityFilterScreen}
+        options={{headerShown: false}}
       />
     </ActivityStack.Navigator>
   );
@@ -432,6 +417,7 @@ const CommunityStackScreen = ({navigation}) => {
         name="Community"
         component={CommunityScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -468,6 +454,9 @@ const CommunityStackScreen = ({navigation}) => {
       <CommunityStack.Screen
         name="CommunityFilter"
         component={CommunityFilterScreen}
+        options={{
+          headerShown: false,
+        }}
       />
     </CommunityStack.Navigator>
   );

@@ -1,66 +1,78 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  FlatList,
+  ImageBackground,
+} from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
+import LinearGradient from 'react-native-linear-gradient';
+import moment from 'moment';
+import 'moment/locale/th';
 import {useSelector} from 'react-redux';
 
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SIZES} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
+import TopBackground from '../../components/layout/TopBackground';
+import ActivityCard from '../../components/activity/ActivityCard';
+import MenuButton from '../../components/layout/MenuButton';
 
 const UpcomingActivityScreen = () => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   const activities = useSelector((state) => state.activity.upcoming_activities);
+  const lang = useSelector((state) => state.appState.lang);
+  moment.locale(lang);
 
   const UpcomingActivityCard = ({item, index}) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
+      <ActivityCard
+        item={item}
         onPress={() => {
           navigation.navigate('ActivityUpcoming', {
             activityId: item.activity.id._id,
           });
-        }}
-        style={{
-          width: 150,
-          height: 150,
-          marginRight: index % 2 === 1 ? 0 : 20,
-          borderRadius: 10,
-          overflow: 'hidden',
-          backgroundColor: 'black',
         }}>
-        <Image
-          source={{uri: item.activity.id.activity_picture_url}}
-          style={{width: 150, height: 150, borderRadius: 5}}
-        />
-      </TouchableOpacity>
+        <View style={{position: 'absolute', bottom: 20, left: 20}}>
+          <Text style={[FONTS.h4, {color: '#fff'}]}>
+            {item.activity.id.title}
+          </Text>
+          <Text style={[FONTS.h1, {color: '#fff'}]}>
+            {moment(item.activity.id.actual_date).fromNow()}
+          </Text>
+        </View>
+      </ActivityCard>
     );
   };
 
   return (
-    <Fragment>
+    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
+      <MenuButton />
       {activities.length === 0 ? (
-        <View
-          style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>ยังไม่มีกิจกรรม</Text>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={[FONTS.h2, {color: COLORS.primary}]}>
+            ยังไม่มีกิจกรรม
+          </Text>
         </View>
       ) : (
         <FlatList
-          numColumns={2}
           showsVerticalScrollIndicator={false}
           data={activities}
           keyExtractor={(item) => `${item._id}`}
           renderItem={({item, index}) => {
             return <UpcomingActivityCard item={item} index={index} />;
           }}
-          ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-          style={{padding: 20}}
-          columnWrapperStyle={{justifyContent: 'center'}}
-          ListFooterComponent={<View style={{marginBottom: 40}} />}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
+            />
+          )}
         />
       )}
-    </Fragment>
+    </View>
   );
 };
 

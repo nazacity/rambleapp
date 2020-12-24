@@ -3,18 +3,25 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
-  Image,
-  ScrollView,
+  ImageBackground,
   ActivityIndicator,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {get} from '../../redux/actions/request';
-import {SHADOW} from '../../constants';
+import {SHADOW, SIZES, FONTS, COLORS} from '../../constants';
+import LinearGradient from 'react-native-linear-gradient';
+import moment from 'moment';
+import 'moment/locale/th';
+import Swiper from 'react-native-swiper';
+import {useSelector} from 'react-redux';
+import LocalizationContext from '../../screens/LocalizationContext';
 
 const PromoteActivity = () => {
+  const {t} = React.useContext(LocalizationContext);
+  const lang = useSelector((state) => state.appState.lang);
+  moment.locale(lang);
   const navigation = useNavigation();
   const [promote_activities, setPromote_activities] = useState([]);
   const fetchPromoteActivity = async () => {
@@ -28,52 +35,105 @@ const PromoteActivity = () => {
   }, []);
   const PromoteActivityCard = ({item, index}) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.navigate('ActivityDetail', {
-            activityId: item._id,
-          });
-        }}
+      <ImageBackground
+        source={{uri: item.activity_picture_url}}
         style={{
-          width: 300,
-          height: 200,
-          marginRight: promote_activities.length === index + 1 ? 40 : 0,
-          borderRadius: 10,
-          overflow: 'hidden',
-          alignItems: 'center',
-          justifyContent: 'center',
+          width: SIZES.width,
+          height: (SIZES.width * 2) / 3,
+          resizeMode: 'cover',
         }}>
-        <Image
-          source={{uri: item.activity_picture_url}}
-          style={{width: 300, height: 200, borderRadius: 5}}
+        <LinearGradient
+          colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']}
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 1}}
+          useAngle
+          angle={180}
+          style={{
+            flex: 1,
+            left: 0,
+            top: 0,
+            width: SIZES.width,
+            height: (SIZES.width * 2) / 3,
+          }}
         />
-      </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            position: 'absolute',
+            bottom: 40,
+            left: 20,
+            alignItems: 'center',
+          }}>
+          <View style={{flex: 1}}>
+            <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
+            <Text style={[FONTS.h1, {color: '#fff'}]}>
+              {moment(item.actual_date).format('DD MMMM YY')}
+            </Text>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={[
+              {
+                borderRadius: 10,
+                height: 50,
+                width: 130,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: COLORS.primary,
+                marginRight: 30,
+              },
+              SHADOW.default,
+            ]}
+            onPress={() => {
+              navigation.navigate('ActivityDetail', {
+                activityId: item._id,
+                from: 'HomeScreen',
+              });
+            }}>
+            <Text
+              style={[
+                {
+                  color: '#fff',
+                  textAlign: 'center',
+                },
+                FONTS.h3,
+              ]}>
+              {t('promoteactivity.detail')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     );
   };
 
   if (promote_activities.length === 0) {
     return (
       <View
-        style={{height: 240, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>ยังไม่มีกิจกรรม</Text>
+        style={{
+          height: (SIZES.width * 2) / 3,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: COLORS.primary,
+        }}>
+        <ActivityIndicator color="#fff" size="large" />
       </View>
     );
   }
 
   return (
-    <View style={{height: 240}}>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={promote_activities}
-        keyExtractor={(item) => `${item._id}`}
-        renderItem={({item, index}) => {
-          return <PromoteActivityCard item={item} index={index} />;
-        }}
-        ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-        style={{padding: 20}}
-      />
+    <View
+      style={{
+        backgroundColor: COLORS.primary,
+      }}>
+      <Swiper
+        height={(SIZES.width * 2) / 3}
+        autoplay
+        dotColor="rgba(255,255,255,0.6)"
+        activeDotColor={COLORS.primary}>
+        {promote_activities.map((item, index) => {
+          return <PromoteActivityCard key={index} item={item} index={index} />;
+        })}
+      </Swiper>
     </View>
   );
 };

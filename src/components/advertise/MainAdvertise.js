@@ -7,7 +7,7 @@ import {advertise} from '../../config/data';
 
 const MainAdvertise = () => {
   return (
-    <View style={{alignItems: 'center', marginVertical: 40}}>
+    <View style={{alignItems: 'center', marginVertical: 20}}>
       {advertise.map((item, index) => {
         return (
           <TouchableOpacity

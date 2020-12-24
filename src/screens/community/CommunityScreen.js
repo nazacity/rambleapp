@@ -17,6 +17,8 @@ import {FONTS, COLORS, SIZES} from '../../constants';
 import moment from 'moment';
 import 'moment/locale/th';
 import LocalizationContext from '../LocalizationContext';
+import MenuButton from '../../components/layout/MenuButton';
+import FilterButton from '../../components/layout/FilterButton';
 moment.locale('th');
 
 const CommunityScreen = ({navigation}) => {
@@ -115,13 +117,16 @@ const CommunityScreen = ({navigation}) => {
             </View>
           </View>
         </TouchableOpacity>
-        {(index + 1) % 5 === 0 && <MinorAdvertise />}
+        {/* {(index + 1) % 5 === 0 && <MinorAdvertise />} */}
       </Fragment>
     );
   };
 
   return (
-    <View style={{alignItems: 'center', backgroundColor: COLORS.background}}>
+    <View
+      style={{alignItems: 'center', backgroundColor: COLORS.backgroundColor}}>
+      <MenuButton />
+      <FilterButton onPress={() => navigation.navigate('CommunityFilter')} />
       <FlatList
         showsVerticalScrollIndicator={false}
         data={community_posts}

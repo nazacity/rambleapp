@@ -2,6 +2,7 @@ import {
   SET_ACTIVITY,
   SET_UPCOMING_ACTIVITIES,
   SET_HISTORY_ACTIVITIES,
+  SET_FILTERED_ACTIVITIES,
 } from '../types';
 
 const initialState = {
@@ -50,6 +51,7 @@ const initialState = {
   },
   upcoming_activities: [],
   history_activities: [],
+  filtered_activities: [],
 };
 
 export default (state = initialState, action) => {
@@ -62,6 +64,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         history_activities: action.payload,
+      };
+    case SET_FILTERED_ACTIVITIES:
+      return {
+        ...state,
+        filtered_activities: action.payload,
       };
     default:
       return state;

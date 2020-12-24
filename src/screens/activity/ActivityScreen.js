@@ -1,51 +1,146 @@
-import React, {Fragment, useState} from 'react';
-import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import React, {Fragment, useState, useEffect} from 'react';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 
-import {activities} from '../../config/data';
+// import {activities} from '../../config/data';
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SIZES} from '../../constants';
+import MenuButton from '../../components/layout/MenuButton';
+import FilterButton from '../../components/layout/FilterButton';
+import {get} from '../../redux/actions/request';
+import {useSelector, useDispatch} from 'react-redux';
+import {setFilActivities} from '../../redux/actions/ActivityAction';
+import {setLoading} from '../../redux/actions/AppStateAction';
+import LocalizationContext from '../LocalizationContext';
+import Button from '../../components/Button';
+import moment from 'moment';
+import 'moment/locale/th';
+import ActivityCard from '../../components/activity/ActivityCard';
 
 const ActivityScreen = ({navigation}) => {
-  const ActivityCard = ({item, index}) => {
+  const {t} = React.useContext(LocalizationContext);
+  // const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [noMore, setNoMore] = useState(false);
+  const dispatch = useDispatch();
+  const activities = useSelector((state) => state.activity.filtered_activities);
+  const isLoading = useSelector((state) => state.appState.isLoading);
+  const lang = useSelector((state) => state.appState.lang);
+  moment.locale(lang);
+  const onLoadMore = async () => {
+    if (!noMore) {
+      dispatch(setLoading(true));
+      setPage(page + 1);
+      try {
+        const res = await get(
+          `/api/users/getactivities?skip=${5 * page}&limit=5`,
+        );
+
+        if (res.status === 200) {
+          if (res.data.length === 0) {
+            setNoMore(true);
+          } else {
+            if (activities.length !== 0) {
+              if (activities[0]._id === res.data[0]._id) {
+                dispatch(setLoading(false));
+              } else {
+                dispatch(setFilActivities([...activities, ...res.data]));
+              }
+            } else {
+              dispatch(setFilActivities([...activities, ...res.data]));
+            }
+          }
+        }
+        dispatch(setLoading(false));
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoading(false));
+      }
+    }
+  };
+
+  const ActivityCardDetail = ({item, index}) => {
     return (
       <Fragment>
-        <TouchableOpacity
-          activeOpacity={0.8}
+        <ActivityCard
+          item={{activity: {id: item}}}
           onPress={() => {
             navigation.navigate('ActivityDetail', {
-              activity_state: 'unregister',
+              activityId: item._id,
+              from: 'ActivityScreen',
             });
-          }}
-          style={{
-            width: 300,
-            height: 200,
-            borderRadius: 10,
-            overflow: 'hidden',
-            alignSelf: 'center',
           }}>
-          <Image
-            source={{uri: item.activity_picture_url}}
-            style={{width: 300, height: 200, borderRadius: 5}}
-          />
-        </TouchableOpacity>
-        {(index + 1) % 5 === 0 && <MinorAdvertise />}
+          <View style={{position: 'absolute', bottom: 20, left: 20}}>
+            <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[FONTS.h5, {color: '#fff', marginRight: 10}]}>
+                {item.location.place_name}
+              </Text>
+              <Text style={[FONTS.h5, {color: '#fff'}]}>
+                {item.location.province}
+              </Text>
+            </View>
+            <Text style={[FONTS.h1, {color: '#fff'}]}>
+              {moment(item.actual_date).format('DD MMMM YY')}
+            </Text>
+          </View>
+        </ActivityCard>
+        {/* {(index + 1) % 5 === 0 && <MinorAdvertise />} */}
       </Fragment>
     );
   };
 
+  useEffect(() => {
+    onLoadMore();
+    const unsubscribe = navigation.addListener('focus', () => {
+      setNoMore(false);
+      setPage(0);
+    });
+    return unsubscribe;
+  }, []);
+
+  if (activities.length === 0 && !isLoading) {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          backgroundColor: COLORS.backgroundColor,
+          flex: 1,
+          justifyContent: 'center',
+        }}>
+        <Text style={[FONTS.h2]}>{t('activityfilter.noactivity')}</Text>
+        <Button
+          label={t('activityfilter.clickhere')}
+          color={COLORS.pinkPastel}
+          onPress={onLoadMore}
+        />
+      </View>
+    );
+  }
+
   return (
-    <View style={{alignItems: 'center', backgroundColor: COLORS.background}}>
+    <View
+      style={{
+        alignItems: 'center',
+        backgroundColor: COLORS.backgroundColor,
+        flex: 1,
+      }}>
+      <MenuButton />
+      <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
       <FlatList
         showsVerticalScrollIndicator={false}
         data={activities}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => `${item._id}`}
         renderItem={({item, index}) => {
-          return <ActivityCard item={item} index={index} />;
+          return <ActivityCardDetail item={item} index={index} />;
         }}
-        ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-        style={{padding: 20}}
+        ItemSeparatorComponent={() => (
+          <View
+            style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
+          />
+        )}
+        onEndReached={onLoadMore}
+        onEndReachedThreshold={0}
       />
     </View>
   );

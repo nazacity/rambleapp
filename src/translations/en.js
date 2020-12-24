@@ -44,6 +44,11 @@ const en = {
     address: 'Address',
     home: 'Home',
   },
+  home: {
+    upcomingactivity: 'Upcoming Activity',
+    historyactivity: 'History Activity',
+    seeall: 'See All',
+  },
   userrecode: {
     activitiesinthisyear: 'Activities in this year',
     howfardidyougo: 'How far did you do',
@@ -67,20 +72,27 @@ const en = {
     moredetail: 'Description',
     revealinfoterm: 'I accept to reveal my contact terms',
     createpost: 'Create Post',
+    nodescription: 'No description was filled',
+    pleasefill: 'Please fill description',
+    selectprovince: 'Select Province',
+    pleaseacceptterms: 'Please accept the terms',
+    searchprovince: 'Search province',
   },
   communityfilter: {
     activity: 'Activity',
     find: 'Search',
+    selectone: 'Select Activity',
   },
   activityfilter: {
     course: 'Courses',
-    5: 'Less than 5 Km.',
-    '6-10': '6-10 Km.',
-    '11-20': '11-20 Km.',
-    '21-40': '21-40 Km.',
-    40: 'More than 40 Km.',
     during: 'During',
     find: 'Search Activities',
+    region: 'Region',
+    selectone: 'Select region',
+    noregion: 'No region was selected',
+    selectregion: 'Please select region',
+    noactivity: 'No activity could be found',
+    clickhere: 'Refresh',
   },
   activity: {
     place: 'Place',
@@ -90,7 +102,7 @@ const en = {
     detail: 'Information and Timeline',
     gifts: 'Gifts',
     shirt_style: 'Shirt Style',
-    rule: 'Reward and Rules',
+    rule: 'Reward',
     moredetail: 'More Infomation',
     apply: 'Register',
     findfriend: 'Find Accompaniment',
@@ -139,6 +151,7 @@ const en = {
     tryagain: 'Try Again',
   },
   coupon: {use: 'use coupon'},
+  promoteactivity: {detail: 'More Detail'},
 };
 
 export default en;

@@ -6,6 +6,7 @@ import {
   ScrollView,
   BackHandler,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
@@ -17,11 +18,26 @@ import HistoryActivity from '../../components/home/HistoryActivity';
 import MainAdvertise from '../../components/advertise/MainAdvertise';
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 import {COLORS} from '../../constants';
-import {useIsFocused} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {post} from '../../redux/actions/request';
+import TopBackground from '../../components/layout/TopBackground';
+import BottomBackground from '../../components/layout/BottomBackground';
+import MenuButton from '../../components/layout/MenuButton';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
+  const user_device_token = useSelector((state) => state.user.device_token);
+
+  const updatedDeviceToken = async () => {
+    const device_token = await AsyncStorage.getItem('device_token');
+    if (device_token && device_token !== user_device_token) {
+      await post('/api/users/updatedevicetoken', {
+        device_token: device_token,
+      });
+    }
+  };
   useEffect(() => {
+    updatedDeviceToken();
     setTimeout(() => {
       dispatch(setLoading(false));
     }, 1000);
@@ -49,16 +65,21 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView
-      style={{backgroundColor: COLORS.background}}
-      showsVerticalScrollIndicator={false}>
-      <PromoteActivity />
-      <UserDetail />
-      <UpcomingActivity />
-      <MainAdvertise />
-      <HistoryActivity />
-      <MinorAdvertise />
-    </ScrollView>
+    <View>
+      <MenuButton />
+      <ScrollView
+        style={{backgroundColor: COLORS.backgroundColor}}
+        showsVerticalScrollIndicator={false}>
+        <PromoteActivity />
+        <TopBackground />
+        <UserDetail marginTop={-170} />
+        <UpcomingActivity />
+        <HistoryActivity />
+        <MainAdvertise />
+        {/* <MinorAdvertise /> */}
+        <BottomBackground marginTop={-200} />
+      </ScrollView>
+    </View>
   );
 };
 

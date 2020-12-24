@@ -40,12 +40,13 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   // FOCUSES
   const [focus, setFocus] = useState({});
 
-  const navigateUser = () => {
+  const navigateUser = (userActivityId) => {
     navigation.replace('Payment', {
       course: course,
       size: size,
       address: address,
       activity_title: activity.title,
+      userActivityId: userActivityId,
     });
   };
 

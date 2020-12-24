@@ -19,10 +19,12 @@ import Setup from './src/screens/Setup';
 import LoadingPage from './src/components/LoadingPage';
 import OneSignal from 'react-native-onesignal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Platform} from 'react-native';
 
 const App = () => {
   useEffect(() => {
     // SplashScreen.hide();
+
     OneSignal.init('a7cc39f9-5233-46a8-9bec-cb87d2c34b5d', {
       kOSSettingsKeyAutoPrompt: false,
       kOSSettingsKeyInAppLaunchURL: false,
@@ -30,6 +32,7 @@ const App = () => {
     });
     OneSignal.addEventListener('ids', async (id) => {
       await AsyncStorage.setItem('device_token', id.userId);
+      await AsyncStorage.setItem('platform', 'android');
     });
   }, []);
 

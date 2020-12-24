@@ -2,6 +2,7 @@ import {
   SET_ACTIVITY,
   SET_UPCOMING_ACTIVITIES,
   SET_HISTORY_ACTIVITIES,
+  SET_FILTERED_ACTIVITIES,
 } from '../types';
 import {post, get, Delete} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,5 +42,12 @@ export const setHisActivities = (historyactivities) => (dispatch) => {
   dispatch({
     type: SET_HISTORY_ACTIVITIES,
     payload: historyactivities,
+  });
+};
+
+export const setFilActivities = (filteractivities) => (dispatch) => {
+  dispatch({
+    type: SET_FILTERED_ACTIVITIES,
+    payload: filteractivities,
   });
 };
