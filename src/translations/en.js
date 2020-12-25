@@ -62,7 +62,7 @@ const en = {
   createpost: {
     find: 'Search',
     form_team: 'Form team',
-    share_accomodation: 'Share accomodation',
+    share_accommodation: 'Share accomodation',
     share_transportation: 'Share transportation',
     share_trip: 'Share trip',
     gender: 'gender',
@@ -82,9 +82,15 @@ const en = {
     activity: 'Activity',
     find: 'Search',
     selectone: 'Select Activity',
+    nouserpost: 'No user post could be found',
+    clickhere: 'Go back to filter setting',
+  },
+  community: {
+    nopost: 'No post was created yet',
+    noactivity: "You don't have any new activity",
   },
   activityfilter: {
-    course: 'Courses',
+    course: 'Distance (Km)',
     during: 'During',
     find: 'Search Activities',
     region: 'Region',
@@ -92,7 +98,7 @@ const en = {
     noregion: 'No region was selected',
     selectregion: 'Please select region',
     noactivity: 'No activity could be found',
-    clickhere: 'Refresh',
+    clickhere: 'Go back to filter setting',
   },
   activity: {
     place: 'Place',
@@ -152,6 +158,12 @@ const en = {
   },
   coupon: {use: 'use coupon'},
   promoteactivity: {detail: 'More Detail'},
+  history: {
+    noactivity: 'No history activity yet',
+  },
+  upcoming: {
+    noactivity: 'No new activity',
+  },
 };
 
 export default en;

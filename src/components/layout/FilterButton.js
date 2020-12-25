@@ -4,10 +4,16 @@ import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
-const FilterButton = ({onPress}) => {
+const FilterButton = ({onPress, top}) => {
   const navigation = useNavigation();
   return (
-    <View style={{position: 'absolute', top: 10, right: 10, zIndex: 100}}>
+    <View
+      style={{
+        position: 'absolute',
+        top: top ? top : 30,
+        right: 10,
+        zIndex: 100,
+      }}>
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onPress}

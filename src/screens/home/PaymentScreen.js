@@ -12,11 +12,14 @@ import {FONTS, COLORS, SIZES} from '../../constants';
 import ImageModal from 'react-native-image-modal';
 import {post} from '../../redux/actions/request';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {refresh} from '../../redux/actions/UserAction';
+import {useDispatch} from 'react-redux';
 
 const PaymentScreen = ({navigation, route}) => {
   const {course, size, activity_title, userActivityId} = route.params;
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const getQrcode = async () => {
     const res = await post(`/api/users/requestpayment/${userActivityId}`, {
@@ -135,7 +138,8 @@ const PaymentScreen = ({navigation, route}) => {
           label="กลับสู่หน้าหลัก"
           color={COLORS.pinkPastel}
           onPress={() => {
-            navigation.replace('Home');
+            dispatch(refresh());
+            navigation.navigate('Home');
           }}
         />
       </View>

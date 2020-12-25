@@ -17,6 +17,7 @@ import DrawerContent from './drawer/DrawerContent';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import SnackbarNotification from '../components/snackbar/SnackbarNotification';
+import {StatusBar} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,6 +40,11 @@ export default function App() {
 
   return (
     <LocalizationContext.Provider value={localizationContext}>
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="rgba(0,0,0,0.6)"
+      />
       <NavigationContainer>
         {isSignedIn ? (
           <Drawer.Navigator

@@ -1,24 +1,14 @@
-import React, {useState, useEffect, Fragment} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  ImageBackground,
-} from 'react-native';
-import LocalizationContext from '../../screens/LocalizationContext';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import LinearGradient from 'react-native-linear-gradient';
+import React from 'react';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import moment from 'moment';
 import 'moment/locale/th';
 import {useSelector} from 'react-redux';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
-import TopBackground from '../../components/layout/TopBackground';
 import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
+import LocalizationContext from '../LocalizationContext';
 
 const UpcomingActivityScreen = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -49,12 +39,17 @@ const UpcomingActivityScreen = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.backgroundColor,
+        alignItems: 'center',
+      }}>
       <MenuButton />
       {activities.length === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-            ยังไม่มีกิจกรรม
+            {t('upcoming.noactivity')}
           </Text>
         </View>
       ) : (
@@ -65,11 +60,9 @@ const UpcomingActivityScreen = () => {
           renderItem={({item, index}) => {
             return <UpcomingActivityCard item={item} index={index} />;
           }}
-          ItemSeparatorComponent={() => (
-            <View
-              style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
-            />
-          )}
+          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          style={{padding: 20, paddingTop: 60}}
+          ListFooterComponent={() => <View style={{margin: 50}} />}
         />
       )}
     </View>

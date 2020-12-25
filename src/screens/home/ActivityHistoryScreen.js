@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import ImageModal from 'react-native-image-modal';
-import {history_activity} from '../../config/data';
 import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../LocalizationContext';
 import RecordCard from '../../components/card/RecordCard';

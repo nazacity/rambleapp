@@ -1,51 +1,48 @@
 import React, {Fragment} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import AddEmergencyContactModal from '../../components/modal/AddEmergencyContactModal';
 import {useSelector} from 'react-redux';
-import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
-import LocalizationContext from '../LocalizationContext';
-import {deleteEmergencyContact} from '../../redux/actions/UserAction';
+import {COLORS} from '../../constants';
 import {useDispatch} from 'react-redux';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import EmergencyCard from '../../components/card/EmergencyCard';
-import TopBackground from '../../components/layout/TopBackground';
+import {setEmergencyModal} from '../../redux/actions/AppStateAction';
+import MenuButton from '../../components/layout/MenuButton';
+import AddButton from '../../components/layout/AddButton';
 
 const EmergencyContactScreen = () => {
   const emergency_contacts = useSelector(
     (state) => state.user.emergency_contacts,
   );
-  const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
   return (
-    <Fragment>
-      <ScrollView
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.backgroundColor,
+      }}>
+      <MenuButton />
+      <AddButton
+        onPress={() => {
+          dispatch(setEmergencyModal(true));
+        }}
+      />
+      <FlatList
         showsVerticalScrollIndicator={false}
-        style={{marginHorizontal: 20}}>
-        {emergency_contacts.map((item, index) => {
-          return (
-            <View
-              key={index}
-              style={[
-                SHADOW.default,
-                {
-                  borderRadius: 10,
-                  marginVertical: 10,
-                },
-              ]}>
-              <EmergencyCard key={index} item={item} deletable={true} />
-            </View>
-          );
-        })}
-      </ScrollView>
+        data={emergency_contacts}
+        keyExtractor={(item) => `${item._id}`}
+        renderItem={({item, index}) => {
+          return <EmergencyCard key={index} item={item} deletable={true} />;
+        }}
+        // ItemSeparatorComponent={() => (
+        //   <View
+        //     style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
+        //   />
+        // )}
+
+        style={{paddingTop: 60}}
+      />
       <AddEmergencyContactModal />
-    </Fragment>
+    </View>
   );
 };
 

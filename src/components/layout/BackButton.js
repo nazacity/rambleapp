@@ -5,13 +5,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/stack';
 
-const BackButton = ({onPress}) => {
+const BackButton = ({backTo}) => {
   const navigation = useNavigation();
   return (
-    <View style={{position: 'absolute', top: 10, left: 10, zIndex: 100}}>
+    <View style={{position: 'absolute', top: 30, left: 10, zIndex: 100}}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={onPress}
         style={{
           backgroundColor: '#fff',
           borderRadius: 50,
@@ -23,7 +22,11 @@ const BackButton = ({onPress}) => {
         <HeaderBackButton
           tintColor={COLORS.primary}
           onPress={() => {
-            navigation.goBack();
+            if (backTo) {
+              navigation.push(backTo);
+            } else {
+              navigation.goBack();
+            }
           }}
         />
       </TouchableOpacity>

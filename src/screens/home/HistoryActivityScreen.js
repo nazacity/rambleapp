@@ -8,8 +8,10 @@ import {FONTS, COLORS, SIZES} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
+import LocalizationContext from '../LocalizationContext';
 
 const HistoryActivityScreen = () => {
+  const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   const activities = useSelector((state) => state.activity.history_activities);
   const lang = useSelector((state) => state.appState.lang);
@@ -36,12 +38,17 @@ const HistoryActivityScreen = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
+    <View
+      style={{
+        alignItems: 'center',
+        flex: 1,
+        backgroundColor: COLORS.backgroundColor,
+      }}>
       <MenuButton />
       {activities.length === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-            ยังไม่มีกิจกรรม
+            {t('history.noactivity')}
           </Text>
         </View>
       ) : (
@@ -52,12 +59,9 @@ const HistoryActivityScreen = () => {
           renderItem={({item, index}) => {
             return <HistoryActivityCard item={item} index={index} />;
           }}
-          ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-          ItemSeparatorComponent={() => (
-            <View
-              style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
-            />
-          )}
+          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          style={{padding: 20, paddingTop: 60}}
+          ListFooterComponent={() => <View style={{margin: 50}} />}
         />
       )}
     </View>

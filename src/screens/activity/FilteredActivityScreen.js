@@ -4,54 +4,24 @@ import {StyleSheet, Text, View, FlatList} from 'react-native';
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
-import MenuButton from '../../components/layout/MenuButton';
 import FilterButton from '../../components/layout/FilterButton';
 import {get} from '../../redux/actions/request';
 import {useSelector, useDispatch} from 'react-redux';
-import {setActivities} from '../../redux/actions/ActivityAction';
+import {setFilActivities} from '../../redux/actions/ActivityAction';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import LocalizationContext from '../LocalizationContext';
+import Button from '../../components/Button';
 import moment from 'moment';
 import 'moment/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
+import BackButton from '../../components/layout/BackButton';
 
-const ActivityScreen = ({navigation}) => {
+const FilteredActivityScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
-  // const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
-  const [noMore, setNoMore] = useState(false);
-  const dispatch = useDispatch();
-  const activities = useSelector((state) => state.activity.activities);
+  const activities = useSelector((state) => state.activity.filtered_activities);
   const isLoading = useSelector((state) => state.appState.isLoading);
   const lang = useSelector((state) => state.appState.lang);
   moment.locale(lang);
-  const onLoadMore = async () => {
-    if (!noMore) {
-      dispatch(setLoading(true));
-      setPage(page + 1);
-      try {
-        const res = await get(
-          `/api/users/getactivities?skip=${5 * page}&limit=5`,
-        );
-
-        if (res.status === 200) {
-          if (res.data.length === 0) {
-            setNoMore(true);
-          } else {
-            if (page === 0) {
-              dispatch(setActivities([...res.data]));
-            } else {
-              dispatch(setActivities([...activities, ...res.data]));
-            }
-          }
-        }
-        dispatch(setLoading(false));
-      } catch (error) {
-        console.log(error);
-        dispatch(setLoading(false));
-      }
-    }
-  };
 
   const ActivityCardDetail = ({item, index}) => {
     return (
@@ -83,15 +53,6 @@ const ActivityScreen = ({navigation}) => {
     );
   };
 
-  useEffect(() => {
-    onLoadMore();
-    const unsubscribe = navigation.addListener('focus', () => {
-      setNoMore(false);
-      setPage(0);
-    });
-    return unsubscribe;
-  }, []);
-
   if (activities.length === 0 && !isLoading) {
     return (
       <View
@@ -102,11 +63,13 @@ const ActivityScreen = ({navigation}) => {
           justifyContent: 'center',
         }}>
         <Text style={[FONTS.h2]}>{t('activityfilter.noactivity')}</Text>
-        {/* <Button
+        <Button
           label={t('activityfilter.clickhere')}
           color={COLORS.pinkPastel}
-          onPress={onLoadMore}
-        /> */}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
       </View>
     );
   }
@@ -118,7 +81,7 @@ const ActivityScreen = ({navigation}) => {
         backgroundColor: COLORS.backgroundColor,
         flex: 1,
       }}>
-      <MenuButton />
+      <BackButton backTo={'Activity'} />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -127,16 +90,16 @@ const ActivityScreen = ({navigation}) => {
         renderItem={({item, index}) => {
           return <ActivityCardDetail item={item} index={index} />;
         }}
-        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-        style={{padding: 20, paddingTop: 60}}
-        ListFooterComponent={() => <View style={{margin: 50}} />}
-        onEndReached={onLoadMore}
-        onEndReachedThreshold={0}
+        ItemSeparatorComponent={() => (
+          <View
+            style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
+          />
+        )}
       />
     </View>
   );
 };
 
-export default ActivityScreen;
+export default FilteredActivityScreen;
 
 const styles = StyleSheet.create({});

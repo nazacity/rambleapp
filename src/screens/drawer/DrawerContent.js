@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
@@ -105,6 +105,47 @@ const DrawerContent = (props) => {
               props.navigation.closeDrawer();
             }}
           />
+        </Drawer.Section>
+        <Drawer.Section>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <TouchableOpacity onPress={() => dispatch(setTh())}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                }}>
+                <Avatar
+                  source={require('../../../assets/nationicon/thailand.png')}
+                  containerStyle={{backgroundColor: '#fff', marginRight: 5}}
+                  size={20}
+                />
+                <Text style={[FONTS.body5]}>ไทย</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => dispatch(setEn())}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                }}>
+                <Avatar
+                  source={require('../../../assets/nationicon/united-kingdom.png')}
+                  containerStyle={{backgroundColor: '#fff', marginRight: 5}}
+                  size={20}
+                />
+                <Text style={[FONTS.body5]}>Eng</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </Drawer.Section>
       </DrawerContentScrollView>
       <Drawer.Section>

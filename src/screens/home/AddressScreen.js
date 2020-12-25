@@ -1,39 +1,43 @@
-import React, {Fragment} from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, FlatList} from 'react-native';
 import AddAddressModal from '../../components/modal/AddAddressModal';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import LocalizationContext from '../LocalizationContext';
 import AddressCard from '../../components/card/AddressCard';
-import {SHADOW} from '../../constants';
+import MenuButton from '../../components/layout/MenuButton';
+import {COLORS, SHADOW} from '../../constants';
+import {setAddAddressModal} from '../../redux/actions/AppStateAction';
+import AddButton from '../../components/layout/AddButton';
 
 const AddressScreen = () => {
   const addresses = useSelector((state) => state.user.addresses);
-  const {t} = React.useContext(LocalizationContext);
+  const dispatch = useDispatch();
 
   return (
-    <Fragment>
-      <ScrollView
-        style={{marginHorizontal: 20}}
-        showsVerticalScrollIndicator={false}>
-        {addresses.map((item, index) => {
-          return (
-            <View
-              key={index}
-              style={[
-                SHADOW.default,
-                {
-                  backgroundColor: '#fff',
-                  borderRadius: 10,
-                  marginVertical: 10,
-                },
-              ]}>
-              <AddressCard deletable={true} item={item} />
-            </View>
-          );
-        })}
-      </ScrollView>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.backgroundColor,
+      }}>
+      <MenuButton />
+      <AddButton
+        onPress={() => {
+          dispatch(setAddAddressModal(true));
+        }}
+      />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={addresses}
+        keyExtractor={(item) => `${item._id}`}
+        renderItem={({item, index}) => {
+          return <AddressCard item={item} deletable={true} index={index} />;
+        }}
+        // ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+        style={{paddingTop: 60}}
+      />
+
       <AddAddressModal />
-    </Fragment>
+    </View>
   );
 };
 

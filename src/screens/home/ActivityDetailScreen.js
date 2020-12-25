@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useRef, Fragment} from 'react';
 import {View} from 'react-native';
-// import {activity} from '../../config/data';
 import {useSelector, useDispatch} from 'react-redux';
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';

@@ -9,7 +9,6 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-// import {activity} from '../../config/data';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import 'moment/locale/th';
@@ -26,7 +25,7 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
 import BackButton from '../layout/BackButton';
 
-const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
+const MIN_HEIGHT = Platform.OS === 'ios' ? 100 : 65;
 const MAX_HEIGHT = 300;
 
 const HeaderImage = ({children, activity, location}) => {
@@ -37,7 +36,6 @@ const HeaderImage = ({children, activity, location}) => {
   return (
     <Fragment>
       <BackButton />
-      <StatusBar barStyle="light-content" />
       <ImageHeaderScrollView
         maxHeight={MAX_HEIGHT}
         minHeight={MIN_HEIGHT}

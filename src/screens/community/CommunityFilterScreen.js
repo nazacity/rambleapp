@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
@@ -18,18 +19,28 @@ import 'moment/locale/th';
 import LocalizationContext from '../LocalizationContext';
 import BackButton from '../../components/layout/BackButton';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import TitleHeader from '../../components/layout/TitleHeader';
+import {setLoading} from '../../redux/actions/AppStateAction';
+import {setFilteredUserPosts} from '../../redux/actions/CommunityAction';
+import {get} from '../../redux/actions/request';
 moment.locale('th');
 
 const ActivityFilterScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
   const {control, handleSubmit, errors} = useForm();
   const [focus, setFocus] = useState({});
-  const [option, setOption] = useState({});
+  const [option, setOption] = useState({
+    form_team: false,
+    share_accommodation: false,
+    share_transportaion: false,
+    share_trip: false,
+    male: false,
+    female: false,
+  });
   const [activityEnum, setActivityEnum] = useState([]);
   const userActivities = useSelector((state) => state.user.user_activities);
-
+  const dispatch = useDispatch();
   const getActivityIds = () => {
     const enumData = userActivities.map((item) => {
       return {label: item.activity.id.title, value: item.activity.id._id};
@@ -43,14 +54,41 @@ const ActivityFilterScreen = ({navigation}) => {
     }
   }, []);
 
-  const onSubmit = (data) => {
-    // dispatch(setLoading(true));
-    // setTimeout(() => {
-    //   dispatch(signIn(data));
-    // }, 1000);
+  const onSubmit = async (data) => {
+    if (!data.activityId) {
+      Alert.alert(
+        t('activityfilter.noregion'),
+        t('activityfilter.selectregion'),
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    } else {
+      dispatch(setLoading(true));
+      try {
+        const res = await get(
+          `/api/users/filtereduserposts?activity=${data.activityId}&form_team=${option.form_team}&share_accommodation=${option.share_accommodation}&share_transportation=${option.share_transportation}&share_trip=${option.share_trip}&male=${option.male}&female=${option.female}
+          `,
+        );
 
-    navigation.navigate('Community');
+        if (res.status === 200) {
+          dispatch(setFilteredUserPosts([...res.data]));
+        }
+        dispatch(setLoading(false));
+        navigation.navigate('FilteredCommunity');
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoading(false));
+      }
+    }
   };
+
   return (
     <View
       style={{
@@ -67,6 +105,7 @@ const ActivityFilterScreen = ({navigation}) => {
           render={({onChange, onBlur, value}) => (
             <DropDownPicker
               items={activityEnum}
+              value={value}
               placeholder={t('communityfilter.selectone')}
               style={[
                 {
@@ -127,12 +166,12 @@ const ActivityFilterScreen = ({navigation}) => {
             textStyle={[FONTS.h3]}
           />
           <CheckBox
-            title={t('createpost.share_accomodation')}
-            checked={option.share_accomodation}
+            title={t('createpost.share_accommodation')}
+            checked={option.share_accommodation}
             onPress={() =>
               setOption({
                 ...option,
-                share_accomodation: !option.share_accomodation,
+                share_accommodation: !option.share_accommodation,
               })
             }
             containerStyle={{

@@ -34,7 +34,7 @@ const ButtonSection = ({userActivity, activity}) => {
           }}
         />
       )}
-      {userActivity.state && !userActivity.user_post === 'upcoming' && (
+      {userActivity.state === 'upcoming' && !userActivity.user_post && (
         <Button
           label={t('activity.findfriend')}
           color={COLORS.pinkPastel}

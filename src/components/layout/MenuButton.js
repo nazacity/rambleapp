@@ -4,10 +4,16 @@ import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
-const MenuButton = () => {
+const MenuButton = ({top}) => {
   const navigation = useNavigation();
   return (
-    <View style={{position: 'absolute', top: 10, left: 10, zIndex: 100}}>
+    <View
+      style={{
+        position: 'absolute',
+        top: top ? top : 30,
+        left: 10,
+        zIndex: 100,
+      }}>
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => navigation.openDrawer()}

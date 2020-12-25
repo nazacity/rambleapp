@@ -3,21 +3,26 @@ import {ImageBackground, TouchableOpacity} from 'react-native';
 import {SIZES} from '../../constants';
 import LinearGradient from 'react-native-linear-gradient';
 
+const CardSize = SIZES.width - 80;
+const CardHeight = ((SIZES.width - 80) * 2) / 3;
+
 const ActivityCard = ({item, children, onPress}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
       style={{
-        width: SIZES.width,
-        height: (SIZES.width * 2) / 3,
+        width: CardSize,
+        height: CardHeight,
         backgroundColor: 'black',
+        borderRadius: 20,
+        overflow: 'hidden',
       }}>
       <ImageBackground
         source={{uri: item.activity.id.activity_picture_url}}
         style={{
-          width: SIZES.width,
-          height: (SIZES.width * 2) / 3,
+          width: CardSize,
+          height: CardHeight,
           resizeMode: 'cover',
         }}>
         <LinearGradient
@@ -31,8 +36,8 @@ const ActivityCard = ({item, children, onPress}) => {
 
             left: 0,
             top: 0,
-            width: SIZES.width,
-            height: (SIZES.width * 2) / 3,
+            width: CardSize,
+            height: CardHeight,
           }}
         />
         {children}

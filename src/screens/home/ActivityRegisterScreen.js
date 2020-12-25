@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-// import {activity} from '../../config/data';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageModal from 'react-native-image-modal';
 import moment from 'moment';

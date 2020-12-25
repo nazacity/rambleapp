@@ -22,10 +22,13 @@ import AddressScreen from './home/AddressScreen';
 import QrcodeScannerScreen from './home/QrcodeScannerScreen';
 
 import ActivityScreen from './activity/ActivityScreen';
+import FilteredActivityScreen from './activity/FilteredActivityScreen';
 import ActivityFilterScreen from './activity/ActivityFilterScreen';
 
+import SelectActivityScreen from './community/SelectActivityScreen';
 import CommunityScreen from './community/CommunityScreen';
 import CommunityFilterScreen from './community/CommunityFilterScreen';
+import FilteredCommunityScreen from './community/FilteredCommunityScreen';
 
 import OnboardingScreen from './onboarding/OnboardingScreen';
 import SigninScreen from './authorizing/SigninScreen';
@@ -57,11 +60,10 @@ const CommunityStack = createStackNavigator();
 const OnboardingAndAuthorizingStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-export const MainTabScreen = () => {
+export const MainTabScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
   return (
     <Tab.Navigator
-      initialRouteName="Home"
       activeColor={COLORS.pinkPastel}
       inactiveColor={COLORS.inactiveColor}
       barStyle={{backgroundColor: '#fff'}}>
@@ -74,6 +76,11 @@ export const MainTabScreen = () => {
             <Icon type="feather" name="home" color={color} size={24} />
           ),
         }}
+        listeners={{
+          tabPress: (e) => {
+            navigation.jumpTo('home', {screen: 'Home'});
+          },
+        }}
       />
       <Tab.Screen
         name="activity"
@@ -84,6 +91,11 @@ export const MainTabScreen = () => {
             <Icon type="feather" name="activity" color={color} size={24} />
           ),
         }}
+        listeners={{
+          tabPress: (e) => {
+            navigation.jumpTo('activity', {screen: 'Activty'});
+          },
+        }}
       />
       <Tab.Screen
         name="community"
@@ -93,6 +105,11 @@ export const MainTabScreen = () => {
           tabBarIcon: ({color}) => (
             <Ionicons name="md-people-circle-sharp" color={color} size={24} />
           ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            navigation.jumpTo('community', {screen: 'SelectActivity'});
+          },
         }}
       />
     </Tab.Navigator>
@@ -201,6 +218,7 @@ const HomeStackScreen = ({navigation}) => {
         name="EmergencyContact"
         component={EmergencyContactScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -280,6 +298,7 @@ const HomeStackScreen = ({navigation}) => {
         name="UserPost"
         component={UserPostScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -301,6 +320,7 @@ const HomeStackScreen = ({navigation}) => {
         name="Address"
         component={AddressScreen}
         options={{
+          headerShown: false,
           headerLeft: () => {
             return (
               <View style={{paddingLeft: 10}}>
@@ -390,6 +410,20 @@ const ActivityStackScreen = ({navigation}) => {
         }}
       />
       <ActivityStack.Screen
+        name="FilteredActivity"
+        component={FilteredActivityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ActivityStack.Screen
+        name="ActivityDetail"
+        component={ActivityDetailScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ActivityStack.Screen
         name="ActivityFilter"
         component={ActivityFilterScreen}
         options={{headerShown: false}}
@@ -413,6 +447,13 @@ const CommunityStackScreen = ({navigation}) => {
         animationEnabled: false,
         title: '',
       }}>
+      <CommunityStack.Screen
+        name="SelectActivity"
+        component={SelectActivityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <CommunityStack.Screen
         name="Community"
         component={CommunityScreen}
@@ -454,6 +495,13 @@ const CommunityStackScreen = ({navigation}) => {
       <CommunityStack.Screen
         name="CommunityFilter"
         component={CommunityFilterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="FilteredCommunity"
+        component={FilteredCommunityScreen}
         options={{
           headerShown: false,
         }}

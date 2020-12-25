@@ -63,7 +63,7 @@ const th = {
   createpost: {
     find: 'ตามหา',
     form_team: 'เพื่อนร่วมวิ่ง',
-    share_accomodation: 'เพื่อนร่วมแชร์ค่าที่พัก',
+    share_accommodation: 'เพื่อนร่วมแชร์ค่าที่พัก',
     share_transportation: 'เพื่อนร่วมแชร์ค่าเดินทาง',
     share_trip: 'เพื่อนร่วมทริปท่องเที่ยว',
     gender: 'เพศ',
@@ -81,16 +81,22 @@ const th = {
     activity: 'กิจกรรม',
     find: 'ค้นหา',
     selectone: 'เลือกกิจกรรม',
+    nouserpost: 'ไม่มีโพสต์ที่คุณค้นหา',
+    clickhere: 'กลับไปเซตติ้ง Filter',
+  },
+  community: {
+    nopost: 'ยังไม่มีโพส์ต',
+    noactivity: 'คุณยังไม่ได้สมัครกิจกรรมใหม่',
   },
   activityfilter: {
-    course: 'คอร์สวิ่ง',
+    course: 'ระยะทางวิ่ง (กม.)',
     during: 'ห้วงวันที่',
     find: 'ค้นหากิจกรรม',
     region: 'ภูมิภาค',
     noregion: 'ยังไม่ได้เลือกภูมิภาค',
     selectone: 'กรุณาเลือกภูมิภาค',
     noactivity: 'ไม่มีกิจกรรมที่คุณค้นหา',
-    clickhere: 'รีเฟชร',
+    clickhere: 'กลับไปเซตติ้ง Filter',
   },
   activity: {
     place: 'สถานที่',
@@ -146,6 +152,12 @@ const th = {
   },
   coupon: {use: 'ใช้คูปอง'},
   promoteactivity: {detail: 'ข้อมูลเพิ่มเติม'},
+  history: {
+    noactivity: 'คุณยังไม่มีประวัติกิจกรรม',
+  },
+  upcoming: {
+    noactivity: 'คุณยังไม่มีกิจกรรมใหม่',
+  },
 };
 
 export default th;

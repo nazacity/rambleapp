@@ -33,7 +33,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
     setOption({
       form_team: false,
       share_accommodation: false,
-      share_transportaion: false,
+      share_transportation: false,
       share_trip: false,
       male: false,
       female: false,
@@ -70,7 +70,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
         const post_data = {
           form_team: option.form_team,
           share_accommodation: option.share_accommodation,
-          share_transportaion: option.share_transportaion,
+          share_transportation: option.share_transportation,
           share_trip: option.share_trip,
           male: option.male,
           female: option.female,
@@ -79,6 +79,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
           province: data.province ? data.province : '',
           user_activity_id: userActivityId,
         };
+
         dispatch(createUserPost(post_data, navigationUser));
       } catch (error) {
         console.log(error);
@@ -109,12 +110,12 @@ const CreatePostForm = ({activityId, userActivityId}) => {
             textStyle={[FONTS.h3]}
           />
           <CheckBox
-            title={t('createpost.share_accomodation')}
-            checked={option.share_accomodation}
+            title={t('createpost.share_accommodation')}
+            checked={option.share_accommodation}
             onPress={() =>
               setOption({
                 ...option,
-                share_accomodation: !option.share_accomodation,
+                share_accommodation: !option.share_accommodation,
               })
             }
             containerStyle={{

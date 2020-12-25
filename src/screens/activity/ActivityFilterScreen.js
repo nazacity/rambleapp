@@ -74,14 +74,14 @@ const ActivityFilterScreen = ({navigation, route}) => {
       dispatch(setLoading(true));
       try {
         const res = await get(
-          `/api/users/getactivities?region=${data.region}&from=${selectedDate.startDate}&to=${selectedDate.endDate}&range_min=${distance.min}&range_max=${distance.max}&limit=100`,
+          `/api/users/getactivities?region=${data.region}&from=${selectedDate.startDate}&to=${selectedDate.endDate}&range_min=${distance.min}&range_max=${distance.max}&limit=50`,
         );
 
         if (res.status === 200) {
           dispatch(setFilActivities([...res.data]));
-          dispatch(setLoading(false));
-          navigation.goBack({fromFilterScreen: true});
         }
+        dispatch(setLoading(false));
+        navigation.navigate('FilteredActivity');
       } catch (error) {
         console.log(error);
         dispatch(setLoading(false));

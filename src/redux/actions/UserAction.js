@@ -10,6 +10,30 @@ import {
 import {post, get, Delete} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export const refresh = () => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+  try {
+    const user = await get('/api/users/getuserbyjwt');
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  }
+};
+
 export const signIn = (user) => async (dispatch) => {
   dispatch({
     type: SET_USER,
@@ -189,7 +213,7 @@ export const checkinActivity = (navigation, userActivityId) => async (
     setTimeout(async () => {
       await get(`/api/users/checkinactivity/${userActivityId}`);
       const user = await get('/api/users/getuserbyjwt');
-      console.log(user.user_activities[1]);
+
       dispatch({
         type: SET_USER,
         payload: user,
