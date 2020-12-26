@@ -37,6 +37,7 @@
     "react-native-linear-gradient": "^2.5.6",
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-maps": "git+https://github.com/xDemon200/react-native-maps.git",
+    "react-native-markdown-display": "^7.0.0-alpha.2",
     "react-native-modal": "^11.5.6",
     "react-native-onesignal": "^3.9.3",
     "react-native-paper": "^4.4.1",

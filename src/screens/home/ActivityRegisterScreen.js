@@ -20,8 +20,11 @@ import TermsAndConditionsModal from '../../components/modal/TermsAndConditionsMo
 import AddressCard from '../../components/card/AddressCard';
 import EmergencyCard from '../../components/card/EmergencyCard';
 import {registerActivity} from '../../redux/actions/UserAction';
+import LocalizationContext from '../LocalizationContext';
+import TitleHeader from '../../components/layout/TitleHeader';
 
 const ActivityRegisterScreen = ({navigation, route}) => {
+  const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
   const {activity} = route.params;
   const [course, setCourse] = useState(activity.courses[0]);
@@ -78,7 +81,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
 
   return (
     <ScrollView
-      style={{backgroundColor: COLORS.background, padding: 20, flex: 1}}
+      style={{backgroundColor: COLORS.backgroundColor, padding: 20, flex: 1}}
       showsVerticalScrollIndicator={false}>
       <View
         style={{
@@ -101,7 +104,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         />
       </View>
       <View style={{marginBottom: 20}}>
-        <Text style={[FONTS.h2]}>คอร์สวิ่ง</Text>
+        <TitleHeader title={t('activity.course')} />
         <View>
           {activity.courses.map((item, index) => {
             return (
@@ -129,7 +132,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
       </View>
 
       <View style={{marginBottom: 20}}>
-        <Text style={[FONTS.h2]}>ไซต์</Text>
+        <TitleHeader title={t('activity.size')} />
         <View style={{paddingTop: 20}}>
           {activity.size.map((item, index) => {
             return (
@@ -157,7 +160,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
       </View>
 
       <View style={{marginBottom: 20}}>
-        <Text style={[FONTS.h2]}>เลือกที่อยู่จัดส่ง</Text>
+        <TitleHeader title={t('activity.address')} />
         <View style={{paddingTop: 20}}>
           {user.addresses.length > 0 ? (
             user.addresses.map((item, index) => {
@@ -184,13 +187,24 @@ const ActivityRegisterScreen = ({navigation, route}) => {
               );
             })
           ) : (
-            <Text>กรุณาเพิ่มที่อยู่</Text>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                navigation.navigate('home', {screen: 'Address'});
+              }}>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.addaddress')}
+              </Text>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.clickhere')}
+              </Text>
+            </TouchableOpacity>
           )}
         </View>
       </View>
 
       <View style={{marginBottom: 20}}>
-        <Text style={[FONTS.h2]}>เลือกการติดต่อฉุกเฉิน</Text>
+        <TitleHeader title={t('activity.emergency')} />
         <View style={{paddingTop: 20}}>
           {user.emergency_contacts.length > 0 ? (
             user.emergency_contacts.map((item, index) => {
@@ -217,12 +231,33 @@ const ActivityRegisterScreen = ({navigation, route}) => {
               );
             })
           ) : (
-            <Text>กรุณาการติดต่อฉุกเฉิน</Text>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                navigation.navigate('home', {screen: 'EmergencyContact'});
+              }}>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.addemergency')}
+              </Text>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.clickhere')}
+              </Text>
+            </TouchableOpacity>
           )}
         </View>
       </View>
 
-      <View
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={{margin: 20}}
+        onPress={() => setTermModalOpen(!termModalOpen)}>
+        <Text style={{textAlign: 'center'}}>
+          {t('activity.conditionandterms')}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={() => setAcceptTerm(!acceptTerm)}
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -238,15 +273,8 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
           />
         </View>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={{width: 200}}
-          onPress={() => setTermModalOpen(!termModalOpen)}>
-          <Text style={{textAlign: 'center'}}>
-            ฉันได้อ่าน และยอมรับข้อตกลง และเงื่อนไขการลงแข่งขัน
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <Text style={{textAlign: 'center'}}>{t('activity.accepted')}</Text>
+      </TouchableOpacity>
       <View style={{alignItems: 'center'}}>
         <Button
           label="ลงทะเบียน"

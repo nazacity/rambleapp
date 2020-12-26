@@ -4,10 +4,19 @@ import Modal from 'react-native-modal';
 
 import {SIZES, FONTS, COLORS} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
-
+import Markdown from 'react-native-markdown-display';
 import Button from '../Button';
+import LocalizationContext from '../../screens/LocalizationContext';
 
 const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
+  const {t} = React.useContext(LocalizationContext);
+  const contentConvert = (textObject) => {
+    let content = '';
+    for (const [key, value] of Object.entries(textObject)) {
+      content += value;
+    }
+    return content;
+  };
   return (
     <Modal
       isVisible={open}
@@ -15,7 +24,7 @@ const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
       onBackdropPress={handleClose}>
       <View
         style={{
-          height: SIZES.height / 2,
+          height: SIZES.height / 1.5,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           backgroundColor: '#fff',
@@ -24,24 +33,16 @@ const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{marginBottom: 20}}>
             <Text style={[FONTS.h2, {textAlign: 'center'}]}>
-              เงื่อนไข และข้อตกลง
+              {t('activity.conditionandterms')}
             </Text>
           </View>
-          {data.map((item) => {
-            return (
-              <View key={item.id} style={{marginBottom: 20}}>
-                <Text style={[FONTS.body4, {textAlign: 'center'}]}>
-                  {item.description}
-                </Text>
-              </View>
-            );
-          })}
+          <Markdown>{contentConvert(data[0])}</Markdown>
           <View
             style={{
               alignItems: 'center',
             }}>
             <Button
-              label="ลงทะเบียน"
+              label={t('activity.accept')}
               color={COLORS.pinkPastel}
               onPress={() => {
                 setAcceptTerm(true);

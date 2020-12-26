@@ -16,6 +16,7 @@ import Gift from '../../components/activity/Gift';
 import ShirtStyle from '../../components/activity/ShirtStyle';
 import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
+import Rules from '../../components/activity/Rules';
 import ButtonSection from '../../components/activity/ButtonSection';
 
 const ActivityDetailScreen = ({navigation, route}) => {
@@ -71,6 +72,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
           <Gift activity={activity} />
           <ShirtStyle activity={activity} />
           <Reward activity={activity} />
+          <Rules activity={activity} />
           <MoreInfomation activity={activity} />
           <MinorAdvertise />
           <ButtonSection userActivity={userActivity} activity={activity} />
