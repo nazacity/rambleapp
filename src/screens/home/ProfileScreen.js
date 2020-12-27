@@ -28,7 +28,7 @@ const ProfileScreen = ({navigation}) => {
     <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <TopBackground />
-        <UserDetail marginTop={-180} />
+        <UserDetail marginTop={-180} editable={true} />
       </ScrollView>
     </View>
   );

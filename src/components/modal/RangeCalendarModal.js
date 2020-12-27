@@ -2,56 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 import {SIZES, FONTS, COLORS} from '../../constants';
-// import {Calendar, defaultStyle, LocaleConfig} from 'react-native-calendars';
 import {useSelector} from 'react-redux';
 import CalendarPicker from 'react-native-calendar-picker';
 
-// LocaleConfig.locales['th'] = {
-//   monthNames: [
-//     'มกราคม',
-//     'กุมภาพันธ์',
-//     'มีนาคม',
-//     'เมษายน',
-//     'พฤษภาคม',
-//     'มิถุนายน',
-//     'กรกฏาคม',
-//     'สิงหาคม',
-//     'กันยายน',
-//     'ตุลาคม',
-//     'พฤศจิกายน',
-//     'ธันวาคม',
-//   ],
-// monthNamesShort: [
-//   'ม.ค.',
-//   'ก.พ.',
-//   'มี.ค.',
-//   'เม.ย.',
-//   'พ.ค.',
-//   'มิ.ย.',
-//   'ก.ค.',
-//   'ส.ค.',
-//   'ก.ย.',
-//   'ต.ค.',
-//   'พ.ย.',
-//   'ธ.ค.',
-// ],
-//   dayNames: [
-//     'วันอาทิตย์',
-//     'วันจันทร์',
-//     'วันอังคาร',
-//     'วันพุธ',
-//     'วันพฤหัสบดี',
-//     'วันศุกร์',
-//     'วันเสาร์',
-//   ],
-//   dayNamesShort: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-//   today: 'วันนี้',
-// };
-
 const CalendarModal = ({open, handleClose, selectedDate, setSelectedDate}) => {
   const lang = useSelector((state) => state.appState.lang);
-  // LocaleConfig.defaultLocale = 'th';
-
   return (
     <Modal
       isVisible={open}
@@ -65,7 +20,24 @@ const CalendarModal = ({open, handleClose, selectedDate, setSelectedDate}) => {
           backgroundColor: '#fff',
           padding: 20,
         }}>
+        {/* <DateRangePicker
+          minDate={new Date()}
+          initialRange={
+            selectedDate.startDate && selectedDate.endDate
+              ? [selectedDate.startDate, selectedDate.endDate]
+              : undefined
+          }
+          onSuccess={(s, e) => {
+            setSelectedDate({
+              startDate: s,
+              endDate: e,
+            });
+          }}
+          theme={{markColor: 'blue', markTextColor: 'white'}}
+        /> */}
         <CalendarPicker
+          allowRangeSelection={true}
+          minDate={new Date()}
           weekdays={
             lang === 'th'
               ? ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส']
@@ -102,9 +74,21 @@ const CalendarModal = ({open, handleClose, selectedDate, setSelectedDate}) => {
                   'Dec',
                 ]
           }
-          onDateChange={(date) => {
-            console.log(date);
-            setSelectedDate(date);
+          onDateChange={(date, type) => {
+            console.log(type);
+            if (type === 'END_DATE') {
+              setSelectedDate({
+                ...selectedDate,
+                endDate: date,
+              });
+            } else {
+              console.log(date);
+
+              setSelectedDate({
+                startDate: date,
+                endDate: null,
+              });
+            }
           }}
           selectedDayColor={COLORS.endDate}
           selectedDayTextColor={COLORS.pickedDateText}

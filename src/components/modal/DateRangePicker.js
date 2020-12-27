@@ -2,6 +2,7 @@ import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Calendar, defaultStyle, LocaleConfig} from 'react-native-calendars';
 import {COLORS} from '../../constants';
+import {useSelector} from 'react-redux';
 
 LocaleConfig.locales['th'] = {
   monthNames: [
@@ -45,11 +46,11 @@ LocaleConfig.locales['th'] = {
   today: 'วันนี้',
 };
 
-LocaleConfig.defaultLocale = 'th';
-
 const XDate = require('xdate');
 
 const DateRangePicker = (props) => {
+  const lang = useSelector((state) => state.appState.lang);
+  LocaleConfig.defaultLocale = lang;
   const [state, setState] = useState({});
   useEffect(() => {
     setupInitialRange();

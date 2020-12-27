@@ -13,7 +13,7 @@ import Distance from './userdetail/Distance';
 import Average from './userdetail/Average';
 import Time from './userdetail/Time';
 
-const UserDetail = ({marginTop}) => {
+const UserDetail = ({marginTop, editable}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
 
@@ -57,7 +57,7 @@ const UserDetail = ({marginTop}) => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              marginLeft: 30,
+              marginLeft: editable ? 30 : 0,
             }}>
             <View
               style={{
@@ -81,13 +81,15 @@ const UserDetail = ({marginTop}) => {
                 {user.display_name}
               </Text>
             </View>
-            <TouchableOpacity activeOpacity={0.8} style={{marginLeft: 10}}>
-              <MaterialCommunityIcons
-                name="account-edit"
-                color={COLORS.inputPlaceholderColor}
-                size={25}
-              />
-            </TouchableOpacity>
+            {editable && (
+              <TouchableOpacity activeOpacity={0.8} style={{marginLeft: 10}}>
+                <MaterialCommunityIcons
+                  name="account-edit"
+                  color={COLORS.inputPlaceholderColor}
+                  size={25}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </ImageBackground>

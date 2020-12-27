@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Button from '../../components/Button';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
-import CalendarModal from '../../components/modal/CalendarModal';
+import RangeCalendarModal from '../../components/modal/RangeCalendarModal';
 import moment from 'moment';
 import 'moment/locale/th';
 import {useSelector, useDispatch} from 'react-redux';
@@ -54,6 +54,8 @@ const ActivityFilterScreen = ({navigation, route}) => {
   const handleCalendarModalClose = () => {
     setCalendarModalOpen(false);
   };
+
+  console.log(selectedDate);
 
   const onSubmit = async (data) => {
     if (!data.region) {
@@ -217,7 +219,7 @@ const ActivityFilterScreen = ({navigation, route}) => {
             onPress={handleSubmit(onSubmit)}
           />
         </View>
-        <CalendarModal
+        <RangeCalendarModal
           open={calendarModalOpen}
           handleClose={handleCalendarModalClose}
           selectedDate={selectedDate}

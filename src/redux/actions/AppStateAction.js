@@ -8,6 +8,7 @@ import {
   isSignIn,
   AddAddressModal,
   AddEmergencyContactModal,
+  UploadPictureModal,
 } from '../types';
 import {post, get} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,6 +77,13 @@ export const setAddAddressModal = (state) => (dispatch) => {
 export const setEmergencyModal = (state) => (dispatch) => {
   dispatch({
     type: AddEmergencyContactModal,
+    payload: state,
+  });
+};
+
+export const setUploadPictureModal = (state) => (dispatch) => {
+  dispatch({
+    type: UploadPictureModal,
     payload: state,
   });
 };

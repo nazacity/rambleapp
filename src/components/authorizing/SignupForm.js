@@ -1,25 +1,51 @@
-import React, {useState} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import React, {useState, Fragment} from 'react';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  Alert,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
-import {setLoading} from '../../redux/actions/AppStateAction';
+import {
+  setLoading,
+  setUploadPictureModal,
+} from '../../redux/actions/AppStateAction';
 
 import {Input, Icon} from 'react-native-elements';
 
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SIZES} from '../../constants';
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
 
 import {useForm, Controller} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import UploadPictureModal from '../../components/modal/UploadPictureModal';
+import {blood_type, gender} from '../../constants';
+import DropDownPicker from 'react-native-dropdown-picker';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import moment from 'moment';
+import 'moment/locale/th';
+import CalendarModal from '../modal/CalendarModal';
+import {post} from '../../redux/actions/request';
 
 const SignupForm = () => {
   const lang = useSelector((state) => state.appState.lang);
   const {t} = React.useContext(LocalizationContext);
-  const {control, handleSubmit, errors} = useForm();
+  const {control, handleSubmit, errors, reset} = useForm();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [image, setImage] = useState('');
+  moment.locale(lang);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [calendarModalOpen, setCalendarModalOpen] = useState(false);
+
+  const handleCalendarModalClose = () => {
+    setCalendarModalOpen(false);
+  };
 
   // INPUT FUNCTIONS
   const [hidePassword, setHidePassword] = useState(true);
@@ -30,204 +56,470 @@ const SignupForm = () => {
     password: false,
   });
 
-  const onSubmit = (data) => {
-    // dispatch(setLoading(true));
-    // setTimeout(() => {
-    //   dispatch(signIn(data));
-    // }, 1000);
-    navigation.navigate('PhoneNumberCheck');
+  const onSubmit = async (data) => {
+    if (!image) {
+      Alert.alert(t('signup.noimage'), '', [
+        {
+          text: t('signup.okay'),
+          onPress: () => {},
+        },
+      ]);
+    } else if (data.password !== data.confirm_password) {
+      Alert.alert(t('signup.passwordnotmatch'), '', [
+        {
+          text: t('signup.okay'),
+          onPress: () => {},
+        },
+      ]);
+    } else if (data.password.length < 8) {
+      Alert.alert(t('signup.password8'), '', [
+        {
+          text: t('signup.okay'),
+          onPress: () => {},
+        },
+      ]);
+    } else if (data.phone_number.length < 10) {
+      Alert.alert(t('signup.phoneerror'), '', [
+        {
+          text: t('signup.okay'),
+          onPress: () => {},
+        },
+      ]);
+    } else {
+      dispatch(setLoading(true));
+      try {
+        const userinfo = {
+          username: data.username,
+          password: data.password,
+          display_name: data.display_name,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          phone_number: data.phone_number,
+          birthday: selectedDate,
+          gender: data.gender,
+          blood_type: data.blood_type,
+          user_picture_url: image,
+        };
+
+        const res = await post('/api/everyone/createuser', userinfo);
+
+        if (res.data === 'Successed') {
+          dispatch(setLoading(false));
+          reset({});
+          navigation.navigate('Signin');
+        } else if (res.data === 'Username is used') {
+          Alert.alert(t('signup.usedusername'), '', [
+            {
+              text: t('signup.okay'),
+              onPress: () => {},
+            },
+          ]);
+          dispatch(setLoading(false));
+        }
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoading(false));
+      }
+    }
   };
 
   return (
-    <View
-      style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
+    <Fragment>
       <View
-        style={{
-          paddingTop: 50,
-          flex: 1,
-        }}>
-        <View style={{marginHorizontal: 30}}>
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('signin.username')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                rightIcon={
-                  <Icon
-                    name="person-outline"
-                    type="ionicon"
-                    size={22}
-                    color={
-                      value || focus.email
-                        ? COLORS.primary
-                        : COLORS.inputPlaceholderColor
-                    }
-                  />
-                }
-                onFocus={() => {
-                  setFocus({...focus, email: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, email: false});
-                }}
-              />
-            )}
-            name="username"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('signin.password')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                rightIcon={
-                  <Icon
-                    name={hidePassword ? 'eye-off' : 'eye'}
-                    type="ionicon"
-                    size={24}
-                    color={
-                      value || focus.password
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor
-                    }
-                    onPress={() => setHidePassword(!hidePassword)}
-                  />
-                }
-                secureTextEntry={hidePassword}
-                onFocus={() => {
-                  setFocus({...focus, password: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, password: false});
-                }}
-              />
-            )}
-            name="password"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('signup.confirm_password')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                rightIcon={
-                  <Icon
-                    name={hidePassword ? 'eye-off' : 'eye'}
-                    type="ionicon"
-                    size={24}
-                    color={
-                      value || focus.password
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor
-                    }
-                    onPress={() => setHidePassword(!hidePassword)}
-                  />
-                }
-                secureTextEntry={hidePassword}
-                onFocus={() => {
-                  setFocus({...focus, password: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, password: false});
-                }}
-              />
-            )}
-            name="confirm_password"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-          <View style={{marginHorizontal: 10, marginVertical: 10}}>
-            <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
-          </View>
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('signup.first_name')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-              />
-            )}
-            name="first_name"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('signup.last_name')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-              />
-            )}
-            name="last_name"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-        </View>
-        <View style={{alignItems: 'center'}}>
-          <Button
-            label={t('signup.signup')}
-            color={COLORS.pinkPastel}
-            onPress={handleSubmit(onSubmit)}
-          />
-        </View>
+        style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
         <View
           style={{
-            justifyContent: 'space-between',
-            marginHorizontal: 20,
-            paddingBottom: 40,
+            paddingTop: 50,
+            flex: 1,
           }}>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{
+                height: 100,
+                width: 100,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderRadius: 100,
+                borderColor: COLORS.primary,
+              }}
+              onPress={() => {
+                dispatch(setUploadPictureModal(true));
+              }}>
+              <ImageBackground
+                source={
+                  image
+                    ? {uri: image}
+                    : require('../../../assets/layout/no-user-image.jpg')
+                }
+                style={{height: 100, width: 100}}
+                imageStyle={{borderRadius: 100}}>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <MaterialCommunityIcons
+                    name="camera"
+                    size={35}
+                    color="#fff"
+                    style={{
+                      opacity: 0.7,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderWidth: 1,
+                      borderColor: '#fff',
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+          <View style={{marginHorizontal: 30}}>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signin.username')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  rightIcon={
+                    <Icon
+                      name="person-outline"
+                      type="ionicon"
+                      size={22}
+                      color={
+                        value || focus.email
+                          ? COLORS.primary
+                          : COLORS.inputPlaceholderColor
+                      }
+                    />
+                  }
+                  onFocus={() => {
+                    setFocus({...focus, email: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, email: false});
+                  }}
+                />
+              )}
+              name="username"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signin.password')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  rightIcon={
+                    <Icon
+                      name={hidePassword ? 'eye-off' : 'eye'}
+                      type="ionicon"
+                      size={24}
+                      color={
+                        value || focus.password
+                          ? COLORS.pinkPastel
+                          : COLORS.inputPlaceholderColor
+                      }
+                      onPress={() => setHidePassword(!hidePassword)}
+                    />
+                  }
+                  secureTextEntry={hidePassword}
+                  onFocus={() => {
+                    setFocus({...focus, password: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, password: false});
+                  }}
+                />
+              )}
+              name="password"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signup.confirm_password')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  rightIcon={
+                    <Icon
+                      name={hidePassword ? 'eye-off' : 'eye'}
+                      type="ionicon"
+                      size={24}
+                      color={
+                        value || focus.password
+                          ? COLORS.pinkPastel
+                          : COLORS.inputPlaceholderColor
+                      }
+                      onPress={() => setHidePassword(!hidePassword)}
+                    />
+                  }
+                  secureTextEntry={hidePassword}
+                  onFocus={() => {
+                    setFocus({...focus, password: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, password: false});
+                  }}
+                />
+              )}
+              name="confirm_password"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signup.displayname')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+              )}
+              name="display_name"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+
+            <View style={{marginHorizontal: 10, marginVertical: 10}}>
+              <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
+            </View>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signup.first_name')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+              )}
+              name="first_name"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signup.last_name')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+              )}
+              name="last_name"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signup.phone_number')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  keyboardType="number-pad"
+                />
+              )}
+              name="phone_number"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                borderWidth: 1,
+                borderColor: COLORS.inputPlaceholderColor,
+                height: 50,
+                borderRadius: 10,
+                alignItems: 'center',
+                paddingLeft: 20,
+                marginVertical: 20,
+              }}>
+              <Text style={[FONTS.body3]}>
+                {moment(selectedDate).format('DD MMMM YYYY')}
+              </Text>
+              <TouchableOpacity
+                activeOpacity={0.6}
+                style={{position: 'absolute', right: 10}}
+                onPress={() => {
+                  setCalendarModalOpen(true);
+                }}>
+                <Ionicons
+                  name="ios-calendar"
+                  size={30}
+                  color={COLORS.pinkPastel}
+                />
+              </TouchableOpacity>
+            </View>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <DropDownPicker
+                  items={gender}
+                  placeholder={t('signup.gender')}
+                  style={[
+                    {
+                      borderWidth: 1,
+                      paddingHorizontal: 10,
+                      backgroundColor: 'white',
+                      marginVertical: 10,
+                    },
+                    {
+                      borderColor: focus.gender
+                        ? COLORS.pinkPastel
+                        : COLORS.inputPlaceholderColor,
+                      height: 50,
+                    },
+                  ]}
+                  itemStyle={{
+                    justifyContent: 'flex-start',
+                  }}
+                  zIndex={5000}
+                  dropDownStyle={{
+                    backgroundColor: COLORS.backgroundColor,
+                    marginTop: 10,
+                    width: SIZES.width - 60,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    borderColor: COLORS.pinkPastel,
+                    zIndex: 400,
+                  }}
+                  onChangeItem={(item) => {
+                    onChange(item.value);
+                  }}
+                  onOpen={() => {
+                    setFocus({...focus, gender: true});
+                  }}
+                  onClose={() => {
+                    setFocus({...focus, gender: false});
+                  }}
+                />
+              )}
+              name="gender"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <DropDownPicker
+                  items={blood_type}
+                  placeholder={t('signup.bloodtype')}
+                  style={[
+                    {
+                      borderWidth: 1,
+                      paddingHorizontal: 10,
+                      backgroundColor: 'white',
+                      marginVertical: 10,
+                    },
+                    {
+                      borderColor: focus.blood_type
+                        ? COLORS.pinkPastel
+                        : COLORS.inputPlaceholderColor,
+                      height: 50,
+                    },
+                  ]}
+                  itemStyle={{
+                    justifyContent: 'flex-start',
+                  }}
+                  zIndex={5000}
+                  dropDownStyle={{
+                    backgroundColor: COLORS.backgroundColor,
+                    width: SIZES.width - 60,
+                    marginTop: 10,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    borderColor: COLORS.pinkPastel,
+                    zIndex: 400,
+                  }}
+                  onChangeItem={(item) => {
+                    onChange(item.value);
+                  }}
+                  onOpen={() => {
+                    setFocus({...focus, blood_type: true});
+                  }}
+                  onClose={() => {
+                    setFocus({...focus, blood_type: false});
+                  }}
+                />
+              )}
+              name="blood_type"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <Button
+              label={t('signup.signup')}
+              color={COLORS.pinkPastel}
+              onPress={handleSubmit(onSubmit)}
+            />
+          </View>
           <View
             style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginVertical: 10,
-              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginHorizontal: 20,
+              paddingBottom: 40,
             }}>
-            <Text
-              style={[
-                {
-                  color: COLORS.greyText,
-                },
-                FONTS.body4,
-              ]}>
-              {t('signup.haveaccount')}
-            </Text>
-            <TouchableOpacity
-              style={{marginLeft: 5}}
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.navigate('Signin');
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginVertical: 10,
+                flexDirection: 'row',
               }}>
               <Text
                 style={[
                   {
-                    color: COLORS.pinkText,
+                    color: COLORS.greyText,
                   },
-                  FONTS.h4,
+                  FONTS.body4,
                 ]}>
-                {t('signup.signin')}
+                {t('signup.haveaccount')}
               </Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={{marginLeft: 5}}
+                activeOpacity={0.8}
+                onPress={() => {
+                  navigation.navigate('Signin');
+                }}>
+                <Text
+                  style={[
+                    {
+                      color: COLORS.pinkText,
+                    },
+                    FONTS.h4,
+                  ]}>
+                  {t('signup.signin')}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+      <UploadPictureModal setImage={setImage} />
+      <CalendarModal
+        open={calendarModalOpen}
+        handleClose={handleCalendarModalClose}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
+    </Fragment>
   );
 };
 

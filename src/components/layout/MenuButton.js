@@ -10,7 +10,7 @@ const MenuButton = ({top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : 30,
+        top: top ? top : 40,
         left: 10,
         zIndex: 100,
       }}>

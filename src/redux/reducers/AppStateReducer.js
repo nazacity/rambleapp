@@ -7,6 +7,7 @@ import {
   SET_SNACKBAR_DISMISS,
   AddAddressModal,
   AddEmergencyContactModal,
+  UploadPictureModal,
 } from '../types';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   },
   addAddressModal: false,
   addEmergencyContactModal: false,
+  uploadPictureModal: false,
 };
 
 export default (state = initialState, action) => {
@@ -47,6 +49,8 @@ export default (state = initialState, action) => {
       return {...state, addAddressModal: action.payload};
     case AddEmergencyContactModal:
       return {...state, addEmergencyContactModal: action.payload};
+    case UploadPictureModal:
+      return {...state, uploadPictureModal: action.payload};
     default:
       return state;
   }

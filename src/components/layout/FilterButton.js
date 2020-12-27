@@ -10,7 +10,7 @@ const FilterButton = ({onPress, top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : 30,
+        top: top ? top : 40,
         right: 10,
         zIndex: 100,
       }}>

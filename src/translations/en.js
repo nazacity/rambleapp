@@ -25,6 +25,16 @@ const en = {
     last_name: 'Last Name',
     haveaccount: 'Have an account already',
     signup: 'Register',
+    gender: 'Gender',
+    bloodtype: 'Blood Type',
+    displayname: 'Display Name',
+    passwordnotmatch: 'Confirm Password is not matched',
+    okay: 'Okay',
+    phone_number: 'Phone number',
+    usedusername: 'Username is used',
+    password8: 'Password must be at least 8 characters',
+    phoneerror: 'Phone number is incorrected',
+    noimage: 'Please upload your profile piture',
   },
   phonechecking: {
     resend: 'Resend OTP',
@@ -174,6 +184,16 @@ const en = {
   },
   upcoming: {
     noactivity: 'No new activity',
+  },
+  uploadpicture: {
+    uploadPhoto: 'Upload Photo',
+    choosePhoto: 'Choose Your Profile Picture',
+    takePhoto: 'Take Photo',
+    chooseLibrary: 'Choose From Library',
+    cancel: 'Cancel',
+  },
+  userpost: {
+    nopost: 'No post was found',
   },
 };
 

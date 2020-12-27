@@ -70,11 +70,11 @@ export const FONTS = {
   navTitle: {fontFamily: 'Mitr-Light', fontSize: SIZES.navTitle},
   largeTitleBold: {fontFamily: 'Mitr-SemiBold', fontSize: SIZES.h2},
   onboardinghero: {
-    fontSize: 80,
+    fontSize: 50,
     fontFamily: 'SF-Pro-Text-Bold',
     color: 'white',
     textAlign: 'center',
-    lineHeight: 80,
+    lineHeight: 50,
   },
   h1: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h1, lineHeight: 36},
   h2: {fontFamily: 'SF-Pro-Text-Bold', fontSize: SIZES.h2, lineHeight: 30},

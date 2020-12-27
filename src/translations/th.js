@@ -25,6 +25,16 @@ const th = {
     last_name: 'นามสกุล',
     haveaccount: 'มีบัญชีอยู่แล้ว',
     signup: 'ลงทะเบียน',
+    gender: 'เพศ',
+    bloodtype: 'กรุ๊ปเลือก',
+    displayname: 'Display Name',
+    passwordnotmatch: 'คอมเฟิร์มรหัสผ่านไม่ตรงกัน',
+    okay: 'ตกลง',
+    phone_number: 'เบอร์โทรศัพท์',
+    usedusername: 'Username ถูกใช้แล้ว',
+    password8: 'รหัสผ่านต้องมีมากกว่า 8 ตัวขึ้นไป',
+    phoneerror: 'เบอร์โทรศัพท์ไม่ถูกต้อง',
+    noimage: 'กรุณาอัพโหลรูปโปรไฟล์',
   },
   phonechecking: {
     resend: 'ส่งรหัส OTP อีกครั้ง',
@@ -168,6 +178,16 @@ const th = {
   },
   upcoming: {
     noactivity: 'คุณยังไม่มีกิจกรรมใหม่',
+  },
+  uploadpicture: {
+    uploadPhoto: 'อัพโหลดรูปภาพ',
+    choosePhoto: 'เลือกรูปภาพโปร์ไฟล์',
+    takePhoto: 'ถ่ายภาพ',
+    chooseLibrary: 'เลือกจากคลัง',
+    cancel: 'ยกเลิก',
+  },
+  userpost: {
+    nopost: 'ไม่เจอโพส์ตใหม่',
   },
 };
 

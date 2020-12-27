@@ -34,10 +34,10 @@ const FloatingLabelInput = (props) => {
 
   const BorderColor = {
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 5,
     borderColor: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: ['#aaa', COLORS.primary],
+      outputRange: [COLORS.inputPlaceholderColor, COLORS.primary],
     }),
     marginVertical: 10,
   };

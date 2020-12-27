@@ -5,7 +5,7 @@ import {COLORS} from '../../constants';
 
 const AddButton = ({onPress}) => {
   return (
-    <View style={{position: 'absolute', top: 30, right: 10, zIndex: 100}}>
+    <View style={{position: 'absolute', top: 40, right: 10, zIndex: 100}}>
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onPress}

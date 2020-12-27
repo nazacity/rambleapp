@@ -72,7 +72,7 @@ const HomeScreen = ({navigation}) => {
         showsVerticalScrollIndicator={false}>
         <PromoteActivity />
         <TopBackground />
-        <UserDetail marginTop={-170} />
+        <UserDetail marginTop={-170} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />
         <MainAdvertise />

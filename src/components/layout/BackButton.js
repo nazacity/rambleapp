@@ -8,7 +8,7 @@ import {HeaderBackButton} from '@react-navigation/stack';
 const BackButton = ({backTo}) => {
   const navigation = useNavigation();
   return (
-    <View style={{position: 'absolute', top: 30, left: 10, zIndex: 100}}>
+    <View style={{position: 'absolute', top: 40, left: 10, zIndex: 100}}>
       <TouchableOpacity
         activeOpacity={0.8}
         style={{

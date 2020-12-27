@@ -12,6 +12,7 @@ export const CLEAR_USER = 'CLEARUSERINFO';
 // Modal
 export const AddAddressModal = 'AddAddressModal';
 export const AddEmergencyContactModal = 'AddEmergencyContactModal';
+export const UploadPictureModal = 'UploadPictureModal';
 
 // Activity
 export const SET_ACTIVITY = 'SET_ACTIVITY';
