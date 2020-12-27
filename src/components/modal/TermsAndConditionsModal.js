@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
@@ -10,13 +10,20 @@ import LocalizationContext from '../../screens/LocalizationContext';
 
 const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
   const {t} = React.useContext(LocalizationContext);
+  const [detail, setDetail] = useState('');
+
   const contentConvert = (textObject) => {
     let content = '';
     for (const [key, value] of Object.entries(textObject)) {
       content += value;
     }
-    return content;
+    setDetail(content);
   };
+
+  useEffect(() => {
+    contentConvert(data);
+  }, []);
+
   return (
     <Modal
       isVisible={open}
@@ -36,7 +43,7 @@ const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
               {t('activity.conditionandterms')}
             </Text>
           </View>
-          <Markdown>{contentConvert(data[0])}</Markdown>
+          <Markdown>{detail}</Markdown>
           <View
             style={{
               alignItems: 'center',
