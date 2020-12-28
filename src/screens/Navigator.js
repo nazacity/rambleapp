@@ -14,6 +14,7 @@ import ActivityUpcomingScreen from './home/ActivityUpcomingScreen';
 import PaymentScreen from './home/PaymentScreen';
 import CreatePostScreen from './home/CreatePostScreen';
 import ProfileScreen from './home/ProfileScreen';
+import EditProfileScreen from './home/EditProfileScreen';
 import EmergencyContactScreen from './home/EmergencyContactScreen';
 import HistoryActivityScreen from './home/HistoryActivityScreen';
 import UpcomingActivityScreen from './home/UpcomingActivityScreen';
@@ -212,6 +213,13 @@ const HomeStackScreen = ({navigation}) => {
               </View>
             );
           },
+        }}
+      />
+      <HomeStack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{
+          headerShown: false,
         }}
       />
       <HomeStack.Screen

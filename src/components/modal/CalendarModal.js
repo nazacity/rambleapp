@@ -103,7 +103,6 @@ const CalendarModal = ({open, handleClose, selectedDate, setSelectedDate}) => {
                 ]
           }
           onDateChange={(date) => {
-            console.log(date);
             setSelectedDate(date);
           }}
           selectedDayColor={COLORS.endDate}

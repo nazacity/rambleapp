@@ -75,15 +75,12 @@ const CalendarModal = ({open, handleClose, selectedDate, setSelectedDate}) => {
                 ]
           }
           onDateChange={(date, type) => {
-            console.log(type);
             if (type === 'END_DATE') {
               setSelectedDate({
                 ...selectedDate,
                 endDate: date,
               });
             } else {
-              console.log(date);
-
               setSelectedDate({
                 startDate: date,
                 endDate: null,

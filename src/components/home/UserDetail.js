@@ -1,21 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View, ImageBackground} from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Title, Caption, Text} from 'react-native-paper';
-import {Avatar, Icon} from 'react-native-elements';
+import {Text} from 'react-native-paper';
+import {Avatar} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
-import AnimatedNumbers from 'react-native-animated-numbers';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import Distance from './userdetail/Distance';
 import Average from './userdetail/Average';
 import Time from './userdetail/Time';
+import {useNavigation} from '@react-navigation/native';
 
 const UserDetail = ({marginTop, editable}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
+  const navigation = useNavigation();
 
   return (
     <View
@@ -82,7 +83,12 @@ const UserDetail = ({marginTop, editable}) => {
               </Text>
             </View>
             {editable && (
-              <TouchableOpacity activeOpacity={0.8} style={{marginLeft: 10}}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{marginLeft: 10}}
+                onPress={() => {
+                  navigation.navigate('EditProfile');
+                }}>
                 <MaterialCommunityIcons
                   name="account-edit"
                   color={COLORS.inputPlaceholderColor}
