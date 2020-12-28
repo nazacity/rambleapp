@@ -74,7 +74,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
           <Reward activity={activity} />
           <Rules activity={activity} />
           <MoreInfomation activity={activity} />
-          <MinorAdvertise />
+          {/* <MinorAdvertise /> */}
           <ButtonSection userActivity={userActivity} activity={activity} />
         </View>
       </HeaderImage>

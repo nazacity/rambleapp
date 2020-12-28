@@ -14,7 +14,7 @@ const TimelineDisplay = ({activity}) => {
         <View style={{width: SIZES.width - 40}}>
           <Timeline
             data={activity.timeline}
-            circleColor={COLORS.primary}
+            circleColor={COLORS.onboarding1}
             titleStyle={[{color: '#000'}, FONTS.body3]}
             descriptionStyle={[{color: 'gray'}, FONTS.body4]}
             lineColor={COLORS.primary}

@@ -30,7 +30,7 @@ const TitleHeader = ({title, seeAll, paddingHorizontal}) => {
             marginRight: 10,
           }}
         />
-        <Text style={[FONTS.h3]}>{title}</Text>
+        <Text style={[FONTS.h3, {color: COLORS.pinkText}]}>{title}</Text>
       </View>
       {seeAll && (
         <TouchableOpacity activeOpacity={0.6} onPress={seeAll}>

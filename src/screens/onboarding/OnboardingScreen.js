@@ -37,6 +37,7 @@ import {
   setTh,
 } from '../../redux/actions/AppStateAction';
 import {Avatar} from 'react-native-elements';
+import SplashScreen from 'react-native-splash-screen';
 
 const {width, height} = Dimensions.get('window');
 
@@ -45,14 +46,14 @@ const slides_en = [
     title: 'Marathon',
     subtitle: 'New Experiences',
     description: 'Find your first marathon with our community',
-    color: COLORS.orangePastel,
+    color: COLORS.onboarding1,
     picture: 'http://clipart-library.com/image_gallery2/Fashion.png',
   },
   {
     title: 'Relationship',
     subtitle: 'Discover new companies',
     description: 'Find new friends with our sharing community',
-    color: COLORS.greenPastel,
+    color: COLORS.onboarding2,
     picture:
       'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',
   },
@@ -61,7 +62,7 @@ const slides_en = [
     subtitle: 'Better processes',
     description:
       'More convinient with our registering, checking in and chekcing out prcesses',
-    color: COLORS.yellowPastel,
+    color: COLORS.onboarding3,
     picture:
       'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
   },
@@ -70,7 +71,7 @@ const slides_en = [
     subtitle: 'Get along with new friends',
     description:
       'Find new companies and get along on the trip before your marathon',
-    color: COLORS.pinkPastel,
+    color: COLORS.onboarding4,
     picture:
       'http://clipart-library.com/images_k/fashion-girl-silhouette/fashion-girl-silhouette-8.png',
   },
@@ -81,14 +82,14 @@ const slides_th = [
     title: 'Marathon',
     subtitle: 'ประสบการณ์ใหม่',
     description: 'ค้นหาการวิ่งมาราธอนครั้งแรกของคุณ',
-    color: COLORS.orangePastel,
+    color: COLORS.onboarding1,
     picture: 'http://clipart-library.com/image_gallery2/Fashion.png',
   },
   {
     title: 'Relationship',
     subtitle: 'ค้นพบเพื่อนใหม่',
     description: 'ค้นหาเพื่อนใหม่กับสังคมแห่งการแชร์ของเรา',
-    color: COLORS.greenPastel,
+    color: COLORS.onboarding2,
     picture:
       'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',
   },
@@ -96,7 +97,7 @@ const slides_th = [
     title: 'New way',
     subtitle: 'การดำเนินการที่ดีกว่า',
     description: 'สะดวกสบายมากขึ้นกับระบบการลงทะเบียน เช็คอิน และเช็คเอ้าท์',
-    color: COLORS.yellowPastel,
+    color: COLORS.onboarding3,
     picture:
       'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
   },
@@ -104,7 +105,7 @@ const slides_th = [
     title: 'Simply',
     subtitle: 'ออกเดินทางไปกับเพื่อนของคุณ',
     description: 'หาเพื่อนร่วมเดินทางท่องเที่ยว ก่อนกิจกรรมของคุณจะเริ่ม',
-    color: COLORS.pinkPastel,
+    color: COLORS.onboarding4,
     picture:
       'http://clipart-library.com/images_k/fashion-girl-silhouette/fashion-girl-silhouette-8.png',
   },
@@ -126,6 +127,7 @@ const Onboarding = ({navigation}) => {
         getSignin.start();
       });
     }
+    SplashScreen.hide();
   };
 
   useEffect(() => {
@@ -350,6 +352,7 @@ const Onboarding = ({navigation}) => {
               paddingHorizontal: 16,
             }}>
             <Avatar
+              rounded
               source={require('../../../assets/nationicon/thailand.png')}
               containerStyle={{backgroundColor: '#fff', marginRight: 5}}
               size={20}
@@ -366,6 +369,7 @@ const Onboarding = ({navigation}) => {
               paddingHorizontal: 16,
             }}>
             <Avatar
+              rounded
               source={require('../../../assets/nationicon/united-kingdom.png')}
               containerStyle={{backgroundColor: '#fff', marginRight: 5}}
               size={20}

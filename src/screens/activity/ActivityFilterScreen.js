@@ -192,11 +192,11 @@ const ActivityFilterScreen = ({navigation, route}) => {
               marginVertical: 20,
             }}>
             <Text style={[FONTS.body3]}>
-              {moment(selectedDate.startDate).format('DD MMMM YYYY')}
+              {moment(selectedDate.startDate).format('DD MMM YYYY')}
             </Text>
             <Text style={[FONTS.body3, {marginHorizontal: 5}]}>-</Text>
             <Text style={[FONTS.body3]}>
-              {moment(selectedDate.endDate).format('DD MMMM YYYY')}
+              {moment(selectedDate.endDate).format('DD MMM YYYY')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.6}

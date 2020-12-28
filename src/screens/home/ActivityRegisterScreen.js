@@ -251,7 +251,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         activeOpacity={0.6}
         style={{margin: 20}}
         onPress={() => setTermModalOpen(!termModalOpen)}>
-        <Text style={{textAlign: 'center'}}>
+        <Text style={[FONTS.h5, {textAlign: 'center', color: COLORS.link}]}>
           {t('activity.conditionandterms')}
         </Text>
       </TouchableOpacity>

@@ -25,7 +25,7 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
 import BackButton from '../layout/BackButton';
 
-const MIN_HEIGHT = Platform.OS === 'ios' ? 100 : 65;
+const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
 const MAX_HEIGHT = 300;
 
 const HeaderImage = ({children, activity, location}) => {

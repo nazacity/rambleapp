@@ -12,6 +12,7 @@ import {
 } from '../types';
 import {post, get} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 export const setEn = () => (dispatch) => {
   dispatch({
@@ -58,6 +59,7 @@ export const checkIsSignedin = (checkSkipOnBoarding) => async (dispatch) => {
         type: isSignIn,
         payload: true,
       });
+      SplashScreen.hide();
     } else {
       await checkSkipOnBoarding();
     }

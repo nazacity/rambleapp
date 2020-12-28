@@ -122,6 +122,7 @@ const DrawerContent = (props) => {
                   paddingHorizontal: 16,
                 }}>
                 <Avatar
+                  rounded
                   source={require('../../../assets/nationicon/thailand.png')}
                   containerStyle={{backgroundColor: '#fff', marginRight: 5}}
                   size={20}
@@ -138,6 +139,7 @@ const DrawerContent = (props) => {
                   paddingHorizontal: 16,
                 }}>
                 <Avatar
+                  rounded
                   source={require('../../../assets/nationicon/united-kingdom.png')}
                   containerStyle={{backgroundColor: '#fff', marginRight: 5}}
                   size={20}

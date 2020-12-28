@@ -19,7 +19,6 @@ import Setup from './src/screens/Setup';
 import LoadingPage from './src/components/LoadingPage';
 import OneSignal from 'react-native-onesignal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Platform} from 'react-native';
 
 const App = () => {
   useEffect(() => {

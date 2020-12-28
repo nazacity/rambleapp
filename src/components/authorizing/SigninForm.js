@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
 import {post} from '../../redux/actions/request';
@@ -77,10 +77,17 @@ const SigninForm = () => {
           style={{
             height: 200,
             width: 200,
-            backgroundColor: 'red',
             marginBottom: 20,
             alignSelf: 'center',
-          }}></View>
+          }}>
+          <Image
+            source={require('../../../assets/logo/ramble.png')}
+            style={{
+              height: 200,
+              width: 200,
+            }}
+          />
+        </View>
         <View style={{marginHorizontal: 30}}>
           <Controller
             control={control}
