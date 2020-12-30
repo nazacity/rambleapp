@@ -32,7 +32,7 @@ const UserDetail = ({marginTop, editable}) => {
         SHADOW.default,
       ]}>
       <ImageBackground
-        source={{uri: user.user_picture_url}}
+        source={{uri: user.user_background_picture_url}}
         style={{
           flex: 1,
           resizeMode: 'cover',

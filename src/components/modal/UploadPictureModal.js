@@ -15,6 +15,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {
   setUploadPictureModal,
   setLoading,
+  setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 import {useSelector, useDispatch} from 'react-redux';
 import S3 from '../../services/uploadpicture';
@@ -30,7 +31,7 @@ const storage_config = {
   bucket_name: 'ramble',
 };
 
-const UploadPictureModal = ({setImage, uploadUserPictureProfile}) => {
+const UploadPictureModal = ({setImage, upload}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
   const uploadPictureModal = useSelector(
@@ -72,7 +73,7 @@ const UploadPictureModal = ({setImage, uploadUserPictureProfile}) => {
             setImage(imageUrl, name);
             dispatch(setLoading(false));
             handleClose();
-          } else if (uploadUserPictureProfile) {
+          } else if (upload === 'uploadUserPictureProfile') {
             const imageUrl =
               `${storage_config.digitalOceanSpaces}user_picture/` + name;
 
@@ -81,10 +82,34 @@ const UploadPictureModal = ({setImage, uploadUserPictureProfile}) => {
               user_picture_url: imageUrl,
             });
 
-            console.log(res);
+            if (res.status === 200) {
+              dispatch(refresh());
+              dispatch(
+                setSnackbarDisplay({
+                  state: 'success',
+                  message: t('editprofile.imageuploadsuccessed'),
+                }),
+              );
+            }
+            dispatch(setLoading(false));
+            handleClose();
+          } else if (upload === 'uploadUserBackgroundPictureProfile') {
+            const imageUrl =
+              `${storage_config.digitalOceanSpaces}user_picture/` + name;
+
+            const res = await post('/api/users/edituser', {
+              type: 'editUserBackgroundPictureProfile',
+              user_background_picture_url: imageUrl,
+            });
 
             if (res.status === 200) {
               dispatch(refresh());
+              dispatch(
+                setSnackbarDisplay({
+                  state: 'success',
+                  message: t('editprofile.imageuploadsuccessed'),
+                }),
+              );
             }
             dispatch(setLoading(false));
             handleClose();

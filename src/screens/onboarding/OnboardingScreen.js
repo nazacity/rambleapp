@@ -61,7 +61,7 @@ const slides_en = [
     title: 'New way',
     subtitle: 'Better processes',
     description:
-      'More convinient with our registering, checking in and chekcing out prcesses',
+      'More convinient with our registering, checking in and chekcing out processes',
     color: COLORS.onboarding3,
     picture:
       'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
@@ -88,7 +88,7 @@ const slides_th = [
   {
     title: 'Relationship',
     subtitle: 'ค้นพบเพื่อนใหม่',
-    description: 'ค้นหาเพื่อนใหม่กับสังคมแห่งการแชร์ของเรา',
+    description: 'ค้นหาเพื่อนใหม่กับสังคมใหม่แห่งการแชร์ของเรา',
     color: COLORS.onboarding2,
     picture:
       'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',

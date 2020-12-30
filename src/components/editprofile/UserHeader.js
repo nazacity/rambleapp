@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, ImageBackground, TouchableOpacity} from 'react-native';
 import {COLORS, SIZES} from '../../constants';
 import {Avatar} from 'react-native-elements';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UploadPictureModal from '../../components/modal/UploadPictureModal';
 import {setUploadPictureModal} from '../../redux/actions/AppStateAction';
 import {useDispatch} from 'react-redux';
 
 const UserHeader = ({user}) => {
   const dispatch = useDispatch();
+  const [upload, setUpload] = useState('uploadUserPictureProfile');
   return (
     <View style={{width: SIZES.width, height: SIZES.width / 2}}>
       <ImageBackground
-        source={{uri: user.user_picture_url}}
+        source={{uri: user.user_background_picture_url}}
         style={{resizeMode: 'cover', flex: 1}}>
         <View
           style={{
@@ -40,20 +41,58 @@ const UserHeader = ({user}) => {
                 right: -5,
                 borderColor: 20,
                 zIndex: 100,
+                width: 30,
+                height: 30,
+                backgroundColor: 'rgba(0,0,0,0.4)',
+                borderRadius: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
               onPress={() => {
+                setUpload('uploadUserPictureProfile');
                 dispatch(setUploadPictureModal(true));
               }}>
-              <MaterialIcons
-                name="edit"
+              <MaterialCommunityIcons
+                name="camera"
                 color={COLORS.inputPlaceholderColor}
                 size={20}
+                style={{
+                  borderRadius: 20,
+                }}
               />
             </TouchableOpacity>
           </View>
         </View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+            borderColor: 20,
+            zIndex: 100,
+            width: 30,
+            height: 30,
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            borderRadius: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => {
+            setUpload('uploadUserBackgroundPictureProfile');
+            dispatch(setUploadPictureModal(true));
+          }}>
+          <MaterialCommunityIcons
+            name="camera"
+            color={COLORS.inputPlaceholderColor}
+            size={20}
+            style={{
+              borderRadius: 20,
+            }}
+          />
+        </TouchableOpacity>
       </ImageBackground>
-      <UploadPictureModal uploadUserPictureProfile={true} />
+      <UploadPictureModal upload={upload} />
     </View>
   );
 };

@@ -52,7 +52,7 @@ const th = {
     profile: 'โปร์ไฟล์',
     emergencycontact: 'การติดต่อฉุกเฉิก',
     address: 'ที่อยู่',
-    home: 'Home',
+    home: 'หน้าแรก',
   },
   home: {
     upcomingactivity: 'Upcoming Activity',
@@ -156,9 +156,15 @@ const th = {
     name: 'ขื่อ',
     relationship: 'ความสัมพันธ์',
     phone: 'เบอร์โทรศัพท์',
+    noemrgencycontact: 'ยังไม่ได้เพิ่มการติดต่อฉุกเฉิน',
   },
   address: {
     phone: 'เบอร์โทรศัพท์',
+    confirmremove: 'ลบที่อยู่',
+    confirmremovedetail: 'คุณต้องการจะลบที่อยู่ใช่หรือไม่',
+    confirm: 'ยืนยัน',
+    cancel: 'ยกเลิก',
+    noaddress: 'ยังไม่ได้เพิ่มที่อยู่',
   },
   profile: {
     time: 'เวลา',
@@ -188,6 +194,16 @@ const th = {
   },
   userpost: {
     nopost: 'ไม่เจอโพส์ตใหม่',
+  },
+  editprofile: {
+    changepassword: 'เปลี่ยนรหัสผ่าน',
+    oldpassword: 'รหัสผ่านเดิม',
+    newpassword: 'รหัสผ่านใหม่',
+    confirmpassword: 'ยืนยันรหัสผ่านใหม่',
+    oldpasswordisincorrect: 'รหัสผ่านเดิมไม่ถูกต้อง',
+    changepasswordsuccess: 'เปลี่ยนรหัสผ่านสำเร็จ',
+    sucessed: 'เปลี่ยนสำเร็จ',
+    imageuploadsuccessed: 'เปลี่ยนรูปภาพเรียบร้อย',
   },
 };
 

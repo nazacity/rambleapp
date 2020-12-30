@@ -120,7 +120,10 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                     title={`${item.title} ค่าสมัคร ${item.price} บาท`}
                     checked={course._id === item._id ? true : false}
                     onPress={() => setCourse(item)}
-                    containerStyle={{borderWidth: 0}}
+                    containerStyle={{
+                      borderWidth: 0,
+                      backgroundColor: COLORS.backgroundColor,
+                    }}
                     checkedColor={COLORS.pinkPastel}
                     textStyle={[FONTS.h3]}
                   />
@@ -148,7 +151,10 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                     title={`${item.size.toUpperCase()} ${item.description}`}
                     checked={size._id === item._id ? true : false}
                     onPress={() => setSize(item)}
-                    containerStyle={{borderWidth: 0}}
+                    containerStyle={{
+                      borderWidth: 0,
+                      backgroundColor: COLORS.backgroundColor,
+                    }}
                     checkedColor={COLORS.pinkPastel}
                     textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
                   />

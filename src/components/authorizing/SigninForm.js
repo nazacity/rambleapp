@@ -8,7 +8,7 @@ import {
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
-import {Input, Icon} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 
 import {FONTS, COLORS} from '../../constants';
 import Button from '../Button';

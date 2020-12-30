@@ -33,7 +33,7 @@ const en = {
     phone_number: 'Phone number',
     usedusername: 'Username is used',
     password8: 'Password must be at least 8 characters',
-    phoneerror: 'Phone number is incorrected',
+    phoneerror: 'Phone number is incorrect',
     noimage: 'Please upload your profile piture',
   },
   phonechecking: {
@@ -49,7 +49,7 @@ const en = {
     upcoming: 'Upcoming',
     history: 'History Activities',
     userposts: 'My Posts',
-    profile: 'Porfile',
+    profile: 'Profile',
     emergencycontact: 'Emergency Contact',
     address: 'Address',
     home: 'Home',
@@ -158,6 +158,7 @@ const en = {
     name: 'Name',
     relationship: 'Relationship',
     phone: 'Phone No.',
+    noemrgencycontact: 'No emergency contact was added',
   },
   address: {
     phone: 'Phone No.',
@@ -165,6 +166,7 @@ const en = {
     confirmremovedetail: 'Are you sure to remove this address',
     confirm: 'Confirm',
     cancel: 'Cancel',
+    noaddress: 'No address was added',
   },
   profile: {
     time: 'Time',
@@ -194,6 +196,16 @@ const en = {
   },
   userpost: {
     nopost: 'No post was found',
+  },
+  editprofile: {
+    changepassword: 'Change Password',
+    oldpassword: 'Old Password',
+    newpassword: 'New Password',
+    confirmpassword: 'Confirm Password',
+    oldpasswordisincorrect: 'Old Password is incorrect',
+    changepasswordsuccess: 'Change Password is successed',
+    sucessed: 'has been changed successfully',
+    imageuploadsuccessed: 'Image has been changed successfully',
   },
 };
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   SET_USER,
   CLEAR_USER,
@@ -6,9 +7,96 @@ import {
   AddAddressModal,
   AddEmergencyContactModal,
   SET_UPCOMING_ACTIVITES,
+  SET_SNACKBAR_DISPLAY,
 } from '../types';
 import {post, get, Delete} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+
+export const changePasssword = (
+  data,
+  t,
+  handleClose,
+  setErrorMessage,
+) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+  try {
+    const res = await post('/api/users/changepassworduser', data);
+
+    if (res.status === 200) {
+      if (res.data === 'Password is incorrect') {
+        setErrorMessage(t('editprofile.oldpasswordisincorrect'));
+
+        dispatch({
+          type: SET_LOADING,
+          payload: false,
+        });
+      } else {
+        const user = await get('/api/users/getuserbyjwt');
+        dispatch({
+          type: SET_USER,
+          payload: user,
+        });
+        dispatch({
+          type: SET_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: SET_SNACKBAR_DISPLAY,
+          payload: {
+            state: 'success',
+            message: t('editprofile.changepasswordsuccess'),
+          },
+        });
+
+        handleClose();
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  }
+};
+
+export const editUserProfile = (data, msg) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+  try {
+    const res = await post('/api/users/edituser', data);
+
+    const user = await get('/api/users/getuserbyjwt');
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+    dispatch({
+      type: SET_SNACKBAR_DISPLAY,
+      payload: {
+        state: 'success',
+        message: msg,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  }
+};
 
 export const refresh = () => async (dispatch) => {
   dispatch({
@@ -47,6 +135,7 @@ export const signIn = (user) => async (dispatch) => {
 
 export const signOut = (info) => async (dispatch) => {
   await AsyncStorage.removeItem('accessToken');
+  SplashScreen.show();
   dispatch({
     type: isSignIn,
     payload: false,
