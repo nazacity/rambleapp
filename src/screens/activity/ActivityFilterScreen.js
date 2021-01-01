@@ -55,8 +55,6 @@ const ActivityFilterScreen = ({navigation, route}) => {
     setCalendarModalOpen(false);
   };
 
-  console.log(selectedDate);
-
   const onSubmit = async (data) => {
     if (!data.region) {
       Alert.alert(

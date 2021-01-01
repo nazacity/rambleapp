@@ -90,11 +90,9 @@ const FilteredActivityScreen = ({navigation}) => {
         renderItem={({item, index}) => {
           return <ActivityCardDetail item={item} index={index} />;
         }}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
-          />
-        )}
+        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+        style={{padding: 20, paddingTop: 60}}
+        ListFooterComponent={() => <View style={{margin: 50}} />}
       />
     </View>
   );

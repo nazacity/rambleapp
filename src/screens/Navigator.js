@@ -55,6 +55,8 @@ import {
 // AsyncStorage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {ActivityIcon, HomeIcon} from '../components/Icon';
+
 const HomeStack = createStackNavigator();
 const ActivityStack = createStackNavigator();
 const CommunityStack = createStackNavigator();
@@ -73,9 +75,7 @@ export const MainTabScreen = ({navigation}) => {
         component={HomeStackScreen}
         options={{
           tabBarLabel: `${t('tab.home')}`,
-          tabBarIcon: ({color}) => (
-            <Icon type="feather" name="home" color={color} size={24} />
-          ),
+          tabBarIcon: ({color}) => <HomeIcon color={color} size={24} />,
         }}
         listeners={{
           tabPress: (e) => {
@@ -88,9 +88,7 @@ export const MainTabScreen = ({navigation}) => {
         component={ActivityStackScreen}
         options={{
           tabBarLabel: `${t('tab.activity')}`,
-          tabBarIcon: ({color}) => (
-            <Icon type="feather" name="activity" color={color} size={24} />
-          ),
+          tabBarIcon: ({color}) => <ActivityIcon color={color} size={24} />,
         }}
         listeners={{
           tabPress: (e) => {

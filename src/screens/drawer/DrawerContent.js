@@ -12,6 +12,15 @@ import {Avatar} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import {
+  HomeIcon,
+  UpcomingIcon,
+  HistoryIcon,
+  PostIcon,
+  UserIcon,
+  LocationIcon,
+  EmergencyIcon,
+} from '../../components/Icon';
 
 // Redux
 import {useDispatch, useSelector} from 'react-redux';
@@ -47,7 +56,7 @@ const DrawerContent = (props) => {
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
             icon={({color, size}) => (
-              <Feather name="home" color={COLORS.primary} size={25} />
+              <HomeIcon color={COLORS.primary} size={25} />
             )}
             label={t('drawer.home')}
             labelStyle={[FONTS.h4]}
@@ -60,7 +69,7 @@ const DrawerContent = (props) => {
           />
           <DrawerItem
             icon={({color, size}) => (
-              <Feather name="activity" color={COLORS.primary} size={25} />
+              <UpcomingIcon color={COLORS.primary} size={25} />
             )}
             label={t('drawer.upcoming')}
             labelStyle={[FONTS.h4]}
@@ -73,11 +82,7 @@ const DrawerContent = (props) => {
           />
           <DrawerItem
             icon={({color, size}) => (
-              <MaterialCommunityIcons
-                name="history"
-                color={COLORS.primary}
-                size={25}
-              />
+              <HistoryIcon color={COLORS.primary} size={25} />
             )}
             label={t('drawer.history')}
             labelStyle={[FONTS.h4]}
@@ -90,11 +95,7 @@ const DrawerContent = (props) => {
           />
           <DrawerItem
             icon={({color, size}) => (
-              <MaterialCommunityIcons
-                name="post"
-                color={COLORS.primary}
-                size={25}
-              />
+              <PostIcon color={COLORS.primary} size={25} />
             )}
             label={t('drawer.userposts')}
             labelStyle={[FONTS.h4]}
@@ -153,11 +154,7 @@ const DrawerContent = (props) => {
       <Drawer.Section>
         <DrawerItem
           icon={({color, size}) => (
-            <MaterialCommunityIcons
-              name="account"
-              color={COLORS.primary}
-              size={25}
-            />
+            <UserIcon color={COLORS.primary} size={25} />
           )}
           label={t('drawer.profile')}
           labelStyle={[FONTS.h4]}
@@ -170,11 +167,7 @@ const DrawerContent = (props) => {
         />
         <DrawerItem
           icon={({color, size}) => (
-            <Ionicons
-              name="location-outline"
-              color={COLORS.primary}
-              size={25}
-            />
+            <LocationIcon color={COLORS.primary} size={25} />
           )}
           label={t('drawer.address')}
           labelStyle={[FONTS.h4]}
@@ -187,11 +180,7 @@ const DrawerContent = (props) => {
         />
         <DrawerItem
           icon={({color, size}) => (
-            <MaterialCommunityIcons
-              name="contacts"
-              color={COLORS.primary}
-              size={25}
-            />
+            <EmergencyIcon color={COLORS.primary} size={25} />
           )}
           label={t('drawer.emergencycontact')}
           labelStyle={[FONTS.h4]}
