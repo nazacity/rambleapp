@@ -26,83 +26,88 @@ const UserDetail = ({marginTop, editable}) => {
           marginBottom: 10,
           marginHorizontal: 20,
           borderRadius: 15,
-          overflow: 'hidden',
           marginTop: marginTop ? marginTop : 0,
         },
         SHADOW.default,
       ]}>
-      <ImageBackground
-        source={{uri: user.user_background_picture_url}}
+      <View
         style={{
-          flex: 1,
-          resizeMode: 'cover',
+          borderRadius: 15,
+          overflow: 'hidden',
         }}>
-        <View
+        <ImageBackground
+          source={{uri: user.user_background_picture_url}}
           style={{
             flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 25,
-            backgroundColor: 'rgba(0,0,0,0.6)',
+            resizeMode: 'cover',
           }}>
-          <Avatar
-            rounded
-            source={{uri: user.user_picture_url}}
-            size={80}
-            containerStyle={{
-              borderColor: COLORS.primary,
-              borderWidth: 2,
-            }}
-          />
           <View
             style={{
-              flexDirection: 'row',
+              flex: 1,
+              justifyContent: 'center',
               alignItems: 'center',
-              marginLeft: editable ? 30 : 0,
+              padding: 25,
+              backgroundColor: 'rgba(0,0,0,0.6)',
             }}>
+            <Avatar
+              rounded
+              source={{uri: user.user_picture_url}}
+              size={80}
+              containerStyle={{
+                borderColor: COLORS.primary,
+                borderWidth: 2,
+              }}
+            />
             <View
               style={{
+                flexDirection: 'row',
                 alignItems: 'center',
+                marginLeft: editable ? 30 : 0,
               }}>
-              <Text
+              <View
                 style={{
-                  fontFamily: FONTS.default,
-                  fontSize: 16,
-                  paddingTop: 4,
-                  color: '#fff',
+                  alignItems: 'center',
                 }}>
-                {user.first_name} {user.last_name}
-              </Text>
-              <Text
-                style={{
-                  fontFamily: FONTS.default,
-                  color: 'grey',
-                  fontSize: 14,
-                }}>
-                {user.display_name}
-              </Text>
+                <Text
+                  style={{
+                    fontFamily: FONTS.default,
+                    fontSize: 16,
+                    paddingTop: 4,
+                    color: '#fff',
+                  }}>
+                  {user.first_name} {user.last_name}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: FONTS.default,
+                    color: 'grey',
+                    fontSize: 14,
+                  }}>
+                  {user.display_name}
+                </Text>
+              </View>
+              {editable && (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{marginLeft: 10}}
+                  onPress={() => {
+                    navigation.navigate('EditProfile');
+                  }}>
+                  <MaterialCommunityIcons
+                    name="account-edit"
+                    color={COLORS.inputPlaceholderColor}
+                    size={25}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
-            {editable && (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{marginLeft: 10}}
-                onPress={() => {
-                  navigation.navigate('EditProfile');
-                }}>
-                <MaterialCommunityIcons
-                  name="account-edit"
-                  color={COLORS.inputPlaceholderColor}
-                  size={25}
-                />
-              </TouchableOpacity>
-            )}
           </View>
+        </ImageBackground>
+        <View style={{flexDirection: 'row', paddingBottom: 20}}>
+          <Distance />
+          <Average />
+          <Time />
         </View>
-      </ImageBackground>
-      <View style={{flexDirection: 'row', paddingBottom: 20}}>
-        <Distance />
-        <Average />
-        <Time />
       </View>
     </View>
   );

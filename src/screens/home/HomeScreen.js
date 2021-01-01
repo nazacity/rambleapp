@@ -1,13 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  BackHandler,
-  Alert,
-  TouchableOpacity,
-} from 'react-native';
+import {View, ScrollView, BackHandler, Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
 
@@ -16,12 +8,9 @@ import PromoteActivity from '../../components/home/PromoteActivity';
 import UpcomingActivity from '../../components/home/UpcomingActivity';
 import HistoryActivity from '../../components/home/HistoryActivity';
 import MainAdvertise from '../../components/advertise/MainAdvertise';
-import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 import {COLORS} from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {post} from '../../redux/actions/request';
-import TopBackground from '../../components/layout/TopBackground';
-import BottomBackground from '../../components/layout/BottomBackground';
 import MenuButton from '../../components/layout/MenuButton';
 
 const HomeScreen = ({navigation}) => {
@@ -71,18 +60,14 @@ const HomeScreen = ({navigation}) => {
         style={{backgroundColor: COLORS.backgroundColor}}
         showsVerticalScrollIndicator={false}>
         <PromoteActivity />
-        <TopBackground />
-        <UserDetail marginTop={-170} editable={true} />
+        <UserDetail marginTop={30} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />
         <MainAdvertise />
         {/* <MinorAdvertise /> */}
-        <BottomBackground marginTop={-200} />
       </ScrollView>
     </View>
   );
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({});
