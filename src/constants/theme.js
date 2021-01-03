@@ -71,16 +71,36 @@ export const FONTS = {
   default: 'SFProText-Regular',
   onboardinghero: {
     fontSize: 50,
-    fontFamily: 'SF-Pro-Text-Bold',
+    fontFamily: 'SFProText-Bold',
     color: 'white',
     textAlign: 'center',
     lineHeight: 50,
   },
-  h1: {fontFamily: 'SFProText-Bold', fontSize: SIZES.h1, lineHeight: 36},
-  h2: {fontFamily: 'SFProText-Bold', fontSize: SIZES.h2, lineHeight: 30},
-  h3: {fontFamily: 'SFProText-Bold', fontSize: SIZES.h3, lineHeight: 22},
-  h4: {fontFamily: 'SFProText-Bold', fontSize: SIZES.h4, lineHeight: 22},
-  h5: {fontFamily: 'SFProText-Bold', fontSize: SIZES.h5, lineHeight: 22},
+  h1: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.h1,
+    lineHeight: 36,
+  },
+  h2: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.h2,
+    lineHeight: 30,
+  },
+  h3: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.h3,
+    lineHeight: 22,
+  },
+  h4: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.h4,
+    lineHeight: 22,
+  },
+  h5: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.h5,
+    lineHeight: 22,
+  },
   body1: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body1,

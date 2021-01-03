@@ -16,6 +16,7 @@ const th = {
     register: 'ลงทะเบียน',
     '401error': 'Username หรือ Password ไม่ถูกต้อง',
     welcome: 'ยินดีต้อนรับเข้าสู่มาราธอนคอมมิวนิตี้',
+    nouserorpasserror: 'กรุณาใส่ Username และ Password',
   },
   signup: {
     confirm_password: 'Confirm Password',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -18,17 +18,24 @@ const BackButton = ({backTo}) => {
           height: 30,
           alignItems: 'center',
           justifyContent: 'center',
+        }}
+        onPress={() => {
+          if (backTo) {
+            navigation.push(backTo);
+          } else {
+            navigation.goBack();
+          }
         }}>
-        <HeaderBackButton
-          tintColor={COLORS.primary}
-          onPress={() => {
-            if (backTo) {
-              navigation.push(backTo);
-            } else {
-              navigation.goBack();
-            }
-          }}
-        />
+        {Platform.OS === 'ios' ? (
+          <Ionicons
+            name="ios-chevron-back"
+            size={30}
+            color={COLORS.primary}
+            style={{marginLeft: -3, marginTop: -1}}
+          />
+        ) : (
+          <HeaderBackButton tintColor={COLORS.primary} labelVisible={false} />
+        )}
       </TouchableOpacity>
     </View>
   );

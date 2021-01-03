@@ -16,6 +16,7 @@ const en = {
     register: 'Sign Up',
     '401error': 'Username or Password is incorrect',
     welcome: 'Welcome to Marathon Sharing Community',
+    nouserorpasserror: 'Please fill username and password',
   },
   signup: {
     confirm_password: 'Confirm Password',

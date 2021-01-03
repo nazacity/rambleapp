@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 // Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {setLoading} from '../redux/actions/AppStateAction';
+import {setLoading, setTh, setEn} from '../redux/actions/AppStateAction';
 
 // Translations
 import i18n from 'i18n-js';
@@ -18,6 +18,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import SnackbarNotification from '../components/snackbar/SnackbarNotification';
 import {StatusBar} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator();
 
@@ -31,11 +32,17 @@ export default function App() {
     }),
     [locale],
   );
+  const setLang = async () => {
+    const lang = await AsyncStorage.getItem('lang');
+    if (lang === 'th') {
+      dispatch(setTh());
+    } else if (lang === 'en') {
+      dispatch(setEn());
+    }
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(setLoading(false));
-    }, 1000);
+    setLang();
   }, []);
 
   return (

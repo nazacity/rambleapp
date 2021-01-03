@@ -85,7 +85,7 @@ const FloatingLabelInput = (props) => {
         }}
         containerStyle={{height: 50}}
         blurOnSubmit
-        inputStyle={{fontFamily: 'SF-Pro-Text-Regular'}}
+        inputStyle={{fontFamily: 'SFProText-Regular'}}
       />
     </Animated.View>
   );

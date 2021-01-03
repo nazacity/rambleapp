@@ -14,13 +14,15 @@ import {post, get} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 
-export const setEn = () => (dispatch) => {
+export const setEn = () => async (dispatch) => {
+  await AsyncStorage.setItem('lang', 'en');
   dispatch({
     type: setEnLng,
   });
 };
 
-export const setTh = () => (dispatch) => {
+export const setTh = () => async (dispatch) => {
+  await AsyncStorage.setItem('lang', 'th');
   dispatch({
     type: setThLng,
   });
@@ -59,6 +61,7 @@ export const checkIsSignedin = (checkSkipOnBoarding) => async (dispatch) => {
         type: isSignIn,
         payload: true,
       });
+
       SplashScreen.hide();
     } else {
       await checkSkipOnBoarding();

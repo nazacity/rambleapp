@@ -32,10 +32,39 @@ import LocalizationContext from '../LocalizationContext';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Drawer, Title, Caption} from 'react-native-paper';
 import {FONTS, COLORS} from '../../constants';
+import DropDownPicker from 'react-native-dropdown-picker';
+
+const langData = [
+  {
+    label: 'ไทย',
+    value: 'th',
+    icon: () => (
+      <Avatar
+        rounded
+        source={require('../../../assets/nationicon/thailand.png')}
+        containerStyle={{backgroundColor: '#fff', marginRight: 5}}
+        size={20}
+      />
+    ),
+  },
+  {
+    label: 'Eng',
+    value: 'en',
+    icon: () => (
+      <Avatar
+        rounded
+        source={require('../../../assets/nationicon/united-kingdom.png')}
+        containerStyle={{backgroundColor: '#fff', marginRight: 5}}
+        size={20}
+      />
+    ),
+  },
+];
 
 const DrawerContent = (props) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
+  const lang = useSelector((state) => state.appState.lang);
   const dispatch = useDispatch();
   return (
     <View style={{flex: 1, borderTopRightRadius: 100, backgroundColor: '#fff'}}>
@@ -108,7 +137,7 @@ const DrawerContent = (props) => {
           />
         </Drawer.Section>
         <Drawer.Section>
-          <View
+          {/* <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -131,7 +160,7 @@ const DrawerContent = (props) => {
                 <Text style={[FONTS.body5]}>ไทย</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => dispatch(setEn())}>
+            <TouchableOpacity onPress={() => {}}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -148,7 +177,27 @@ const DrawerContent = (props) => {
                 <Text style={[FONTS.body5]}>Eng</Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
+          <DropDownPicker
+            items={langData}
+            defaultValue={lang}
+            containerStyle={{height: 40, marginHorizontal: 20}}
+            style={{
+              backgroundColor: COLORS.backgroundColor,
+              borderWidth: 0,
+            }}
+            itemStyle={{
+              justifyContent: 'flex-start',
+            }}
+            dropDownStyle={{backgroundColor: COLORS.backgroundColor}}
+            onChangeItem={(item) => {
+              if (item.value === 'en') {
+                dispatch(setEn());
+              } else if (item.value === 'th') {
+                dispatch(setTh());
+              }
+            }}
+          />
         </Drawer.Section>
       </DrawerContentScrollView>
       <Drawer.Section>
@@ -206,7 +255,7 @@ const DrawerContent = (props) => {
           // await AsyncStorage.removeItem('authToken');
           await props.navigation.navigate('home', {screen: 'Home'});
           await props.navigation.closeDrawer();
-          dispatch(signOut());
+          dispatch(signOut(props.navigation));
         }}
       />
     </View>

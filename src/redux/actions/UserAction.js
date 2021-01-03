@@ -133,15 +133,15 @@ export const signIn = (user) => async (dispatch) => {
   });
 };
 
-export const signOut = (info) => async (dispatch) => {
-  await AsyncStorage.removeItem('accessToken');
+export const signOut = (navigation) => async (dispatch) => {
   SplashScreen.show();
+  await AsyncStorage.removeItem('accessToken');
+  dispatch({
+    type: CLEAR_USER,
+  });
   dispatch({
     type: isSignIn,
     payload: false,
-  });
-  dispatch({
-    type: CLEAR_USER,
   });
 };
 

@@ -18,6 +18,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 const SigninForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -36,6 +37,15 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (data) => {
+    if (!data.username || !data.password) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signin.nouserorpasserror'),
+        }),
+      );
+    }
+
     dispatch(setLoading(true));
     setTimeout(async () => {
       try {

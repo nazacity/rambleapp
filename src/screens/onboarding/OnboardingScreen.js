@@ -4,8 +4,8 @@ import {
   Text,
   View,
   Dimensions,
-  ScrollView,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   useValue,
@@ -35,6 +35,7 @@ import {
   checkIsSignedin,
   setEn,
   setTh,
+  setLoading,
 } from '../../redux/actions/AppStateAction';
 import {Avatar} from 'react-native-elements';
 import SplashScreen from 'react-native-splash-screen';
@@ -127,6 +128,7 @@ const Onboarding = ({navigation}) => {
         getSignin.start();
       });
     }
+    dispatch(setLoading(false));
     SplashScreen.hide();
   };
 
@@ -174,6 +176,7 @@ const Onboarding = ({navigation}) => {
     <View style={{flex: 1}}>
       <ScrollView
         style={{flex: 1, backgroundColor: 'white'}}
+        scrollEventThrottle={20}
         showsVerticalScrollIndicator={false}>
         <Animated.View
           style={[
@@ -228,6 +231,7 @@ const Onboarding = ({navigation}) => {
             decelerationRate="fast"
             showsHorizontalScrollIndicator={false}
             bounces={false}
+            scrollEventThrottle={20}
             {...{onScroll}}>
             {slides.map(({title, picture}, index) => (
               <Slide
