@@ -173,6 +173,9 @@ const en = {
     time: 'Time',
     distance: 'Distance',
     average: 'Average',
+    activity: 'Activities',
+    activityunit: 'works',
+    km: 'Km',
   },
   qrcodescanner: {
     activityidincorrect: 'Qr Code is incorrect',

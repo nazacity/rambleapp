@@ -39,8 +39,10 @@ const AddressScreen = () => {
           renderItem={({item, index}) => {
             return <AddressCard item={item} deletable={true} index={index} />;
           }}
-          // ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
           style={{paddingTop: 60}}
+          contentContainerStyle={{padding: 20}}
+          ListFooterComponent={() => <View style={{margin: 30}} />}
         />
       )}
       <AddAddressModal />

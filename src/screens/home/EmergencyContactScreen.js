@@ -42,13 +42,10 @@ const EmergencyContactScreen = () => {
           renderItem={({item, index}) => {
             return <EmergencyCard key={index} item={item} deletable={true} />;
           }}
-          // ItemSeparatorComponent={() => (
-          //   <View
-          //     style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
-          //   />
-          // )}
-
+          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
           style={{paddingTop: 60}}
+          contentContainerStyle={{padding: 20}}
+          ListFooterComponent={() => <View style={{margin: 30}} />}
         />
       )}
       <AddEmergencyContactModal />

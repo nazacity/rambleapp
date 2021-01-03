@@ -19,7 +19,7 @@ import {useSelector} from 'react-redux';
 import LocalizationContext from '../LocalizationContext';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
-import TopBackground from '../../components/layout/TopBackground';
+// import TopBackground from '../../components/layout/TopBackground';
 const ProfileScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
@@ -27,8 +27,8 @@ const ProfileScreen = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <TopBackground />
-        <UserDetail marginTop={-180} editable={true} />
+        {/* <TopBackground /> */}
+        <UserDetail marginTop={30} editable={true} />
       </ScrollView>
     </View>
   );

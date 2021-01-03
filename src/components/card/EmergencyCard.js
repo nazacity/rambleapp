@@ -22,10 +22,11 @@ const EmergencyCard = ({deletable, item}) => {
     <View
       style={[
         {
-          padding: 10,
           backgroundColor: '#fff',
           borderRadius: 10,
+          padding: 20,
         },
+        SHADOW.default,
       ]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}>

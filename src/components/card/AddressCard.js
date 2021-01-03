@@ -18,8 +18,9 @@ const AddressCard = ({deletable, item, shadow}) => {
           marginVertical: 10,
           backgroundColor: '#fff',
           borderRadius: 10,
-          padding: 10,
+          padding: 20,
         },
+        SHADOW.default,
       ]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}>

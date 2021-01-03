@@ -170,7 +170,10 @@ const th = {
   profile: {
     time: 'เวลา',
     distance: 'ระยะทาง',
-    average: 'Average',
+    average: 'เฉลี่ย',
+    activity: 'กิจกรรม',
+    activityunit: 'งาน',
+    km: 'กม.',
   },
   qrcodescanner: {
     activityidincorrect: 'Qr Code ไม่ถูกต้อง',

@@ -8,9 +8,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useSelector} from 'react-redux';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
-import Distance from './userdetail/Distance';
-import Average from './userdetail/Average';
-import Time from './userdetail/Time';
+// import Distance from './userdetail/Distance';
+// import Average from './userdetail/Average';
+// import Time from './userdetail/Time';
+import Distance from './userdetail/Distance2';
+import Activity from './userdetail/Activity';
 import {useNavigation} from '@react-navigation/native';
 
 const UserDetail = ({marginTop, editable}) => {
@@ -104,9 +106,12 @@ const UserDetail = ({marginTop, editable}) => {
           </View>
         </ImageBackground>
         <View style={{flexDirection: 'row', paddingBottom: 20}}>
+          {/* <Distance /> */}
+          {/* <Average /> */}
+          {/* <Time /> */}
           <Distance />
-          <Average />
-          <Time />
+          <View style={{flex: 1}} />
+          <Activity />
         </View>
       </View>
     </View>

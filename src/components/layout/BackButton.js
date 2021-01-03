@@ -32,9 +32,26 @@ const BackButton = ({backTo}) => {
             size={30}
             color={COLORS.primary}
             style={{marginLeft: -3, marginTop: -1}}
+            onPress={() => {
+              if (backTo) {
+                navigation.push(backTo);
+              } else {
+                navigation.goBack();
+              }
+            }}
           />
         ) : (
-          <HeaderBackButton tintColor={COLORS.primary} labelVisible={false} />
+          <HeaderBackButton
+            tintColor={COLORS.primary}
+            labelVisible={false}
+            onPress={() => {
+              if (backTo) {
+                navigation.push(backTo);
+              } else {
+                navigation.goBack();
+              }
+            }}
+          />
         )}
       </TouchableOpacity>
     </View>

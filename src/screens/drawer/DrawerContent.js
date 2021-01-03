@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -66,6 +66,7 @@ const DrawerContent = (props) => {
   const user = useSelector((state) => state.user);
   const lang = useSelector((state) => state.appState.lang);
   const dispatch = useDispatch();
+  const [focus, setFocus] = useState({});
   return (
     <View style={{flex: 1, borderTopRightRadius: 100, backgroundColor: '#fff'}}>
       <DrawerContentScrollView {...props}>
@@ -122,7 +123,7 @@ const DrawerContent = (props) => {
               props.navigation.closeDrawer();
             }}
           />
-          <DrawerItem
+          {/* <DrawerItem
             icon={({color, size}) => (
               <PostIcon color={COLORS.primary} size={25} />
             )}
@@ -134,72 +135,46 @@ const DrawerContent = (props) => {
               });
               props.navigation.closeDrawer();
             }}
-          />
-        </Drawer.Section>
-        <Drawer.Section>
-          {/* <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-            }}>
-            <TouchableOpacity onPress={() => dispatch(setTh())}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingVertical: 12,
-                  paddingHorizontal: 16,
-                }}>
-                <Avatar
-                  rounded
-                  source={require('../../../assets/nationicon/thailand.png')}
-                  containerStyle={{backgroundColor: '#fff', marginRight: 5}}
-                  size={20}
-                />
-                <Text style={[FONTS.body5]}>ไทย</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingVertical: 12,
-                  paddingHorizontal: 16,
-                }}>
-                <Avatar
-                  rounded
-                  source={require('../../../assets/nationicon/united-kingdom.png')}
-                  containerStyle={{backgroundColor: '#fff', marginRight: 5}}
-                  size={20}
-                />
-                <Text style={[FONTS.body5]}>Eng</Text>
-              </View>
-            </TouchableOpacity>
-          </View> */}
-          <DropDownPicker
-            items={langData}
-            defaultValue={lang}
-            containerStyle={{height: 40, marginHorizontal: 20}}
-            style={{
-              backgroundColor: COLORS.backgroundColor,
-              borderWidth: 0,
-            }}
-            itemStyle={{
-              justifyContent: 'flex-start',
-            }}
-            dropDownStyle={{backgroundColor: COLORS.backgroundColor}}
-            onChangeItem={(item) => {
-              if (item.value === 'en') {
-                dispatch(setEn());
-              } else if (item.value === 'th') {
-                dispatch(setTh());
-              }
-            }}
-          />
+          /> */}
         </Drawer.Section>
       </DrawerContentScrollView>
+      <DropDownPicker
+        items={langData}
+        defaultValue={lang}
+        containerStyle={{height: 40, marginHorizontal: 20}}
+        style={[
+          {
+            paddingHorizontal: 10,
+            backgroundColor: 'white',
+            borderWidth: 0,
+          },
+        ]}
+        itemStyle={{
+          justifyContent: 'flex-start',
+        }}
+        zIndex={5000}
+        dropDownStyle={{
+          backgroundColor: COLORS.backgroundColor,
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
+          zIndex: 400,
+        }}
+        onChangeItem={(item) => {
+          if (item.value === 'en') {
+            dispatch(setEn());
+          } else if (item.value === 'th') {
+            dispatch(setTh());
+          }
+        }}
+        onOpen={() => {
+          setFocus({...focus, region: true});
+        }}
+        onClose={() => {
+          setFocus({...focus, region: false});
+        }}
+      />
       <Drawer.Section>
         <DrawerItem
           icon={({color, size}) => (

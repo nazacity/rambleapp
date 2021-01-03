@@ -84,6 +84,7 @@ const AddEmergencyContactModal = ({}) => {
               inputContainerStyle={{borderBottomWidth: 0}}
               onChangeText={(value) => onChange(value)}
               value={value}
+              keyboardType="phone-pad"
             />
           )}
           name="phone_number"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -56,6 +56,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {ActivityIcon, HomeIcon} from '../components/Icon';
+import SplashScreen from 'react-native-splash-screen';
 
 const HomeStack = createStackNavigator();
 const ActivityStack = createStackNavigator();
@@ -63,8 +64,13 @@ const CommunityStack = createStackNavigator();
 const OnboardingAndAuthorizingStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-export const MainTabScreen = ({navigation}) => {
+export const MainTabScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  }, [route]);
   return (
     <Tab.Navigator
       activeColor={COLORS.pinkPastel}
@@ -96,7 +102,7 @@ export const MainTabScreen = ({navigation}) => {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="community"
         component={CommunityStackScreen}
         options={{
@@ -110,7 +116,7 @@ export const MainTabScreen = ({navigation}) => {
             navigation.jumpTo('community', {screen: 'SelectActivity'});
           },
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
