@@ -39,86 +39,69 @@ import {
 } from '../../redux/actions/AppStateAction';
 import {Avatar} from 'react-native-elements';
 import SplashScreen from 'react-native-splash-screen';
+import {get} from '../../redux/actions/request';
 
 const {width, height} = Dimensions.get('window');
 
-const slides_en = [
-  {
-    title: 'Marathon',
-    subtitle: 'New Experiences',
-    description: 'Find your first marathon with our community',
-    color: COLORS.onboarding1,
-    picture: 'http://clipart-library.com/image_gallery2/Fashion.png',
-  },
-  {
-    title: 'Relationship',
-    subtitle: 'Discover new companies',
-    description: 'Find new friends with our sharing community',
-    color: COLORS.onboarding2,
-    picture:
-      'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',
-  },
-  {
-    title: 'New way',
-    subtitle: 'Better processes',
-    description:
-      'More convinient with our registering, checking in and chekcing out processes',
-    color: COLORS.onboarding3,
-    picture:
-      'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
-  },
-  {
-    title: 'Simply',
-    subtitle: 'Get along with new friends',
-    description:
-      'Find new companies and get along on the trip before your marathon',
-    color: COLORS.onboarding4,
-    picture:
-      'http://clipart-library.com/images_k/fashion-girl-silhouette/fashion-girl-silhouette-8.png',
-  },
-];
-
-const slides_th = [
-  {
-    title: 'Marathon',
-    subtitle: 'ประสบการณ์ใหม่',
-    description: 'ค้นหาการวิ่งมาราธอนครั้งแรกของคุณ',
-    color: COLORS.onboarding1,
-    picture: 'http://clipart-library.com/image_gallery2/Fashion.png',
-  },
-  {
-    title: 'Relationship',
-    subtitle: 'ค้นพบเพื่อนใหม่',
-    description: 'ค้นหาเพื่อนใหม่กับสังคมใหม่แห่งการแชร์ของเรา',
-    color: COLORS.onboarding2,
-    picture:
-      'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',
-  },
-  {
-    title: 'New way',
-    subtitle: 'การดำเนินการที่ดีกว่า',
-    description: 'สะดวกสบายมากขึ้นกับระบบการลงทะเบียน เช็คอิน และเช็คเอ้าท์',
-    color: COLORS.onboarding3,
-    picture:
-      'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
-  },
-  {
-    title: 'Simply',
-    subtitle: 'ออกเดินทางไปกับเพื่อนของคุณ',
-    description: 'หาเพื่อนร่วมเดินทางท่องเที่ยว ก่อนกิจกรรมของคุณจะเริ่ม',
-    color: COLORS.onboarding4,
-    picture:
-      'http://clipart-library.com/images_k/fashion-girl-silhouette/fashion-girl-silhouette-8.png',
-  },
-];
-
 const Onboarding = ({navigation}) => {
-  const {t} = React.useContext(LocalizationContext);
-  const lang = useSelector((state) => state.appState.lang);
-  const [slides, setSlides] = useState(slides_en);
+  const [slides, setSlides] = useState([
+    {
+      title: 'Runner',
+      subtitle_th: 'ประสบการณ์ใหม่',
+      description_th: 'ค้นหากิจกรรมวิ่งครั้งแรกของคุณกับคอมมิวนิตี้ของเรา',
+      subtitle_en: 'New Experiences',
+      description_en: 'Find your first activity with our community',
+      color: '#b72065',
+      picture: 'http://clipart-library.com/image_gallery2/Fashion.png',
+    },
+    {
+      title: 'Relationship',
+      subtitle_th: 'ค้นพบเพื่อนใหม่',
+      description_th: 'ค้นหาเพื่อนใหม่กับสังคมใหม่แห่งการแชร์ของเรา',
+      subtitle_en: 'Discover new companies',
+      description_en: 'Find new friends with our sharing community',
+      color: '#7d0281',
+      picture:
+        'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',
+    },
+    {
+      title: 'New way',
+      subtitle_th: 'การดำเนินการที่ดีกว่า',
+      description_th:
+        'สะดวกสบายมากขึ้นกับระบบการลงทะเบียน เช็คอิน และเช็คเอ้าท์',
+      subtitle_en: 'Better processes',
+      description_en:
+        'More convinient with our registering, checking in and chekcing out processes',
+      color: '#b91e66',
+      picture:
+        'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
+    },
+    {
+      title: 'Simply',
+      subtitle_th: 'ออกเดินทางไปกับเพื่อนของคุณ',
+      description_th: 'หาเพื่อนร่วมเดินทางท่องเที่ยว ก่อนกิจกรรมของคุณจะเริ่ม',
+      subtitle_en: 'Get along with new friends',
+      description_en:
+        'Find new companies and get along on the trip before your marathon',
+      color: '#8a1776',
+      picture:
+        'http://clipart-library.com/images_k/fashion-girl-silhouette/fashion-girl-silhouette-8.png',
+    },
+  ]);
   const SLIDE_HEIGHT = useValue(height * 0.5);
   const [isSignInState, setIsSignInState] = useState(false);
   const dispatch = useDispatch();
+
+  const fetchOnboarding = async () => {
+    try {
+      const res = await get('/api/everyone/onboarding');
+      if (res.status === 200) {
+        setSlides(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const checkSkipOnBoarding = async () => {
     const skipOnBoarding = await AsyncStorage.getItem('skipOnBoarding');
@@ -134,12 +117,8 @@ const Onboarding = ({navigation}) => {
 
   useEffect(() => {
     dispatch(checkIsSignedin(checkSkipOnBoarding));
-    if (lang === 'th') {
-      setSlides(slides_th);
-    } else if (lang === 'en') {
-      setSlides(slides_en);
-    }
-  }, [lang]);
+    fetchOnboarding();
+  }, []);
 
   const scroll = useRef(null);
   const x = useValue(0);
@@ -291,38 +270,55 @@ const Onboarding = ({navigation}) => {
                   transform: [{translateX: multiply(x, -1)}],
                   opacity: opacityGetStarted,
                 }}>
-                {slides.map(({subtitle, description, color}, index) => {
-                  const last = index === slides.length - 1;
+                {slides.map(
+                  (
+                    {
+                      subtitle_th,
+                      subtitle_en,
+                      description_th,
+                      description_en,
+                      color,
+                    },
+                    index,
+                  ) => {
+                    const last = index === slides.length - 1;
 
-                  return (
-                    <Subslide
-                      key={index}
-                      onPress={() => {
-                        if (!last) {
-                          if (scroll.current) {
-                            scroll.current?.getNode().scrollTo({
-                              x: width * (index + 1),
-                              animated: true,
+                    return (
+                      <Subslide
+                        key={index}
+                        onPress={() => {
+                          if (!last) {
+                            if (scroll.current) {
+                              scroll.current?.getNode().scrollTo({
+                                x: width * (index + 1),
+                                animated: true,
+                              });
+                            }
+                          } else if (last) {
+                            //   navigation.navigate('Signin');
+                            getStarted.start(async ({finished}) => {
+                              setIsSignInState(true);
+                              getSignin.start();
+                              await AsyncStorage.setItem(
+                                'skipOnBoarding',
+                                'true',
+                              );
                             });
+                            //   SLIDE_HEIGHT.setValue(100);
                           }
-                        } else if (last) {
-                          //   navigation.navigate('Signin');
-                          getStarted.start(async ({finished}) => {
-                            setIsSignInState(true);
-                            getSignin.start();
-                            await AsyncStorage.setItem(
-                              'skipOnBoarding',
-                              'true',
-                            );
-                          });
-                          //   SLIDE_HEIGHT.setValue(100);
-                        }
-                      }}
-                      {...{subtitle, description, last}}
-                      color={color}
-                    />
-                  );
-                })}
+                        }}
+                        {...{
+                          subtitle_th,
+                          subtitle_en,
+                          description_th,
+                          description_en,
+                          last,
+                        }}
+                        color={color}
+                      />
+                    );
+                  },
+                )}
               </Animated.View>
             )}
             {isSignInState && (

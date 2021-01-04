@@ -21,6 +21,7 @@ import UpcomingActivityScreen from './home/UpcomingActivityScreen';
 import UserPostScreen from './home/UserPostScreen';
 import AddressScreen from './home/AddressScreen';
 import QrcodeScannerScreen from './home/QrcodeScannerScreen';
+import WebViewScreen from './home/WebViewScreen';
 
 import ActivityScreen from './activity/ActivityScreen';
 import FilteredActivityScreen from './activity/FilteredActivityScreen';
@@ -364,6 +365,7 @@ const HomeStackScreen = ({navigation}) => {
           ),
         }}
       />
+      <HomeStack.Screen name="WebView" component={WebViewScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -440,6 +442,7 @@ const ActivityStackScreen = ({navigation}) => {
         component={ActivityFilterScreen}
         options={{headerShown: false}}
       />
+      <ActivityStack.Screen name="WebView" component={WebViewScreen} />
     </ActivityStack.Navigator>
   );
 };

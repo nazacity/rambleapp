@@ -15,7 +15,6 @@ const AddressCard = ({deletable, item, shadow}) => {
     <View
       style={[
         {
-          marginVertical: 10,
           backgroundColor: '#fff',
           borderRadius: 10,
           padding: 20,

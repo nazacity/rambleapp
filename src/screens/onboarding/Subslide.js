@@ -9,7 +9,15 @@ import Button from '../../components/Button';
 //theme
 import {FONTS} from '../../constants';
 
-const Subslide = ({subtitle, description, last, color, onPress}) => {
+const Subslide = ({
+  subtitle_th,
+  subtitle_en,
+  description_th,
+  description_en,
+  last,
+  color,
+  onPress,
+}) => {
   const lang = useSelector((state) => state.appState.lang);
   const {t} = React.useContext(LocalizationContext);
 
@@ -30,7 +38,8 @@ const Subslide = ({subtitle, description, last, color, onPress}) => {
             },
             FONTS.h2,
           ]}>
-          {subtitle}
+          {lang === 'th' && subtitle_th}
+          {lang === 'en' && subtitle_en}
         </Text>
         <Text
           style={[
@@ -41,7 +50,8 @@ const Subslide = ({subtitle, description, last, color, onPress}) => {
             },
             FONTS.body3,
           ]}>
-          {description}
+          {lang === 'th' && description_th}
+          {lang === 'en' && description_en}
         </Text>
       </View>
       <View style={{flex: 1}} />

@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageModal from 'react-native-image-modal';
@@ -165,93 +166,114 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         </View>
       </View>
 
-      <View style={{marginBottom: 20}}>
-        <TitleHeader title={t('activity.address')} />
-        <View style={{paddingTop: 20}}>
-          {user.addresses.length > 0 ? (
-            user.addresses.map((item, index) => {
-              return (
-                <View
-                  key={index}
-                  style={[
-                    SHADOW.default,
-                    {
-                      backgroundColor: '#fff',
-                      borderRadius: 10,
-                      borderWidth: item._id === address._id ? 2 : 0,
-                      marginVertical: 10,
-                    },
-                  ]}>
-                  <TouchableOpacity
-                    activeOpacity={0.6}
-                    onPress={() => {
-                      setAddress(item);
-                    }}>
-                    <AddressCard item={item} deletable={false} />
-                  </TouchableOpacity>
-                </View>
-              );
-            })
-          ) : (
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => {
-                navigation.navigate('home', {screen: 'Address'});
-              }}>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.addaddress')}
-              </Text>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.clickhere')}
-              </Text>
-            </TouchableOpacity>
-          )}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View style={{marginBottom: 20}}>
+          <TitleHeader title={t('activity.address')} />
+          <View>
+            {user.addresses.length > 0 ? (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={user.addresses}
+                keyExtractor={(item) => `${item._id}`}
+                renderItem={({item, index}) => {
+                  return (
+                    <View
+                      style={[
+                        {
+                          backgroundColor: '#fff',
+                          borderRadius: 10,
+                          borderWidth: item._id === address._id ? 1 : 0,
+                          borderColor: COLORS.primary,
+                          width: SIZES.width - 80,
+                        },
+                      ]}>
+                      <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => {
+                          setAddress(item);
+                        }}>
+                        <AddressCard item={item} deletable={false} />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
+                ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+                contentContainerStyle={{paddingHorizontal: 20}}
+                ListFooterComponent={() => <View style={{margin: 5}} />}
+                ListHeaderComponent={() => <View style={{margin: 5}} />}
+              />
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => {
+                  navigation.navigate('home', {screen: 'Address'});
+                }}>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.addaddress')}
+                </Text>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.clickhere')}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
+      </ScrollView>
 
-      <View style={{marginBottom: 20}}>
-        <TitleHeader title={t('activity.emergency')} />
-        <View style={{paddingTop: 20}}>
-          {user.emergency_contacts.length > 0 ? (
-            user.emergency_contacts.map((item, index) => {
-              return (
-                <View
-                  key={index}
-                  style={[
-                    SHADOW.default,
-                    {
-                      backgroundColor: '#fff',
-                      borderRadius: 10,
-                      borderWidth: item._id === emergency._id ? 2 : 0,
-                      marginVertical: 10,
-                    },
-                  ]}>
-                  <TouchableOpacity
-                    activeOpacity={0.6}
-                    onPress={() => {
-                      setEmergency(item);
-                    }}>
-                    <EmergencyCard item={item} deletable={false} />
-                  </TouchableOpacity>
-                </View>
-              );
-            })
-          ) : (
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => {
-                navigation.navigate('home', {screen: 'EmergencyContact'});
-              }}>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.addemergency')}
-              </Text>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.clickhere')}
-              </Text>
-            </TouchableOpacity>
-          )}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View style={{marginBottom: 20}}>
+          <TitleHeader title={t('activity.emergency')} />
+          <View>
+            {user.emergency_contacts.length > 0 ? (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={user.addresses}
+                keyExtractor={(item) => `${item._id}`}
+                renderItem={({item, index}) => {
+                  return (
+                    <View
+                      style={[
+                        SHADOW.default,
+                        {
+                          backgroundColor: '#fff',
+                          borderRadius: 10,
+                          borderWidth: item._id === emergency._id ? 1 : 0,
+                          borderColor: COLORS.primary,
+                          width: SIZES.width - 80,
+                        },
+                      ]}>
+                      <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => {
+                          setEmergency(item);
+                        }}>
+                        <EmergencyCard item={item} deletable={false} />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
+                ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+                contentContainerStyle={{paddingHorizontal: 20}}
+                ListFooterComponent={() => <View style={{margin: 5}} />}
+                ListHeaderComponent={() => <View style={{margin: 5}} />}
+              />
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => {
+                  navigation.navigate('home', {screen: 'EmergencyContact'});
+                }}>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.addemergency')}
+                </Text>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.clickhere')}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
+      </ScrollView>
 
       <TouchableOpacity
         activeOpacity={0.6}

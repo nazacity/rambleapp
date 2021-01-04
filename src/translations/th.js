@@ -36,6 +36,12 @@ const th = {
     password8: 'รหัสผ่านต้องมีมากกว่า 8 ตัวขึ้นไป',
     phoneerror: 'เบอร์โทรศัพท์ไม่ถูกต้อง',
     noimage: 'กรุณาอัพโหลรูปโปรไฟล์',
+    gendererror: 'กรุณาเลือกเพศ',
+    bloodtypeerror: 'กรุณาเลือกกรุ๊ปเลือด',
+    usernameerror: 'Username ต้องมีมากกว่า 6 ตัวขึ้นไป',
+    firstnameerror: 'กรุณากรอกชื่อ',
+    lastnameerror: 'กรุณากรอกนามสกุล',
+    displaynameerror: 'ชื่อแสดงต้องมีมากกว่า 6 ตัวขึ้นไป',
   },
   phonechecking: {
     resend: 'ส่งรหัส OTP อีกครั้ง',

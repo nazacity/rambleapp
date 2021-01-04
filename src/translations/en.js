@@ -36,6 +36,12 @@ const en = {
     password8: 'Password must be at least 8 characters',
     phoneerror: 'Phone number is incorrect',
     noimage: 'Please upload your profile piture',
+    gendererror: 'Please select gender',
+    bloodtypeerror: 'Please select blood type',
+    usernameerror: 'Username must be more than 6 characters',
+    firstnameerror: 'Please fill first name',
+    lastnameerror: 'Please fill last name',
+    displaynameerror: 'Display name must be more than 6 characters',
   },
   phonechecking: {
     resend: 'Resend OTP',

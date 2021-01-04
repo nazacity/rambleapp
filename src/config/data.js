@@ -3,16 +3,19 @@ export const advertise = [
     id: '1',
     activity_picture_url:
       'https://images-eu.ssl-images-amazon.com/images/G/31/img16/Shoes/SIS/Fila/Amazon-1340x777-a._V297784579_.jpg',
+    uri: 'https://ramble-club.com',
   },
   {
     id: '2',
     activity_picture_url:
       'https://i.ytimg.com/vi/IVjl9Fe5jco/maxresdefault.jpg',
+    uri: 'https://ramble-club.com',
   },
   {
     id: '3',
     activity_picture_url:
       'https://funender.com/wp-content/uploads/2016/12/Best-Sports-Shoes.jpg',
+    uri: 'https://ramble-club.com',
   },
 ];
 

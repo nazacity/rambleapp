@@ -11,6 +11,7 @@ import {signIn} from '../../redux/actions/UserAction';
 import {
   setLoading,
   setUploadPictureModal,
+  setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
 import {Input, Icon} from 'react-native-elements';
@@ -58,12 +59,19 @@ const SignupForm = () => {
 
   const onSubmit = async (data) => {
     if (!image) {
-      Alert.alert(t('signup.noimage'), '', [
-        {
-          text: t('signup.okay'),
-          onPress: () => {},
-        },
-      ]);
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.noimage'),
+        }),
+      );
+    } else if (data.username.length < 6) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.usernameerror'),
+        }),
+      );
     } else if (data.password !== data.confirm_password) {
       Alert.alert(t('signup.passwordnotmatch'), '', [
         {
@@ -78,13 +86,48 @@ const SignupForm = () => {
           onPress: () => {},
         },
       ]);
+    } else if (data.display_name.length < 6) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.displaynameerror'),
+        }),
+      );
+    } else if (!data.first_name) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.firstnameerror'),
+        }),
+      );
+    } else if (!data.last_name) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.lastnameerror'),
+        }),
+      );
     } else if (data.phone_number.length < 10) {
-      Alert.alert(t('signup.phoneerror'), '', [
-        {
-          text: t('signup.okay'),
-          onPress: () => {},
-        },
-      ]);
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.phoneerror'),
+        }),
+      );
+    } else if (!data.gender) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.gendererror'),
+        }),
+      );
+    } else if (!data.blood_type) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.bloodtypeerror'),
+        }),
+      );
     } else {
       dispatch(setLoading(true));
       try {
