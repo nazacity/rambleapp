@@ -5,9 +5,8 @@ import {useSelector} from 'react-redux';
 import {FONTS, SIZES} from '../../../constants';
 import LocalizationContext from '../../../screens/LocalizationContext';
 
-const Distance = () => {
+const Distance = ({activity_number}) => {
   const {t} = React.useContext(LocalizationContext);
-  const user = useSelector((state) => state.user);
 
   return (
     <View
@@ -23,7 +22,7 @@ const Distance = () => {
       ]}>
       <Caption style={[FONTS.h4]}>{t('profile.activity')}</Caption>
       <View style={{height: 30, flexDirection: 'row'}}>
-        <Text style={[FONTS.h2]}>5</Text>
+        <Text style={[FONTS.h2]}>{activity_number}</Text>
       </View>
       <Caption style={[FONTS.h5]}>{t('profile.activityunit')}</Caption>
     </View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, ImageBackground} from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -18,7 +18,21 @@ import {useNavigation} from '@react-navigation/native';
 const UserDetail = ({marginTop, editable}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
+  const userRecords = useSelector((state) => state.user.user_records);
+  const [data, setData] = useState({});
   const navigation = useNavigation();
+
+  const getThisYearRecord = () => {
+    const thisYearRecord = userRecords.find(
+      (item) => item.year === new Date().getFullYear().toString(),
+    );
+
+    setData(thisYearRecord);
+  };
+
+  useEffect(() => {
+    getThisYearRecord();
+  }, []);
 
   return (
     <View
@@ -109,9 +123,9 @@ const UserDetail = ({marginTop, editable}) => {
           {/* <Distance /> */}
           {/* <Average /> */}
           {/* <Time /> */}
-          <Distance />
+          <Distance distance={data.distance} />
           <View style={{flex: 1}} />
-          <Activity />
+          <Activity activity_number={data.activity_number} />
         </View>
       </View>
     </View>

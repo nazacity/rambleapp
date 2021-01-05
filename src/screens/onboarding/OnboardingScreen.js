@@ -176,7 +176,7 @@ const Onboarding = ({navigation}) => {
                   ]}
                   key={index}>
                   <Animated.Image
-                    source={{uri: slide.picture}}
+                    source={slide.picture}
                     style={{
                       alignSelf: 'center',
                       width: width / 1.5,
