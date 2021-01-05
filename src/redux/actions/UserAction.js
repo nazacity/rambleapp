@@ -327,7 +327,7 @@ export const checkoutActivity = (navigation, userActivityId) => async (
 ) => {
   try {
     setTimeout(async () => {
-      await get(`/api/users/checkoutactivity/${userActivityId}`);
+      await post(`/api/users/checkoutactivity/${userActivityId}`, {});
       const user = await get('/api/users/getuserbyjwt');
 
       dispatch({

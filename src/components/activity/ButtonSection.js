@@ -56,7 +56,7 @@ const ButtonSection = ({userActivity, activity}) => {
           color={COLORS.pinkPastel}
           onPress={() => {
             navigation.navigate('QrcodeScanner', {
-              activityId: activityId,
+              activityId: activity.id,
               userActivityId: userActivity._id,
               state: 'check_in',
             });
