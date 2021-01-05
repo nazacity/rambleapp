@@ -295,26 +295,27 @@ export const registerActivity = (data, navigateUser) => async (dispatch) => {
   }
 };
 
-export const checkinActivity = (navigation, userActivityId) => async (
-  dispatch,
-) => {
+export const checkinActivity = (
+  navigation,
+  userActivityId,
+  refreshCheckIn,
+) => async (dispatch) => {
   try {
-    setTimeout(async () => {
-      await get(`/api/users/checkinactivity/${userActivityId}`);
-      const user = await get('/api/users/getuserbyjwt');
+    await get(`/api/users/checkinactivity/${userActivityId}`);
+    const user = await get('/api/users/getuserbyjwt');
 
-      dispatch({
-        type: SET_USER,
-        payload: user,
-      });
-      dispatch({
-        type: SET_LOADING,
-        payload: false,
-      });
-      navigation.goBack();
-    }, 2000);
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+    navigation.goBack();
   } catch (error) {
     console.log(error);
+    refreshCheckIn();
     dispatch({
       type: SET_LOADING,
       payload: false,
@@ -322,26 +323,27 @@ export const checkinActivity = (navigation, userActivityId) => async (
   }
 };
 
-export const checkoutActivity = (navigation, userActivityId) => async (
-  dispatch,
-) => {
+export const checkoutActivity = (
+  navigation,
+  userActivityId,
+  refreshCheckOut,
+) => async (dispatch) => {
   try {
-    setTimeout(async () => {
-      await post(`/api/users/checkoutactivity/${userActivityId}`, {});
-      const user = await get('/api/users/getuserbyjwt');
+    await post(`/api/users/checkoutactivity/${userActivityId}`, {});
+    const user = await get('/api/users/getuserbyjwt');
 
-      dispatch({
-        type: SET_USER,
-        payload: user,
-      });
-      dispatch({
-        type: SET_LOADING,
-        payload: false,
-      });
-      navigation.goBack();
-    }, 2000);
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+    navigation.goBack();
   } catch (error) {
     console.log(error);
+    refreshCheckOut();
     dispatch({
       type: SET_LOADING,
       payload: false,

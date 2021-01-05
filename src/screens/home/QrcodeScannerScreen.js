@@ -23,9 +23,18 @@ const QrcodeScannerScreen = ({navigation, route}) => {
   const qrcodeSize = useRef(new Animated.Value(240)).current;
   const {activityId, courseId, userActivityId, state} = route.params;
 
+  const refreshCheckIn = () => {
+    navigation.replace('QrcodeScanner', {
+      activityId: activityId,
+      courseId: courseId,
+      state: 'check_in',
+      userActivityId: userActivityId,
+    });
+  };
+
   const checkinFunction = async (data) => {
     if (activityId === data) {
-      dispatch(checkinActivity(navigation, userActivityId));
+      dispatch(checkinActivity(navigation, userActivityId, refreshCheckIn));
     } else {
       dispatch(setLoading(false));
       Alert.alert(
@@ -42,12 +51,7 @@ const QrcodeScannerScreen = ({navigation, route}) => {
           {
             text: t('qrcodescanner.tryagain'),
             onPress: () => {
-              navigation.replace('QrcodeScanner', {
-                activityId: activityId,
-                courseId: courseId,
-                state: 'check_in',
-                userActivityId: userActivityId,
-              });
+              refreshCheckIn();
             },
           },
         ],
@@ -56,9 +60,18 @@ const QrcodeScannerScreen = ({navigation, route}) => {
     }
   };
 
+  const refreshCheckOut = () => {
+    navigation.replace('QrcodeScanner', {
+      activityId: activityId,
+      courseId: courseId,
+      state: 'check_out',
+      userActivityId: userActivityId,
+    });
+  };
+
   const checkoutFunction = async (data) => {
     if (courseId === data) {
-      dispatch(checkoutActivity(navigation, userActivityId));
+      dispatch(checkoutActivity(navigation, userActivityId, refreshCheckOut));
     } else {
       dispatch(setLoading(false));
       Alert.alert(
@@ -75,12 +88,7 @@ const QrcodeScannerScreen = ({navigation, route}) => {
           {
             text: t('qrcodescanner.tryagain'),
             onPress: () => {
-              navigation.replace('QrcodeScanner', {
-                activityId: activityId,
-                courseId: courseId,
-                state: 'check_out',
-                userActivityId: userActivityId,
-              });
+              refreshCheckOut();
             },
           },
         ],

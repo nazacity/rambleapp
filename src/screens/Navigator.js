@@ -161,6 +161,7 @@ const HomeStackScreen = ({navigation}) => {
         name="ActivityHistory"
         component={ActivityHistoryScreen}
         options={{
+          headerShown: false,
           headerStyle: {
             backgroundColor: COLORS.primary,
             elevation: 0,

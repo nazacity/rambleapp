@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Caption} from 'react-native-paper';
-import AnimatedNumbers from 'react-native-animated-numbers';
 import {useSelector} from 'react-redux';
 import {SIZES, FONTS, COLORS, SHADOW} from '../../../constants';
 import LocalizationContext from '../../../screens/LocalizationContext';
@@ -9,9 +8,6 @@ import LocalizationContext from '../../../screens/LocalizationContext';
 const Distance = ({distance}) => {
   const {t} = React.useContext(LocalizationContext);
 
-  const increase = () => {
-    setDistance(10);
-  };
   return (
     <View
       style={[
@@ -20,7 +16,7 @@ const Distance = ({distance}) => {
           justifyContent: 'flex-end',
           backgroundColor: 'white',
           borderRadius: 15,
-          width: 120,
+          margin: 20,
         },
       ]}>
       <Caption style={[FONTS.h4]}>{t('profile.distance')}</Caption>

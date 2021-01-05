@@ -8,9 +8,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useSelector} from 'react-redux';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
-import Distance from './recordcard/Distance';
-import Average from './recordcard/Average';
-import Time from './recordcard/Time';
+import Distance from './recordcard/Distance1';
+// import Average from './recordcard/Average';
+// import Time from './recordcard/Time';
 
 const RecordCard = ({item}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -90,10 +90,15 @@ const RecordCard = ({item}) => {
           </View>
         </View>
       </ImageBackground>
-      <View style={{flexDirection: 'row', paddingBottom: 20}}>
-        <Distance />
-        <Average />
-        <Time />
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingBottom: 20,
+          justifyContent: 'center',
+        }}>
+        <Distance distance={item.user_record.distance} />
+        {/* <Average />
+        <Time /> */}
       </View>
     </View>
   );

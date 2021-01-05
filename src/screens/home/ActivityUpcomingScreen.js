@@ -23,6 +23,8 @@ import Gift from '../../components/activity/Gift';
 import ShirtStyle from '../../components/activity/ShirtStyle';
 import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
+import Course from '../../components/activity/Course';
+import BackButton from '../../components/layout/BackButton';
 
 const ActivityDetailScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -73,10 +75,11 @@ const ActivityDetailScreen = ({navigation, route}) => {
   if (userActivity.state === 'finished') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
+        <BackButton backTo={'Home'} />
         <View
           style={{
             backgroundColor: COLORS.primary,
-            height: 100,
+            height: 200,
           }}></View>
         <RecordCard item={userActivity} />
         {userActivity.coupons.map((item, index) => {
@@ -107,6 +110,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
     <View style={{flex: 1}}>
       <HeaderImage activity={activity} location={true}>
         <View style={{padding: 20}}>
+          <Course course={userActivity.activity.course} />
           <TimelineDisplay activity={activity} />
           <Gift activity={activity} />
           <ShirtStyle activity={activity} />

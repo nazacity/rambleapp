@@ -44,7 +44,7 @@ import {get} from '../../redux/actions/request';
 const {width, height} = Dimensions.get('window');
 
 const Onboarding = ({navigation}) => {
-  const [slides, setSlides] = useState([
+  const slides = [
     {
       title: 'Runner',
       subtitle_th: 'ประสบการณ์ใหม่',
@@ -52,7 +52,7 @@ const Onboarding = ({navigation}) => {
       subtitle_en: 'New Experiences',
       description_en: 'Find your first activity with our community',
       color: '#b72065',
-      picture: 'http://clipart-library.com/image_gallery2/Fashion.png',
+      picture: require('../../../assets/onboarding/01.png'),
     },
     {
       title: 'Relationship',
@@ -61,8 +61,7 @@ const Onboarding = ({navigation}) => {
       subtitle_en: 'Discover new companies',
       description_en: 'Find new friends with our sharing community',
       color: '#7d0281',
-      picture:
-        'http://clipart-library.com/image_gallery2/Fashion-Transparent.png',
+      picture: require('../../../assets/onboarding/01.png'),
     },
     {
       title: 'New way',
@@ -73,8 +72,7 @@ const Onboarding = ({navigation}) => {
       description_en:
         'More convinient with our registering, checking in and chekcing out processes',
       color: '#b91e66',
-      picture:
-        'http://clipart-library.com/image_gallery2/Fashion-Free-Download-PNG.png',
+      picture: require('../../../assets/onboarding/01.png'),
     },
     {
       title: 'Simply',
@@ -84,24 +82,13 @@ const Onboarding = ({navigation}) => {
       description_en:
         'Find new companies and get along on the trip before your marathon',
       color: '#8a1776',
-      picture:
-        'http://clipart-library.com/images_k/fashion-girl-silhouette/fashion-girl-silhouette-8.png',
+      picture: require('../../../assets/onboarding/01.png'),
     },
-  ]);
+  ];
+
   const SLIDE_HEIGHT = useValue(height * 0.5);
   const [isSignInState, setIsSignInState] = useState(false);
   const dispatch = useDispatch();
-
-  const fetchOnboarding = async () => {
-    try {
-      const res = await get('/api/everyone/onboarding');
-      if (res.status === 200) {
-        setSlides(res.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const checkSkipOnBoarding = async () => {
     const skipOnBoarding = await AsyncStorage.getItem('skipOnBoarding');
@@ -117,7 +104,6 @@ const Onboarding = ({navigation}) => {
 
   useEffect(() => {
     dispatch(checkIsSignedin(checkSkipOnBoarding));
-    fetchOnboarding();
   }, []);
 
   const scroll = useRef(null);
