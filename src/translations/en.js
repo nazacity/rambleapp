@@ -42,6 +42,8 @@ const en = {
     firstnameerror: 'Please fill first name',
     lastnameerror: 'Please fill last name',
     displaynameerror: 'Display name must be more than 6 characters',
+    idcard: 'Identification card number',
+    idcarderror: 'Please fill identification card number',
   },
   phonechecking: {
     resend: 'Resend OTP',

@@ -97,8 +97,6 @@ const HeaderImage = ({children, activity, location}) => {
           <TriggeringView
             style={{
               padding: 20,
-              borderBottomWidth: 1,
-              borderBottomColor: '#cccccc',
               backgroundColor: 'white',
               flexDirection: 'row',
               alignItems: 'center',

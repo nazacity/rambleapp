@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef, Fragment} from 'react';
-import {View} from 'react-native';
+import {View, Dimensions, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
-import {COLORS} from '../../constants';
+import {COLORS, FONTS} from '../../constants';
 import LocalizationContext from '../LocalizationContext';
 import {getActivityById} from '../../redux/actions/ActivityAction';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -18,6 +18,9 @@ import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
 import Rules from '../../components/activity/Rules';
 import ButtonSection from '../../components/activity/ButtonSection';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+
+const initialLayout = {width: Dimensions.get('window').width};
 
 const ActivityDetailScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -29,6 +32,35 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [userActivity, setUserActivity] = useState({
     state: 'unregister',
   });
+
+  const FirstRoute = () => (
+    <View style={{padding: 20}}>
+      <Description activity={activity} />
+      <RegisterDate activity={activity} />
+      <Courses activity={activity} />
+    </View>
+  );
+
+  const SecondRoute = () => (
+    <View style={{padding: 20}}>
+      <TimelineDisplay activity={activity} />
+      <Gift activity={activity} />
+      <ShirtStyle activity={activity} />
+    </View>
+  );
+
+  const ThirdRoute = () => (
+    <View style={{padding: 20}}>
+      <Reward activity={activity} />
+      <Rules activity={activity} />
+    </View>
+  );
+
+  const FourRoute = () => (
+    <View style={{padding: 20}}>
+      <MoreInfomation activity={activity} />
+    </View>
+  );
 
   const checkUserActivities = () => {
     const checkActivity = user.user_activities.find(
@@ -48,6 +80,21 @@ const ActivityDetailScreen = ({navigation, route}) => {
     return unsubscribe;
   }, [activity]);
 
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    {key: 'first', title: 'Info'},
+    {key: 'second', title: 'Detail'},
+    {key: 'third', title: 'Rules'},
+    {key: 'four', title: 'Other'},
+  ]);
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+    four: FourRoute,
+  });
+
   if (loading) {
     return (
       <Spinner
@@ -64,19 +111,24 @@ const ActivityDetailScreen = ({navigation, route}) => {
   return (
     <View style={{flex: 1}}>
       <HeaderImage activity={activity} location={true}>
-        <View style={{padding: 20}}>
-          <Description activity={activity} />
-          <RegisterDate activity={activity} />
-          <Courses activity={activity} />
-          <TimelineDisplay activity={activity} />
-          <Gift activity={activity} />
-          <ShirtStyle activity={activity} />
-          <Reward activity={activity} />
-          <Rules activity={activity} />
-          <MoreInfomation activity={activity} />
-          {/* <MinorAdvertise /> */}
-          <ButtonSection userActivity={userActivity} activity={activity} />
-        </View>
+        <TabView
+          navigationState={{index, routes}}
+          renderScene={renderScene}
+          renderTabBar={(props) => (
+            <TabBar
+              {...props}
+              indicatorStyle={{backgroundColor: 'white'}}
+              style={{backgroundColor: COLORS.primary}}
+              renderLabel={({route, focused, color}) => (
+                <Text style={[FONTS.h3, {color}]}>{route.title}</Text>
+              )}
+            />
+          )}
+          onIndexChange={setIndex}
+          initialLayout={initialLayout}
+        />
+        <ButtonSection userActivity={userActivity} activity={activity} />
+        <View style={{margin: 10}} />
       </HeaderImage>
     </View>
   );

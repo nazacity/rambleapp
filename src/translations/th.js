@@ -42,6 +42,8 @@ const th = {
     firstnameerror: 'กรุณากรอกชื่อ',
     lastnameerror: 'กรุณากรอกนามสกุล',
     displaynameerror: 'ชื่อแสดงต้องมีมากกว่า 6 ตัวขึ้นไป',
+    idcard: 'หมายเลขบัตรประชาชน',
+    idcarderror: 'กรุณากรอกหมายเลขบัตรประชาชน',
   },
   phonechecking: {
     resend: 'ส่งรหัส OTP อีกครั้ง',

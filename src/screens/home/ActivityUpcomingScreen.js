@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageModal from 'react-native-image-modal';
 import moment from 'moment';
@@ -25,6 +25,9 @@ import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
 import Course from '../../components/activity/Course';
 import BackButton from '../../components/layout/BackButton';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+
+const initialLayout = {width: Dimensions.get('window').width};
 
 const ActivityDetailScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -36,6 +39,28 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [userActivity, setUserActivity] = useState({
     state: 'unregister',
   });
+
+  const FirstRoute = () => (
+    <View style={{padding: 20}}>
+      <Course course={userActivity.activity.course} />
+      <Gift activity={activity} />
+      <ShirtStyle activity={activity} />
+      <Reward activity={activity} />
+    </View>
+  );
+
+  const SecondRoute = () => (
+    <View style={{padding: 20}}>
+      <Text>ข้อมูล ที่นักวิ่งจะได้รับ เพื่อใช้ในงานวันจริง</Text>
+    </View>
+  );
+
+  const ThirdRoute = () => (
+    <View style={{padding: 20}}>
+      <TimelineDisplay activity={activity} />
+      <MoreInfomation activity={activity} />
+    </View>
+  );
 
   const checkUserActivities = () => {
     const checkActivity = user.user_activities.find(
@@ -58,6 +83,19 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
     return unsubscribe;
   }, [user, userActivity]);
+
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    {key: 'first', title: 'Info'},
+    {key: 'second', title: 'Detail'},
+    {key: 'third', title: 'Timeline'},
+  ]);
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+  });
 
   if (loading) {
     return (
@@ -109,16 +147,26 @@ const ActivityDetailScreen = ({navigation, route}) => {
   return (
     <View style={{flex: 1}}>
       <HeaderImage activity={activity} location={true}>
-        <View style={{padding: 20}}>
-          <Course course={userActivity.activity.course} />
-          <TimelineDisplay activity={activity} />
-          <Gift activity={activity} />
-          <ShirtStyle activity={activity} />
-          <Reward activity={activity} />
-          <MoreInfomation activity={activity} />
-          <MinorAdvertise />
-          <ButtonSection userActivity={userActivity} activity={activity} />
-        </View>
+        <TabView
+          navigationState={{index, routes}}
+          renderScene={renderScene}
+          renderTabBar={(props) => (
+            <TabBar
+              {...props}
+              indicatorStyle={{backgroundColor: 'white'}}
+              style={{backgroundColor: COLORS.primary}}
+              renderLabel={({route, focused, color}) => (
+                <Text style={[FONTS.h3, {color}]}>{route.title}</Text>
+              )}
+            />
+          )}
+          onIndexChange={setIndex}
+          initialLayout={initialLayout}
+        />
+
+        {/* <MinorAdvertise /> */}
+        <ButtonSection userActivity={userActivity} activity={activity} />
+
         <View style={{marginBottom: 50}}></View>
       </HeaderImage>
     </View>

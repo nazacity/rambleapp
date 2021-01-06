@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
@@ -31,7 +32,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import 'moment/locale/th';
 import CalendarModal from '../modal/CalendarModal';
-import {post} from '../../redux/actions/request';
+import {post, get} from '../../redux/actions/request';
 
 const SignupForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -43,6 +44,11 @@ const SignupForm = () => {
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
+  const [checkIdLoading, setCheckIdLoading] = useState(false);
+  const [message, setMessage] = useState({
+    msg: '',
+    state: 'success',
+  });
 
   const handleCalendarModalClose = () => {
     setCalendarModalOpen(false);
@@ -93,6 +99,13 @@ const SignupForm = () => {
           message: t('signup.displaynameerror'),
         }),
       );
+    } else if (data.idcard.length < 13) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.idcarderror'),
+        }),
+      );
     } else if (!data.first_name) {
       dispatch(
         setSnackbarDisplay({
@@ -135,6 +148,7 @@ const SignupForm = () => {
           username: data.username,
           password: data.password,
           display_name: data.display_name,
+          idcard: data.idcard,
           first_name: data.first_name,
           last_name: data.last_name,
           phone_number: data.phone_number,
@@ -151,12 +165,12 @@ const SignupForm = () => {
           reset({});
           navigation.navigate('Signin');
         } else if (res.data === 'Username is used') {
-          Alert.alert(t('signup.usedusername'), '', [
-            {
-              text: t('signup.okay'),
-              onPress: () => {},
-            },
-          ]);
+          dispatch(
+            setSnackbarDisplay({
+              state: 'error',
+              message: t('signup.usedusername'),
+            }),
+          );
           dispatch(setLoading(false));
         }
       } catch (error) {
@@ -165,7 +179,7 @@ const SignupForm = () => {
       }
     }
   };
-
+  // dispatch(setLoading(false));
   return (
     <Fragment>
       <View
@@ -339,6 +353,73 @@ const SignupForm = () => {
             <View style={{marginHorizontal: 10, marginVertical: 10}}>
               <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
             </View>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('signup.idcard')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={async (value) => {
+                    onChange(value);
+                    setMessage({
+                      ...message,
+                      msg: '',
+                    });
+                    if (value.length === 13) {
+                      setCheckIdLoading(true);
+                      const res = await get(
+                        `/api/everyone/checkcitizenidnumber/${value}`,
+                      );
+
+                      if (res.status === 200) {
+                        if (
+                          res.data === 'หมายเลขบัตรประจำตัวประชาชนของคุณถูกต้อง'
+                        ) {
+                          setTimeout(() => {
+                            setMessage({
+                              msg: 'หมายเลขบัตรประจำตัวประชาชนของคุณถูกต้อง',
+                              state: 'success',
+                            });
+                            setCheckIdLoading(false);
+                          }, 800);
+                        } else {
+                          setTimeout(() => {
+                            setMessage({
+                              msg: 'หมายเลขบัตรประจำตัวประชาชนของคุณไม่ถูกต้อง',
+                              state: 'error',
+                            });
+                            setCheckIdLoading(false);
+                          }, 800);
+                        }
+                      }
+                    }
+                  }}
+                  rightIcon={
+                    checkIdLoading && (
+                      <ActivityIndicator size={25} color={COLORS.primary} />
+                    )
+                  }
+                  value={value}
+                />
+              )}
+              name="idcard"
+              // rules={{required: true}}
+              defaultValue=""
+            />
+            {message.msg !== '' && (
+              <Text
+                style={[
+                  FONTS.h5,
+                  {
+                    color: message.state === 'success' ? '#5cb85c' : '#d9534f',
+                    marginTop: -10,
+                    marginBottom: 15,
+                    marginLeft: 5,
+                  },
+                ]}>
+                {message.msg}
+              </Text>
+            )}
             <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
