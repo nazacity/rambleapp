@@ -12,8 +12,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import {useSelector, useDispatch} from 'react-redux';
 
-import {FONTS, COLORS} from '../../constants';
-import {Icon} from 'react-native-elements';
+import {FONTS, COLORS, SHADOW} from '../../constants';
+import {Badge} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {setUpcomeActivities} from '../../redux/actions/ActivityAction';
 import TitleHeader from '../layout/TitleHeader';
@@ -52,6 +52,10 @@ const UpcomingActivity = () => {
   }, [user_activities]);
 
   const UpcomingActivityCard = ({item, index}) => {
+    const badgeNumber = item.announcement.filter(
+      (item1) => item1.state === 'not_read',
+    );
+
     return (
       <TouchableOpacity
         activeOpacity={0.8}
@@ -61,17 +65,37 @@ const UpcomingActivity = () => {
           });
         }}
         style={{
-          width: 150,
-          height: 150,
+          padding: 10,
           marginRight: upcomingActivities.length === index + 1 ? 40 : 0,
           borderRadius: 10,
           overflow: 'hidden',
-          backgroundColor: 'black',
+          backgroundColor: COLORS.backgroundColor,
         }}>
         <Image
           source={{uri: item.activity.id.activity_picture_url}}
           style={{width: 150, height: 150, borderRadius: 5}}
         />
+
+        {badgeNumber.length > 0 && (
+          <Badge
+            value={badgeNumber.length}
+            status="error"
+            containerStyle={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              zIndex: 200,
+            }}
+            badgeStyle={[
+              {
+                borderRadius: 15,
+                width: 30,
+                height: 30,
+              },
+              SHADOW.default,
+            ]}
+          />
+        )}
       </TouchableOpacity>
     );
   };
@@ -95,7 +119,9 @@ const UpcomingActivity = () => {
       ) : !loading && upcomingActivities.length === 0 ? (
         <View
           style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>ยังไม่มีกิจกรรม</Text>
+          <Text style={[FONTS.body4, {color: COLORS.black}]}>
+            {t('upcoming.noactivity')}
+          </Text>
         </View>
       ) : (
         <FlatList
@@ -106,8 +132,8 @@ const UpcomingActivity = () => {
           renderItem={({item, index}) => {
             return <UpcomingActivityCard item={item} index={index} />;
           }}
-          ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-          style={{padding: 20}}
+          // ItemSeparatorComponent={() => <View style={{padding: 10}} />}
+          style={{paddingHorizontal: 20}}
         />
       )}
     </View>

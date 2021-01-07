@@ -143,6 +143,11 @@ const th = {
     addemergency: 'กรุณาเพิ่มการติดต่อฉุกเฉิก',
     addaddress: 'กรุณาเพิ่มที่อยู่',
     clickhere: 'กดที่นี่',
+    atevent: 'ที่จัดกิจกรรม',
+    contestno: 'หมายเลขเข้าแข่งขัน',
+    noannouncement: 'ยังไม่มีประกาศ',
+    readmore: 'อ่านเพิ่มเติม',
+    announcement: 'ประกาศ',
   },
   addaddress: {
     title: 'เพิ่มที่อยู่ใหม่',

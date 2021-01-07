@@ -74,6 +74,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             size: size.size,
             description: size.description,
           },
+          announcement: activity.announcement,
         },
         navigateUser,
       ),
@@ -173,7 +174,13 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             {user.addresses.length > 0 ? (
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={user.addresses}
+                data={[
+                  {
+                    _id: '5ff6600d20ed83388ab4ccbd',
+                    address: t('activity.atevent'),
+                  },
+                  ...user.addresses,
+                ]}
                 keyExtractor={(item) => `${item._id}`}
                 renderItem={({item, index}) => {
                   return (
@@ -227,7 +234,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             {user.emergency_contacts.length > 0 ? (
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={user.addresses}
+                data={user.emergency_contacts}
                 keyExtractor={(item) => `${item._id}`}
                 renderItem={({item, index}) => {
                   return (

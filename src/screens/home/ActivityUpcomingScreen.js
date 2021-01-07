@@ -26,6 +26,8 @@ import MoreInfomation from '../../components/activity/MoreInfomation';
 import Course from '../../components/activity/Course';
 import BackButton from '../../components/layout/BackButton';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import ContestNo from '../../components/activity/ContestNo';
+import Announcement from '../../components/activity/Announcement';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -37,28 +39,25 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [userActivity, setUserActivity] = useState({
+    announcement: [],
     state: 'unregister',
   });
 
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <Course course={userActivity.activity.course} />
-      <Gift activity={activity} />
-      <ShirtStyle activity={activity} />
-      <Reward activity={activity} />
+      <ContestNo contest_no={userActivity.contest_no} />
+      <TimelineDisplay activity={activity} />
+      <MoreInfomation activity={activity} />
     </View>
   );
 
   const SecondRoute = () => (
     <View style={{padding: 20}}>
-      <Text>ข้อมูล ที่นักวิ่งจะได้รับ เพื่อใช้ในงานวันจริง</Text>
-    </View>
-  );
-
-  const ThirdRoute = () => (
-    <View style={{padding: 20}}>
-      <TimelineDisplay activity={activity} />
-      <MoreInfomation activity={activity} />
+      <Announcement
+        userActivity={userActivity}
+        setUserActivity={setUserActivity}
+      />
     </View>
   );
 
@@ -87,14 +86,12 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Detail'},
-    {key: 'third', title: 'Timeline'},
+    {key: 'second', title: 'Announcement'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute,
   });
 
   if (loading) {

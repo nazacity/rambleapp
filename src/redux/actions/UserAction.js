@@ -99,26 +99,14 @@ export const editUserProfile = (data, msg) => async (dispatch) => {
 };
 
 export const refresh = () => async (dispatch) => {
-  dispatch({
-    type: SET_LOADING,
-    payload: true,
-  });
   try {
     const user = await get('/api/users/getuserbyjwt');
     dispatch({
       type: SET_USER,
       payload: user,
     });
-    dispatch({
-      type: SET_LOADING,
-      payload: false,
-    });
   } catch (error) {
     console.log(error);
-    dispatch({
-      type: SET_LOADING,
-      payload: false,
-    });
   }
 };
 

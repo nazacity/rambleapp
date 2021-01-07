@@ -56,12 +56,11 @@ const HistoryActivity = () => {
           });
         }}
         style={{
-          width: 150,
-          height: 150,
+          padding: 10,
           marginRight: historyActivities.length === index + 1 ? 40 : 0,
           borderRadius: 10,
           overflow: 'hidden',
-          backgroundColor: 'black',
+          backgroundColor: COLORS.backgroundColor,
         }}>
         <Image
           source={{uri: item.activity.id.activity_picture_url}}
@@ -90,7 +89,9 @@ const HistoryActivity = () => {
       ) : !loading && historyActivities.length === 0 ? (
         <View
           style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>ยังไม่มีกิจกรรม</Text>
+          <Text style={[FONTS.body4, {color: COLORS.black}]}>
+            {t('history.noactivity')}
+          </Text>
         </View>
       ) : (
         <FlatList
@@ -101,8 +102,8 @@ const HistoryActivity = () => {
           renderItem={({item, index}) => {
             return <HistoryActivityCard item={item} index={index} />;
           }}
-          ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-          style={{padding: 20}}
+          // ItemSeparatorComponent={() => <View style={{padding: 10}} />}
+          style={{paddingHorizontal: 20}}
         />
       )}
     </View>

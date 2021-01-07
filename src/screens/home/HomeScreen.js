@@ -12,6 +12,7 @@ import {COLORS} from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {post} from '../../redux/actions/request';
 import MenuButton from '../../components/layout/MenuButton';
+import {refresh} from '../../redux/actions/UserAction';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -51,6 +52,14 @@ const HomeScreen = ({navigation}) => {
       backAction,
     );
     return () => backHandler.remove();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(refresh());
+    });
+
+    return unsubscribe;
   }, []);
 
   return (

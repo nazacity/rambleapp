@@ -145,6 +145,11 @@ const en = {
     addemergency: 'Please add emergency contact',
     addaddress: 'Please add address',
     clickhere: 'Press here',
+    atevent: 'At event place',
+    contestno: 'Contest No',
+    noannouncement: 'No annoucement',
+    readmore: 'Read more',
+    announcement: 'Announcement',
   },
   addaddress: {
     title: 'New Address',
@@ -194,10 +199,10 @@ const en = {
   coupon: {use: 'use coupon'},
   promoteactivity: {detail: 'More Detail'},
   history: {
-    noactivity: 'No history activity yet',
+    noactivity: 'No history activity',
   },
   upcoming: {
-    noactivity: 'No new activity',
+    noactivity: 'No upcoming activity',
   },
   uploadpicture: {
     uploadPhoto: 'Upload Photo',

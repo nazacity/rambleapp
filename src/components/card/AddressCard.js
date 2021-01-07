@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
@@ -23,23 +23,27 @@ const AddressCard = ({deletable, item, shadow}) => {
       ]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
-              {item.address}
-            </Text>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
-              {item.province}
-            </Text>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>{item.zip}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
-              {t('address.phone')}
-            </Text>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
-              {item.phone_number}
-            </Text>
-          </View>
+          <Text style={[FONTS.h4, {marginHorizontal: 5}]}>{item.address}</Text>
+          {item.phone_number && (
+            <Fragment>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                  {item.province}
+                </Text>
+                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                  {item.zip}
+                </Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                  {t('address.phone')}
+                </Text>
+                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                  {item.phone_number}
+                </Text>
+              </View>
+            </Fragment>
+          )}
         </View>
         {deletable && (
           <TouchableOpacity

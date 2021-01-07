@@ -4,11 +4,12 @@ import moment from 'moment';
 import 'moment/locale/th';
 import {useSelector} from 'react-redux';
 
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
+import {Badge} from 'react-native-elements';
 
 const UpcomingActivityScreen = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -18,6 +19,9 @@ const UpcomingActivityScreen = () => {
   moment.locale(lang);
 
   const UpcomingActivityCard = ({item, index}) => {
+    const badgeNumber = item.announcement.filter(
+      (item1) => item1.state === 'not_read',
+    );
     return (
       <ActivityCard
         item={item}
@@ -34,6 +38,26 @@ const UpcomingActivityScreen = () => {
             {moment(item.activity.id.actual_date).fromNow()}
           </Text>
         </View>
+        {badgeNumber.length > 0 && (
+          <Badge
+            value={badgeNumber.length}
+            status="error"
+            containerStyle={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              zIndex: 200,
+            }}
+            badgeStyle={[
+              {
+                borderRadius: 15,
+                width: 30,
+                height: 30,
+              },
+              SHADOW.default,
+            ]}
+          />
+        )}
       </ActivityCard>
     );
   };

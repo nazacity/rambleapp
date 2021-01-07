@@ -24,6 +24,7 @@ export const COLORS = {
   pickedDateText: '#fff',
   backgroundColor: '#fff',
   link: '#2196f3',
+  black: '#000',
 };
 
 export const SHADOW = {
