@@ -130,7 +130,6 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
         data={data}
         activityPictureUrl={userActivity.activity.id.activity_picture_url}
       />
-      <TitleHeader title={t('activity.announcement')} paddingHorizontal={20} />
       {userActivity.announcement.length === 0 ? (
         <View
           style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
@@ -148,8 +147,7 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
               return <AnnouncementCard item={item} index={index} />;
             }}
             ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-            //   style={{padding: 20}}
-            contentContainerStyle={{padding: 20}}
+            contentContainerStyle={{padding: 10}}
           />
         </ScrollView>
       )}
