@@ -38,7 +38,7 @@ const EmergencyContactScreen = () => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={emergency_contacts}
-          keyExtractor={(item) => `${item._id}`}
+          keyExtractor={(item, index) => `${index}`}
           renderItem={({item, index}) => {
             return <EmergencyCard key={index} item={item} deletable={true} />;
           }}

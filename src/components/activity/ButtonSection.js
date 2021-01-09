@@ -30,6 +30,7 @@ const ButtonSection = ({userActivity, activity}) => {
               course: userActivity.activity.course,
               size: userActivity.size,
               userActivityId: userActivity._id,
+              address: userActivity.address,
             });
           }}
         />

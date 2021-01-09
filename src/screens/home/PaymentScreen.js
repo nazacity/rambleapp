@@ -9,21 +9,29 @@ import {
 } from 'react-native';
 import Button from '../../components/Button';
 import {FONTS, COLORS, SIZES} from '../../constants';
-import ImageModal from 'react-native-image-modal';
 import {post} from '../../redux/actions/request';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {refresh} from '../../redux/actions/UserAction';
 import {useDispatch} from 'react-redux';
+import LocalizationContext from '../LocalizationContext';
+import TitleHeader from '../../components/layout/TitleHeader';
 
 const PaymentScreen = ({navigation, route}) => {
-  const {course, size, activity_title, userActivityId} = route.params;
+  const {t} = React.useContext(LocalizationContext);
+  const {course, size, activity_title, userActivityId, address} = route.params;
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   const getQrcode = async () => {
+    let amount;
+    if (address !== '5ff6600d20ed83388ab4ccbd') {
+      amount = +course.price + 80;
+    } else {
+      amount = +course.price;
+    }
     const res = await post(`/api/users/requestpayment/${userActivityId}`, {
-      amount: +course.price + 80,
+      amount: amount,
       activity_title: activity_title,
     });
 
@@ -36,6 +44,7 @@ const PaymentScreen = ({navigation, route}) => {
   useEffect(() => {
     const backAction = () => {
       if (navigation.isFocused()) {
+        dispatch(refresh());
         navigation.navigate('Home');
         return true;
       }
@@ -62,52 +71,59 @@ const PaymentScreen = ({navigation, route}) => {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{padding: 20}}>
-      <Text style={[FONTS.h2, {textAlign: 'center'}]}>ยืนยันการลงทะเบียน</Text>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{
+        padding: 20,
+        marginTop: 20,
+        backgroundColor: COLORS.backgroundColor,
+      }}>
+      <Text style={[FONTS.h2, {textAlign: 'center', color: COLORS.primary}]}>
+        {t('payment.confirm')}
+      </Text>
       <View>
-        <Text style={[FONTS.h3, {marginBottom: 10}]}>กิจกรรม</Text>
-        <Text style={[FONTS.body4, {marginLeft: 20, marginBottom: 10}]}>
-          {activity_title}
-        </Text>
+        <TitleHeader title={t('payment.activity')} />
+        <Text style={[FONTS.body4, {marginBottom: 10}]}>{activity_title}</Text>
       </View>
-      <View>
-        <Text style={[FONTS.h3, {marginBottom: 10}]}>คอร์สวิ่ง</Text>
-        <Text style={[FONTS.body4, {marginLeft: 20, marginBottom: 10}]}>
-          {course.title}
-        </Text>
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+          <TitleHeader title={t('payment.course')} noDot={true} />
+          <Text style={[FONTS.body4, {marginBottom: 10}]}>{course.title}</Text>
+        </View>
+        <View style={{flex: 0.5}}>
+          <TitleHeader title={t('payment.size')} noDot={true} />
+          <Text style={[FONTS.body4, {marginBottom: 10}]}>
+            {size.size.toUpperCase()}
+          </Text>
+        </View>
       </View>
-      {/* <View>
-        <Text style={[FONTS.h3, {marginBottom: 10}]}>แบบเสื้อ</Text>
-
-        <ImageModal
-          resizeMode="contain"
-          imageBackgroundColor={COLORS.background}
-          overlayBackgroundColor="rgba(0,0,0,0.3)"
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 10,
-            marginLeft: 20,
-          }}
-          source={{uri: shirt.shirt_picturl_url}}
-        />
-      </View> */}
-      <View style={{marginTop: 10}}>
-        <Text style={[FONTS.h3, {marginBottom: 10}]}>ไซส์เสื้อ</Text>
-        <Text style={[FONTS.body4, {marginLeft: 20, marginBottom: 10}]}>
-          {size.size.toUpperCase()}
-        </Text>
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+          <TitleHeader title={t('payment.fee')} noDot={true} />
+          <Text style={[FONTS.body4, {marginBottom: 10}]}>
+            {course.price} {t('payment.baht')}
+          </Text>
+        </View>
+        {address !== '5ff6600d20ed83388ab4ccbd' && (
+          <View style={{flex: 0.5}}>
+            <TitleHeader title={t('payment.emsfee')} noDot={true} />
+            <Text style={[FONTS.body4, {marginBottom: 10}]}>
+              80 {t('payment.baht')}
+            </Text>
+          </View>
+        )}
       </View>
-      <View style={{marginTop: 10}}>
-        <Text style={[FONTS.h3, {marginBottom: 10}]}>ค่าสมัคร</Text>
-        <Text style={[FONTS.body4, {marginLeft: 20, marginBottom: 10}]}>
-          {course.price} บาท
-        </Text>
-      </View>
-      <View style={{marginTop: 10}}>
-        <Text style={[FONTS.h3, {marginBottom: 10}]}>ค่าส่ง</Text>
-        <Text style={[FONTS.body4, {marginLeft: 20, marginBottom: 10}]}>
-          80 บาท
+      <View style={{flex: 1}}>
+        <TitleHeader title={t('payment.total')} noDot={true} />
+        <Text
+          style={[
+            FONTS.h2,
+            {marginLeft: 20, marginBottom: 10, textAlign: 'center'},
+          ]}>
+          {address !== '5ff6600d20ed83388ab4ccbd'
+            ? course.price + 80
+            : course.price}{' '}
+          {t('payment.baht')}
         </Text>
       </View>
       <View
@@ -127,15 +143,15 @@ const PaymentScreen = ({navigation, route}) => {
       </View>
       <View style={{marginVertical: 20}}>
         <Text style={[FONTS.body3, {textAlign: 'center'}]}>
-          กรุณาชำระเงิน ผ่านการสแกน Qrcode เท่านั้น
+          {t('payment.warning1')}
         </Text>
         <Text style={[FONTS.body3, {textAlign: 'center'}]}>
-          หากชำระแล้ว ระบบจะอัพเดทอัตโนมัติ
+          {t('payment.warning2')}
         </Text>
       </View>
       <View style={{alignItems: 'center'}}>
         <Button
-          label="กลับสู่หน้าหลัก"
+          label={t('payment.back')}
           color={COLORS.pinkPastel}
           onPress={() => {
             dispatch(refresh());

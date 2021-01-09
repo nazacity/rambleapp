@@ -4,7 +4,7 @@ import {FONTS, COLORS} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import LocalizationContext from '../../screens/LocalizationContext';
 
-const TitleHeader = ({title, seeAll, paddingHorizontal}) => {
+const TitleHeader = ({title, seeAll, paddingHorizontal, noDot}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   return (
@@ -21,15 +21,17 @@ const TitleHeader = ({title, seeAll, paddingHorizontal}) => {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <View
-          style={{
-            width: 15,
-            height: 15,
-            backgroundColor: COLORS.primary,
-            borderRadius: 10,
-            marginRight: 10,
-          }}
-        />
+        {!noDot && (
+          <View
+            style={{
+              width: 15,
+              height: 15,
+              backgroundColor: COLORS.primary,
+              borderRadius: 10,
+              marginRight: 10,
+            }}
+          />
+        )}
         <Text style={[FONTS.h3, {color: COLORS.pinkText}]}>{title}</Text>
       </View>
       {seeAll && (

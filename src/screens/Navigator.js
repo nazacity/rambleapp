@@ -182,7 +182,11 @@ const HomeStackScreen = ({navigation}) => {
           headerShown: false,
         }}
       />
-      <HomeStack.Screen name="Payment" component={PaymentScreen} />
+      <HomeStack.Screen
+        name="Payment"
+        component={PaymentScreen}
+        options={{headerShown: false}}
+      />
       <HomeStack.Screen
         name="CreatePost"
         component={CreatePostScreen}

@@ -167,11 +167,11 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         </View>
       </View>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{marginBottom: 20}}>
-          <TitleHeader title={t('activity.address')} />
-          <View>
-            {user.addresses.length > 0 ? (
+      <View style={{marginBottom: 20}}>
+        <TitleHeader title={t('activity.address')} />
+        <View>
+          {user.addresses.length > 0 ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={[
@@ -209,33 +209,33 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                 ListFooterComponent={() => <View style={{margin: 5}} />}
                 ListHeaderComponent={() => <View style={{margin: 5}} />}
               />
-            ) : (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={() => {
-                  navigation.navigate('home', {screen: 'Address'});
-                }}>
-                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                  {t('activity.addaddress')}
-                </Text>
-                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                  {t('activity.clickhere')}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
+            </ScrollView>
+          ) : (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                navigation.navigate('home', {screen: 'Address'});
+              }}>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.addaddress')}
+              </Text>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.clickhere')}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
-      </ScrollView>
+      </View>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={{marginBottom: 20}}>
-          <TitleHeader title={t('activity.emergency')} />
-          <View>
-            {user.emergency_contacts.length > 0 ? (
+      <View style={{marginBottom: 20}}>
+        <TitleHeader title={t('activity.emergency')} />
+        <View>
+          {user.emergency_contacts.length > 0 ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={user.emergency_contacts}
-                keyExtractor={(item) => `${item._id}`}
+                keyExtractor={(item, index) => `${index}`}
                 renderItem={({item, index}) => {
                   return (
                     <View
@@ -264,23 +264,23 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                 ListFooterComponent={() => <View style={{margin: 5}} />}
                 ListHeaderComponent={() => <View style={{margin: 5}} />}
               />
-            ) : (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={() => {
-                  navigation.navigate('home', {screen: 'EmergencyContact'});
-                }}>
-                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                  {t('activity.addemergency')}
-                </Text>
-                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                  {t('activity.clickhere')}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
+            </ScrollView>
+          ) : (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                navigation.navigate('home', {screen: 'EmergencyContact'});
+              }}>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.addemergency')}
+              </Text>
+              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                {t('activity.clickhere')}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
-      </ScrollView>
+      </View>
 
       <TouchableOpacity
         activeOpacity={0.6}
