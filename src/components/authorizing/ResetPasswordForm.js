@@ -15,17 +15,19 @@ import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
 
 import {useForm, Controller} from 'react-hook-form';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 
-const SigninForm = () => {
+const ResetPasswordForm = () => {
   const lang = useSelector((state) => state.appState.lang);
   const {t} = React.useContext(LocalizationContext);
   const {control, handleSubmit, errors} = useForm();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const route = useRoute();
+  const {userId} = route.params;
 
   // INPUT FUNCTIONS
   const [hidePassword, setHidePassword] = useState(true);
@@ -37,42 +39,52 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (data) => {
-    if (!data.username || !data.password) {
+    if (data.password.length < 8) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
-          message: t('signin.nouserorpasserror'),
+          message: t('signup.password8'),
         }),
       );
-    }
-
-    dispatch(setLoading(true));
-    setTimeout(async () => {
+    } else if (data.password !== data.confirm_password) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.passwordnotmatch'),
+        }),
+      );
+      return;
+    } else {
+      dispatch(setLoading(true));
       try {
-        const res = await post('/users/login', {
-          username: data.username,
+        const res = await post('/api/everyone/resetpassword', {
+          _id: userId,
           password: data.password,
         });
 
-        if (res.token) {
-          await AsyncStorage.setItem('accessToken', res.token);
-          dispatch(signIn(res.user));
+        if (res.data === 'Changed password successfully') {
           dispatch(
             setSnackbarDisplay({
               state: 'success',
-              message: t('signin.welcome'),
+              message: t('forgotpassword.success'),
             }),
           );
-        }
-      } catch (error) {
-        if (error.message === 'Request failed with status code 401') {
+          navigation.navigate('Signin');
+        } else {
           dispatch(
-            setSnackbarDisplay({state: 'error', message: t('signin.401error')}),
+            setSnackbarDisplay({
+              state: 'error',
+              message: t('forgotpassword.error'),
+            }),
           );
+          navigation.navigate('Signin');
         }
         dispatch(setLoading(false));
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoading(false));
       }
-    }, 1000);
+    }
   };
 
   return (
@@ -83,54 +95,6 @@ const SigninForm = () => {
           paddingVertical: 20,
           flex: 1,
         }}>
-        <View
-          style={{
-            height: 200,
-            width: 200,
-            marginBottom: 20,
-            alignSelf: 'center',
-          }}>
-          <Image
-            source={require('../../../assets/logo/ramble.png')}
-            style={{
-              height: 200,
-              width: 200,
-            }}
-          />
-        </View>
-        <View style={{marginHorizontal: 30}}>
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('signin.username')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                rightIcon={
-                  <Icon
-                    name="person-outline"
-                    type="ionicon"
-                    size={22}
-                    color={
-                      value || focus.email
-                        ? COLORS.primary
-                        : COLORS.inputPlaceholderColor
-                    }
-                  />
-                }
-                onFocus={() => {
-                  setFocus({...focus, email: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, email: false});
-                }}
-              />
-            )}
-            name="username"
-            defaultValue=""
-          />
-        </View>
         <View style={{marginHorizontal: 30}}>
           <Controller
             control={control}
@@ -160,35 +124,50 @@ const SigninForm = () => {
                 onBlur={() => {
                   setFocus({...focus, password: false});
                 }}
-                onSubmitEditing={handleSubmit(onSubmit)}
               />
             )}
             name="password"
             // rules={{required: true}}
             defaultValue=""
           />
-          <TouchableOpacity
-            style={{marginLeft: 5}}
-            activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate('ForgotPassword');
-            }}>
-            <Text
-              style={[
-                {
-                  color: COLORS.pinkText,
-                  textAlign: 'right',
-                  marginBottom: 10,
-                },
-                FONTS.h4,
-              ]}>
-              {t('signin.forgotpassword')}
-            </Text>
-          </TouchableOpacity>
+          <Controller
+            control={control}
+            render={({onChange, onBlur, value}) => (
+              <FloatingLabelInput
+                floatingLabel={t('signup.confirm_password')}
+                inputContainerStyle={{borderBottomWidth: 0}}
+                onChangeText={(value) => onChange(value)}
+                value={value}
+                rightIcon={
+                  <Icon
+                    name={hidePassword ? 'eye-off' : 'eye'}
+                    type="ionicon"
+                    size={24}
+                    color={
+                      value || focus.password
+                        ? COLORS.pinkPastel
+                        : COLORS.inputPlaceholderColor
+                    }
+                    onPress={() => setHidePassword(!hidePassword)}
+                  />
+                }
+                secureTextEntry={hidePassword}
+                onFocus={() => {
+                  setFocus({...focus, password: true});
+                }}
+                onBlur={() => {
+                  setFocus({...focus, password: false});
+                }}
+              />
+            )}
+            name="confirm_password"
+            // rules={{required: true}}
+            defaultValue=""
+          />
         </View>
         <View style={{alignItems: 'center'}}>
           <Button
-            label={t('signin.signin')}
+            label={t('forgotpassword.reset')}
             color={COLORS.pinkPastel}
             onPress={handleSubmit(onSubmit)}
           />
@@ -206,15 +185,6 @@ const SigninForm = () => {
               marginVertical: 10,
               flexDirection: 'row',
             }}>
-            <Text
-              style={[
-                {
-                  color: COLORS.greyText,
-                },
-                FONTS.body4,
-              ]}>
-              {t('signin.noaccount')}
-            </Text>
             <TouchableOpacity
               style={{marginLeft: 5}}
               activeOpacity={0.8}
@@ -228,7 +198,7 @@ const SigninForm = () => {
                   },
                   FONTS.h4,
                 ]}>
-                {t('signin.register')}
+                {t('signup.signin')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -238,4 +208,4 @@ const SigninForm = () => {
   );
 };
 
-export default SigninForm;
+export default ResetPasswordForm;

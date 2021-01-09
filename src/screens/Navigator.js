@@ -35,6 +35,8 @@ import FilteredCommunityScreen from './community/FilteredCommunityScreen';
 import OnboardingScreen from './onboarding/OnboardingScreen';
 import SigninScreen from './authorizing/SigninScreen';
 import SignupScreen from './authorizing/SignupScreen';
+import ForgotPasswordScreen from './authorizing/ForgotPasswordScreen';
+import ResetPasswordScreen from './authorizing/ResetPasswordScreen';
 import PhoneNumberCheckScreen from './authorizing/PhoneNumberCheckScreen';
 import ConfirmRegisterScreen from './authorizing/ConfirmRegisterScreen';
 
@@ -551,6 +553,14 @@ export const OnboardingAndAuthorizingStackScreen = () => {
       <OnboardingAndAuthorizingStack.Screen
         name="ConfirmRegister"
         component={ConfirmRegisterScreen}
+      />
+      <OnboardingAndAuthorizingStack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+      />
+      <OnboardingAndAuthorizingStack.Screen
+        name="ResetPassword"
+        component={ResetPasswordScreen}
       />
     </OnboardingAndAuthorizingStack.Navigator>
   );

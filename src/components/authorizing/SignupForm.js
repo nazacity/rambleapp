@@ -79,19 +79,19 @@ const SignupForm = () => {
         }),
       );
     } else if (data.password !== data.confirm_password) {
-      Alert.alert(t('signup.passwordnotmatch'), '', [
-        {
-          text: t('signup.okay'),
-          onPress: () => {},
-        },
-      ]);
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.passwordnotmatch'),
+        }),
+      );
     } else if (data.password.length < 8) {
-      Alert.alert(t('signup.password8'), '', [
-        {
-          text: t('signup.okay'),
-          onPress: () => {},
-        },
-      ]);
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.password8'),
+        }),
+      );
     } else if (data.display_name.length < 6) {
       dispatch(
         setSnackbarDisplay({
@@ -377,15 +377,23 @@ const SignupForm = () => {
                         ) {
                           setTimeout(() => {
                             setMessage({
-                              msg: 'หมายเลขบัตรประจำตัวประชาชนของคุณถูกต้อง',
+                              msg: t('signup.rightidcard'),
                               state: 'success',
                             });
                             setCheckIdLoading(false);
                           }, 800);
+                        } else if (
+                          res.data === 'รหัสบัตรประชาชนถูกใช้งานแล้ว'
+                        ) {
+                          setMessage({
+                            msg: t('signup.usedidcard'),
+                            state: 'error',
+                          });
+                          setCheckIdLoading(false);
                         } else {
                           setTimeout(() => {
                             setMessage({
-                              msg: 'หมายเลขบัตรประจำตัวประชาชนของคุณไม่ถูกต้อง',
+                              msg: t('signup.wrongidcard'),
                               state: 'error',
                             });
                             setCheckIdLoading(false);
