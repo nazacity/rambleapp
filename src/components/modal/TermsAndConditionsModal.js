@@ -28,7 +28,8 @@ const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
     <Modal
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
-      onBackdropPress={handleClose}>
+      onBackdropPress={handleClose}
+      onBackButtonPress={handleClose}>
       <View
         style={{
           height: SIZES.height / 1.5,

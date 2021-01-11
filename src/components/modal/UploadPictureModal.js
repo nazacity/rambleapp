@@ -31,7 +31,7 @@ const storage_config = {
   bucket_name: 'ramble',
 };
 
-const UploadPictureModal = ({setImage, upload}) => {
+const UploadPictureModal = ({setImage, upload, delFile}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
   const uploadPictureModal = useSelector(
@@ -91,6 +91,21 @@ const UploadPictureModal = ({setImage, upload}) => {
                 }),
               );
             }
+            if (delFile) {
+              const shouldDeleteFile = delFile.replace(
+                'https://ramble.nyc3.digitaloceanspaces.com/',
+                '',
+              );
+              const delParams = {
+                Bucket: `${storage_config.bucket_name}`,
+                Key: `${shouldDeleteFile}`,
+              };
+              S3.deleteObject(delParams, function (err, data) {
+                if (err) {
+                  console.log(err, err.stack);
+                }
+              });
+            }
             dispatch(setLoading(false));
             handleClose();
           } else if (upload === 'uploadUserBackgroundPictureProfile') {
@@ -110,6 +125,21 @@ const UploadPictureModal = ({setImage, upload}) => {
                   message: t('editprofile.imageuploadsuccessed'),
                 }),
               );
+            }
+            if (delFile) {
+              const shouldDeleteFile = delFile.replace(
+                'https://ramble.nyc3.digitaloceanspaces.com/',
+                '',
+              );
+              const delParams = {
+                Bucket: `${storage_config.bucket_name}`,
+                Key: `${shouldDeleteFile}`,
+              };
+              S3.deleteObject(delParams, function (err, data) {
+                if (err) {
+                  console.log(err, err.stack);
+                }
+              });
             }
             dispatch(setLoading(false));
             handleClose();
@@ -142,7 +172,8 @@ const UploadPictureModal = ({setImage, upload}) => {
     <Modal
       isVisible={uploadPictureModal}
       style={{margin: 0, justifyContent: 'flex-end'}}
-      onBackdropPress={handleClose}>
+      onBackdropPress={handleClose}
+      onBackButtonPress={handleClose}>
       <View
         style={{
           borderTopLeftRadius: 20,

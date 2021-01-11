@@ -35,7 +35,8 @@ const AddAddressModal = ({}) => {
     <Modal
       isVisible={addAddressModalOpen}
       style={{margin: 0, justifyContent: 'flex-end', zIndex: 1}}
-      onBackdropPress={handleClose}>
+      onBackdropPress={handleClose}
+      onBackButtonPress={handleClose}>
       <View
         style={{
           borderTopLeftRadius: 20,

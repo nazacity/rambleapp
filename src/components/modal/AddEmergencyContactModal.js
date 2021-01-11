@@ -35,7 +35,8 @@ const AddEmergencyContactModal = ({}) => {
     <Modal
       isVisible={addEmergencyContactModalOpen}
       style={{margin: 0, justifyContent: 'flex-end'}}
-      onBackdropPress={handleClose}>
+      onBackdropPress={handleClose}
+      onBackButtonPress={handleClose}>
       <View
         style={{
           borderTopLeftRadius: 20,

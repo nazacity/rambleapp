@@ -10,6 +10,7 @@ import {useDispatch} from 'react-redux';
 const UserHeader = ({user}) => {
   const dispatch = useDispatch();
   const [upload, setUpload] = useState('uploadUserPictureProfile');
+  const [delFile, setDelFile] = useState(null);
   return (
     <View style={{width: SIZES.width, height: SIZES.width / 2}}>
       <ImageBackground
@@ -50,6 +51,11 @@ const UserHeader = ({user}) => {
               }}
               onPress={() => {
                 setUpload('uploadUserPictureProfile');
+                if (user.user_picture_url) {
+                  setDelFile(user.user_picture_url);
+                } else {
+                  setDelFile(null);
+                }
                 dispatch(setUploadPictureModal(true));
               }}>
               <MaterialCommunityIcons
@@ -80,6 +86,11 @@ const UserHeader = ({user}) => {
           }}
           onPress={() => {
             setUpload('uploadUserBackgroundPictureProfile');
+            if (user.user_picture_url) {
+              setDelFile(user.user_background_picture_url);
+            } else {
+              setDelFile(null);
+            }
             dispatch(setUploadPictureModal(true));
           }}>
           <MaterialCommunityIcons
@@ -92,7 +103,7 @@ const UserHeader = ({user}) => {
           />
         </TouchableOpacity>
       </ImageBackground>
-      <UploadPictureModal upload={upload} />
+      <UploadPictureModal upload={upload} delFile={delFile} />
     </View>
   );
 };

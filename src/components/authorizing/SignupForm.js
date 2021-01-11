@@ -31,7 +31,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import 'moment/locale/th';
-import CalendarModal from '../modal/CalendarModal';
+import DatePickerModal from '../modal/DatePickerModal';
 import {post, get} from '../../redux/actions/request';
 
 const SignupForm = () => {
@@ -179,7 +179,7 @@ const SignupForm = () => {
       }
     }
   };
-  // dispatch(setLoading(false));
+
   return (
     <Fragment>
       <View
@@ -473,30 +473,43 @@ const SignupForm = () => {
             />
             <View
               style={{
-                flexDirection: 'row',
-                borderWidth: 1,
-                borderColor: COLORS.inputPlaceholderColor,
-                height: 50,
-                borderRadius: 10,
-                alignItems: 'center',
-                paddingLeft: 20,
-                marginVertical: 20,
+                marginBottom: 10,
               }}>
-              <Text style={[FONTS.body3]}>
-                {moment(selectedDate).format('DD MMMM YYYY')}
-              </Text>
-              <TouchableOpacity
-                activeOpacity={0.6}
-                style={{position: 'absolute', right: 10}}
-                onPress={() => {
-                  setCalendarModalOpen(true);
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: COLORS.primary,
+                  marginLeft: 5,
+                  marginBottom: 5,
                 }}>
-                <Ionicons
-                  name="ios-calendar"
-                  size={30}
-                  color={COLORS.pinkPastel}
-                />
-              </TouchableOpacity>
+                {t('signup.birthdate')}
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  borderWidth: 1,
+                  borderColor: COLORS.inputPlaceholderColor,
+                  height: 50,
+                  borderRadius: 10,
+                  alignItems: 'center',
+                  paddingLeft: 20,
+                }}>
+                <Text style={[FONTS.body3, {flex: 1}]}>
+                  {moment(selectedDate).format('DD MMMM YYYY')}
+                </Text>
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={{position: 'absolute', right: 10}}
+                  onPress={() => {
+                    setCalendarModalOpen(true);
+                  }}>
+                  <Ionicons
+                    name="ios-calendar"
+                    size={30}
+                    color={COLORS.pinkPastel}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
             <Controller
               control={control}
@@ -645,7 +658,7 @@ const SignupForm = () => {
         </View>
       </View>
       <UploadPictureModal setImage={setImage} />
-      <CalendarModal
+      <DatePickerModal
         open={calendarModalOpen}
         handleClose={handleCalendarModalClose}
         selectedDate={selectedDate}

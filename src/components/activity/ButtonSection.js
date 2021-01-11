@@ -10,7 +10,7 @@ const ButtonSection = ({userActivity, activity}) => {
   const navigation = useNavigation();
   return (
     <View style={{alignItems: 'center'}}>
-      {userActivity.state === 'unregister' && (
+      {userActivity.state === 'unregister' && activity.state === 'registering' && (
         <Button
           label={t('activity.apply')}
           color={COLORS.pinkPastel}
