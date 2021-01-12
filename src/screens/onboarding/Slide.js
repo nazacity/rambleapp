@@ -10,7 +10,7 @@ export const SLIDE_HEIGHT = 0.5 * height;
 const Slide = ({title, right, opacity}) => {
   const transform = [
     {translateY: (SLIDE_HEIGHT - 100) / 2},
-    {translateX: right ? width / 2 - 40 : -width / 2 + 40},
+    {translateX: right ? width / 2 - 30 : -width / 2 + 30},
     {rotate: right ? '-90deg' : '90deg'},
   ];
   return (

@@ -52,7 +52,7 @@ const Onboarding = ({navigation}) => {
       subtitle_en: 'New Experiences',
       description_en: 'Find your first activity with our community',
       color: '#b72065',
-      picture: require('../../../assets/onboarding/01.png'),
+      picture: require('../../../assets/onboarding/AW-01.png'),
     },
     {
       title: 'Relationship',
@@ -61,7 +61,7 @@ const Onboarding = ({navigation}) => {
       subtitle_en: 'Discover new companies',
       description_en: 'Find new friends with our sharing community',
       color: '#7d0281',
-      picture: require('../../../assets/onboarding/01.png'),
+      picture: require('../../../assets/onboarding/AW-02.png'),
     },
     {
       title: 'New way',
@@ -72,7 +72,7 @@ const Onboarding = ({navigation}) => {
       description_en:
         'More convinient with our registering, checking in and chekcing out processes',
       color: '#b91e66',
-      picture: require('../../../assets/onboarding/01.png'),
+      picture: require('../../../assets/onboarding/AW-03.png'),
     },
     {
       title: 'Simply',
@@ -82,7 +82,7 @@ const Onboarding = ({navigation}) => {
       description_en:
         'Find new companies and get along on the trip before your marathon',
       color: '#8a1776',
-      picture: require('../../../assets/onboarding/01.png'),
+      picture: require('../../../assets/onboarding/AW-04.png'),
     },
   ];
 
@@ -179,8 +179,8 @@ const Onboarding = ({navigation}) => {
                     source={slide.picture}
                     style={{
                       alignSelf: 'center',
-                      width: width / 1.5,
-                      height: width / 1.5,
+                      width: width / 1.2,
+                      height: width / 1.2,
                       resizeMode: 'contain',
                       opacity,
                     }}
