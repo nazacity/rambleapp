@@ -143,7 +143,11 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1}}>
-      <HeaderImage activity={activity} location={true}>
+      <HeaderImage
+        activity={activity}
+        location={true}
+        buttonAction={true}
+        userActivity={userActivity}>
         <TabView
           navigationState={{index, routes}}
           renderScene={renderScene}
@@ -162,7 +166,6 @@ const ActivityDetailScreen = ({navigation, route}) => {
         />
 
         {/* <MinorAdvertise /> */}
-        <ButtonSection userActivity={userActivity} activity={activity} />
 
         <View style={{marginBottom: 50}}></View>
       </HeaderImage>

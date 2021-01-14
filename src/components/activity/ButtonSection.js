@@ -12,6 +12,7 @@ const ButtonSection = ({userActivity, activity}) => {
     <View style={{alignItems: 'center'}}>
       {userActivity.state === 'unregister' && activity.state === 'registering' && (
         <Button
+          width={200}
           label={t('activity.apply')}
           color={COLORS.pinkPastel}
           onPress={() => {
@@ -21,6 +22,7 @@ const ButtonSection = ({userActivity, activity}) => {
       )}
       {userActivity.state === 'waiting_payment' && (
         <Button
+          width={200}
           label={t('activity.payment')}
           color={COLORS.pinkPastel}
           onPress={() => {
@@ -53,6 +55,7 @@ const ButtonSection = ({userActivity, activity}) => {
       )} */}
       {userActivity.state === 'actual_date' && (
         <Button
+          width={200}
           label={t('activity.checkin')}
           color={COLORS.pinkPastel}
           onPress={() => {
@@ -66,6 +69,7 @@ const ButtonSection = ({userActivity, activity}) => {
       )}
       {userActivity.state === 'checked_in' && (
         <Button
+          width={200}
           label={t('activity.checkout')}
           color={COLORS.pinkPastel}
           onPress={() => {

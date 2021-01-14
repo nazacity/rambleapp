@@ -46,7 +46,7 @@ const {width, height} = Dimensions.get('window');
 const Onboarding = ({navigation}) => {
   const slides = [
     {
-      title: 'Runner',
+      title: 'Running',
       subtitle_th: 'ประสบการณ์ใหม่',
       description_th: 'ค้นหากิจกรรมวิ่งครั้งแรกของคุณกับคอมมิวนิตี้ของเรา',
       subtitle_en: 'New Experiences',

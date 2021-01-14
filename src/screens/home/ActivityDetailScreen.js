@@ -38,25 +38,20 @@ const ActivityDetailScreen = ({navigation, route}) => {
       <Description activity={activity} />
       <RegisterDate activity={activity} />
       <Courses activity={activity} />
-    </View>
-  );
-
-  const SecondRoute = () => (
-    <View style={{padding: 20}}>
       <TimelineDisplay activity={activity} />
       <Gift activity={activity} />
       <ShirtStyle activity={activity} />
     </View>
   );
 
-  const ThirdRoute = () => (
+  const SecondRoute = () => (
     <View style={{padding: 20}}>
       <Reward activity={activity} />
       <Rules activity={activity} />
     </View>
   );
 
-  const FourRoute = () => (
+  const ThirdRoute = () => (
     <View style={{padding: 20}}>
       <MoreInfomation activity={activity} />
     </View>
@@ -84,15 +79,13 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [routes] = useState([
     {key: 'first', title: 'Info'},
     {key: 'second', title: 'Detail'},
-    {key: 'third', title: 'Rules'},
-    {key: 'four', title: 'Other'},
+    {key: 'third', title: 'Other'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
-    four: FourRoute,
   });
 
   if (loading) {
@@ -110,7 +103,11 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1}}>
-      <HeaderImage activity={activity} location={true}>
+      <HeaderImage
+        activity={activity}
+        location={true}
+        buttonAction={true}
+        userActivity={userActivity}>
         <TabView
           navigationState={{index, routes}}
           renderScene={renderScene}
@@ -127,7 +124,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
           onIndexChange={setIndex}
           initialLayout={initialLayout}
         />
-        <ButtonSection userActivity={userActivity} activity={activity} />
+
         <View style={{margin: 10}} />
       </HeaderImage>
     </View>

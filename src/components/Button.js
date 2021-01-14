@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import {FONTS} from '../constants';
 
-const Button = ({label, onPress, color}) => {
+const Button = ({label, onPress, color, width}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.6}
@@ -11,7 +11,7 @@ const Button = ({label, onPress, color}) => {
         {
           borderRadius: 10,
           height: 50,
-          width: 300,
+          width: width ? width : 300,
           justifyContent: 'center',
           alignItems: 'center',
         },

@@ -141,7 +141,7 @@ const th = {
     shirt_style: 'สไตส์เสื้อ',
     rule: 'รางวัล',
     moredetail: 'รายละเอียดเพิ่มเติม',
-    apply: 'ลงทะเบียน',
+    apply: 'สมัคร',
     findfriend: 'ค้นหาเพื่อนร่วมทริป',
     payment: 'การชำระ',
     checkin: 'เช็คอิน',

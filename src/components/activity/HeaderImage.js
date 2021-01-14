@@ -24,11 +24,18 @@ import {HeaderBackButton} from '@react-navigation/stack';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
 import BackButton from '../layout/BackButton';
+import ButtonSection from './ButtonSection';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
 const MAX_HEIGHT = 300;
 
-const HeaderImage = ({children, activity, location}) => {
+const HeaderImage = ({
+  children,
+  activity,
+  location,
+  userActivity,
+  buttonAction,
+}) => {
   const {t} = React.useContext(LocalizationContext);
   const navTitleView = useRef(null);
   const navigation = useNavigation();
@@ -71,6 +78,14 @@ const HeaderImage = ({children, activity, location}) => {
               }}>
               {activity.title}
             </Text>
+            {buttonAction && (
+              <View style={{position: 'absolute', bottom: 20, right: 20}}>
+                <ButtonSection
+                  userActivity={userActivity}
+                  activity={activity}
+                />
+              </View>
+            )}
           </View>
         )}
         renderFixedForeground={() => (
