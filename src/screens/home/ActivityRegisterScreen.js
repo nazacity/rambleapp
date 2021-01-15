@@ -23,6 +23,7 @@ import EmergencyCard from '../../components/card/EmergencyCard';
 import {registerActivity} from '../../redux/actions/UserAction';
 import LocalizationContext from '../LocalizationContext';
 import TitleHeader from '../../components/layout/TitleHeader';
+import {setSnackbarDisplay} from '../../redux/actions/AppStateAction';
 
 const ActivityRegisterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -54,31 +55,41 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   };
 
   const onSubmit = () => {
-    dispatch(
-      registerActivity(
-        {
-          activity: {
-            id: activity._id,
-            course: {
-              _id: course._id,
-              title: course.title,
-              range: course.range,
-              price: course.price,
-              course_picture_url: course.course_picture_url,
+    if (!acceptTerm) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.pleaseacceptterm'),
+        }),
+      );
+      return;
+    } else {
+      dispatch(
+        registerActivity(
+          {
+            activity: {
+              id: activity._id,
+              course: {
+                _id: course._id,
+                title: course.title,
+                range: course.range,
+                price: course.price,
+                course_picture_url: course.course_picture_url,
+              },
             },
+            address: address._id,
+            emergency_contact: emergency._id,
+            size: {
+              id: size.id,
+              size: size.size,
+              description: size.description,
+            },
+            announcement: activity.announcement,
           },
-          address: address._id,
-          emergency_contact: emergency._id,
-          size: {
-            id: size.id,
-            size: size.size,
-            description: size.description,
-          },
-          announcement: activity.announcement,
-        },
-        navigateUser,
-      ),
-    );
+          navigateUser,
+        ),
+      );
+    }
   };
 
   return (
@@ -312,7 +323,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
       </TouchableOpacity>
       <View style={{alignItems: 'center'}}>
         <Button
-          label="ลงทะเบียน"
+          label={t('activity.register')}
           color={COLORS.pinkPastel}
           onPress={() => {
             onSubmit();

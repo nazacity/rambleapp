@@ -163,6 +163,10 @@ const en = {
     noannouncement: 'No annoucement',
     readmore: 'Read more',
     announcement: 'Announcement',
+    edit: 'Edit Register',
+    pleaseacceptterm: 'Please accept condition and terms',
+    editregister: 'Edit Register',
+    register: 'Register',
   },
   payment: {
     activity: 'Activity',

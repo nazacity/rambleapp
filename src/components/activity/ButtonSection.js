@@ -20,23 +20,24 @@ const ButtonSection = ({userActivity, activity}) => {
           }}
         />
       )}
-      {userActivity.state === 'waiting_payment' && (
-        <Button
-          width={200}
-          label={t('activity.payment')}
-          color={COLORS.pinkPastel}
-          onPress={() => {
-            navigation.navigate('Payment', {
-              activity_title: activity.title,
-              activity_picture_url: activity.activity_picture_url,
-              course: userActivity.activity.course,
-              size: userActivity.size,
-              userActivityId: userActivity._id,
-              address: userActivity.address,
-            });
-          }}
-        />
-      )}
+      {userActivity.state === 'waiting_payment' &&
+        activity.state === 'registering' && (
+          <Button
+            width={200}
+            label={t('activity.payment')}
+            color={COLORS.pinkPastel}
+            onPress={() => {
+              navigation.navigate('Payment', {
+                activity_title: activity.title,
+                activity_picture_url: activity.activity_picture_url,
+                course: userActivity.activity.course,
+                size: userActivity.size,
+                userActivityId: userActivity._id,
+                address: userActivity.address,
+              });
+            }}
+          />
+        )}
       {/* {userActivity.state === 'upcoming' && !userActivity.user_post && (
         <Button
           label={t('activity.findfriend')}

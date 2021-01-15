@@ -25,19 +25,31 @@ const PaymentScreen = ({navigation, route}) => {
 
   const getQrcode = async () => {
     let amount;
-    if (address !== '5ff6600d20ed83388ab4ccbd') {
+    let mailfee;
+    if (address._id !== '5ff6600d20ed83388ab4ccbd') {
       amount = +course.price + 80;
+      const res = await post(`/api/users/requestpayment/${userActivityId}`, {
+        amount: amount,
+        activity_title: activity_title,
+        mailfee: true,
+      });
+
+      if (res) {
+        setImage(res.data.qrImage);
+      }
     } else {
       amount = +course.price;
-    }
-    const res = await post(`/api/users/requestpayment/${userActivityId}`, {
-      amount: amount,
-      activity_title: activity_title,
-    });
+      const res = await post(`/api/users/requestpayment/${userActivityId}`, {
+        amount: amount,
+        activity_title: activity_title,
+        mailfee: false,
+      });
 
-    if (res) {
-      setImage(res.data.qrImage);
+      if (res) {
+        setImage(res.data.qrImage);
+      }
     }
+
     setLoading(false);
   };
 
@@ -104,7 +116,7 @@ const PaymentScreen = ({navigation, route}) => {
             {course.price} {t('payment.baht')}
           </Text>
         </View>
-        {address !== '5ff6600d20ed83388ab4ccbd' && (
+        {address._id !== '5ff6600d20ed83388ab4ccbd' && (
           <View style={{flex: 0.5}}>
             <TitleHeader title={t('payment.emsfee')} noDot={true} />
             <Text style={[FONTS.body4, {marginBottom: 10}]}>
@@ -120,7 +132,7 @@ const PaymentScreen = ({navigation, route}) => {
             FONTS.h2,
             {marginLeft: 20, marginBottom: 10, textAlign: 'center'},
           ]}>
-          {address !== '5ff6600d20ed83388ab4ccbd'
+          {address._id !== '5ff6600d20ed83388ab4ccbd'
             ? course.price + 80
             : course.price}{' '}
           {t('payment.baht')}

@@ -162,6 +162,10 @@ const th = {
     noannouncement: 'ยังไม่มีประกาศ',
     readmore: 'อ่านเพิ่มเติม',
     announcement: 'ประกาศ',
+    edit: 'แก้ไขการสมัคร',
+    pleaseacceptterm: 'กรุณายอมรับเงื่อนไขและข้อตกลง',
+    editregister: 'แก้ไขการลงทะเบียน',
+    register: 'สมัคร',
   },
   payment: {
     activity: 'กิจกรรม',
