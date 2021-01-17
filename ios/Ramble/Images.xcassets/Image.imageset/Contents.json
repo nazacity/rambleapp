@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "splash.png",
+      "filename" : "ramble-final-ed.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "splash-1.png",
+      "filename" : "ramble-final-ed-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "splash-2.png",
+      "filename" : "ramble-final-ed-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
