@@ -6,7 +6,7 @@ import {FONTS} from '../constants';
 const Button = ({label, onPress, color, width}) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
+      activeOpacity={0.8}
       style={[
         {
           borderRadius: 10,
