@@ -14,7 +14,6 @@ const ActivityCard = ({item, children, onPress}) => {
       style={{
         width: CardSize,
         height: CardHeight,
-        backgroundColor: 'black',
         borderRadius: 20,
         overflow: 'hidden',
       }}>

@@ -25,7 +25,7 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
   const {t} = React.useContext(LocalizationContext);
   const lang = useSelector((state) => state.appState.lang);
   moment.locale(lang);
-  const navigation = useNavigation();
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({

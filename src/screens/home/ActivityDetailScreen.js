@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, Fragment} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Dimensions, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -17,8 +17,8 @@ import ShirtStyle from '../../components/activity/ShirtStyle';
 import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
 import Rules from '../../components/activity/Rules';
-import ButtonSection from '../../components/activity/ButtonSection';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import ActualDate from '../../components/activity/ActualDate';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -36,6 +36,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <Description activity={activity} />
+      <ActualDate activity={activity} />
       <RegisterDate activity={activity} />
       <Courses activity={activity} />
       <TimelineDisplay activity={activity} />

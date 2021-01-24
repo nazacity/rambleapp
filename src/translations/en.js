@@ -135,6 +135,7 @@ const en = {
   activity: {
     place: 'Place',
     register_date: 'Register Date During',
+    actual_date: 'Actual_date',
     fee: 'Fee',
     bath: 'Baht',
     detail: 'Information and Timeline',

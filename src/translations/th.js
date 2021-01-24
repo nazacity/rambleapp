@@ -134,6 +134,7 @@ const th = {
   activity: {
     place: 'สถานที่',
     register_date: 'วันที่เปิดรับสมัคร',
+    actual_date: 'วันงาน',
     fee: 'ค่าสมัคร',
     bath: 'บาท',
     detail: 'รายละเอียด และกำหนดการ',

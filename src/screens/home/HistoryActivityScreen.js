@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/th';
 import {useSelector} from 'react-redux';
 
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';

@@ -38,7 +38,6 @@ const HeaderImage = ({
 }) => {
   const {t} = React.useContext(LocalizationContext);
   const navTitleView = useRef(null);
-  const navigation = useNavigation();
 
   return (
     <Fragment>
