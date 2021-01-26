@@ -1,5 +1,5 @@
-import React, {Fragment, useState, useEffect} from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import React, {Fragment, useState, useEffect, useRef} from 'react';
+import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
@@ -15,8 +15,11 @@ import moment from 'moment';
 import 'moment/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
 
+const CardHeight = ((SIZES.width - 80) * 2) / 3;
+
 const ActivityScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
+  const scrollY = useRef(new Animated.Value(0)).current;
   // const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [noMore, setNoMore] = useState(false);
@@ -54,6 +57,15 @@ const ActivityScreen = ({navigation}) => {
   };
 
   const ActivityCardDetail = ({item, index}) => {
+    const scale = scrollY.interpolate({
+      inputRange: [
+        -1,
+        0,
+        (CardHeight / 0.8) * index,
+        (CardHeight / 0.8) * (index + 1),
+      ],
+      outputRange: [1, 1, 1, 0.5],
+    });
     return (
       <Fragment>
         <ActivityCard
@@ -62,7 +74,8 @@ const ActivityScreen = ({navigation}) => {
             navigation.navigate('ActivityDetail', {
               activityId: item._id,
             });
-          }}>
+          }}
+          scale={scale}>
           <View style={{position: 'absolute', bottom: 20, left: 20}}>
             <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
             <View style={{flexDirection: 'row'}}>
@@ -120,7 +133,7 @@ const ActivityScreen = ({navigation}) => {
       }}>
       <MenuButton />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
-      <FlatList
+      <Animated.FlatList
         showsVerticalScrollIndicator={false}
         data={activities}
         keyExtractor={(item) => `${item._id}`}
@@ -129,9 +142,15 @@ const ActivityScreen = ({navigation}) => {
         }}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         style={{padding: 20, paddingTop: 60}}
-        ListFooterComponent={() => <View style={{margin: 50}} />}
+        ListFooterComponent={() => (
+          <View style={{marginBottom: CardHeight * 2}} />
+        )}
         onEndReached={onLoadMore}
         onEndReachedThreshold={0}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
       />
     </View>
   );
