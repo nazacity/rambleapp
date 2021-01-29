@@ -4,8 +4,9 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
@@ -182,7 +183,8 @@ const SignupForm = () => {
 
   return (
     <Fragment>
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
         <View
           style={{
@@ -315,7 +317,7 @@ const SignupForm = () => {
                       type="ionicon"
                       size={24}
                       color={
-                        value || focus.password
+                        value || focus.confirm_password
                           ? COLORS.pinkPastel
                           : COLORS.inputPlaceholderColor
                       }
@@ -324,10 +326,10 @@ const SignupForm = () => {
                   }
                   secureTextEntry={hidePassword}
                   onFocus={() => {
-                    setFocus({...focus, password: true});
+                    setFocus({...focus, confirm_password: true});
                   }}
                   onBlur={() => {
-                    setFocus({...focus, password: false});
+                    setFocus({...focus, confirm_password: false});
                   }}
                 />
               )}
@@ -656,7 +658,7 @@ const SignupForm = () => {
             </View>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
       <UploadPictureModal setImage={setImage} />
       <DatePickerModal
         open={calendarModalOpen}

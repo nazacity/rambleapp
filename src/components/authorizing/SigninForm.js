@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
 import {post} from '../../redux/actions/request';
@@ -76,7 +83,8 @@ const SigninForm = () => {
   };
 
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
       <View
         style={{
@@ -234,7 +242,7 @@ const SigninForm = () => {
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

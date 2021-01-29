@@ -35,6 +35,8 @@ const ActivityDetailScreen = ({navigation, route}) => {
     state: 'unregister',
   });
 
+  console.log(activity.contact);
+
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <Course course={userActivity.activity.course} />

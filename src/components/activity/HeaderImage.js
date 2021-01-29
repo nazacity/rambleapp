@@ -10,6 +10,9 @@ import {
   StatusBar,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import moment from 'moment';
 import 'moment/locale/th';
 moment.locale('th');
@@ -19,7 +22,7 @@ import {
 } from 'react-native-image-header-scroll-view';
 import * as Animatable from 'react-native-animatable';
 
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {HeaderBackButton} from '@react-navigation/stack';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
@@ -110,7 +113,8 @@ const HeaderImage = ({
         {location && (
           <TriggeringView
             style={{
-              padding: 20,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
               backgroundColor: 'white',
               flexDirection: 'row',
               alignItems: 'center',
@@ -119,23 +123,27 @@ const HeaderImage = ({
               navTitleView.current.fadeInUp(200);
             }}
             onDisplay={() => navTitleView.current.fadeOut(100)}>
-            <TouchableOpacity
-              style={{
-                width: 50,
-                height: 50,
-                backgroundColor: COLORS.pinkPastel,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginRight: 20,
-              }}
-              onPress={() => {
-                Linking.openURL(
-                  `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
-                );
-              }}>
-              <Ionicons name="location-sharp" size={40} color="#fff" />
-            </TouchableOpacity>
+            {activity.location && (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: COLORS.pinkPastel,
+                  borderRadius: 5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginRight: 20,
+                  borderRadius: 50,
+                }}
+                onPress={() => {
+                  Linking.openURL(
+                    `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
+                  );
+                }}>
+                <Ionicons name="location-sharp" size={20} color="#fff" />
+              </TouchableOpacity>
+            )}
             <View style={{width: 60}}>
               <Text>{t('createpost.province')} </Text>
               <Text>{t('activity.place')} </Text>
@@ -153,6 +161,47 @@ const HeaderImage = ({
         )}
         {children}
       </ImageHeaderScrollView>
+      <View style={{position: 'absolute', bottom: 20, right: 10, zIndex: 100}}>
+        {activity.contact?.phone_number && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{
+              width: 40,
+              height: 40,
+              backgroundColor: COLORS.pinkPastel,
+              borderRadius: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 20,
+              borderRadius: 50,
+              marginBottom: 10,
+            }}
+            onPress={() => {
+              Linking.openURL(`tel:${activity.contact.phone_number}`);
+            }}>
+            <FontAwesome name="phone" size={20} color="#fff" />
+          </TouchableOpacity>
+        )}
+        {activity.contact?.line && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{
+              width: 40,
+              height: 40,
+              backgroundColor: COLORS.pinkPastel,
+              borderRadius: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 20,
+              borderRadius: 50,
+            }}
+            onPress={() => {
+              Linking.openURL(`${activity.contact.line}`);
+            }}>
+            <Fontisto name="line" size={20} color="#fff" />
+          </TouchableOpacity>
+        )}
+      </View>
     </Fragment>
   );
 };
