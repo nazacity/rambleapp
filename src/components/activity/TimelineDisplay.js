@@ -10,7 +10,7 @@ const TimelineDisplay = ({activity}) => {
   return (
     <View style={{marginBottom: 20}}>
       <TitleHeader title={t('activity.detail')} />
-      <ScrollView horizontal style={{marginTop: 20}}>
+      <ScrollView horizontal style={{marginTop: 10}}>
         <View style={{width: SIZES.width - 40}}>
           <Timeline
             data={activity.timeline}

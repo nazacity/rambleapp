@@ -161,7 +161,14 @@ const HeaderImage = ({
         )}
         {children}
       </ImageHeaderScrollView>
-      <View style={{position: 'absolute', bottom: 20, right: 10, zIndex: 100}}>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          right: 10,
+          zIndex: 100,
+          flexDirection: 'row',
+        }}>
         {activity.contact?.phone_number && (
           <TouchableOpacity
             activeOpacity={0.8}
@@ -172,9 +179,8 @@ const HeaderImage = ({
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 20,
+              marginRight: 10,
               borderRadius: 50,
-              marginBottom: 10,
             }}
             onPress={() => {
               Linking.openURL(`tel:${activity.contact.phone_number}`);
@@ -192,7 +198,7 @@ const HeaderImage = ({
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 20,
+              marginRight: 10,
               borderRadius: 50,
             }}
             onPress={() => {
