@@ -135,10 +135,7 @@ const ActivityFilterScreen = ({navigation, route}) => {
               zIndex={5000}
               dropDownStyle={{
                 backgroundColor: COLORS.backgroundColor,
-                width: SIZES.width - 42,
-                marginTop: 10,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
+                width: SIZES.width - 40,
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
                 borderColor: COLORS.pinkPastel,
@@ -161,20 +158,31 @@ const ActivityFilterScreen = ({navigation, route}) => {
         />
         <View style={{marginVertical: 20, zIndex: -10}}>
           <TitleHeader title={t('activityfilter.course')} />
-
-          <RangeSlider
-            style={styles.slider}
-            min={0}
-            max={100}
-            step={1}
-            floatingLabel
-            renderThumb={renderThumb}
-            renderRail={renderRail}
-            renderRailSelected={renderRailSelected}
-            renderLabel={renderLabel}
-            renderNotch={renderNotch}
-            onValueChanged={handleValueChange}
-          />
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{marginRight: 10, alignItems: 'center'}}>
+              <Text style={[FONTS.body3, {color: COLORS.primary}]}>
+                {distance.min}
+              </Text>
+            </View>
+            <RangeSlider
+              style={{flex: 1}}
+              min={0}
+              max={100}
+              step={1}
+              floatingLabel
+              renderThumb={renderThumb}
+              renderRail={renderRail}
+              renderRailSelected={renderRailSelected}
+              renderLabel={renderLabel}
+              renderNotch={renderNotch}
+              onValueChanged={handleValueChange}
+            />
+            <View style={{marginLeft: 10, alignItems: 'center'}}>
+              <Text style={[FONTS.body3, {color: COLORS.primary}]}>
+                {distance.max}
+              </Text>
+            </View>
+          </View>
         </View>
         <View style={{marginBottom: 20}}>
           <TitleHeader title={t('activityfilter.during')} />
