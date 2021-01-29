@@ -107,7 +107,9 @@ const FilteredActivityScreen = ({navigation}) => {
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         style={{padding: 20, paddingTop: 60}}
         ListFooterComponent={() => (
-          <View style={{marginBottom: CardHeight * 2}} />
+          <View
+            style={{marginBottom: activities.length > 1 ? CardHeight * 2 : 0}}
+          />
         )}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
