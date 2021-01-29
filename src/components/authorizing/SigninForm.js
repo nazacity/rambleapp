@@ -83,8 +83,7 @@ const SigninForm = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <View
       style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
       <View
         style={{
@@ -242,7 +241,7 @@ const SigninForm = () => {
           </View>
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

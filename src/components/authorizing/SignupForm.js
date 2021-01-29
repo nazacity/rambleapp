@@ -183,8 +183,7 @@ const SignupForm = () => {
 
   return (
     <Fragment>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      <View
         style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
         <View
           style={{
@@ -658,7 +657,7 @@ const SignupForm = () => {
             </View>
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </View>
       <UploadPictureModal setImage={setImage} />
       <DatePickerModal
         open={calendarModalOpen}
