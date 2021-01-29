@@ -25,7 +25,7 @@ const ActivityCard = ({item, children, onPress, scale}) => {
             resizeMode: 'cover',
           }}>
           <LinearGradient
-            colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']}
+            colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
             start={{x: 0, y: 1}}
             end={{x: 1, y: 1}}
             useAngle
