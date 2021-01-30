@@ -29,7 +29,9 @@ const th = {
     error: 'มีบางอย่างไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง',
   },
   signup: {
-    confirm_password: 'Confirm Password',
+    username: 'Username*',
+    password: 'Password*',
+    confirm_password: 'Confirm Password*',
     signin: 'เข้าสู่คอมมิวนิตี้',
     selfinfo: 'ข้อมูลส่วนตัว',
     first_name: 'ชื่อ*',

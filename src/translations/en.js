@@ -29,7 +29,9 @@ const en = {
     error: 'Something went wrong. Please try again',
   },
   signup: {
-    confirm_password: 'Confirm Password',
+    username: 'Username*',
+    password: 'Password*',
+    confirm_password: 'Confirm Password*',
     signin: 'Get Into Community',
     selfinfo: 'Individual Information',
     first_name: 'First Name*',
@@ -54,9 +56,9 @@ const en = {
     displaynameerror: 'Display name must be more than 6 characters',
     idcard: 'Identification card number*',
     idcarderror: 'Please fill identification card number',
-    rightidcard: 'Your id card no can be used',
-    wrongidcard: 'Your id card no is incorrect',
-    usedidcard: 'Your id card no was used',
+    rightidcard: 'Your id card No can be used',
+    wrongidcard: 'Your id card No is incorrect',
+    usedidcard: 'Your id card No was used',
   },
   phonechecking: {
     resend: 'Resend OTP',

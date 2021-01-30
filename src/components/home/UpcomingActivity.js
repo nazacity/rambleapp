@@ -76,28 +76,27 @@ const UpcomingActivity = () => {
             source={{uri: item.activity.id.activity_picture_url}}
             style={{width: 150, height: 150, borderRadius: 5}}
           />
+          {badgeNumber.length > 0 && (
+            <Badge
+              value={badgeNumber.length}
+              status="error"
+              containerStyle={{
+                position: 'absolute',
+                top: -10,
+                right: -10,
+                zIndex: 500,
+              }}
+              badgeStyle={[
+                {
+                  borderRadius: 15,
+                  width: 30,
+                  height: 30,
+                },
+                SHADOW.default,
+              ]}
+            />
+          )}
         </View>
-
-        {badgeNumber.length > 0 && (
-          <Badge
-            value={badgeNumber.length}
-            status="error"
-            containerStyle={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              zIndex: 200,
-            }}
-            badgeStyle={[
-              {
-                borderRadius: 15,
-                width: 30,
-                height: 30,
-              },
-              SHADOW.default,
-            ]}
-          />
-        )}
       </TouchableOpacity>
     );
   };

@@ -233,7 +233,7 @@ const SignupForm = () => {
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
-                  floatingLabel={t('signin.username')}
+                  floatingLabel={t('signup.username')}
                   inputContainerStyle={{borderBottomWidth: 0}}
                   onChangeText={(value) => onChange(value)}
                   value={value}
@@ -265,7 +265,7 @@ const SignupForm = () => {
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
-                  floatingLabel={t('signin.password')}
+                  floatingLabel={t('signup.password')}
                   inputContainerStyle={{borderBottomWidth: 0}}
                   onChangeText={(value) => onChange(value)}
                   value={value}
