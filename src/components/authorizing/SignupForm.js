@@ -121,13 +121,6 @@ const SignupForm = () => {
           message: t('signup.lastnameerror'),
         }),
       );
-    } else if (data.phone_number.length < 10) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.phoneerror'),
-        }),
-      );
     } else if (!data.gender) {
       dispatch(
         setSnackbarDisplay({
@@ -152,7 +145,7 @@ const SignupForm = () => {
           idcard: data.idcard,
           first_name: data.first_name,
           last_name: data.last_name,
-          phone_number: data.phone_number,
+          phone_number: data.phone_number ? data.phone_number : 'not provided',
           birthday: selectedDate,
           gender: data.gender,
           blood_type: data.blood_type,
