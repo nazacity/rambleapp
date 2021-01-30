@@ -92,7 +92,6 @@ const UpcomingActivity = () => {
                   width: 30,
                   height: 30,
                 },
-                SHADOW.default,
               ]}
             />
           )}

@@ -40,13 +40,13 @@ export const SHADOW = {
   },
   image: {
     shadowOffset: {
-      width: 2,
-      height: 4,
+      width: 1,
+      height: 2,
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
 
-    elevation: 5,
+    elevation: 4,
   },
 };
 
