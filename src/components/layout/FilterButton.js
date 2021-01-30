@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {FilterIcon} from '../Icon';
 
 const FilterButton = ({onPress, top}) => {
   const navigation = useNavigation();
@@ -25,12 +26,7 @@ const FilterButton = ({onPress, top}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Ionicons
-          name="ios-options-sharp"
-          size={25}
-          borderRadius={50}
-          color={COLORS.pinkPastel}
-        />
+        <FilterIcon size={18} borderRadius={50} color={COLORS.pinkPastel} />
       </TouchableOpacity>
     </View>
   );

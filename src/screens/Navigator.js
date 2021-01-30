@@ -91,7 +91,7 @@ export const MainTabScreen = ({navigation, route}) => {
         component={HomeStackScreen}
         options={{
           tabBarLabel: `${t('tab.home')}`,
-          tabBarIcon: ({color}) => <HomeIcon color={color} size={24} />,
+          tabBarIcon: ({color}) => <HomeIcon color={color} size={20} />,
         }}
         listeners={{
           tabPress: (e) => {
@@ -104,7 +104,7 @@ export const MainTabScreen = ({navigation, route}) => {
         component={ActivityStackScreen}
         options={{
           tabBarLabel: `${t('tab.activity')}`,
-          tabBarIcon: ({color}) => <ActivityIcon color={color} size={24} />,
+          tabBarIcon: ({color}) => <ActivityIcon color={color} size={16} />,
         }}
         listeners={{
           tabPress: (e) => {

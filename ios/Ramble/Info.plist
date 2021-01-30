@@ -62,6 +62,7 @@
 		<string>SFProText-Bold.otf</string>
 		<string>SFProText-Regular.otf</string>
 		<string>SFProText-Semibold.otf</string>
+		<string>icomoon.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
