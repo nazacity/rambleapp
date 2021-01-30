@@ -142,9 +142,10 @@ const ActivityScreen = ({navigation}) => {
         }}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         style={{padding: 20, paddingTop: 60}}
+        contentContainerStyle={{paddingHorizontal: 5}}
         ListFooterComponent={() => (
           <View
-            style={{marginBottom: activities.length > 1 ? CardHeight * 2 : 0}}
+            style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
           />
         )}
         onEndReached={onLoadMore}
