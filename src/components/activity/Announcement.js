@@ -57,68 +57,69 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
 
   const AnnouncementCard = ({item, index}) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          updateReadState(item._id, item.state);
-          if (item.description.length > 100) {
-            handleModalOpen(item);
-          }
-        }}
-        style={[
-          {
-            borderRadius: 10,
-            overflow: 'hidden',
-            flexDirection: 'row',
-            backgroundColor: item.state === 'not_read' ? '#fff9c4' : '#fff',
-          },
-          SHADOW.default,
-        ]}>
-        <Image
-          source={{
-            uri: item.picture_url
-              ? item.picture_url
-              : userActivity.activity.id.activity_picture_url,
+      <View style={[SHADOW.default, {margin: 10}]}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            updateReadState(item._id, item.state);
+            if (item.description.length > 100) {
+              handleModalOpen(item);
+            }
           }}
-          style={{
-            width: 100,
-            height: 100,
-            borderTopLeftRadius: 5,
-            borderBottomLeftRadius: 5,
-          }}
-        />
-        <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
-          <View
-            style={{
+          style={[
+            {
+              borderRadius: 10,
+              overflow: 'hidden',
               flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={[FONTS.h5]}>{item.title}</Text>
-            <Text style={[FONTS.body5]}>
-              {moment(item.createdAt).fromNow()}
+              backgroundColor: item.state === 'not_read' ? '#fff9c4' : '#fff',
+            },
+          ]}>
+          <Image
+            source={{
+              uri: item.picture_url
+                ? item.picture_url
+                : userActivity.activity.id.activity_picture_url,
+            }}
+            style={{
+              width: 100,
+              height: 100,
+              borderTopLeftRadius: 5,
+              borderBottomLeftRadius: 5,
+            }}
+          />
+          <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={[FONTS.h5]}>{item.title}</Text>
+              <Text style={[FONTS.body5]}>
+                {moment(item.createdAt).fromNow()}
+              </Text>
+            </View>
+            <Text style={[FONTS.body5, {width: SIZES.width - 180}]}>
+              {item.description.length > 100
+                ? `${item.description.substring(0, 80)}...`
+                : item.description}
             </Text>
           </View>
-          <Text style={[FONTS.body5, {width: SIZES.width - 180}]}>
-            {item.description.length > 100
-              ? `${item.description.substring(0, 80)}...`
-              : item.description}
-          </Text>
-        </View>
-        {item.description.length > 100 && (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => {
-              updateReadState(item._id, item.state);
-              handleModalOpen(item);
-            }}
-            style={{position: 'absolute', bottom: 5, right: 10}}>
-            <Text style={[FONTS.body5, {color: COLORS.primary}]}>
-              {t('activity.readmore')}
-            </Text>
-          </TouchableOpacity>
-        )}
-      </TouchableOpacity>
+          {item.description.length > 100 && (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                updateReadState(item._id, item.state);
+                handleModalOpen(item);
+              }}
+              style={{position: 'absolute', bottom: 5, right: 10}}>
+              <Text style={[FONTS.body5, {color: COLORS.primary}]}>
+                {t('activity.readmore')}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -136,20 +137,17 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
           <Text>{t('activity.noannouncement')}</Text>
         </View>
       ) : (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={userActivity.announcement.sort((a, b) => {
+        <View style={{paddingVertical: 10}}>
+          {userActivity.announcement
+            .sort((a, b) => {
               return new Date(b.createdAt) - new Date(a.createdAt);
+            })
+            .map((item, index) => {
+              return (
+                <AnnouncementCard key={item._id} item={item} index={index} />
+              );
             })}
-            keyExtractor={(item) => `${item._id}`}
-            renderItem={({item, index}) => {
-              return <AnnouncementCard item={item} index={index} />;
-            }}
-            ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-            contentContainerStyle={{padding: 10}}
-          />
-        </ScrollView>
+        </View>
       )}
     </View>
   );

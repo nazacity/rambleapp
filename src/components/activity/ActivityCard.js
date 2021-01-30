@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, TouchableOpacity, Animated} from 'react-native';
-import {COLORS, SIZES} from '../../constants';
+import {COLORS, SIZES, SHADOW} from '../../constants';
 import LinearGradient from 'react-native-linear-gradient';
 
 const CardSize = SIZES.width - 80;
@@ -14,12 +14,22 @@ const ActivityCard = ({item, children, onPress, scale}) => {
           width: CardSize,
           height: CardHeight,
           borderRadius: 20,
-          overflow: 'hidden',
           transform: [{scale}],
           backgroundColor: COLORS.backgroundColor,
         },
+        SHADOW.image,
       ]}>
-      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={onPress}
+        style={[
+          {
+            borderRadius: 20,
+            backgroundColor: COLORS.backgroundColor,
+            overflow: 'hidden',
+          },
+          SHADOW.image,
+        ]}>
         <ImageBackground
           source={{uri: item.activity.id.activity_picture_url}}
           style={{

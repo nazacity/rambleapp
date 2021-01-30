@@ -71,10 +71,12 @@ const UpcomingActivity = () => {
           overflow: 'hidden',
           backgroundColor: COLORS.backgroundColor,
         }}>
-        <Image
-          source={{uri: item.activity.id.activity_picture_url}}
-          style={{width: 150, height: 150, borderRadius: 5}}
-        />
+        <View style={[SHADOW.image]}>
+          <Image
+            source={{uri: item.activity.id.activity_picture_url}}
+            style={{width: 150, height: 150, borderRadius: 5}}
+          />
+        </View>
 
         {badgeNumber.length > 0 && (
           <Badge

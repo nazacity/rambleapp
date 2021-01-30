@@ -39,7 +39,6 @@ const ActivityDetailScreen = ({navigation, route}) => {
       <ActualDate activity={activity} />
       <RegisterDate activity={activity} />
       <Courses activity={activity} />
-      <TimelineDisplay activity={activity} />
       <Gift activity={activity} />
       <ShirtStyle activity={activity} />
     </View>
@@ -47,12 +46,18 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const SecondRoute = () => (
     <View style={{padding: 20}}>
+      <TimelineDisplay activity={activity} />
+    </View>
+  );
+
+  const ThirdRoute = () => (
+    <View style={{padding: 20}}>
       <Reward activity={activity} />
       <Rules activity={activity} />
     </View>
   );
 
-  const ThirdRoute = () => (
+  const FourthRoute = () => (
     <View style={{padding: 20}}>
       <MoreInfomation activity={activity} />
     </View>
@@ -79,14 +84,16 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Detail'},
-    {key: 'third', title: 'Other'},
+    {key: 'second', title: 'Timeline'},
+    {key: 'third', title: 'Detail'},
+    {key: 'fourth', title: 'Other'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
+    fourth: FourthRoute,
   });
 
   if (loading) {

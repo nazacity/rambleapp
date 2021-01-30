@@ -35,19 +35,22 @@ const ActivityDetailScreen = ({navigation, route}) => {
     state: 'unregister',
   });
 
-  console.log(activity.contact);
-
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <Course course={userActivity.activity.course} />
       <ActualDate activity={activity} />
       <ContestNo contest_no={userActivity.contest_no} />
-      <TimelineDisplay activity={activity} />
       <MoreInfomation activity={activity} />
     </View>
   );
 
   const SecondRoute = () => (
+    <View style={{padding: 20}}>
+      <TimelineDisplay activity={activity} />
+    </View>
+  );
+
+  const ThirdRoute = () => (
     <View style={{padding: 20}}>
       <Announcement
         userActivity={userActivity}
@@ -81,12 +84,14 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Announcement'},
+    {key: 'second', title: 'Timeline'},
+    {key: 'third', title: 'Announce'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
   });
 
   if (loading) {

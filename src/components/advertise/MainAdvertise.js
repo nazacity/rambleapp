@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
@@ -46,26 +46,27 @@ const MainAdvertise = () => {
       }}>
       {mainAdvertizes.map((item) => {
         return (
-          <TouchableOpacity
-            key={item._id}
-            activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate('WebView', {
-                uri: item.uri,
-              });
-            }}
-            style={{
-              width: SIZES.width - 40,
-              height: 200,
-              borderRadius: 10,
-              overflow: 'hidden',
-              marginVertical: 10,
-            }}>
-            <Image
-              source={{uri: item.advertize_picture_url}}
-              style={{width: SIZES.width - 40, height: 200, borderRadius: 5}}
-            />
-          </TouchableOpacity>
+          <View key={item._id} style={[SHADOW.image]}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                navigation.navigate('WebView', {
+                  uri: item.uri,
+                });
+              }}
+              style={{
+                width: SIZES.width - 40,
+                height: 200,
+                borderRadius: 10,
+                overflow: 'hidden',
+                marginVertical: 10,
+              }}>
+              <Image
+                source={{uri: item.advertize_picture_url}}
+                style={{width: SIZES.width - 40, height: 200, borderRadius: 5}}
+              />
+            </TouchableOpacity>
+          </View>
         );
       })}
     </View>
