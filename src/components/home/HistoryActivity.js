@@ -49,7 +49,7 @@ const HistoryActivity = () => {
   const HistoryActivityCard = ({item, index}) => {
     return (
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         onPress={() => {
           navigation.navigate('ActivityHistory', {
             userActivity: item,

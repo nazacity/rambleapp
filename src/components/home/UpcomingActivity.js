@@ -58,7 +58,7 @@ const UpcomingActivity = () => {
 
     return (
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         onPress={() => {
           navigation.navigate('ActivityUpcoming', {
             activityId: item.activity.id._id,
