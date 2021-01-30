@@ -32,13 +32,13 @@
 		<dict/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>YOUR TEXT</string>
+	<string>This allows us to use your photo to provide you functionalities in our application such as profile image, background profile image and other in the future.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>This allows us to use your location to provide you functionalities in our application such as searching new activities around your location</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>YOUR TEXT</string>
+	<string>This allows us to use your photo to provide you functionalities in our application such as profile image, background profile image and other in the future.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>YOUR TEXT</string>
+	<string>This allows us to use your photo to provide you functionalities in our application such as profile image, background profile image and other in the future.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFProText-Medium.ttf</string>
