@@ -1,38 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import ImageModal from 'react-native-image-modal';
 import moment from 'moment';
 import 'moment/locale/th';
 moment.locale('th');
-import Timeline from 'react-native-timeline-flatlist';
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
-import Button from '../../components/Button';
-import {FONTS, COLORS, SIZES} from '../../constants';
-import LocalizationContext from '../LocalizationContext';
+import {FONTS, COLORS} from '../../constants';
 import {getActivityById} from '../../redux/actions/ActivityAction';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 import CouponCard from '../../components/card/CouponCard';
 import RecordCard from '../../components/card/RecordCard';
 import HeaderImage from '../../components/activity/HeaderImage';
-import ButtonSection from '../../components/activity/ButtonSection';
 import TimelineDisplay from '../../components/activity/TimelineDisplay';
-import Gift from '../../components/activity/Gift';
-import ShirtStyle from '../../components/activity/ShirtStyle';
-import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
 import Course from '../../components/activity/Course';
 import BackButton from '../../components/layout/BackButton';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import ContestNo from '../../components/activity/ContestNo';
 import Announcement from '../../components/activity/Announcement';
+import ActualDate from '../../components/activity/ActualDate';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
 const ActivityDetailScreen = ({navigation, route}) => {
-  const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
   const activity = useSelector((state) => state.activity.activity);
   const {activityId, state} = route.params;
@@ -46,13 +38,19 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <Course course={userActivity.activity.course} />
+      <ActualDate activity={activity} />
       <ContestNo contest_no={userActivity.contest_no} />
-      <TimelineDisplay activity={activity} />
       <MoreInfomation activity={activity} />
     </View>
   );
 
   const SecondRoute = () => (
+    <View style={{padding: 20}}>
+      <TimelineDisplay activity={activity} />
+    </View>
+  );
+
+  const ThirdRoute = () => (
     <View style={{padding: 20}}>
       <Announcement
         userActivity={userActivity}
@@ -86,12 +84,14 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Announcement'},
+    {key: 'second', title: 'Timeline'},
+    {key: 'third', title: 'Announce'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
   });
 
   if (loading) {

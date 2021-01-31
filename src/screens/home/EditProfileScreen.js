@@ -23,11 +23,13 @@ const EditProfileScreen = () => {
             <FirstNameDisplay user={user} />
             <LastNameDisplay user={user} />
           </View>
-          <View style={{marginBottom: 20}}>
+          <View style={{flexDirection: 'row', marginBottom: 20}}>
             <DisplayNameDisplay user={user} />
+            <View style={{flex: 1, marginLeft: 70}} />
           </View>
-          <View style={{marginBottom: 20}}>
+          <View style={{flexDirection: 'row', marginBottom: 20}}>
             <PhoneDisplay user={user} />
+            <View style={{flex: 1, marginLeft: 70}} />
           </View>
         </View>
         <View

@@ -37,9 +37,10 @@ const LastNameDisplay = ({user}) => {
   };
   return (
     <Fragment>
-      <View style={{marginLeft: 50}}>
+      <View style={{marginLeft: 20, flex: 1}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={[FONTS.h3]}>{t('signup.last_name')}</Text>
+          <View style={{flex: 1}} />
           <TouchableOpacity
             activeOpacity={0.6}
             style={{

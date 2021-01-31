@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import React, {useRef} from 'react';
+import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
 import moment from 'moment';
 import 'moment/locale/th';
 import {useSelector} from 'react-redux';
@@ -10,13 +10,25 @@ import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
 
+const CardHeight = ((SIZES.width - 80) * 2) / 3;
+
 const HistoryActivityScreen = () => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
+  const scrollY = useRef(new Animated.Value(0)).current;
   const activities = useSelector((state) => state.activity.history_activities);
   const lang = useSelector((state) => state.appState.lang);
   moment.locale(lang);
   const HistoryActivityCard = ({item, index}) => {
+    const scale = scrollY.interpolate({
+      inputRange: [
+        -1,
+        0,
+        (CardHeight / 0.8) * index,
+        (CardHeight / 0.8) * (index + 1),
+      ],
+      outputRange: [1, 1, 1, 0.5],
+    });
     return (
       <ActivityCard
         item={item}
@@ -24,7 +36,8 @@ const HistoryActivityScreen = () => {
           navigation.navigate('ActivityHistory', {
             userActivity: item,
           });
-        }}>
+        }}
+        scale={scale}>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
           <Text style={[FONTS.h4, {color: '#fff'}]}>
             {item.activity.id.title}
@@ -52,7 +65,7 @@ const HistoryActivityScreen = () => {
           </Text>
         </View>
       ) : (
-        <FlatList
+        <Animated.FlatList
           showsVerticalScrollIndicator={false}
           data={activities}
           keyExtractor={(item) => `${item._id}`}
@@ -61,7 +74,16 @@ const HistoryActivityScreen = () => {
           }}
           ItemSeparatorComponent={() => <View style={{margin: 10}} />}
           style={{padding: 20, paddingTop: 60}}
-          ListFooterComponent={() => <View style={{margin: 50}} />}
+          contentContainerStyle={{paddingHorizontal: 5}}
+          ListFooterComponent={() => (
+            <View
+              style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
+            />
+          )}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: true},
+          )}
         />
       )}
     </View>

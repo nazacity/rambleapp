@@ -1,13 +1,5 @@
 import React, {useRef} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Linking,
-  View,
-  Animated,
-  Alert,
-} from 'react-native';
+import {View, Animated, Alert} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {
   checkinActivity,

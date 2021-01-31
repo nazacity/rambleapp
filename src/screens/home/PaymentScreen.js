@@ -8,7 +8,7 @@ import {
   BackHandler,
 } from 'react-native';
 import Button from '../../components/Button';
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {post} from '../../redux/actions/request';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {refresh} from '../../redux/actions/UserAction';
@@ -25,7 +25,6 @@ const PaymentScreen = ({navigation, route}) => {
 
   const getQrcode = async () => {
     let amount;
-    let mailfee;
     if (address._id !== '5ff6600d20ed83388ab4ccbd') {
       amount = +course.price + 80;
       const res = await post(`/api/users/requestpayment/${userActivityId}`, {

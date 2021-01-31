@@ -38,6 +38,16 @@ export const SHADOW = {
 
     elevation: 3,
   },
+  image: {
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 5,
+  },
 };
 
 export const SIZES = {

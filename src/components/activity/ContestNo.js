@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {FONTS, COLORS} from '../../constants';
-import ImageModal from 'react-native-image-modal';
+import {FONTS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
 

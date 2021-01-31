@@ -12,7 +12,7 @@ import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
 
 import {useSelector, useDispatch} from 'react-redux';
 
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SHADOW} from '../../constants';
 import {Icon} from 'react-native-elements';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {setHisActivities} from '../../redux/actions/ActivityAction';
@@ -49,7 +49,7 @@ const HistoryActivity = () => {
   const HistoryActivityCard = ({item, index}) => {
     return (
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         onPress={() => {
           navigation.navigate('ActivityHistory', {
             userActivity: item,
@@ -62,10 +62,12 @@ const HistoryActivity = () => {
           overflow: 'hidden',
           backgroundColor: COLORS.backgroundColor,
         }}>
-        <Image
-          source={{uri: item.activity.id.activity_picture_url}}
-          style={{width: 150, height: 150, borderRadius: 5}}
-        />
+        <View style={[SHADOW.image]}>
+          <Image
+            source={{uri: item.activity.id.activity_picture_url}}
+            style={{width: 150, height: 150, borderRadius: 5}}
+          />
+        </View>
       </TouchableOpacity>
     );
   };

@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
-import {View, ScrollView, BackHandler, Alert} from 'react-native';
+import {
+  View,
+  ScrollView,
+  BackHandler,
+  Alert,
+  StatusBar,
+  Platform,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
 
@@ -64,6 +71,9 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View>
+      <StatusBar
+        barStyle={Platform.OS === 'android' ? 'light-content' : 'dark-content'}
+      />
       <MenuButton />
       <ScrollView
         style={{backgroundColor: COLORS.backgroundColor}}

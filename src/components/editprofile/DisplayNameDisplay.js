@@ -37,9 +37,10 @@ const DisplayNameDisplay = ({user}) => {
   };
   return (
     <Fragment>
-      <View>
+      <View style={{flex: 1}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={[FONTS.h3]}>{t('signup.displayname')}</Text>
+          <View style={{flex: 1}} />
           <TouchableOpacity
             activeOpacity={0.6}
             style={{

@@ -25,8 +25,8 @@ const App = () => {
     // SplashScreen.hide();
 
     OneSignal.init('a7cc39f9-5233-46a8-9bec-cb87d2c34b5d', {
-      kOSSettingsKeyAutoPrompt: false,
-      kOSSettingsKeyInAppLaunchURL: false,
+      // kOSSettingsKeyAutoPrompt: false,
+      // kOSSettingsKeyInAppLaunchURL: false,
       kOSSettingsKeyInFocusDisplayOption: 2,
     });
     OneSignal.addEventListener('ids', async (id) => {

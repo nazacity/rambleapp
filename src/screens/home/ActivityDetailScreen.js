@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, Fragment} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Dimensions, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -17,8 +17,8 @@ import ShirtStyle from '../../components/activity/ShirtStyle';
 import Reward from '../../components/activity/Reward';
 import MoreInfomation from '../../components/activity/MoreInfomation';
 import Rules from '../../components/activity/Rules';
-import ButtonSection from '../../components/activity/ButtonSection';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import ActualDate from '../../components/activity/ActualDate';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -36,9 +36,9 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <Description activity={activity} />
+      <ActualDate activity={activity} />
       <RegisterDate activity={activity} />
       <Courses activity={activity} />
-      <TimelineDisplay activity={activity} />
       <Gift activity={activity} />
       <ShirtStyle activity={activity} />
     </View>
@@ -46,12 +46,18 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const SecondRoute = () => (
     <View style={{padding: 20}}>
+      <TimelineDisplay activity={activity} />
+    </View>
+  );
+
+  const ThirdRoute = () => (
+    <View style={{padding: 20}}>
       <Reward activity={activity} />
       <Rules activity={activity} />
     </View>
   );
 
-  const ThirdRoute = () => (
+  const FourthRoute = () => (
     <View style={{padding: 20}}>
       <MoreInfomation activity={activity} />
     </View>
@@ -78,14 +84,16 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Detail'},
-    {key: 'third', title: 'Other'},
+    {key: 'second', title: 'Timeline'},
+    {key: 'third', title: 'Detail'},
+    {key: 'fourth', title: 'Other'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
+    fourth: FourthRoute,
   });
 
   if (loading) {

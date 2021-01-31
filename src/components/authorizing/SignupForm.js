@@ -4,8 +4,9 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
@@ -120,13 +121,6 @@ const SignupForm = () => {
           message: t('signup.lastnameerror'),
         }),
       );
-    } else if (data.phone_number.length < 10) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.phoneerror'),
-        }),
-      );
     } else if (!data.gender) {
       dispatch(
         setSnackbarDisplay({
@@ -151,7 +145,7 @@ const SignupForm = () => {
           idcard: data.idcard,
           first_name: data.first_name,
           last_name: data.last_name,
-          phone_number: data.phone_number,
+          phone_number: data.phone_number ? data.phone_number : 'not provided',
           birthday: selectedDate,
           gender: data.gender,
           blood_type: data.blood_type,
@@ -239,7 +233,7 @@ const SignupForm = () => {
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
-                  floatingLabel={t('signin.username')}
+                  floatingLabel={t('signup.username')}
                   inputContainerStyle={{borderBottomWidth: 0}}
                   onChangeText={(value) => onChange(value)}
                   value={value}
@@ -271,7 +265,7 @@ const SignupForm = () => {
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
-                  floatingLabel={t('signin.password')}
+                  floatingLabel={t('signup.password')}
                   inputContainerStyle={{borderBottomWidth: 0}}
                   onChangeText={(value) => onChange(value)}
                   value={value}
@@ -315,7 +309,7 @@ const SignupForm = () => {
                       type="ionicon"
                       size={24}
                       color={
-                        value || focus.password
+                        value || focus.confirm_password
                           ? COLORS.pinkPastel
                           : COLORS.inputPlaceholderColor
                       }
@@ -324,10 +318,10 @@ const SignupForm = () => {
                   }
                   secureTextEntry={hidePassword}
                   onFocus={() => {
-                    setFocus({...focus, password: true});
+                    setFocus({...focus, confirm_password: true});
                   }}
                   onBlur={() => {
-                    setFocus({...focus, password: false});
+                    setFocus({...focus, confirm_password: false});
                   }}
                 />
               )}
@@ -534,7 +528,7 @@ const SignupForm = () => {
                   itemStyle={{
                     justifyContent: 'flex-start',
                   }}
-                  zIndex={5000}
+                  zIndex={5001}
                   dropDownStyle={{
                     backgroundColor: COLORS.backgroundColor,
                     marginTop: 10,
@@ -608,51 +602,53 @@ const SignupForm = () => {
               defaultValue=""
             />
           </View>
-          <View style={{alignItems: 'center'}}>
-            <Button
-              label={t('signup.signup')}
-              color={COLORS.pinkPastel}
-              onPress={handleSubmit(onSubmit)}
-            />
-          </View>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              marginHorizontal: 20,
-              paddingBottom: 40,
-            }}>
+          <View style={{zIndex: -1}}>
+            <View style={{alignItems: 'center'}}>
+              <Button
+                label={t('signup.signup')}
+                color={COLORS.pinkPastel}
+                onPress={handleSubmit(onSubmit)}
+              />
+            </View>
             <View
               style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginVertical: 10,
-                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginHorizontal: 20,
+                paddingBottom: 40,
               }}>
-              <Text
-                style={[
-                  {
-                    color: COLORS.greyText,
-                  },
-                  FONTS.body4,
-                ]}>
-                {t('signup.haveaccount')}
-              </Text>
-              <TouchableOpacity
-                style={{marginLeft: 5}}
-                activeOpacity={0.8}
-                onPress={() => {
-                  navigation.navigate('Signin');
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginVertical: 10,
+                  flexDirection: 'row',
                 }}>
                 <Text
                   style={[
                     {
-                      color: COLORS.pinkText,
+                      color: COLORS.greyText,
                     },
-                    FONTS.h4,
+                    FONTS.body4,
                   ]}>
-                  {t('signup.signin')}
+                  {t('signup.haveaccount')}
                 </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={{marginLeft: 5}}
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    navigation.navigate('Signin');
+                  }}>
+                  <Text
+                    style={[
+                      {
+                        color: COLORS.pinkText,
+                      },
+                      FONTS.h4,
+                    ]}>
+                    {t('signup.signin')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
@@ -38,15 +38,16 @@ const MainAdvertise = () => {
   }, []);
 
   return (
-    <ScrollView horizontal>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={mainAdvertizes}
-        keyExtractor={(item) => `${item._id}`}
-        renderItem={({item, index}) => {
-          return (
+    <View
+      style={{
+        padding: 20,
+        alignItems: 'center',
+        marginVertical: 20,
+      }}>
+      {mainAdvertizes.map((item) => {
+        return (
+          <View key={item._id} style={[SHADOW.image]}>
             <TouchableOpacity
-              key={item.id}
               activeOpacity={0.8}
               onPress={() => {
                 navigation.navigate('WebView', {
@@ -58,22 +59,17 @@ const MainAdvertise = () => {
                 height: 200,
                 borderRadius: 10,
                 overflow: 'hidden',
+                marginVertical: 10,
               }}>
               <Image
                 source={{uri: item.advertize_picture_url}}
                 style={{width: SIZES.width - 40, height: 200, borderRadius: 5}}
               />
             </TouchableOpacity>
-          );
-        }}
-        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-        contentContainerStyle={{
-          padding: 20,
-          alignItems: 'center',
-          marginVertical: 20,
-        }}
-      />
-    </ScrollView>
+          </View>
+        );
+      })}
+    </View>
   );
 };
 

@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {MenuIcon} from '../Icon';
 
 const MenuButton = ({top}) => {
   const navigation = useNavigation();
@@ -25,12 +26,7 @@ const MenuButton = ({top}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Ionicons
-          name="ios-menu"
-          size={25}
-          borderRadius={50}
-          color={COLORS.pinkPastel}
-        />
+        <MenuIcon size={14} borderRadius={50} color={COLORS.pinkPastel} />
       </TouchableOpacity>
     </View>
   );

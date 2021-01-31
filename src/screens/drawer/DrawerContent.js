@@ -10,8 +10,6 @@ import {
 import {Avatar} from 'react-native-elements';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
 import {
   HomeIcon,
   UpcomingIcon,
@@ -20,6 +18,7 @@ import {
   UserIcon,
   LocationIcon,
   EmergencyIcon,
+  SignoutIcon,
 } from '../../components/Icon';
 
 // Redux
@@ -85,9 +84,7 @@ const DrawerContent = (props) => {
         </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
-            icon={({color, size}) => (
-              <HomeIcon color={COLORS.primary} size={25} />
-            )}
+            icon={({color, size}) => <HomeIcon color={color} size={size} />}
             label={t('drawer.home')}
             labelStyle={[FONTS.h4]}
             onPress={() => {
@@ -98,9 +95,7 @@ const DrawerContent = (props) => {
             }}
           />
           <DrawerItem
-            icon={({color, size}) => (
-              <UpcomingIcon color={COLORS.primary} size={25} />
-            )}
+            icon={({color, size}) => <UpcomingIcon color={color} size={size} />}
             label={t('drawer.upcoming')}
             labelStyle={[FONTS.h4]}
             onPress={() => {
@@ -111,9 +106,7 @@ const DrawerContent = (props) => {
             }}
           />
           <DrawerItem
-            icon={({color, size}) => (
-              <HistoryIcon color={COLORS.primary} size={25} />
-            )}
+            icon={({color, size}) => <HistoryIcon color={color} size={size} />}
             label={t('drawer.history')}
             labelStyle={[FONTS.h4]}
             onPress={() => {
@@ -125,7 +118,7 @@ const DrawerContent = (props) => {
           />
           {/* <DrawerItem
             icon={({color, size}) => (
-              <PostIcon color={COLORS.primary} size={25} />
+              <PostIcon color={color} size={size} />
             )}
             label={t('drawer.userposts')}
             labelStyle={[FONTS.h4]}
@@ -177,9 +170,7 @@ const DrawerContent = (props) => {
       />
       <Drawer.Section>
         <DrawerItem
-          icon={({color, size}) => (
-            <UserIcon color={COLORS.primary} size={25} />
-          )}
+          icon={({color, size}) => <UserIcon color={color} size={size} />}
           label={t('drawer.profile')}
           labelStyle={[FONTS.h4]}
           onPress={() => {
@@ -190,9 +181,7 @@ const DrawerContent = (props) => {
           }}
         />
         <DrawerItem
-          icon={({color, size}) => (
-            <LocationIcon color={COLORS.primary} size={25} />
-          )}
+          icon={({color, size}) => <LocationIcon color={color} size={size} />}
           label={t('drawer.address')}
           labelStyle={[FONTS.h4]}
           onPress={() => {
@@ -203,9 +192,7 @@ const DrawerContent = (props) => {
           }}
         />
         <DrawerItem
-          icon={({color, size}) => (
-            <EmergencyIcon color={COLORS.primary} size={25} />
-          )}
+          icon={({color, size}) => <EmergencyIcon color={color} size={size} />}
           label={t('drawer.emergencycontact')}
           labelStyle={[FONTS.h4]}
           onPress={() => {
@@ -217,13 +204,7 @@ const DrawerContent = (props) => {
         />
       </Drawer.Section>
       <DrawerItem
-        icon={({color, size}) => (
-          <MaterialCommunityIcons
-            name="exit-to-app"
-            color={color}
-            size={size}
-          />
-        )}
+        icon={({color, size}) => <SignoutIcon color={color} size={size} />}
         label={t('drawer.signout')}
         // labelStyle={{fontFamily: ''}}
         onPress={async () => {

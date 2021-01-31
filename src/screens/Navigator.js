@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {View} from 'react-native';
+import {View, StatusBar} from 'react-native';
 
 // Screen
 import HomeScreen from './home/HomeScreen';
@@ -60,12 +60,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {ActivityIcon, HomeIcon} from '../components/Icon';
 import SplashScreen from 'react-native-splash-screen';
+import {useIsFocused} from '@react-navigation/native';
 
 const HomeStack = createStackNavigator();
 const ActivityStack = createStackNavigator();
 const CommunityStack = createStackNavigator();
 const OnboardingAndAuthorizingStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+
+function FocusAwareStatusBar(props) {
+  const isFocused = useIsFocused();
+
+  return isFocused ? <StatusBar {...props} /> : null;
+}
 
 export const MainTabScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -84,7 +91,7 @@ export const MainTabScreen = ({navigation, route}) => {
         component={HomeStackScreen}
         options={{
           tabBarLabel: `${t('tab.home')}`,
-          tabBarIcon: ({color}) => <HomeIcon color={color} size={24} />,
+          tabBarIcon: ({color}) => <HomeIcon color={color} size={20} />,
         }}
         listeners={{
           tabPress: (e) => {
@@ -97,7 +104,7 @@ export const MainTabScreen = ({navigation, route}) => {
         component={ActivityStackScreen}
         options={{
           tabBarLabel: `${t('tab.activity')}`,
-          tabBarIcon: ({color}) => <ActivityIcon color={color} size={24} />,
+          tabBarIcon: ({color}) => <ActivityIcon color={color} size={16} />,
         }}
         listeners={{
           tabPress: (e) => {
