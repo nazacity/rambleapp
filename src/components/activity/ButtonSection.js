@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 const ButtonSection = ({userActivity, activity}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
+
   return (
     <View style={{alignItems: 'center'}}>
       {userActivity.state === 'unregister' && activity.state === 'registering' && (
