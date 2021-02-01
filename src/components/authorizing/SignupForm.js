@@ -100,21 +100,16 @@ const SignupForm = () => {
           message: t('signup.displaynameerror'),
         }),
       );
-    } else if (data.idcard.length < 13) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.idcarderror'),
-        }),
-      );
-    } else if (!data.first_name) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.firstnameerror'),
-        }),
-      );
-    } else if (!data.last_name) {
+    }
+    // else if (!data.first_name) {
+    //   dispatch(
+    //     setSnackbarDisplay({
+    //       state: 'error',
+    //       message: t('signup.firstnameerror'),
+    //     }),
+    //   );
+    // }
+    else if (!data.last_name) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -142,10 +137,12 @@ const SignupForm = () => {
           username: data.username,
           password: data.password,
           display_name: data.display_name,
-          idcard: data.idcard,
+          idcard: 'not provided yet',
           first_name: data.first_name,
           last_name: data.last_name,
-          phone_number: data.phone_number ? data.phone_number : 'not provided',
+          phone_number: data.phone_number
+            ? data.phone_number
+            : 'not provided yet',
           birthday: selectedDate,
           gender: data.gender,
           blood_type: data.blood_type,
@@ -347,7 +344,7 @@ const SignupForm = () => {
             <View style={{marginHorizontal: 10, marginVertical: 10}}>
               <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
             </View>
-            <Controller
+            {/* <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
@@ -407,8 +404,8 @@ const SignupForm = () => {
               name="idcard"
               // rules={{required: true}}
               defaultValue=""
-            />
-            {message.msg !== '' && (
+            /> */}
+            {/* {message.msg !== '' && (
               <Text
                 style={[
                   FONTS.h5,
@@ -421,7 +418,7 @@ const SignupForm = () => {
                 ]}>
                 {message.msg}
               </Text>
-            )}
+            )} */}
             <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
