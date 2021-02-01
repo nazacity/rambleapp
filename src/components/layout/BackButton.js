@@ -21,7 +21,7 @@ const BackButton = ({backTo}) => {
         }}
         onPress={() => {
           if (backTo) {
-            navigation.push(backTo);
+            navigation.replace(backTo);
           } else {
             navigation.goBack();
           }

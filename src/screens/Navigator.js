@@ -208,6 +208,7 @@ const HomeStackScreen = ({navigation}) => {
         name="Profile"
         component={ProfileScreen}
         options={{
+          headerShown: false,
           headerStyle: {
             backgroundColor: COLORS.primary,
             elevation: 0,

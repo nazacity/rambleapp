@@ -24,7 +24,7 @@ const RecordCard = ({item}) => {
           marginBottom: 10,
           marginHorizontal: 20,
           borderRadius: 15,
-          marginTop: marginTop ? marginTop : 0,
+          marginTop: -90,
         },
         SHADOW.default,
       ]}>
