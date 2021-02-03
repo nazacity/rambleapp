@@ -265,9 +265,7 @@ const th = {
     displayname: 'Display Name',
     phone_number: 'เบอร์โทรศัพท์',
     lineconnect: 'เชื่อมต่อ Line',
-  },
-  lineconnect: {
-    accept: 'ฉันยอมรับในเงื่อนไขและข้อตกลง',
+    changelineconnect: 'เปลี่ยน Line Account',
   },
 };
 

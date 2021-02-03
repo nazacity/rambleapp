@@ -35,7 +35,11 @@ const LineConnectDisplay = ({user}) => {
             size={24}
             style={{marginRight: 20}}
           />
-          <Text style={[FONTS.h3]}>{t('editprofile.lineconnect')}</Text>
+          <Text style={[FONTS.h3]}>
+            {lineId
+              ? t('editprofile.changelineconnect')
+              : t('editprofile.lineconnect')}
+          </Text>
         </TouchableOpacity>
       </View>
       <LineConnectModal open={open} handleClose={handleClose} />

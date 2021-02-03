@@ -266,9 +266,7 @@ const en = {
     displayname: 'Display Name',
     phone_number: 'Phone number',
     lineconnect: 'Line Connect',
-  },
-  lineconnect: {
-    accept: 'I agree to the term and conditions',
+    changelineconnect: 'Change Line Account',
   },
 };
 

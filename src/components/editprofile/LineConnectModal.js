@@ -8,16 +8,17 @@ import Modal from 'react-native-modal';
 import {useForm, Controller} from 'react-hook-form';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasssword} from '../../redux/actions/UserAction';
+import {changePasssword, refresh} from '../../redux/actions/UserAction';
 import Button from '../../components/Button';
 import {Icon} from 'react-native-elements';
 import {Snackbar} from 'react-native-paper';
 import WebView from 'react-native-webview';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const LineConnectModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
-  const lineId = useSelector((state) => state.user.lineId);
-
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   // FOCUSES
   //   const [focus, setFocus] = useState({});
 
@@ -45,6 +46,7 @@ const LineConnectModal = ({handleClose, open}) => {
   //       );
   //     }
   //   };
+
   return (
     <Modal
       isVisible={open}
@@ -54,7 +56,6 @@ const LineConnectModal = ({handleClose, open}) => {
       <View
         style={{
           backgroundColor: COLORS.backgroundColor,
-          padding: 20,
           flex: 1,
         }}>
         <TouchableOpacity
@@ -71,12 +72,25 @@ const LineConnectModal = ({handleClose, open}) => {
             right: 10,
           }}
           onPress={() => {
+            dispatch(refresh());
             handleClose();
           }}>
           <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
         </TouchableOpacity>
         <WebView
-          source={{uri: 'https://staging.teenaii.com/mobile/privacy_policy'}}
+          source={{
+            uri: `https://ramble-club.com/lineconnect?user_id=${user._id}`,
+          }}
+          renderLoading={() => (
+            <Spinner
+              visible={true}
+              textContent={'Loading...'}
+              textStyle={{
+                color: '#FFF',
+              }}
+              color={COLORS.primary}
+            />
+          )}
         />
 
         {/* <View style={{position: 'absolute', alignSelf: 'center', bottom: 10}}>
