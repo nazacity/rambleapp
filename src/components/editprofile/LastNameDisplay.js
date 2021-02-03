@@ -39,7 +39,7 @@ const LastNameDisplay = ({user}) => {
     <Fragment>
       <View style={{marginLeft: 20, flex: 1}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[FONTS.h3]}>{t('signup.last_name')}</Text>
+          <Text style={[FONTS.h3]}>{t('editprofile.last_name')}</Text>
           <View style={{flex: 1}} />
           <TouchableOpacity
             activeOpacity={0.6}
@@ -63,7 +63,8 @@ const LastNameDisplay = ({user}) => {
       <Modal
         isVisible={open}
         style={{justifyContent: 'center'}}
-        onBackdropPress={handleClose}>
+        onBackdropPress={handleClose}
+        onBackButtonPress={handleClose}>
         <View
           style={{
             backgroundColor: COLORS.backgroundColor,
@@ -74,7 +75,7 @@ const LastNameDisplay = ({user}) => {
             control={control}
             render={({onChange, onBlur, value}) => (
               <FloatingLabelInput
-                floatingLabel={t('signup.last_name')}
+                floatingLabel={t('editprofile.last_name')}
                 inputContainerStyle={{borderBottomWidth: 0}}
                 onChangeText={(value) => onChange(value)}
                 value={value}

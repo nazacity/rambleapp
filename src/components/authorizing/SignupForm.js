@@ -34,6 +34,8 @@ import moment from 'moment';
 import 'moment/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
 import {post, get} from '../../redux/actions/request';
+import PolicyModal from './PolicyModal';
+import UserAgreementModal from './UserAgreementModal';
 
 const SignupForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -45,14 +47,23 @@ const SignupForm = () => {
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
-  const [checkIdLoading, setCheckIdLoading] = useState(false);
-  const [message, setMessage] = useState({
-    msg: '',
-    state: 'success',
-  });
+  // const [checkIdLoading, setCheckIdLoading] = useState(false);
+  // const [message, setMessage] = useState({
+  //   msg: '',
+  //   state: 'success',
+  // });
 
   const handleCalendarModalClose = () => {
     setCalendarModalOpen(false);
+  };
+  const [policyModalOpen, setPolicyModalOpen] = useState(false);
+  const handlePolicyModalClose = () => {
+    setPolicyModalOpen(false);
+  };
+
+  const [userAgreementModalOpen, setUserAgreementModalOpen] = useState(false);
+  const handleUserAgreementModalClose = () => {
+    setUserAgreementModalOpen(false);
   };
 
   // INPUT FUNCTIONS
@@ -93,7 +104,7 @@ const SignupForm = () => {
           message: t('signup.password8'),
         }),
       );
-    } else if (data.display_name.length < 6) {
+    } else if (!data.display_name) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -599,6 +610,137 @@ const SignupForm = () => {
               defaultValue=""
             />
           </View>
+          {lang === 'th' && (
+            <View
+              style={{
+                width: '80%',
+                alignSelf: 'center',
+                marginVertical: 20,
+              }}>
+              <Text
+                style={[
+                  FONTS.body4,
+                  {
+                    color: 'grey',
+                    fontSize: 14,
+                    textAlign: 'center',
+                  },
+                ]}>
+                {t('signup.condition1')}
+              </Text>
+              <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setUserAgreementModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.useragreement')}
+                  </Text>
+                </TouchableOpacity>
+                <Text
+                  style={[
+                    FONTS.body4,
+                    {
+                      color: 'grey',
+                      fontSize: 14,
+                      textAlign: 'center',
+                    },
+                  ]}>
+                  {t('signup.condition2')}
+                </Text>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setPolicyModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.policy')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
+          {lang === 'en' && (
+            <View
+              style={{
+                width: '60%',
+                alignSelf: 'center',
+                marginVertical: 20,
+              }}>
+              <Text
+                style={[
+                  FONTS.body4,
+                  {
+                    color: 'grey',
+                    fontSize: 14,
+                    textAlign: 'center',
+                  },
+                ]}>
+                {t('signup.condition1')}
+              </Text>
+              <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setUserAgreementModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.useragreement')}
+                  </Text>
+                </TouchableOpacity>
+                <Text style={[FONTS.body4, {textAlign: 'center'}]}>
+                  {t('signup.condition2')}
+                </Text>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setPolicyModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.policy')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
           <View style={{zIndex: -1}}>
             <View style={{alignItems: 'center'}}>
               <Button
@@ -656,6 +798,14 @@ const SignupForm = () => {
         handleClose={handleCalendarModalClose}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
+      />
+      <PolicyModal
+        open={policyModalOpen}
+        handleClose={handlePolicyModalClose}
+      />
+      <UserAgreementModal
+        open={userAgreementModalOpen}
+        handleClose={handleUserAgreementModalClose}
       />
     </Fragment>
   );

@@ -53,12 +53,17 @@ const en = {
     usernameerror: 'Username must be more than 6 characters',
     firstnameerror: 'Please fill first name',
     lastnameerror: 'Please fill last name',
-    displaynameerror: 'Display name must be more than 6 characters',
+    displaynameerror: 'Please fill display name',
     idcard: 'Identification card number*',
     idcarderror: 'Please fill identification card number',
     rightidcard: 'Your id card No can be used',
     wrongidcard: 'Your id card No is incorrect',
     usedidcard: 'Your id card No was used',
+    condition1:
+      'By registering means that I have read and agree/agreed to the ',
+    condition2: ' and ',
+    policy: 'Privacy policy',
+    useragreement: 'Term and Condition',
   },
   phonechecking: {
     resend: 'Resend OTP',
@@ -256,6 +261,14 @@ const en = {
     changepasswordsuccess: 'Change Password is successed',
     sucessed: 'has been changed successfully',
     imageuploadsuccessed: 'Image has been changed successfully',
+    first_name: 'First Name',
+    last_name: 'Last Name',
+    displayname: 'Display Name',
+    phone_number: 'Phone number',
+    lineconnect: 'Line Connect',
+  },
+  lineconnect: {
+    accept: 'I agree to the term and conditions',
   },
 };
 

@@ -37,9 +37,9 @@ const FirstNameDisplay = ({user}) => {
   };
   return (
     <Fragment>
-      <View style={{flex: 1}}>
+      <View style={{width: '45%'}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[FONTS.h3]}>{t('signup.first_name')}</Text>
+          <Text style={[FONTS.h3]}>{t('editprofile.first_name')}</Text>
 
           <View style={{flex: 1}} />
 
@@ -65,7 +65,8 @@ const FirstNameDisplay = ({user}) => {
       <Modal
         isVisible={open}
         style={{justifyContent: 'center'}}
-        onBackdropPress={handleClose}>
+        onBackdropPress={handleClose}
+        onBackButtonPress={handleClose}>
         <View
           style={{
             backgroundColor: COLORS.backgroundColor,
@@ -76,7 +77,7 @@ const FirstNameDisplay = ({user}) => {
             control={control}
             render={({onChange, onBlur, value}) => (
               <FloatingLabelInput
-                floatingLabel={t('signup.first_name')}
+                floatingLabel={t('editprofile.first_name')}
                 inputContainerStyle={{borderBottomWidth: 0}}
                 onChangeText={(value) => onChange(value)}
                 value={value}

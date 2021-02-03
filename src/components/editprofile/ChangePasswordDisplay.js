@@ -62,17 +62,27 @@ const ChangePasswordDisplay = ({user}) => {
             borderRadius: 20,
             marginLeft: 5,
             padding: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: 60,
           }}
           onPress={() => {
             setOpen(true);
           }}>
+          <Ionicons
+            name="key"
+            color={COLORS.primary}
+            size={24}
+            style={{marginRight: 20}}
+          />
           <Text style={[FONTS.h3]}>{t('editprofile.changepassword')}</Text>
         </TouchableOpacity>
       </View>
       <Modal
         isVisible={open}
         style={{justifyContent: 'center'}}
-        onBackdropPress={handleClose}>
+        onBackdropPress={handleClose}
+        onBackButtonPress={handleClose}>
         <View
           style={{
             backgroundColor: COLORS.backgroundColor,

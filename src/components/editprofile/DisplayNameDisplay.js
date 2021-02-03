@@ -39,7 +39,7 @@ const DisplayNameDisplay = ({user}) => {
     <Fragment>
       <View style={{flex: 1}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[FONTS.h3]}>{t('signup.displayname')}</Text>
+          <Text style={[FONTS.h3]}>{t('editprofile.displayname')}</Text>
           <View style={{flex: 1}} />
           <TouchableOpacity
             activeOpacity={0.6}
@@ -63,7 +63,8 @@ const DisplayNameDisplay = ({user}) => {
       <Modal
         isVisible={open}
         style={{justifyContent: 'center'}}
-        onBackdropPress={handleClose}>
+        onBackdropPress={handleClose}
+        onBackButtonPress={handleClose}>
         <View
           style={{
             backgroundColor: COLORS.backgroundColor,
@@ -74,7 +75,7 @@ const DisplayNameDisplay = ({user}) => {
             control={control}
             render={({onChange, onBlur, value}) => (
               <FloatingLabelInput
-                floatingLabel={t('signup.displayname')}
+                floatingLabel={t('editprofile.displayname')}
                 inputContainerStyle={{borderBottomWidth: 0}}
                 onChangeText={(value) => onChange(value)}
                 value={value}
