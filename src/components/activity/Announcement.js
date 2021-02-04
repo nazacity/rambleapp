@@ -73,6 +73,7 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
               flexDirection: 'row',
               backgroundColor: item.state === 'not_read' ? '#fff9c4' : '#fff',
             },
+            SHADOW.default,
           ]}>
           <Image
             source={{
