@@ -44,7 +44,7 @@ const th = {
     passwordnotmatch: 'คอมเฟิร์มรหัสผ่านไม่ตรงกัน',
     okay: 'ตกลง',
     phone_number: 'เบอร์โทรศัพท์ (ไม่จำเป็น)',
-    usedusername: 'Username หรือ รหัสบัตรประชาชน ถูกใช้แล้ว',
+    usedusername: 'Username ถูกใช้แล้ว',
     password8: 'รหัสผ่านต้องมีมากกว่า 8 ตัวขึ้นไป',
     phoneerror: 'เบอร์โทรศัพท์ไม่ถูกต้อง',
     noimage: 'กรุณาอัพโหลรูปโปรไฟล์',
@@ -65,6 +65,7 @@ const th = {
     // condition3: 'และตัดสินใจกดปุ่มสมัครสมาชิก',
     policy: 'นโยบายความเป็นส่วนตัว',
     useragreement: 'เงื่อนไข และข้อตกลงการใข้งาน',
+    successed: 'การสมัครสำเร็จแล้ว',
   },
   phonechecking: {
     resend: 'ส่งรหัส OTP อีกครั้ง',

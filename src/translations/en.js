@@ -44,7 +44,7 @@ const en = {
     passwordnotmatch: 'Confirm Password is not matched',
     okay: 'Okay',
     phone_number: 'Phone number (Not required)',
-    usedusername: 'Username or id card no is used',
+    usedusername: 'Username is used',
     password8: 'Password must be at least 8 characters',
     phoneerror: 'Phone number is incorrect',
     noimage: 'Please upload your profile piture',
@@ -64,6 +64,7 @@ const en = {
     condition2: ' and ',
     policy: 'Privacy policy',
     useragreement: 'Term and Condition',
+    successed: 'Register successfuly',
   },
   phonechecking: {
     resend: 'Resend OTP',

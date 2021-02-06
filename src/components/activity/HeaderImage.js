@@ -202,7 +202,7 @@ const HeaderImage = ({
               borderRadius: 50,
             }}
             onPress={() => {
-              Linking.openURL(`${activity.contact.line}`);
+              Linking.openURL(`http://line.me/ti/p/~${activity.contact.line}`);
             }}>
             <Fontisto name="line" size={20} color="#fff" />
           </TouchableOpacity>

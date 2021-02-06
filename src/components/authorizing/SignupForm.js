@@ -165,6 +165,13 @@ const SignupForm = () => {
         if (res.data === 'Successed') {
           dispatch(setLoading(false));
           reset({});
+          dispatch(
+            setSnackbarDisplay({
+              state: 'success',
+              message: t('signup.successed'),
+            }),
+          );
+          dispatch(setLoading(false));
           navigation.navigate('Signin');
         } else if (res.data === 'Username is used') {
           dispatch(
