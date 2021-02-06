@@ -21,7 +21,7 @@ const LineConnectDisplay = ({user}) => {
           style={{
             borderRadius: 20,
             marginLeft: 5,
-            padding: 20,
+            paddingHorizontal: 20,
             flexDirection: 'row',
             alignItems: 'center',
             height: 60,

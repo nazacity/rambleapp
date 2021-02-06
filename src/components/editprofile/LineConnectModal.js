@@ -14,6 +14,7 @@ import {Icon} from 'react-native-elements';
 import {Snackbar} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {Linking} from 'react-native';
 
 const LineConnectModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -92,6 +93,10 @@ const LineConnectModal = ({handleClose, open}) => {
                 color={COLORS.primary}
               />
             )}
+            onShouldStartLoadWithRequest={(event) => {
+              Linking.openURL(event.url);
+              return false;
+            }}
           />
 
           {/* <View style={{position: 'absolute', alignSelf: 'center', bottom: 10}}>
