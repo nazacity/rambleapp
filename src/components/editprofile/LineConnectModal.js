@@ -1,5 +1,5 @@
 import React, {Fragment, useState} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import {FONTS, COLORS, theme} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -53,55 +53,56 @@ const LineConnectModal = ({handleClose, open}) => {
       style={{margin: 0}}
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}>
-      <View
+      <SafeAreaView
         style={{
           backgroundColor: COLORS.backgroundColor,
           flex: 1,
         }}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={{
-            width: 30,
-            height: 30,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 15,
-            position: 'absolute',
-            zIndex: 100,
-            top: 10,
-            right: 10,
-          }}
-          onPress={() => {
-            dispatch(refresh());
-            handleClose();
-          }}>
-          <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
-        </TouchableOpacity>
-        <WebView
-          source={{
-            uri: `https://ramble-club.com/lineconnect?user_id=${user._id}`,
-          }}
-          renderLoading={() => (
-            <Spinner
-              visible={true}
-              textContent={'Loading...'}
-              textStyle={{
-                color: '#FFF',
-              }}
-              color={COLORS.primary}
-            />
-          )}
-        />
+        <View style={{flex: 1}}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{
+              width: 30,
+              height: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 15,
+              position: 'absolute',
+              zIndex: 100,
+              top: 10,
+              right: 10,
+            }}
+            onPress={() => {
+              dispatch(refresh());
+              handleClose();
+            }}>
+            <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
+          </TouchableOpacity>
+          <WebView
+            source={{
+              uri: `https://ramble-club.com/lineconnect?user_id=${user._id}`,
+            }}
+            renderLoading={() => (
+              <Spinner
+                visible={true}
+                textContent={'Loading...'}
+                textStyle={{
+                  color: '#FFF',
+                }}
+                color={COLORS.primary}
+              />
+            )}
+          />
 
-        {/* <View style={{position: 'absolute', alignSelf: 'center', bottom: 10}}>
+          {/* <View style={{position: 'absolute', alignSelf: 'center', bottom: 10}}>
           <Button
             label={t('lineconnect.accept')}
             color={COLORS.pinkPastel}
             onPress={handleSubmit(onSubmit)}
           />
         </View> */}
-      </View>
-      {/* <Snackbar
+        </View>
+        {/* <Snackbar
         visible={error}
         onDismiss={() => {
           setError(false);
@@ -112,6 +113,7 @@ const LineConnectModal = ({handleClose, open}) => {
         duration={1500}>
         {message}
       </Snackbar> */}
+      </SafeAreaView>
     </Modal>
   );
 };

@@ -1,5 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -65,48 +71,51 @@ const LastNameDisplay = ({user}) => {
         style={{justifyContent: 'center'}}
         onBackdropPress={handleClose}
         onBackButtonPress={handleClose}>
-        <View
-          style={{
-            backgroundColor: COLORS.backgroundColor,
-            borderRadius: 10,
-            padding: 20,
-          }}>
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('editprofile.last_name')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                onFocus={() => {
-                  setFocus({...focus, email: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, email: false});
-                }}
-                rightIcon={
-                  <TouchableOpacity
-                    activeOpacity={0.6}
-                    style={{
-                      width: 30,
-                      height: 30,
-                      backgroundColor: 'rgba(0,0,0,0.6)',
-                      borderRadius: 20,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    onPress={handleSubmit(onSubmit)}>
-                    <Ionicons name="save" size={15} color="#fff" />
-                  </TouchableOpacity>
-                }
-                onSubmitEditing={handleSubmit(onSubmit)}
-              />
-            )}
-            name="last_name"
-            defaultValue=""
-          />
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View
+            style={{
+              backgroundColor: COLORS.backgroundColor,
+              borderRadius: 10,
+              padding: 20,
+            }}>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('editprofile.last_name')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  onFocus={() => {
+                    setFocus({...focus, email: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, email: false});
+                  }}
+                  rightIcon={
+                    <TouchableOpacity
+                      activeOpacity={0.6}
+                      style={{
+                        width: 30,
+                        height: 30,
+                        backgroundColor: 'rgba(0,0,0,0.6)',
+                        borderRadius: 20,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                      onPress={handleSubmit(onSubmit)}>
+                      <Ionicons name="save" size={15} color="#fff" />
+                    </TouchableOpacity>
+                  }
+                  onSubmitEditing={handleSubmit(onSubmit)}
+                />
+              )}
+              name="last_name"
+              defaultValue=""
+            />
+          </View>
+        </KeyboardAvoidingView>
       </Modal>
     </Fragment>
   );

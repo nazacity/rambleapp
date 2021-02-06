@@ -1,5 +1,12 @@
 import React, {Fragment, useState} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -83,130 +90,133 @@ const ChangePasswordDisplay = ({user}) => {
         style={{justifyContent: 'center'}}
         onBackdropPress={handleClose}
         onBackButtonPress={handleClose}>
-        <View
-          style={{
-            backgroundColor: COLORS.backgroundColor,
-            borderRadius: 10,
-            padding: 20,
-          }}>
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('editprofile.oldpassword')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                onFocus={() => {
-                  setFocus({...focus, old_password: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, old_password: false});
-                }}
-                rightIcon={
-                  <Icon
-                    name={hidePassword ? 'eye-off' : 'eye'}
-                    type="ionicon"
-                    size={24}
-                    color={
-                      value || focus.old_password
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor
-                    }
-                    onPress={() => setHidePassword(!hidePassword)}
-                  />
-                }
-                secureTextEntry={hidePassword}
-              />
-            )}
-            name="old_password"
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('editprofile.newpassword')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                onFocus={() => {
-                  setFocus({...focus, new_password: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, new_password: false});
-                }}
-                rightIcon={
-                  <Icon
-                    name={hidePassword ? 'eye-off' : 'eye'}
-                    type="ionicon"
-                    size={24}
-                    color={
-                      value || focus.new_password
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor
-                    }
-                    onPress={() => setHidePassword(!hidePassword)}
-                  />
-                }
-                secureTextEntry={hidePassword}
-              />
-            )}
-            name="new_password"
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('editprofile.confirmpassword')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                onFocus={() => {
-                  setFocus({...focus, confirm_password: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, confirm_password: false});
-                }}
-                rightIcon={
-                  <Icon
-                    name={hidePassword ? 'eye-off' : 'eye'}
-                    type="ionicon"
-                    size={24}
-                    color={
-                      value || focus.confirm_password
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor
-                    }
-                    onPress={() => setHidePassword(!hidePassword)}
-                  />
-                }
-                secureTextEntry={hidePassword}
-              />
-            )}
-            name="confirm_password"
-            defaultValue=""
-          />
-          <View style={{alignItems: 'center'}}>
-            <Button
-              label={t('editprofile.changepassword')}
-              color={COLORS.pinkPastel}
-              onPress={handleSubmit(onSubmit)}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View
+            style={{
+              backgroundColor: COLORS.backgroundColor,
+              borderRadius: 10,
+              padding: 20,
+            }}>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('editprofile.oldpassword')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  onFocus={() => {
+                    setFocus({...focus, old_password: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, old_password: false});
+                  }}
+                  rightIcon={
+                    <Icon
+                      name={hidePassword ? 'eye-off' : 'eye'}
+                      type="ionicon"
+                      size={24}
+                      color={
+                        value || focus.old_password
+                          ? COLORS.pinkPastel
+                          : COLORS.inputPlaceholderColor
+                      }
+                      onPress={() => setHidePassword(!hidePassword)}
+                    />
+                  }
+                  secureTextEntry={hidePassword}
+                />
+              )}
+              name="old_password"
+              defaultValue=""
             />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('editprofile.newpassword')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  onFocus={() => {
+                    setFocus({...focus, new_password: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, new_password: false});
+                  }}
+                  rightIcon={
+                    <Icon
+                      name={hidePassword ? 'eye-off' : 'eye'}
+                      type="ionicon"
+                      size={24}
+                      color={
+                        value || focus.new_password
+                          ? COLORS.pinkPastel
+                          : COLORS.inputPlaceholderColor
+                      }
+                      onPress={() => setHidePassword(!hidePassword)}
+                    />
+                  }
+                  secureTextEntry={hidePassword}
+                />
+              )}
+              name="new_password"
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('editprofile.confirmpassword')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  onFocus={() => {
+                    setFocus({...focus, confirm_password: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, confirm_password: false});
+                  }}
+                  rightIcon={
+                    <Icon
+                      name={hidePassword ? 'eye-off' : 'eye'}
+                      type="ionicon"
+                      size={24}
+                      color={
+                        value || focus.confirm_password
+                          ? COLORS.pinkPastel
+                          : COLORS.inputPlaceholderColor
+                      }
+                      onPress={() => setHidePassword(!hidePassword)}
+                    />
+                  }
+                  secureTextEntry={hidePassword}
+                />
+              )}
+              name="confirm_password"
+              defaultValue=""
+            />
+            <View style={{alignItems: 'center'}}>
+              <Button
+                label={t('editprofile.changepassword')}
+                color={COLORS.pinkPastel}
+                onPress={handleSubmit(onSubmit)}
+              />
+            </View>
           </View>
-        </View>
-        <Snackbar
-          visible={error}
-          onDismiss={() => {
-            setError(false);
-          }}
-          style={{
-            backgroundColor: '#d9534f',
-          }}
-          duration={1500}>
-          {message}
-        </Snackbar>
+          <Snackbar
+            visible={error}
+            onDismiss={() => {
+              setError(false);
+            }}
+            style={{
+              backgroundColor: '#d9534f',
+            }}
+            duration={1500}>
+            {message}
+          </Snackbar>
+        </KeyboardAvoidingView>
       </Modal>
     </Fragment>
   );
