@@ -27,6 +27,7 @@ export const COLORS = {
   black: '#000',
   buttonBlue: '#0CBCFD',
   greenLine: '#00C300',
+  white: '#fff',
 };
 
 export const SHADOW = {

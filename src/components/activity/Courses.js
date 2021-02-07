@@ -1,12 +1,16 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SHADOW} from '../../constants';
 import ImageModal from 'react-native-image-modal';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const Courses = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
+  const navigation = useNavigation();
   return (
     <View style={{marginBottom: 20}}>
       <TitleHeader title={t('activityfilter.course')} />
@@ -38,13 +42,40 @@ const Courses = ({activity}) => {
                   }}
                 />
               </View>
-              <View>
+              <View style={{flex: 1}}>
                 <Text style={[FONTS.body3, {marginLeft: 20}]}>
                   {item.title}
                 </Text>
                 <Text style={[FONTS.body3, {marginLeft: 20}]}>
                   {t('activity.fee')} {item.price} {t('activity.bath')}
                 </Text>
+              </View>
+              <View style={[SHADOW.default]}>
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={() => {
+                    navigation.navigate('ActivityRegister', {
+                      course: item,
+                      activity: activity,
+                    });
+                  }}
+                  style={[
+                    {
+                      width: 30,
+                      height: 30,
+                      backgroundColor: COLORS.white,
+                      borderRadius: 30,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                    SHADOW.default,
+                  ]}>
+                  <MaterialIcons
+                    name="arrow-forward-ios"
+                    color={COLORS.primary}
+                    size={20}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
           );

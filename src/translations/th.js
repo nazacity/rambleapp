@@ -176,6 +176,11 @@ const th = {
     pleaseacceptterm: 'กรุณายอมรับเงื่อนไขและข้อตกลง',
     editregister: 'แก้ไขการลงทะเบียน',
     register: 'สมัคร',
+    noaddresses: 'ไม่มีที่อยู่จัดส่ง',
+    pleaseaddaddresses: 'กรุณาเพิ่มที่อยู่จัดส่ง',
+    okay: 'ตกลง',
+    pleaseaddemergency: 'กรุณาเพิ่มการติดต่อฉุกเฉิน',
+    noemergency: 'ไม่มีข้อมูลการติดต่อฉุกเฉิน',
   },
   payment: {
     activity: 'กิจกรรม',

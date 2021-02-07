@@ -177,6 +177,11 @@ const en = {
     pleaseacceptterm: 'Please accept condition and terms',
     editregister: 'Edit Register',
     register: 'Register',
+    noaddresses: 'No address information',
+    pleaseaddaddresses: 'Please add address',
+    okay: 'Okay',
+    pleaseaddemergency: 'No emergency contact information',
+    noemergency: 'Please add emergency contact',
   },
   payment: {
     activity: 'Activity',

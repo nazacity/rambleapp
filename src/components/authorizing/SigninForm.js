@@ -56,6 +56,7 @@ const SigninForm = () => {
         const res = await everyPost('/api/everyone/getUserFromLineToken', {
           accessToken: loginResult.accessToken.access_token,
         });
+
         if (res.data === 'No user is found') {
           navigation.navigate('Signup', {
             lineInfo: loginResult,
@@ -63,7 +64,6 @@ const SigninForm = () => {
         } else if (res.data._id) {
           const user = await everyPost('/users/lineId', {
             lineId: loginResult.userProfile.userID,
-            user_picture_url: loginResult.userProfile.pictureURL,
           });
           if (user.token) {
             await AsyncStorage.setItem('accessToken', user.token);
