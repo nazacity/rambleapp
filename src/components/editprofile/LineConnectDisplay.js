@@ -8,7 +8,7 @@ import {
   setLoading,
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
-// import LineConnectModal from './LineConnectModal';
+import LineConnectModal from './LineConnectModal';
 import LineLogin from '@xmartlabs/react-native-line';
 import {post} from '../../redux/actions/request';
 import {setUser} from '../../redux/actions/UserAction';

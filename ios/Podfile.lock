@@ -69,6 +69,9 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - LineSDKSwift (5.7.0):
+    - LineSDKSwift/Core (= 5.7.0)
+  - LineSDKSwift/Core (5.7.0)
   - OneSignal (2.16.1)
   - OpenSSL-Universal (1.0.2.20):
     - OpenSSL-Universal/Static (= 1.0.2.20)
@@ -349,6 +352,9 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
+  - RNLine (2.1.0):
+    - LineSDKSwift (~> 5.0)
+    - React
   - RNPermissions (3.0.0):
     - React-Core
   - RNReanimated (1.13.2):
@@ -390,6 +396,7 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (~> 0.54.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - LineSDKSwift (~> 5.0)
   - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
   - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
   - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary`)
@@ -430,6 +437,7 @@ DEPENDENCIES:
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - "RNLine (from `../node_modules/@xmartlabs/react-native-line`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -449,6 +457,7 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
+    - LineSDKSwift
     - OneSignal
     - OpenSSL-Universal
     - TOCropViewController
@@ -543,6 +552,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
+  RNLine:
+    :path: "../node_modules/@xmartlabs/react-native-line"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   RNReanimated:
@@ -573,6 +584,7 @@ SPEC CHECKSUMS:
   FlipperKit: ab353d41aea8aae2ea6daaf813e67496642f3d7d
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
+  LineSDKSwift: f9c232f89185b887b5725aa278325f3a23e33bbc
   OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
   Permission-Camera: 119b01de97a5b3edb637999e38476b68143b9d17
@@ -613,6 +625,7 @@ SPEC CHECKSUMS:
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNImageCropPicker: 9e0bf18cf4184a846fed55747c8e622208b39947
+  RNLine: b9b67a03a9228832b3ba6c40f5015169fdb264a5
   RNPermissions: 99dd8d4a30ff13509b949ca63cd1f69edc461775
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
@@ -622,6 +635,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 8730f59170c79c260ddf3ddbc83c4de6597fb4fd
+PODFILE CHECKSUM: c818c8a1d8141c843ad89d1a7fb24d5e4b5b4242
 
 COCOAPODS: 1.9.3

@@ -65,7 +65,6 @@ const SigninForm = () => {
             lineId: loginResult.userProfile.userID,
             user_picture_url: loginResult.userProfile.pictureURL,
           });
-
           if (user.token) {
             await AsyncStorage.setItem('accessToken', user.token);
             dispatch(signIn(user.user));
