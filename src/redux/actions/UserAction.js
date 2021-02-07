@@ -121,6 +121,13 @@ export const signIn = (user) => async (dispatch) => {
   });
 };
 
+export const setUser = (user) => async (dispatch) => {
+  dispatch({
+    type: SET_USER,
+    payload: user,
+  });
+};
+
 export const signOut = (navigation) => async (dispatch) => {
   SplashScreen.show();
   await AsyncStorage.removeItem('accessToken');

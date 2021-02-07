@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Ramble</string>
+    <string name="line_channel_id" translatable="false">1655591354</string>
 </resources>

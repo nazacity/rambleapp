@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
-import {post} from '../../redux/actions/request';
+import {everyGet, get, post} from '../../redux/actions/request';
 import {
   setLoading,
   setSnackbarDisplay,
@@ -25,7 +25,10 @@ import {useForm, Controller} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SplashScreen from 'react-native-splash-screen';
+import LineLogin from '@xmartlabs/react-native-line';
+import lineLogo from '../../../assets/line/linebutton.png';
+
+import {everyPost} from '../../redux/actions/request';
 
 const SigninForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -42,6 +45,45 @@ const SigninForm = () => {
     email: false,
     password: false,
   });
+
+  const handleLineLogin = async () => {
+    try {
+      dispatch(setLoading(true));
+      const loginResult = await LineLogin.login({
+        botPrompt: 'aggressive',
+      });
+      if (loginResult) {
+        const res = await everyPost('/api/everyone/getUserFromLineToken', {
+          accessToken: loginResult.accessToken.access_token,
+        });
+        if (res.data === 'No user is found') {
+          navigation.navigate('Signup', {
+            lineInfo: loginResult,
+          });
+        } else if (res.data._id) {
+          const user = await everyPost('/users/lineId', {
+            lineId: loginResult.userProfile.userID,
+            user_picture_url: loginResult.userProfile.pictureURL,
+          });
+
+          if (user.token) {
+            await AsyncStorage.setItem('accessToken', user.token);
+            dispatch(signIn(user.user));
+            dispatch(
+              setSnackbarDisplay({
+                state: 'success',
+                message: t('signin.welcome'),
+              }),
+            );
+          }
+        }
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
 
   const onSubmit = async (data) => {
     if (!data.username || !data.password) {
@@ -198,6 +240,17 @@ const SigninForm = () => {
             label={t('signin.signin')}
             color={COLORS.pinkPastel}
             onPress={handleSubmit(onSubmit)}
+          />
+          <View style={{margin: 5}} />
+          <Button
+            label={t('signin.linelogin')}
+            color={COLORS.greenLine}
+            onPress={handleLineLogin}
+            leftIcon={() => {
+              return (
+                <Image source={lineLogo} style={{width: 30, height: 30}} />
+              );
+            }}
           />
         </View>
         <View

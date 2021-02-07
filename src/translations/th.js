@@ -18,6 +18,7 @@ const th = {
     welcome: 'ยินดีต้อนรับเข้าสู่มาราธอนคอมมิวนิตี้',
     nouserorpasserror: 'กรุณาใส่ Username และ Password',
     forgotpassword: 'ลืมรหัสผ่าน',
+    linelogin: 'เข้าสู่คอมมิวนิตี้ด้วย Line',
   },
   forgotpassword: {
     idcard: 'รหัสบัตรประจำตัวประชาชน',
@@ -267,6 +268,12 @@ const th = {
     phone_number: 'เบอร์โทรศัพท์',
     lineconnect: 'เชื่อมต่อ Line',
     changelineconnect: 'เปลี่ยน Line Account',
+  },
+  lineconnect: {
+    successed: 'เชื่อมต่อ Line สำเร็จ',
+    failed: 'การเชื่อมต่อกับ Line ล้มเหลว',
+    lineisused: 'Line account นี้ได้ถูกเชื่อมต่อแล้ว',
+    lineisconnected: 'คุณได้เชื่อมต่อ Line account นี้แล้ว',
   },
 };
 

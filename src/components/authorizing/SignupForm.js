@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState, Fragment, useEffect} from 'react';
 import {
   Text,
   View,
@@ -23,7 +23,7 @@ import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
 
 import {useForm, Controller} from 'react-hook-form';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UploadPictureModal from '../../components/modal/UploadPictureModal';
@@ -43,6 +43,9 @@ const SignupForm = () => {
   const {control, handleSubmit, errors, reset} = useForm();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const {lineInfo} = route.params;
   const [image, setImage] = useState('');
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -52,6 +55,12 @@ const SignupForm = () => {
   //   msg: '',
   //   state: 'success',
   // });
+
+  useEffect(() => {
+    if (lineInfo) {
+      setImage(lineInfo.userProfile.pictureURL);
+    }
+  }, [route]);
 
   const handleCalendarModalClose = () => {
     setCalendarModalOpen(false);
@@ -158,6 +167,9 @@ const SignupForm = () => {
           gender: data.gender,
           blood_type: data.blood_type,
           user_picture_url: image,
+          lineId: lineInfo.userProfile.userID
+            ? lineInfo.userProfile.userID
+            : '',
         };
 
         const res = await post('/api/everyone/createuser', userinfo);

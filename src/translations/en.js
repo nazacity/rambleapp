@@ -18,6 +18,7 @@ const en = {
     welcome: 'Welcome to Marathon Sharing Community',
     nouserorpasserror: 'Please fill username and password',
     forgotpassword: 'Forgot password',
+    linelogin: 'Get Into Community with Line',
   },
   forgotpassword: {
     idcard: 'Identification card number',
@@ -268,6 +269,12 @@ const en = {
     phone_number: 'Phone number',
     lineconnect: 'Line Connect',
     changelineconnect: 'Change Line Account',
+  },
+  lineconnect: {
+    successed: 'Connect to Line Successfuly',
+    failed: 'Connecting to Line is failed',
+    lineisused: 'Line account is connected',
+    lineisconnected: 'You have connected to this Line account',
   },
 };
 

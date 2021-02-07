@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   isSignedIn: false,
-  lang: 'en',
+  lang: 'th',
   isLoading: true,
   snackbar: {
     display: false,
