@@ -26,7 +26,6 @@ const LineConnectDisplay = ({user}) => {
     try {
       // dispatch(setLoading(true));
       const line = await LineLogin.login();
-      console.log(line.userProfile.userID);
 
       if (lineId === line.userProfile.userID) {
         dispatch(
