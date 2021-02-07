@@ -19,6 +19,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import SnackbarNotification from '../components/snackbar/SnackbarNotification';
 import {StatusBar} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 
 const Drawer = createDrawerNavigator();
 
