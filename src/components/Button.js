@@ -27,7 +27,7 @@ const Button = ({label, onPress, color, width, leftIcon}) => {
               color: '#fff',
               textAlign: 'center',
             },
-            FONTS.h5,
+            FONTS.button,
           ]}>
           {label}
         </Text>

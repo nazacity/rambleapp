@@ -21,10 +21,11 @@ const en = {
     linelogin: 'Get Into Community with Line',
   },
   forgotpassword: {
-    idcard: 'Identification card number',
+    username: 'Username',
     reset: 'Reset password',
+    phone_number: 'Phone number',
     nouser: 'Id card no or phone number is incorrect',
-    fillallform: 'Please fill id card no and phone number',
+    fillallform: 'Please fill username and phone number',
     check: 'Check Information',
     success: 'Changed password successfuly',
     error: 'Something went wrong. Please try again',
@@ -182,6 +183,7 @@ const en = {
     okay: 'Okay',
     pleaseaddemergency: 'No emergency contact information',
     noemergency: 'Please add emergency contact',
+    registersuccessed: 'Register Successfuly Please Process payment',
   },
   payment: {
     activity: 'Activity',

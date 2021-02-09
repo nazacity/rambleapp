@@ -27,6 +27,7 @@ import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LineLogin from '@xmartlabs/react-native-line';
 import lineLogo from '../../../assets/line/linebutton.png';
+import rambleLogo from '../../../assets/logo/ramble-white512.png';
 
 import {everyPost} from '../../redux/actions/request';
 
@@ -128,18 +129,16 @@ const SigninForm = () => {
       style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
       <View
         style={{
-          paddingVertical: 20,
           flex: 1,
         }}>
         <View
           style={{
             height: 200,
             width: 200,
-            marginBottom: 20,
             alignSelf: 'center',
           }}>
           <Image
-            source={require('../../../assets/logo/ramble.png')}
+            source={require('../../../assets/logo/ramble512.png')}
             style={{
               height: 200,
               width: 200,
@@ -239,6 +238,17 @@ const SigninForm = () => {
             label={t('signin.signin')}
             color={COLORS.pinkPastel}
             onPress={handleSubmit(onSubmit)}
+            leftIcon={() => {
+              return (
+                <Image
+                  source={rambleLogo}
+                  style={{
+                    height: 30,
+                    width: 30,
+                  }}
+                />
+              );
+            }}
           />
           <View style={{margin: 5}} />
           <Button

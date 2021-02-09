@@ -140,6 +140,11 @@ export const FONTS = {
     fontSize: SIZES.body5,
     lineHeight: 22,
   },
+  button: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.body5,
+    lineHeight: 22,
+  },
 };
 
 const appTheme = {COLORS, SIZES, FONTS};

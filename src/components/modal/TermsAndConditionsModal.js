@@ -36,27 +36,29 @@ const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           backgroundColor: '#fff',
-          padding: 20,
         }}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{marginBottom: 20}}>
-            <Text style={[FONTS.h2, {textAlign: 'center'}]}>
-              {t('activity.conditionandterms')}
-            </Text>
-          </View>
-          <Markdown>{detail}</Markdown>
-          <View
-            style={{
-              alignItems: 'center',
-            }}>
-            <Button
-              label={t('activity.accept')}
-              color={COLORS.pinkPastel}
-              onPress={() => {
-                setAcceptTerm(true);
-                handleClose();
-              }}
-            />
+          <View style={{padding: 20}}>
+            <View style={{marginBottom: 20}}>
+              <Text style={[FONTS.h2, {textAlign: 'center'}]}>
+                {t('activity.conditionandterms')}
+              </Text>
+            </View>
+            <Markdown>{detail}</Markdown>
+            <View
+              style={{
+                alignItems: 'center',
+                marginTop: 20,
+              }}>
+              <Button
+                label={t('activity.accept')}
+                color={COLORS.pinkPastel}
+                onPress={() => {
+                  setAcceptTerm(true);
+                  handleClose();
+                }}
+              />
+            </View>
           </View>
         </ScrollView>
       </View>

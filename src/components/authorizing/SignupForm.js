@@ -167,7 +167,7 @@ const SignupForm = () => {
           gender: data.gender,
           blood_type: data.blood_type,
           user_picture_url: image,
-          lineId: lineInfo.userProfile.userID
+          lineId: lineInfo?.userProfile?.userID
             ? lineInfo.userProfile.userID
             : '',
         };

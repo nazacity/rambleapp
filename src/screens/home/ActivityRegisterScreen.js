@@ -95,6 +95,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             announcement: activity.announcement,
           },
           navigateUser,
+          t,
         ),
       );
     }

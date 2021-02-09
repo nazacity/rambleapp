@@ -258,7 +258,7 @@ export const deleteEmergencyContact = (emergencyId) => async (dispatch) => {
   }
 };
 
-export const registerActivity = (data, navigateUser) => async (dispatch) => {
+export const registerActivity = (data, navigateUser, t) => async (dispatch) => {
   dispatch({
     type: SET_LOADING,
     payload: true,
@@ -275,12 +275,19 @@ export const registerActivity = (data, navigateUser) => async (dispatch) => {
       payload: false,
     });
     navigateUser(res.id);
+    dispatch({
+      type: SET_SNACKBAR_DISPLAY,
+      payload: {
+        state: 'success',
+        message: t('activity.registersuccessed'),
+      },
+    });
     setTimeout(() => {
       dispatch({
         type: SET_LOADING,
         payload: false,
       });
-    }, 700);
+    }, 200);
   } catch (error) {
     console.log(error);
     dispatch({
