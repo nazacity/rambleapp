@@ -64,7 +64,7 @@ const en = {
     condition1:
       'By registering means that I have read and agree/agreed to the ',
     condition2: ' and ',
-    policy: 'Privacy policy',
+    policy: 'Privacy Policy',
     useragreement: 'Term and Condition',
     successed: 'Register successfuly',
   },
