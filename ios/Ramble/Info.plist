@@ -98,5 +98,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LineSDKConfig</key>
+<dict>
+    <key>ChannelID</key>
+    <string>1655591354</string>
+</dict>
 </dict>
 </plist>
