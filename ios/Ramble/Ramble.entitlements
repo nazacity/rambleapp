@@ -8,5 +8,9 @@
 	<array>
 		<string>group.com.rambleclub.rambleios.onesignal</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>3YZ3F2R47K.com.rambleclub.rambleios</string>
+	</array>
 </dict>
 </plist>

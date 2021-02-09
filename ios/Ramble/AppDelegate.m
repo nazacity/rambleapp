@@ -5,6 +5,8 @@
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
 
+@import RNLine;
+
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -12,7 +14,6 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-@import RNLine;
 
 
 static void InitializeFlipper(UIApplication *application) {
