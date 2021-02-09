@@ -278,7 +278,9 @@ const SigninForm = () => {
               style={{marginLeft: 5}}
               activeOpacity={0.8}
               onPress={() => {
-                navigation.navigate('Signup');
+                navigation.navigate('Signup', {
+                  lineInfo: {},
+                });
               }}>
               <Text
                 style={[

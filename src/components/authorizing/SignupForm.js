@@ -45,7 +45,7 @@ const SignupForm = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const {lineInfo} = route.params;
+  const lineInfo = route.params.lineInfo;
   const [image, setImage] = useState('');
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -57,7 +57,7 @@ const SignupForm = () => {
   // });
 
   useEffect(() => {
-    if (lineInfo) {
+    if (lineInfo.userProfile) {
       setImage(lineInfo.userProfile.pictureURL);
     }
   }, [route]);
