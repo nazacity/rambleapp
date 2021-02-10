@@ -2,13 +2,12 @@ import React, {Fragment, useState} from 'react';
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import {FONTS, COLORS, theme} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   setLoading,
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
-import LineConnectModal from './LineConnectModal';
 import LineLogin from '@xmartlabs/react-native-line';
 import {post} from '../../redux/actions/request';
 import {setUser} from '../../redux/actions/UserAction';
@@ -88,11 +87,12 @@ const LineConnectDisplay = ({user}) => {
             alignItems: 'center',
             height: 60,
           }}
-          onPress={handleLineConnect}>
-          <MaterialIcons
-            name="verified-user"
+          on
+          Press={handleLineConnect}>
+          <Fontisto
+            name="line"
             color={lineId ? COLORS.primary : COLORS.inactiveColor}
-            size={24}
+            size={20}
             style={{marginRight: 20}}
           />
           <Text style={[FONTS.h3]}>

@@ -276,6 +276,11 @@ const th = {
     phone_number: 'เบอร์โทรศัพท์',
     lineconnect: 'เชื่อมต่อ Line',
     changelineconnect: 'เปลี่ยน Line Account',
+    notverifiedidentity: 'ยืนยันตัวตน',
+    verifiedidentity: 'ยืนยันตัวตนแล้ว',
+    notverifiedvaccine: 'ยืนยันการฉีดวัคซีน',
+    verifiedvaccine: 'ยืนยันการฉีดวัคซีนแล้ว',
+    sendinfo: 'ส่งข้อมูล',
   },
   lineconnect: {
     successed: 'เชื่อมต่อ Line สำเร็จ',

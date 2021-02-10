@@ -79,7 +79,7 @@ const ChangePasswordDisplay = ({user}) => {
           <Ionicons
             name="key"
             color={COLORS.primary}
-            size={24}
+            size={20}
             style={{marginRight: 20}}
           />
           <Text style={[FONTS.h3]}>{t('editprofile.changepassword')}</Text>

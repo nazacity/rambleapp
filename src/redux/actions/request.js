@@ -1,9 +1,9 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const url = 'https://api.ramble-club.com';
+// const url = 'https://api.ramble-club.com';
 // const url = 'http://192.168.43.223:5000';
-// const url = 'http://192.168.1.181:5000';
+const url = 'http://192.168.1.181:5000';
 
 const createJWTTokenHeaders = async () => {
   const token = await AsyncStorage.getItem('accessToken');
@@ -40,7 +40,7 @@ export const everyGet = async (path) => {
   return res.data;
 };
 
-export const everyPost = async (path, body) => {
-  const res = await axios.post(`${url}${path}`, body);
+export const everyPost = async (path, body, headers) => {
+  const res = await axios.post(`${url}${path}`, body, headers);
   return res.data;
 };

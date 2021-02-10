@@ -9,7 +9,7 @@ import {
 import LocalizationContext from '../../screens/LocalizationContext';
 
 import Modal from 'react-native-modal';
-import {FONTS, SIZES, COLORS} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 
 import ImagePicker from 'react-native-image-crop-picker';
 import {
@@ -18,13 +18,14 @@ import {
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 import {useSelector, useDispatch} from 'react-redux';
-import S3 from '../../services/uploadpicture';
-import fs from 'react-native-fs';
-import {decode} from 'base64-arraybuffer';
-import {v4 as uuidv4} from 'uuid';
+import {uploadSecretKey} from '../../services/uploadpicture';
+// import fs from 'react-native-fs';
+// import {decode} from 'base64-arraybuffer';
+// import {v4 as uuidv4} from 'uuid';
 import 'react-native-get-random-values';
-import {post} from '../../redux/actions/request';
+import {everyPost, post} from '../../redux/actions/request';
 import {refresh} from '../../redux/actions/UserAction';
+import {Platform} from 'react-native';
 
 const storage_config = {
   digitalOceanSpaces: 'https://ramble.nyc3.digitaloceanspaces.com/',
@@ -43,40 +44,36 @@ const UploadPictureModal = ({setImage, upload, delFile}) => {
   };
 
   const handleUploadImage = async (result) => {
-    dispatch(setLoading(true));
     if (result) {
-      const blob = result;
-      const name = uuidv4();
-      const fPath = blob.path;
-      const base64 = await fs.readFile(fPath, 'base64');
-      const arrayBuffer = decode(base64);
-      const params = {
-        Body: arrayBuffer,
-        Bucket: `${storage_config.bucket_name}`,
-        Key: `user_picture/${name}`,
+      const photo = {
+        uri:
+          Platform.OS === 'android'
+            ? result.path
+            : result.path.replace('file://', ''),
+        type: result.mime,
+        name: result.path.substring(result.path.lastIndexOf('/') + 1),
       };
 
-      S3.putObject(params)
-        .on('build', (request) => {
-          request.httpRequest.headers.Host = `${storage_config.digitalOceanSpaces}`;
-          request.httpRequest.headers['Content-Length'] = blob.size;
-          request.httpRequest.headers['Content-Type'] = blob.mime;
-          request.httpRequest.headers['x-amz-acl'] = 'public-read-write';
-        })
-        .send(async (err) => {
-          if (err) {
-            console.log(err);
-            dispatch(setLoading(false));
-          } else if (setImage) {
-            const imageUrl =
-              `${storage_config.digitalOceanSpaces}user_picture/` + name;
-            setImage(imageUrl, name);
+      const formData = new FormData();
+      formData.append('upload', photo);
+
+      try {
+        dispatch(setLoading(true));
+        const res = await everyPost('/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            secretKey: `Bearer ${uploadSecretKey}`,
+          },
+        });
+
+        if (res.data === 'File uploaded successfully') {
+          const imageUrl =
+            `${storage_config.digitalOceanSpaces}user_profile/` + photo.name;
+          if (setImage) {
+            setImage(imageUrl);
             dispatch(setLoading(false));
             handleClose();
           } else if (upload === 'uploadUserPictureProfile') {
-            const imageUrl =
-              `${storage_config.digitalOceanSpaces}user_picture/` + name;
-
             const res = await post('/api/users/edituser', {
               type: 'editUserPictureProfile',
               user_picture_url: imageUrl,
@@ -92,26 +89,22 @@ const UploadPictureModal = ({setImage, upload, delFile}) => {
               );
             }
             if (delFile) {
-              const shouldDeleteFile = delFile.replace(
-                'https://ramble.nyc3.digitaloceanspaces.com/',
-                '',
-              );
-              const delParams = {
-                Bucket: `${storage_config.bucket_name}`,
-                Key: `${shouldDeleteFile}`,
-              };
-              S3.deleteObject(delParams, function (err, data) {
-                if (err) {
-                  console.log(err, err.stack);
-                }
-              });
+              if (
+                delFile.includes('https://ramble.nyc3.digitaloceanspaces.com/')
+              ) {
+                const shouldDeleteFile = delFile.replace(
+                  'https://ramble.nyc3.digitaloceanspaces.com/',
+                  '',
+                );
+
+                const res1 = await post('/api/users/deleteimage', {
+                  fileName: shouldDeleteFile,
+                });
+              }
             }
             dispatch(setLoading(false));
             handleClose();
           } else if (upload === 'uploadUserBackgroundPictureProfile') {
-            const imageUrl =
-              `${storage_config.digitalOceanSpaces}user_picture/` + name;
-
             const res = await post('/api/users/edituser', {
               type: 'editUserBackgroundPictureProfile',
               user_background_picture_url: imageUrl,
@@ -127,24 +120,128 @@ const UploadPictureModal = ({setImage, upload, delFile}) => {
               );
             }
             if (delFile) {
-              const shouldDeleteFile = delFile.replace(
-                'https://ramble.nyc3.digitaloceanspaces.com/',
-                '',
-              );
-              const delParams = {
-                Bucket: `${storage_config.bucket_name}`,
-                Key: `${shouldDeleteFile}`,
-              };
-              S3.deleteObject(delParams, function (err, data) {
-                if (err) {
-                  console.log(err, err.stack);
-                }
-              });
+              if (
+                delFile.includes('https://ramble.nyc3.digitaloceanspaces.com/')
+              ) {
+                const shouldDeleteFile = delFile.replace(
+                  'https://ramble.nyc3.digitaloceanspaces.com/',
+                  '',
+                );
+                const res1 = await post('/api/users/deleteimage', {
+                  fileName: shouldDeleteFile,
+                });
+              }
             }
             dispatch(setLoading(false));
             handleClose();
           }
-        });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      // const name = result.path.substring(result.path.lastIndexOf('/') + 1);
+      // const blob = result;
+
+      // const fPath = blob.path;
+      // const base64 = await fs.readFile(fPath, 'base64');
+      // const arrayBuffer = decode(base64);
+      // const params = {
+      //   Body: arrayBuffer,
+      //   Bucket: `${storage_config.bucket_name}`,
+      //   Key: `user_picture/${name}`,
+      // };
+
+      // S3.putObject(params)
+      //   .on('build', (request) => {
+      //     request.httpRequest.headers.Host = `${storage_config.digitalOceanSpaces}`;
+      //     request.httpRequest.headers['Content-Length'] = blob.size;
+      //     request.httpRequest.headers['Content-Type'] = blob.mime;
+      //     request.httpRequest.headers['x-amz-acl'] = 'public-read-write';
+      //   })
+      //   .send(async (err) => {
+      //     if (err) {
+      //       console.log(err);
+      //       dispatch(setLoading(false));
+      //     } else if (setImage) {
+      //       const imageUrl =
+      //         `${storage_config.digitalOceanSpaces}user_picture/` + name;
+
+      //       setImage(imageUrl);
+      //       dispatch(setLoading(false));
+      //       handleClose();
+      //     } else if (upload === 'uploadUserPictureProfile') {
+      //       const imageUrl =
+      //         `${storage_config.digitalOceanSpaces}user_picture/` + name;
+
+      //       const res = await post('/api/users/edituser', {
+      //         type: 'editUserPictureProfile',
+      //         user_picture_url: imageUrl,
+      //       });
+
+      //       if (res.status === 200) {
+      //         dispatch(refresh());
+      //         dispatch(
+      //           setSnackbarDisplay({
+      //             state: 'success',
+      //             message: t('editprofile.imageuploadsuccessed'),
+      //           }),
+      //         );
+      //       }
+      //       if (delFile) {
+      //         const shouldDeleteFile = delFile.replace(
+      //           'https://ramble.nyc3.digitaloceanspaces.com/',
+      //           '',
+      //         );
+      //         const delParams = {
+      //           Bucket: `${storage_config.bucket_name}`,
+      //           Key: `${shouldDeleteFile}`,
+      //         };
+      //         S3.deleteObject(delParams, function (err, data) {
+      //           if (err) {
+      //             console.log(err, err.stack);
+      //           }
+      //         });
+      //       }
+      //       dispatch(setLoading(false));
+      //       handleClose();
+      //     } else if (upload === 'uploadUserBackgroundPictureProfile') {
+      //       const imageUrl =
+      //         `${storage_config.digitalOceanSpaces}user_picture/` + name;
+
+      //       const res = await post('/api/users/edituser', {
+      //         type: 'editUserBackgroundPictureProfile',
+      //         user_background_picture_url: imageUrl,
+      //       });
+
+      //       if (res.status === 200) {
+      //         dispatch(refresh());
+      //         dispatch(
+      //           setSnackbarDisplay({
+      //             state: 'success',
+      //             message: t('editprofile.imageuploadsuccessed'),
+      //           }),
+      //         );
+      //       }
+      //       if (delFile) {
+      //         const shouldDeleteFile = delFile.replace(
+      //           'https://ramble.nyc3.digitaloceanspaces.com/',
+      //           '',
+      //         );
+      //         const delParams = {
+      //           Bucket: `${storage_config.bucket_name}`,
+      //           Key: `${shouldDeleteFile}`,
+      //         };
+      //         S3.deleteObject(delParams, function (err, data) {
+      //           if (err) {
+      //             console.log(err, err.stack);
+      //           }
+      //         });
+      //       }
+      //       dispatch(setLoading(false));
+      //       handleClose();
+      //     }
+      //   });
     }
   };
 

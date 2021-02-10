@@ -11,6 +11,8 @@ import DisplayNameDisplay from '../../components/editprofile/DisplayNameDisplay'
 import PhoneDisplay from '../../components/editprofile/PhoneDisplay';
 import ChangePasswordDisplay from '../../components/editprofile/ChangePasswordDisplay';
 import LineConnectDisplay from '../../components/editprofile/LineConnectDisplay';
+import VerifyIdentifyDisplay from '../../components/editprofile/VerifyIdentifyDisplay';
+import VerifyVaccineDisplay from '../../components/editprofile/VerifyVaccineDisplay';
 
 const EditProfileScreen = () => {
   const user = useSelector((state) => state.user);
@@ -53,6 +55,21 @@ const EditProfileScreen = () => {
             borderBottomColor: 'rgba(0,0,0,0.6)',
           }}
         />
+        <VerifyIdentifyDisplay />
+        <View
+          style={{
+            borderBottomWidth: 0.5,
+            borderBottomColor: 'rgba(0,0,0,0.6)',
+          }}
+        />
+        <VerifyVaccineDisplay />
+        <View
+          style={{
+            borderBottomWidth: 0.5,
+            borderBottomColor: 'rgba(0,0,0,0.6)',
+          }}
+        />
+        <View style={{margin: 25}} />
       </ScrollView>
     </View>
   );

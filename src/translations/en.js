@@ -276,6 +276,11 @@ const en = {
     phone_number: 'Phone number',
     lineconnect: 'Line Connect',
     changelineconnect: 'Change Line Account',
+    notverified: 'Verify Identity',
+    verifiedidentity: 'Verified Identity',
+    notverifiedvaccine: 'Verify covid vaccine',
+    verifiedvaccine: 'Verified covid vaccine',
+    sendinfo: 'Send Infomation',
   },
   lineconnect: {
     successed: 'Connect to Line Successfuly',

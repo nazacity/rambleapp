@@ -65,16 +65,16 @@ export const SIZES = {
 
   // font sizes
   navTitle: 25,
-  h1: 30,
-  h2: 22,
-  h3: 16,
-  h4: 14,
-  h5: 12,
-  body1: 24,
-  body2: 20,
-  body3: 16,
-  body4: 14,
-  body5: 12,
+  h1: 18,
+  h2: 16,
+  h3: 14,
+  h4: 12,
+  h5: 10,
+  body1: 18,
+  body2: 16,
+  body3: 14,
+  body4: 12,
+  body5: 10,
 
   // app dimensions
   width,
