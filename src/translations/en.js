@@ -27,7 +27,7 @@ const en = {
     nouser: 'Id card no or phone number is incorrect',
     fillallform: 'Please fill username and phone number',
     check: 'Check Information',
-    success: 'Changed password successfuly',
+    success: 'Changed password successfully',
     error: 'Something went wrong. Please try again',
   },
   signup: {
@@ -66,7 +66,7 @@ const en = {
     condition2: ' and ',
     policy: 'Privacy Policy',
     useragreement: 'Term and Condition',
-    successed: 'Register successfuly',
+    successed: 'Register successfully',
   },
   phonechecking: {
     resend: 'Resend OTP',
@@ -183,7 +183,7 @@ const en = {
     okay: 'Okay',
     pleaseaddemergency: 'No emergency contact information',
     noemergency: 'Please add emergency contact',
-    registersuccessed: 'Register Successfuly Please Process payment',
+    registersuccessed: 'Register Successfully Please Process payment',
   },
   payment: {
     activity: 'Activity',
@@ -290,9 +290,10 @@ const en = {
     verifying: 'Verifying',
     rejected: 'Reverify identity',
     rejectedvaccine: 'Reverify covid vaccine',
+    sentinformation: 'Sent Information successfully',
   },
   lineconnect: {
-    successed: 'Connect to Line Successfuly',
+    successed: 'Connect to Line Successfully',
     failed: 'Connecting to Line is failed',
     lineisused: 'Line account is connected',
     lineisconnected: 'You have connected to this Line account',

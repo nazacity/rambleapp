@@ -289,6 +289,7 @@ const th = {
     uploadpicture: 'กรุณาเลือกรูป',
     verifying: 'กำลังตรวจสอบ',
     rejected: 'กรุณายืนยันอีกครั้ง',
+    sentinformation: 'ส่งข้อมูลเรียบร้อย',
   },
   lineconnect: {
     successed: 'เชื่อมต่อ Line สำเร็จ',

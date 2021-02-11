@@ -3,20 +3,12 @@ import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import {FONTS, COLORS, theme} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  setLoading,
-  setSnackbarDisplay,
-} from '../../redux/actions/AppStateAction';
-import LineLogin from '@xmartlabs/react-native-line';
-import {post} from '../../redux/actions/request';
-import {setUser} from '../../redux/actions/UserAction';
+import {useSelector} from 'react-redux';
 import VerifyVaccineModal from './VerifyVaccineModal';
 
 const VerifyVaccineDisplay = ({user}) => {
   const {t} = React.useContext(LocalizationContext);
   const verifyState = useSelector((state) => state.user.vefiry_vaccine.state);
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);

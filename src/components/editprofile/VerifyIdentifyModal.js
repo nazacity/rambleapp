@@ -1,5 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native';
 import {FONTS, COLORS, theme, SIZES, SHADOW} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -8,17 +14,8 @@ import Modal from 'react-native-modal';
 import {useForm, Controller} from 'react-hook-form';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  changePasssword,
-  refresh,
-  setUser,
-} from '../../redux/actions/UserAction';
+import {setUser} from '../../redux/actions/UserAction';
 import Button from '../Button';
-import {Icon} from 'react-native-elements';
-import {Snackbar} from 'react-native-paper';
-import WebView from 'react-native-webview';
-import Spinner from 'react-native-loading-spinner-overlay';
-import {Linking} from 'react-native';
 import {
   setLoading,
   setSnackbarDisplay,
@@ -29,11 +26,10 @@ import {Platform} from 'react-native';
 import {Image} from 'react-native';
 import {ScrollView} from 'react-native';
 import {Alert} from 'react-native';
-import {post} from '../../redux/actions/request';
+import {get, post} from '../../redux/actions/request';
 
 const VerifyIdentifyModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [passport, setPassport] = useState(false);
@@ -42,6 +38,12 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
     type: 'id_card',
     open: false,
   });
+  const [checkIdLoading, setCheckIdLoading] = useState(false);
+  const [message, setMessage] = useState({
+    msg: '',
+    state: 'success',
+  });
+
   const handleUploadModalClose = () => {
     setUploadModalOpen({...uploadModalOpen, open: false});
   };
@@ -112,6 +114,12 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
         dispatch(setUser(res.data));
       }
       dispatch(setLoading(false));
+      dispatch(
+        setSnackbarDisplay({
+          state: 'success',
+          message: t('editprofile.sentinformation'),
+        }),
+      );
       handleResetClose();
     } catch (error) {
       console.log(error);
@@ -338,8 +346,38 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
                     <FloatingLabelInput
                       floatingLabel={t('editprofile.idcard')}
                       inputContainerStyle={{borderBottomWidth: 0, width: 300}}
-                      onChangeText={(text) => {
+                      onChangeText={async (text) => {
                         if (text.length === 13) {
+                          setValue(text);
+                          setCheckIdLoading(true);
+                          const res = await get(
+                            `/api/everyone/checkcitizenidnumber/${text}`,
+                          );
+                          if (res.status === 200) {
+                            if (res.data === 'idcardno is correct') {
+                              setTimeout(() => {
+                                setMessage({
+                                  msg: t('signup.rightidcard'),
+                                  state: 'success',
+                                });
+                                setCheckIdLoading(false);
+                              }, 800);
+                            } else if (res.data === 'idcardno is used') {
+                              setMessage({
+                                msg: t('signup.usedidcard'),
+                                state: 'error',
+                              });
+                              setCheckIdLoading(false);
+                            } else {
+                              setTimeout(() => {
+                                setMessage({
+                                  msg: t('signup.wrongidcard'),
+                                  state: 'error',
+                                });
+                                setCheckIdLoading(false);
+                              }, 800);
+                            }
+                          }
                         } else if (text.length > 13) {
                           Alert.alert(
                             t('editprofile.pleasecheck'),
@@ -357,7 +395,27 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
                       }}
                       value={value}
                       keyboardType="number-pad"
+                      rightIcon={
+                        checkIdLoading && (
+                          <ActivityIndicator size={25} color={COLORS.primary} />
+                        )
+                      }
                     />
+                  )}
+                  {message.msg !== '' && (
+                    <Text
+                      style={[
+                        FONTS.h5,
+                        {
+                          color:
+                            message.state === 'success' ? '#5cb85c' : '#d9534f',
+                          marginTop: -10,
+                          marginBottom: 15,
+                          marginLeft: 5,
+                        },
+                      ]}>
+                      {message.msg}
+                    </Text>
                   )}
                 </View>
                 <Button

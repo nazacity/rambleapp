@@ -3,18 +3,11 @@ import {View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import {FONTS, COLORS, theme, SIZES, SHADOW} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
-import {useForm, Controller} from 'react-hook-form';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasssword, refresh} from '../../redux/actions/UserAction';
 import Button from '../Button';
-import {Icon} from 'react-native-elements';
-import {Snackbar} from 'react-native-paper';
-import WebView from 'react-native-webview';
-import Spinner from 'react-native-loading-spinner-overlay';
-import {Linking} from 'react-native';
+
 import {
   setLoading,
   setSnackbarDisplay,
