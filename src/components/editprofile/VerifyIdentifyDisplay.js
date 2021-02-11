@@ -15,7 +15,10 @@ import VerifyIdentifyModal from './VerifyIdentifyModal';
 
 const VerifyIdentifyAndCovidDisplay = ({user}) => {
   const {t} = React.useContext(LocalizationContext);
-  const lineId = useSelector((state) => state.user.lineId);
+  const verifyState = useSelector(
+    (state) => state.user.vefiry_information.state,
+  );
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -27,6 +30,7 @@ const VerifyIdentifyAndCovidDisplay = ({user}) => {
       <View>
         <TouchableOpacity
           activeOpacity={0.6}
+          disabled={verifyState === 'verifying' || verifyState === 'verified'}
           style={{
             borderRadius: 20,
             marginLeft: 5,
@@ -36,18 +40,24 @@ const VerifyIdentifyAndCovidDisplay = ({user}) => {
             height: 60,
           }}
           onPress={() => {
-            setOpen(true);
+            if (verifyState === 'rejected' || verifyState === 'not_verify') {
+              setOpen(true);
+            }
           }}>
           <MaterialIcons
             name="verified-user"
-            color={lineId ? COLORS.primary : COLORS.inactiveColor}
+            color={
+              verifyState === 'verified' ? COLORS.primary : COLORS.inactiveColor
+            }
             size={20}
             style={{marginRight: 20}}
           />
           <Text style={[FONTS.h3]}>
-            {lineId
-              ? t('editprofile.verifiedidentity')
-              : t('editprofile.notverifiedidentity')}
+            {verifyState === 'verifying' && t('editprofile.verifying')}
+            {verifyState === 'verified' && t('editprofile.verifiedidentity')}
+            {verifyState === 'rejected' && t('editprofile.rejected')}
+            {verifyState === 'not_verify' &&
+              t('editprofile.notverifiedidentity')}
           </Text>
         </TouchableOpacity>
       </View>

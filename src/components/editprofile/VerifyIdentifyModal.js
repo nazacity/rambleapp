@@ -8,7 +8,11 @@ import Modal from 'react-native-modal';
 import {useForm, Controller} from 'react-hook-form';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {useDispatch, useSelector} from 'react-redux';
-import {changePasssword, refresh} from '../../redux/actions/UserAction';
+import {
+  changePasssword,
+  refresh,
+  setUser,
+} from '../../redux/actions/UserAction';
 import Button from '../Button';
 import {Icon} from 'react-native-elements';
 import {Snackbar} from 'react-native-paper';
@@ -23,11 +27,17 @@ import UploadPictureModal from '../modal/UploadPictureModal1';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Platform} from 'react-native';
 import {Image} from 'react-native';
+import {ScrollView} from 'react-native';
+import {Alert} from 'react-native';
+import {post} from '../../redux/actions/request';
 
 const VerifyIdentifyModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const [passport, setPassport] = useState(false);
+  const [view, setView] = useState(0);
   const [uploadModalOpen, setUploadModalOpen] = useState({
     type: 'id_card',
     open: false,
@@ -43,8 +53,6 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
       uri: '',
     },
   });
-  // FOCUSES
-  //   const [focus, setFocus] = useState({});
 
   //   const setErrorMessage = (msg) => {
   //     setError(true);
@@ -71,19 +79,43 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
   //     }
   //   };
 
-  const handleSubmit = async (result) => {
-    if (result) {
-      const photo = {
-        uri:
-          Platform.OS === 'android'
-            ? result.path
-            : result.path.replace('file://', ''),
-        type: result.mime,
-        name: result.path.substring(result.path.lastIndexOf('/') + 1),
-      };
+  const handleSubmit = async () => {
+    if (images.id_card.uri === '' || images.id_card_with_person.uri === '') {
+      Alert.alert(t('editprofile.uploadpicture'), '', [
+        {
+          text: t('editprofile.okay'),
+          onPress: () => {},
+        },
+      ]);
+      return;
+    }
+    if (!passport && value.length !== 13) {
+      Alert.alert(t('editprofile.idcardlengthincorret'), '', [
+        {
+          text: t('editprofile.okay'),
+          onPress: () => {},
+        },
+      ]);
+      return;
+    }
 
-      const formData = new FormData();
-      formData.append('upload', photo);
+    const formData = new FormData();
+    formData.append('idcard', images.id_card);
+    formData.append('idcardwithperson', images.id_card_with_person);
+    formData.append('number', value);
+
+    try {
+      dispatch(setLoading(true));
+      const res = await post('/api/users/sendidentityinfo', formData);
+
+      if (res.status === 200) {
+        dispatch(setUser(res.data));
+      }
+      dispatch(setLoading(false));
+      handleResetClose();
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 
@@ -155,6 +187,7 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
         uri: '',
       },
     });
+    setView(0);
     handleClose();
   };
 
@@ -169,95 +202,173 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
           backgroundColor: COLORS.backgroundColor,
           flex: 1,
         }}>
-        <View
-          style={{flex: 1, alignItems: 'center', padding: 20, paddingTop: 40}}>
-          <TouchableOpacity
-            activeOpacity={0.8}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
             style={{
-              width: 30,
-              height: 30,
-              justifyContent: 'center',
+              flex: 1,
               alignItems: 'center',
-              borderRadius: 15,
-              position: 'absolute',
-              zIndex: 100,
-              top: 10,
-              right: 10,
-            }}
-            onPress={handleResetClose}>
-            <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
-          </TouchableOpacity>
-          <View style={[SHADOW.default, {borderRadius: 5, marginBottom: 20}]}>
+              padding: 20,
+              paddingTop: 40,
+            }}>
             <TouchableOpacity
-              activeOpacity={0.9}
-              style={[
-                {
-                  width: 300,
-                  height: 200,
-                  borderRadius: 5,
-                  backgroundColor: COLORS.white,
-                },
-                SHADOW.default,
-              ]}
-              onPress={() => {
-                setUploadModalOpen({
-                  type: 'id_card',
-                  open: true,
-                });
-              }}>
-              <Image
-                source={
-                  images.id_card.uri
-                    ? {uri: images.id_card.uri}
-                    : require('../../../assets/logo/ramble512.png')
-                }
-                style={{
-                  width: 300,
-                  height: 200,
-                  borderRadius: 5,
-                }}
+              activeOpacity={0.8}
+              style={{
+                width: 30,
+                height: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 15,
+                position: 'absolute',
+                zIndex: 100,
+                top: 10,
+                right: 10,
+              }}
+              onPress={handleResetClose}>
+              <MaterialIcons
+                name="cancel"
+                color={COLORS.buttonBlue}
+                size={24}
               />
             </TouchableOpacity>
+            {view === 0 && (
+              <Fragment>
+                <View
+                  style={{
+                    flex: 1,
+                    paddingTop: 150,
+                  }}>
+                  <Button
+                    label={t('editprofile.idcard')}
+                    color={COLORS.pinkPastel}
+                    onPress={() => {
+                      setPassport(false);
+                      setView(1);
+                    }}
+                  />
+                  <View style={{margin: 20}} />
+                  <Button
+                    label={t('editprofile.passport')}
+                    color={COLORS.pinkPastel}
+                    onPress={() => {
+                      setPassport(true);
+                      setView(1);
+                    }}
+                  />
+                </View>
+              </Fragment>
+            )}
+            {view === 1 && (
+              <Fragment>
+                <View
+                  style={[SHADOW.default, {borderRadius: 5, marginBottom: 20}]}>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    style={[
+                      {
+                        width: 300,
+                        height: 200,
+                        borderRadius: 5,
+                        backgroundColor: COLORS.white,
+                      },
+                      SHADOW.default,
+                    ]}
+                    onPress={() => {
+                      setUploadModalOpen({
+                        type: 'id_card',
+                        open: true,
+                      });
+                    }}>
+                    <Image
+                      source={
+                        images.id_card.uri
+                          ? {uri: images.id_card.uri}
+                          : require('../../../assets/logo/ramble512.png')
+                      }
+                      style={{
+                        width: 300,
+                        height: 200,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={[SHADOW.default, {borderRadius: 5}]}>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    style={[
+                      {
+                        width: 300,
+                        height: 200,
+                        borderRadius: 5,
+                        backgroundColor: COLORS.white,
+                      },
+                      SHADOW.default,
+                    ]}
+                    onPress={() => {
+                      setUploadModalOpen({
+                        type: 'id_card_with_person',
+                        open: true,
+                      });
+                    }}>
+                    <Image
+                      source={
+                        images.id_card_with_person.uri
+                          ? {uri: images.id_card_with_person.uri}
+                          : require('../../../assets/logo/ramble512.png')
+                      }
+                      style={{
+                        width: 300,
+                        height: 200,
+                        borderRadius: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={{marginVertical: 20}}>
+                  {passport ? (
+                    <FloatingLabelInput
+                      floatingLabel={t('editprofile.passport')}
+                      inputContainerStyle={{borderBottomWidth: 0, width: 300}}
+                      onChangeText={(text) => {
+                        setValue(text);
+                      }}
+                      value={value}
+                    />
+                  ) : (
+                    <FloatingLabelInput
+                      floatingLabel={t('editprofile.idcard')}
+                      inputContainerStyle={{borderBottomWidth: 0, width: 300}}
+                      onChangeText={(text) => {
+                        if (text.length === 13) {
+                        } else if (text.length > 13) {
+                          Alert.alert(
+                            t('editprofile.pleasecheck'),
+                            t('editprofile.idcardlengthincorret'),
+                            [
+                              {
+                                text: t('editprofile.okay'),
+                                onPress: () => {},
+                              },
+                            ],
+                          );
+                        } else {
+                          setValue(text);
+                        }
+                      }}
+                      value={value}
+                      keyboardType="number-pad"
+                    />
+                  )}
+                </View>
+                <Button
+                  label={t('editprofile.sendinfo')}
+                  color={COLORS.pinkPastel}
+                  onPress={handleSubmit}
+                />
+              </Fragment>
+            )}
           </View>
-          <View style={[SHADOW.default, {borderRadius: 5}]}>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              style={[
-                {
-                  width: 300,
-                  height: 200,
-                  borderRadius: 5,
-                  backgroundColor: COLORS.white,
-                },
-                SHADOW.default,
-              ]}
-              onPress={() => {
-                setUploadModalOpen({
-                  type: 'id_card_with_person',
-                  open: true,
-                });
-              }}>
-              <Image
-                source={
-                  images.id_card_with_person.uri
-                    ? {uri: images.id_card_with_person.uri}
-                    : require('../../../assets/logo/ramble512.png')
-                }
-                style={{
-                  width: 300,
-                  height: 200,
-                  borderRadius: 5,
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{flex: 1}} />
-          <Button
-            label={t('editprofile.sendinfo')}
-            color={COLORS.pinkPastel}
-            // onPress={handleSubmit(onSubmit)}
-          />
-        </View>
+        </ScrollView>
         {/* <Snackbar
         visible={error}
         onDismiss={() => {

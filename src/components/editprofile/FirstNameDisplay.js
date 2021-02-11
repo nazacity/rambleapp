@@ -26,9 +26,6 @@ const FirstNameDisplay = ({user}) => {
     setOpen(false);
   };
 
-  // FOCUSES
-  const [focus, setFocus] = useState({});
-
   const onSubmit = async (data) => {
     dispatch(
       editUserProfile(
@@ -89,12 +86,6 @@ const FirstNameDisplay = ({user}) => {
                   inputContainerStyle={{borderBottomWidth: 0}}
                   onChangeText={(value) => onChange(value)}
                   value={value}
-                  onFocus={() => {
-                    setFocus({...focus, email: true});
-                  }}
-                  onBlur={() => {
-                    setFocus({...focus, email: false});
-                  }}
                   rightIcon={
                     <TouchableOpacity
                       activeOpacity={0.6}

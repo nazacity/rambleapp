@@ -38,35 +38,35 @@ const EditProfileScreen = () => {
         <View
           style={{
             borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.6)',
+            borderBottomColor: 'rgba(0,0,0,0.2)',
           }}
         />
         <ChangePasswordDisplay />
         <View
           style={{
             borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.6)',
+            borderBottomColor: 'rgba(0,0,0,0.2)',
           }}
         />
         <LineConnectDisplay />
         <View
           style={{
             borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.6)',
+            borderBottomColor: 'rgba(0,0,0,0.2)',
           }}
         />
         <VerifyIdentifyDisplay />
         <View
           style={{
             borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.6)',
+            borderBottomColor: 'rgba(0,0,0,0.2)',
           }}
         />
         <VerifyVaccineDisplay />
         <View
           style={{
             borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.6)',
+            borderBottomColor: 'rgba(0,0,0,0.2)',
           }}
         />
         <View style={{margin: 25}} />

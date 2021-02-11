@@ -15,7 +15,7 @@ import VerifyVaccineModal from './VerifyVaccineModal';
 
 const VerifyVaccineDisplay = ({user}) => {
   const {t} = React.useContext(LocalizationContext);
-  const lineId = useSelector((state) => state.user.lineId);
+  const verifyState = useSelector((state) => state.user.vefiry_vaccine.state);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -36,18 +36,24 @@ const VerifyVaccineDisplay = ({user}) => {
             height: 60,
           }}
           onPress={() => {
-            setOpen(true);
+            if (verifyState === 'rejected' || verifyState === 'not_verify') {
+              setOpen(true);
+            }
           }}>
           <Fontisto
             name="injection-syringe"
-            color={lineId ? COLORS.primary : COLORS.inactiveColor}
+            color={
+              verifyState === 'verified' ? COLORS.primary : COLORS.inactiveColor
+            }
             size={20}
             style={{marginRight: 20}}
           />
           <Text style={[FONTS.h3]}>
-            {lineId
-              ? t('editprofile.verifiedvaccine')
-              : t('editprofile.notverifiedvaccine')}
+            {verifyState === 'verifying' && t('editprofile.verifying')}
+            {verifyState === 'verified' && t('editprofile.verifiedvaccine')}
+            {verifyState === 'rejected' && t('editprofile.rejectedvaccine')}
+            {verifyState === 'not_verify' &&
+              t('editprofile.notverifiedvaccine')}
           </Text>
         </TouchableOpacity>
       </View>
