@@ -660,6 +660,7 @@ const SignupForm = () => {
                     style={[
                       FONTS.body4,
                       {
+                        fontSize: 14,
                         textAlign: 'center',
                         color: COLORS.buttonBlue,
                         fontWeight: 'bold',
