@@ -37,6 +37,7 @@ const SignupForm = () => {
   const route = useRoute();
 
   const lineInfo = route.params.lineInfo;
+  const appleId = route.params.appleId;
   const [image, setImage] = useState('');
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -156,6 +157,7 @@ const SignupForm = () => {
           lineId: lineInfo?.userProfile?.userID
             ? lineInfo.userProfile.userID
             : '',
+          appleId: appleId ? appleId : '',
         };
 
         const res = await post('/api/everyone/createuser', userinfo);
@@ -513,8 +515,8 @@ const SignupForm = () => {
                   zIndex={5000}
                   dropDownStyle={{
                     backgroundColor: COLORS.backgroundColor,
-                    width: SIZES.width - 60,
                     marginTop: 10,
+                    width: SIZES.width - 60,
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
                     borderColor: COLORS.pinkPastel,
@@ -542,6 +544,7 @@ const SignupForm = () => {
                 width: '80%',
                 alignSelf: 'center',
                 marginVertical: 20,
+                zIndex: -1,
               }}>
               <Text
                 style={[
@@ -613,6 +616,7 @@ const SignupForm = () => {
                 width: '60%',
                 alignSelf: 'center',
                 marginVertical: 20,
+                zIndex: -1,
               }}>
               <Text
                 style={[

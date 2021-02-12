@@ -4,7 +4,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import {FONTS, SHADOW} from '../constants';
 
-const Button = ({label, onPress, color, width, leftIcon}) => {
+const ButtonOutline = ({label, onPress, color, width, leftIcon, textColor}) => {
   return (
     <View
       style={[
@@ -25,7 +25,7 @@ const Button = ({label, onPress, color, width, leftIcon}) => {
             alignItems: 'center',
             flexDirection: 'row',
           },
-          {backgroundColor: color},
+          {borderColor: color, borderWidth: 0.5},
           SHADOW.default,
         ]}
         {...{onPress}}>
@@ -34,7 +34,7 @@ const Button = ({label, onPress, color, width, leftIcon}) => {
           <Text
             style={[
               {
-                color: '#fff',
+                color: textColor,
                 textAlign: 'center',
               },
               FONTS.button,
@@ -47,6 +47,6 @@ const Button = ({label, onPress, color, width, leftIcon}) => {
   );
 };
 
-Button.defaultProps = {variant: 'default'};
+ButtonOutline.defaultProps = {variant: 'default'};
 
-export default Button;
+export default ButtonOutline;

@@ -19,6 +19,7 @@ const en = {
     nouserorpasserror: 'Please fill username and password',
     forgotpassword: 'Forgot password',
     linelogin: 'Get Into Community with Line',
+    applelogin: 'Get Into Community with Apple Id',
   },
   forgotpassword: {
     username: 'Username',
