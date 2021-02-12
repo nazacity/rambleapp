@@ -142,7 +142,7 @@ export const FONTS = {
   },
   button: {
     fontFamily: 'SFProText-Bold',
-    fontSize: SIZES.body5,
+    fontSize: SIZES.body4,
     lineHeight: 22,
   },
 };

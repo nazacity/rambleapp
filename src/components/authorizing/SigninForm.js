@@ -66,6 +66,7 @@ const SigninForm = () => {
         if (res.data === 'No user is found') {
           navigation.navigate('Signup', {
             lineInfo: loginResult,
+            appleId: '',
           });
         } else if (res.data._id) {
           const user = await everyPost('/users/lineId', {
@@ -137,6 +138,8 @@ const SigninForm = () => {
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
+      console.log('test', appleAuthRequestResponse);
+
       if (appleAuthRequestResponse.user) {
         const res = await everyPost('/users/appleId', {
           appleId: appleAuthRequestResponse.user,
@@ -151,11 +154,13 @@ const SigninForm = () => {
             }),
           );
         } else {
-          setTimeout(() => {
-            navigation.navigate('Signup', {
-              appleId: appleAuthRequestResponse.user,
-            });
-          }, 400);
+          navigation.navigate('Signup', {
+            lineInfo: {
+              userId: '',
+              pictureUrl: '',
+            },
+            appleId: appleAuthRequestResponse.user,
+          });
         }
       }
     } catch (error) {
@@ -369,6 +374,7 @@ const SigninForm = () => {
               onPress={() => {
                 navigation.navigate('Signup', {
                   lineInfo: {},
+                  appleId: '',
                 });
               }}>
               <Text
