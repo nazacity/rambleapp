@@ -16,6 +16,9 @@ import UploadPictureModal from '../modal/UploadPictureModal1';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Platform} from 'react-native';
 import {Image} from 'react-native';
+import {Alert} from 'react-native';
+import {setUser} from '../../redux/actions/UserAction';
+import {post} from '../../redux/actions/request';
 
 const VerifyVaccineModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -56,26 +59,45 @@ const VerifyVaccineModal = ({handleClose, open}) => {
   //     }
   //   };
 
-  const handleSubmit = async (result) => {
-    if (result) {
-      const photo = {
-        uri:
-          Platform.OS === 'android'
-            ? result.path
-            : result.path.replace('file://', ''),
-        type: result.mime,
-        name: result.path.substring(result.path.lastIndexOf('/') + 1),
-      };
+  const handleSubmit = async () => {
+    if (image.uri === '') {
+      Alert.alert(t('editprofile.uploadpicture'), '', [
+        {
+          text: t('editprofile.okay'),
+          onPress: () => {},
+        },
+      ]);
+      return;
+    }
 
-      const formData = new FormData();
-      formData.append('upload', photo);
+    const formData = new FormData();
+    formData.append('covid', image);
+
+    try {
+      dispatch(setLoading(true));
+      const res = await post('/api/users/sendcovidresult', formData);
+
+      if (res.status === 200) {
+        dispatch(setUser(res.data));
+      }
+      dispatch(setLoading(false));
+      dispatch(
+        setSnackbarDisplay({
+          state: 'success',
+          message: t('editprofile.sentinformation'),
+        }),
+      );
+      handleResetClose();
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 
   const takePhotoFromCamera = async () => {
     const result = await ImagePicker.openCamera({
-      width: 300,
-      height: 200,
+      width: 900,
+      height: 600,
       cropping: true,
     });
 
@@ -95,8 +117,8 @@ const VerifyVaccineModal = ({handleClose, open}) => {
 
   const choosePhotoFromLibrary = async () => {
     const result = await ImagePicker.openPicker({
-      width: 300,
-      height: 200,
+      width: 900,
+      height: 600,
       cropping: true,
     });
 
@@ -183,7 +205,7 @@ const VerifyVaccineModal = ({handleClose, open}) => {
           <Button
             label={t('editprofile.sendinfo')}
             color={COLORS.pinkPastel}
-            // onPress={handleSubmit(onSubmit)}
+            onPress={handleSubmit}
           />
         </View>
         {/* <Snackbar

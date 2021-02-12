@@ -288,8 +288,9 @@ const th = {
     passport: 'หมายเลขหนังสือเดินทาง',
     uploadpicture: 'กรุณาเลือกรูป',
     verifying: 'กำลังตรวจสอบ',
-    rejected: 'กรุณายืนยันอีกครั้ง',
+    rejected: 'ยืนยันตัวตนอีกครั้ง',
     sentinformation: 'ส่งข้อมูลเรียบร้อย',
+    rejectedvaccine: 'ยืนยันการฉีดวัคซีนอีกครั้ง',
   },
   lineconnect: {
     successed: 'เชื่อมต่อ Line สำเร็จ',

@@ -129,8 +129,8 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
 
   const takePhotoFromCamera = async () => {
     const result = await ImagePicker.openCamera({
-      width: 300,
-      height: 200,
+      width: 900,
+      height: 600,
       cropping: true,
     });
 
@@ -158,8 +158,8 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
 
   const choosePhotoFromLibrary = async () => {
     const result = await ImagePicker.openPicker({
-      width: 300,
-      height: 200,
+      width: 900,
+      height: 600,
       cropping: true,
     });
 

@@ -1,15 +1,6 @@
 import React, {useState, Fragment, useEffect} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {Text, View, TouchableOpacity, ImageBackground} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {signIn} from '../../redux/actions/UserAction';
 import {
   setLoading,
   setUploadPictureModal,
@@ -50,11 +41,6 @@ const SignupForm = () => {
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
-  // const [checkIdLoading, setCheckIdLoading] = useState(false);
-  // const [message, setMessage] = useState({
-  //   msg: '',
-  //   state: 'success',
-  // });
 
   useEffect(() => {
     if (lineInfo.userProfile) {
@@ -367,88 +353,12 @@ const SignupForm = () => {
                 />
               )}
               name="display_name"
-              // rules={{required: true}}
               defaultValue=""
             />
 
             <View style={{marginHorizontal: 10, marginVertical: 10}}>
               <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
             </View>
-            {/* <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <FloatingLabelInput
-                  floatingLabel={t('signup.idcard')}
-                  inputContainerStyle={{borderBottomWidth: 0}}
-                  onChangeText={async (value) => {
-                    onChange(value);
-                    setMessage({
-                      ...message,
-                      msg: '',
-                    });
-                    if (value.length === 13) {
-                      setCheckIdLoading(true);
-                      const res = await get(
-                        `/api/everyone/checkcitizenidnumber/${value}`,
-                      );
-
-                      if (res.status === 200) {
-                        if (
-                          res.data === 'หมายเลขบัตรประจำตัวประชาชนของคุณถูกต้อง'
-                        ) {
-                          setTimeout(() => {
-                            setMessage({
-                              msg: t('signup.rightidcard'),
-                              state: 'success',
-                            });
-                            setCheckIdLoading(false);
-                          }, 800);
-                        } else if (
-                          res.data === 'รหัสบัตรประชาชนถูกใช้งานแล้ว'
-                        ) {
-                          setMessage({
-                            msg: t('signup.usedidcard'),
-                            state: 'error',
-                          });
-                          setCheckIdLoading(false);
-                        } else {
-                          setTimeout(() => {
-                            setMessage({
-                              msg: t('signup.wrongidcard'),
-                              state: 'error',
-                            });
-                            setCheckIdLoading(false);
-                          }, 800);
-                        }
-                      }
-                    }
-                  }}
-                  rightIcon={
-                    checkIdLoading && (
-                      <ActivityIndicator size={25} color={COLORS.primary} />
-                    )
-                  }
-                  value={value}
-                />
-              )}
-              name="idcard"
-              // rules={{required: true}}
-              defaultValue=""
-            /> */}
-            {/* {message.msg !== '' && (
-              <Text
-                style={[
-                  FONTS.h5,
-                  {
-                    color: message.state === 'success' ? '#5cb85c' : '#d9534f',
-                    marginTop: -10,
-                    marginBottom: 15,
-                    marginLeft: 5,
-                  },
-                ]}>
-                {message.msg}
-              </Text>
-            )} */}
             <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
@@ -460,7 +370,6 @@ const SignupForm = () => {
                 />
               )}
               name="first_name"
-              // rules={{required: true}}
               defaultValue=""
             />
             <Controller
@@ -474,7 +383,6 @@ const SignupForm = () => {
                 />
               )}
               name="last_name"
-              // rules={{required: true}}
               defaultValue=""
             />
             <Controller
@@ -489,7 +397,6 @@ const SignupForm = () => {
                 />
               )}
               name="phone_number"
-              // rules={{required: true}}
               defaultValue=""
             />
             <View
