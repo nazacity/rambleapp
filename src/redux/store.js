@@ -11,7 +11,7 @@ const persistConfig = {
   key: 'primary',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
-  whitelist: [],
+  whitelist: ['PDPA'],
 };
 
 const middlewares = [thunk];

@@ -12,6 +12,7 @@ import {signIn} from '../../redux/actions/UserAction';
 import {everyGet, get, post} from '../../redux/actions/request';
 import {
   setLoading,
+  setPDPAModal,
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
@@ -35,6 +36,7 @@ import {
 
 import {everyPost} from '../../redux/actions/request';
 import ButtonOutline from '../ButtonOutline';
+import PDPAModal from './PDPAModal';
 
 const SigninForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -388,8 +390,29 @@ const SigninForm = () => {
               </Text>
             </TouchableOpacity>
           </View>
+          <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                dispatch(setPDPAModal(true));
+              }}>
+              <Text
+                style={[
+                  FONTS.body4,
+                  {
+                    fontSize: 12,
+                    textAlign: 'center',
+                    color: COLORS.buttonBlue,
+                    fontWeight: 'bold',
+                  },
+                ]}>
+                {t('signin.pdpa')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
+      <PDPAModal />
     </View>
   );
 };

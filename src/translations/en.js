@@ -20,6 +20,7 @@ const en = {
     forgotpassword: 'Forgot password',
     linelogin: 'Get Into Community with Line',
     applelogin: 'Get Into Community with Apple Id',
+    pdpa: 'PDPA Term',
   },
   forgotpassword: {
     username: 'Username',
@@ -68,6 +69,8 @@ const en = {
     policy: 'Privacy Policy',
     useragreement: 'Term and Condition',
     successed: 'Register successfully',
+    male: 'Male',
+    female: 'Female',
   },
   phonechecking: {
     resend: 'Resend OTP',

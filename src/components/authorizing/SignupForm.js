@@ -18,7 +18,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UploadPictureModal from '../../components/modal/UploadPictureModal';
-import {blood_type, gender} from '../../constants';
+import {blood_type} from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -61,6 +61,18 @@ const SignupForm = () => {
   const handleUserAgreementModalClose = () => {
     setUserAgreementModalOpen(false);
   };
+
+  const [gender, setGener] = useState([
+    {value: 'male', label: t('signup.male')},
+    {value: 'female', label: t('signup.female')},
+  ]);
+
+  useEffect(() => {
+    setGener([
+      {value: 'male', label: t('signup.male')},
+      {value: 'female', label: t('signup.female')},
+    ]);
+  }, [lang]);
 
   // INPUT FUNCTIONS
   const [hidePassword, setHidePassword] = useState(true);

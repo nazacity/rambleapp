@@ -20,6 +20,7 @@ const th = {
     forgotpassword: 'ลืมรหัสผ่าน',
     linelogin: 'เข้าสู่คอมมิวนิตี้ด้วย Line',
     applelogin: 'เข้าสู่คอมมิวนิตี้ด้วย Apple Id',
+    pdpa: 'ความยินยอมข้อมูลส่วนบุคคล',
   },
   forgotpassword: {
     username: 'Username',
@@ -70,6 +71,8 @@ const th = {
     useragreement: 'เงื่อนไข และข้อตกลงการใข้งาน',
     successed: 'การสมัครสำเร็จแล้ว',
     agree: 'ฉันรับยอม และตกลง',
+    male: 'ชาย',
+    female: 'หญิง',
   },
   phonechecking: {
     resend: 'ส่งรหัส OTP อีกครั้ง',
