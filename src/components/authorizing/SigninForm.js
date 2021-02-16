@@ -34,7 +34,7 @@ import {
   appleAuth,
 } from '@invertase/react-native-apple-authentication';
 
-import {everyPost} from '../../redux/actions/request';
+import {everyPost, post} from '../../redux/actions/request';
 import ButtonOutline from '../ButtonOutline';
 import PDPAModal from './PDPAModal';
 
@@ -146,6 +146,7 @@ const SigninForm = () => {
         });
         if (res.token) {
           await AsyncStorage.setItem('accessToken', res.token);
+          console.log(res.token);
           dispatch(signIn(res.user));
           dispatch(
             setSnackbarDisplay({
@@ -154,32 +155,43 @@ const SigninForm = () => {
             }),
           );
         } else {
-          await everyPost('/users/createuserwithapple', {
-            appleId: appleAuthRequestResponse.user,
-            first_name: appleAuthRequestResponse.fullName.givenName,
-            last_name: appleAuthRequestResponse.fullName.familyName,
-          });
-          try {
-            const res = await everyPost('/users/appleId', {
+          console.log('no user');
+          const createUser = await everyPost(
+            '/api/everyone/createuserwithapple',
+            {
               appleId: appleAuthRequestResponse.user,
-            });
-            if (res.token) {
-              await AsyncStorage.setItem('accessToken', res.token);
-              dispatch(signIn(res.user));
+              first_name: appleAuthRequestResponse.fullName.givenName
+                ? appleAuthRequestResponse.fullName.givenName
+                : 'No name',
+              last_name: appleAuthRequestResponse.fullName.familyName
+                ? appleAuthRequestResponse.fullName.familyName
+                : 'No name',
+            },
+          );
+          console.log(createUser);
+          if (createUser.data === 'Successed') {
+            try {
+              const res = await everyPost('/users/appleId', {
+                appleId: appleAuthRequestResponse.user,
+              });
+              if (res.token) {
+                await AsyncStorage.setItem('accessToken', res.token);
+                dispatch(signIn(res.user));
+                dispatch(
+                  setSnackbarDisplay({
+                    state: 'success',
+                    message: t('signin.welcome'),
+                  }),
+                );
+              }
+            } catch (error) {
               dispatch(
                 setSnackbarDisplay({
-                  state: 'success',
-                  message: t('signin.welcome'),
+                  state: 'error',
+                  message: t('signin.loginerror'),
                 }),
               );
             }
-          } catch (error) {
-            dispatch(
-              setSnackbarDisplay({
-                state: 'error',
-                message: t('signin.loginerror'),
-              }),
-            );
           }
         }
       }

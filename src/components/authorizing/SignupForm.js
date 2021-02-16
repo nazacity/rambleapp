@@ -7,7 +7,7 @@ import {
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
-import {Input, Icon} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
 import Button from '../Button';
@@ -37,7 +37,6 @@ const SignupForm = () => {
   const route = useRoute();
 
   const lineInfo = route.params.lineInfo;
-  const appleId = route.params.appleId;
   const [image, setImage] = useState('');
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -119,16 +118,14 @@ const SignupForm = () => {
           message: t('signup.displaynameerror'),
         }),
       );
-    }
-    // else if (!data.first_name) {
-    //   dispatch(
-    //     setSnackbarDisplay({
-    //       state: 'error',
-    //       message: t('signup.firstnameerror'),
-    //     }),
-    //   );
-    // }
-    else if (!data.last_name) {
+    } else if (!data.first_name) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.firstnameerror'),
+        }),
+      );
+    } else if (!data.last_name) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -169,7 +166,6 @@ const SignupForm = () => {
           lineId: lineInfo?.userProfile?.userID
             ? lineInfo.userProfile.userID
             : '',
-          appleId: appleId ? appleId : '',
         };
 
         const res = await post('/api/everyone/createuser', userinfo);

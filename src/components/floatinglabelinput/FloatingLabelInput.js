@@ -56,7 +56,7 @@ const FloatingLabelInput = (props) => {
         useNativeDriver: false,
       }).start();
     }
-  }, [isFocused]);
+  }, [isFocused, props.value]);
 
   // if (props.value) {
   //   Animated.timing(animatedIsFocused, {

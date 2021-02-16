@@ -4,10 +4,12 @@ import Button from '../Button';
 import {COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const ButtonSection = ({userActivity, activity}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
+  const user = useSelector((state) => state.user);
 
   return (
     <View style={{alignItems: 'center'}}>
@@ -17,7 +19,10 @@ const ButtonSection = ({userActivity, activity}) => {
           label={t('activity.apply')}
           color={COLORS.pinkPastel}
           onPress={() => {
-            navigation.navigate('ActivityRegister', {activity: activity});
+            if (!user.gender || !user.birthday || !user.blood_type) {
+            } else {
+              navigation.navigate('ActivityRegister', {activity: activity});
+            }
           }}
         />
       )}
