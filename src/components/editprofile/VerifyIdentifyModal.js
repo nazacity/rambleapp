@@ -290,7 +290,7 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
                       source={
                         images.id_card.uri
                           ? {uri: images.id_card.uri}
-                          : require('../../../assets/logo/ramble512.png')
+                          : require('../../../assets/identity/idcard.png')
                       }
                       style={{
                         width: 300,
@@ -322,7 +322,7 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
                       source={
                         images.id_card_with_person.uri
                           ? {uri: images.id_card_with_person.uri}
-                          : require('../../../assets/logo/ramble512.png')
+                          : require('../../../assets/identity/idcardwithperson.png')
                       }
                       style={{
                         width: 300,

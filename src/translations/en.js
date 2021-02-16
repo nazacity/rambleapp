@@ -19,8 +19,10 @@ const en = {
     nouserorpasserror: 'Please fill username and password',
     forgotpassword: 'Forgot password',
     linelogin: 'Get Into Community with Line',
-    applelogin: 'Get Into Community with Apple Id',
+    applelogin: 'Sign in with Apple',
     pdpa: 'PDPA Term',
+    error: 'Please try again',
+    appleloginerror: 'Apple sign in was error',
   },
   forgotpassword: {
     username: 'Username',

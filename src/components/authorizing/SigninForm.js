@@ -140,8 +140,6 @@ const SigninForm = () => {
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
 
-      console.log('test', appleAuthRequestResponse);
-
       if (appleAuthRequestResponse.user) {
         const res = await everyPost('/users/appleId', {
           appleId: appleAuthRequestResponse.user,
@@ -156,17 +154,43 @@ const SigninForm = () => {
             }),
           );
         } else {
-          navigation.navigate('Signup', {
-            lineInfo: {
-              userId: '',
-              pictureUrl: '',
-            },
+          await everyPost('/users/createuserwithapple', {
             appleId: appleAuthRequestResponse.user,
+            first_name: appleAuthRequestResponse.fullName.givenName,
+            last_name: appleAuthRequestResponse.fullName.familyName,
           });
+          try {
+            const res = await everyPost('/users/appleId', {
+              appleId: appleAuthRequestResponse.user,
+            });
+            if (res.token) {
+              await AsyncStorage.setItem('accessToken', res.token);
+              dispatch(signIn(res.user));
+              dispatch(
+                setSnackbarDisplay({
+                  state: 'success',
+                  message: t('signin.welcome'),
+                }),
+              );
+            }
+          } catch (error) {
+            dispatch(
+              setSnackbarDisplay({
+                state: 'error',
+                message: t('signin.loginerror'),
+              }),
+            );
+          }
         }
       }
     } catch (error) {
       console.log(error);
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signin.error'),
+        }),
+      );
     }
   };
 

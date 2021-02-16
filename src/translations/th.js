@@ -19,8 +19,10 @@ const th = {
     nouserorpasserror: 'กรุณาใส่ Username และ Password',
     forgotpassword: 'ลืมรหัสผ่าน',
     linelogin: 'เข้าสู่คอมมิวนิตี้ด้วย Line',
-    applelogin: 'เข้าสู่คอมมิวนิตี้ด้วย Apple Id',
+    applelogin: 'ลงชื่อเข้าด้วย Apple',
     pdpa: 'ความยินยอมข้อมูลส่วนบุคคล',
+    error: 'กรุณาลองใหม่',
+    appleloginerror: 'การเข้าสู่ระบบด้วย Apple มีปัญหา',
   },
   forgotpassword: {
     username: 'Username',
