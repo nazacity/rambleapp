@@ -34,7 +34,7 @@ import {
   appleAuth,
 } from '@invertase/react-native-apple-authentication';
 
-import {everyPost, post} from '../../redux/actions/request';
+import {everyPost} from '../../redux/actions/request';
 import ButtonOutline from '../ButtonOutline';
 import PDPAModal from './PDPAModal';
 
@@ -188,20 +188,10 @@ const SigninForm = () => {
               dispatch(
                 setSnackbarDisplay({
                   state: 'error',
-                  message: t('signin.loginerror'),
+                  message: t('signin.appleloginerror'),
                 }),
               );
             }
-<<<<<<< HEAD
-          } catch (error) {
-            dispatch(
-              setSnackbarDisplay({
-                state: 'error',
-                message: t('signin.appleloginerror'),
-              }),
-            );
-=======
->>>>>>> aa1d51d0baa37964930ca972c31e70d2cd49022a
           }
         }
       }

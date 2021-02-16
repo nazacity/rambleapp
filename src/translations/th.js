@@ -34,6 +34,16 @@ const th = {
     success: 'เปลี่ยนรหัสเรียบร้อย',
     error: 'มีบางอย่างไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง',
   },
+  newregister: {
+    first_name: 'ชื่อ',
+    last_name: 'นามสกุล',
+    phone_number: 'เบอร์โทรศัพท์',
+    gender: 'เพศ',
+    bloodtype: 'กรุ๊ปเลือด',
+    birthdate: 'วันเกิด',
+    save: 'บันทึก',
+    title: 'กรุณาให้ข้อมูลเหล่านี้ก่อนสมัครกิจกรรม',
+  },
   signup: {
     username: 'Username*',
     password: 'Password*',

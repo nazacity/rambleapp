@@ -16,7 +16,7 @@ const ButtonOutline = ({label, onPress, color, width, leftIcon, textColor}) => {
         },
       ]}>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.95}
         style={[
           {
             borderRadius: 5,

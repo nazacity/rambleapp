@@ -34,6 +34,16 @@ const en = {
     success: 'Changed password successfully',
     error: 'Something went wrong. Please try again',
   },
+  newregister: {
+    first_name: 'First Name',
+    last_name: 'Last Name',
+    phone_number: 'Phone Number',
+    gender: 'Gender',
+    bloodtype: 'Blood Type',
+    birthdate: 'Birth Date',
+    save: 'Save',
+    title: 'Please provide these information before registering activity',
+  },
   signup: {
     username: 'Username*',
     password: 'Password*',
@@ -65,6 +75,7 @@ const en = {
     rightidcard: 'Your id card No can be used',
     wrongidcard: 'Your id card No is incorrect',
     usedidcard: 'Your id card No was used',
+    birthdate: 'Birth date',
     condition1:
       'By registering means that I have read and agree/agreed to the ',
     condition2: ' and ',

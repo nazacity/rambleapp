@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import Button from '../Button';
 import {COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import NewUserRegisterModal from '../modal/NewUserRegisterModal';
 
 const ButtonSection = ({userActivity, activity}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
+
+  const handleNewUserRegisterModalClose = () => {
+    setOpen(false);
+  };
 
   return (
     <View style={{alignItems: 'center'}}>
@@ -19,7 +25,14 @@ const ButtonSection = ({userActivity, activity}) => {
           label={t('activity.apply')}
           color={COLORS.pinkPastel}
           onPress={() => {
-            if (!user.gender || !user.birthday || !user.blood_type) {
+            if (
+              user.first_name === 'No name' ||
+              user.last_name === 'No name' ||
+              !user.gender ||
+              !user.birthday ||
+              !user.blood_type
+            ) {
+              setOpen(true);
             } else {
               navigation.navigate('ActivityRegister', {activity: activity});
             }
@@ -88,6 +101,10 @@ const ButtonSection = ({userActivity, activity}) => {
           }}
         />
       )}
+      <NewUserRegisterModal
+        open={open}
+        handleClose={handleNewUserRegisterModalClose}
+      />
     </View>
   );
 };

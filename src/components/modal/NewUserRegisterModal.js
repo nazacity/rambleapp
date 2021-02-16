@@ -1,13 +1,12 @@
 import React, {useState, Fragment, useEffect} from 'react';
-import {Text, View, TouchableOpacity, ImageBackground} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
 import {
-  setLoading,
-  setUploadPictureModal,
-  setSnackbarDisplay,
-} from '../../redux/actions/AppStateAction';
-
-import {Input, Icon} from 'react-native-elements';
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  ScrollView,
+} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
 import Button from '../Button';
@@ -25,6 +24,12 @@ import moment from 'moment';
 import 'moment/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
 import {post, get} from '../../redux/actions/request';
+import Modal from 'react-native-modal';
+import {Snackbar} from 'react-native-paper';
+import LoadingPage from '../LoadingPage';
+import {setLoading} from '../../redux/actions/AppStateAction';
+import {setUser} from '../../redux/actions/UserAction';
+
 const NewUserRegisterModal = ({open, handleClose}) => {
   const lang = useSelector((state) => state.appState.lang);
   const user = useSelector((state) => state.user);
@@ -35,6 +40,8 @@ const NewUserRegisterModal = ({open, handleClose}) => {
   const dispatch = useDispatch();
   moment.locale(lang);
   const navigation = useNavigation();
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleCalendarModalClose = () => {
     setCalendarModalOpen(false);
@@ -64,70 +71,41 @@ const NewUserRegisterModal = ({open, handleClose}) => {
     password: false,
   });
 
+  const setErrorMessage = (msg) => {
+    setError(true);
+    setMessage(msg);
+  };
+
   const onSubmit = async (data) => {
     if (!data.first_name) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.firstnameerror'),
-        }),
-      );
+      setErrorMessage(t('signup.firstnameerror'));
     } else if (!data.last_name) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.lastnameerror'),
-        }),
-      );
+      setErrorMessage(t('signup.lastnameerror'));
+    } else if (data.phone_number.length < 10) {
+      setErrorMessage(t('signup.phoneerror'));
     } else if (!data.gender) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.gendererror'),
-        }),
-      );
+      setErrorMessage(t('signup.gendererror'));
     } else if (!data.blood_type) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.bloodtypeerror'),
-        }),
-      );
+      setErrorMessage(t('signup.bloodtypeerror'));
     } else {
-      dispatch(setLoading(true));
       try {
+        dispatch(setLoading(true));
         const userinfo = {
           type: 'new_register',
           first_name: data.first_name,
           last_name: data.last_name,
-          phone_number: data.phone_number
-            ? data.phone_number
-            : 'not provided yet',
+          phone_number: data.phone_number,
           birthday: selectedDate,
           gender: data.gender,
           blood_type: data.blood_type,
         };
 
-        const res = await post('/api/user/edit', userinfo);
+        const res = await post('/api/users/edituser', userinfo);
 
-        if (res.data === 'Successed') {
-          dispatch(setLoading(false));
+        if (res.status === 200) {
+          dispatch(setUser(res.data));
           reset({});
-          dispatch(
-            setSnackbarDisplay({
-              state: 'success',
-              message: t('signup.successed'),
-            }),
-          );
-          dispatch(setLoading(false));
-          navigation.navigate('Signin');
-        } else if (res.data === 'Username is used') {
-          dispatch(
-            setSnackbarDisplay({
-              state: 'error',
-              message: t('signup.usedusername'),
-            }),
-          );
+          handleClose();
           dispatch(setLoading(false));
         }
       } catch (error) {
@@ -142,12 +120,21 @@ const NewUserRegisterModal = ({open, handleClose}) => {
       style={{margin: 0}}
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}>
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          backgroundColor: COLORS.backgroundColor,
+          padding: 20,
+          flex: 1,
+        }}>
+        <View style={{marginVertical: 20}}>
+          <Text style={[FONTS.h3]}>{t('newregister.title')}</Text>
+        </View>
         <Controller
           control={control}
           render={({onChange, onBlur, value}) => (
             <FloatingLabelInput
-              floatingLabel={t('signup.first_name')}
+              floatingLabel={t('newregister.first_name')}
               inputContainerStyle={{borderBottomWidth: 0}}
               onChangeText={(value) => onChange(value)}
               value={value}
@@ -160,7 +147,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
           control={control}
           render={({onChange, onBlur, value}) => (
             <FloatingLabelInput
-              floatingLabel={t('signup.last_name')}
+              floatingLabel={t('newregister.last_name')}
               inputContainerStyle={{borderBottomWidth: 0}}
               onChangeText={(value) => onChange(value)}
               value={value}
@@ -173,7 +160,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
           control={control}
           render={({onChange, onBlur, value}) => (
             <FloatingLabelInput
-              floatingLabel={t('signup.phone_number')}
+              floatingLabel={t('newregister.phone_number')}
               inputContainerStyle={{borderBottomWidth: 0}}
               onChangeText={(value) => onChange(value)}
               value={value}
@@ -194,7 +181,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
               marginLeft: 5,
               marginBottom: 5,
             }}>
-            {t('signup.birthdate')}
+            {t('newregister.birthdate')}
           </Text>
           <View
             style={{
@@ -228,7 +215,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
           render={({onChange, onBlur, value}) => (
             <DropDownPicker
               items={gender}
-              placeholder={t('signup.gender')}
+              placeholder={t('newregister.gender')}
               style={[
                 {
                   borderWidth: 1,
@@ -250,7 +237,6 @@ const NewUserRegisterModal = ({open, handleClose}) => {
               dropDownStyle={{
                 backgroundColor: COLORS.backgroundColor,
                 marginTop: 10,
-                width: SIZES.width - 60,
                 borderBottomLeftRadius: 10,
                 borderBottomRightRadius: 10,
                 borderColor: COLORS.pinkPastel,
@@ -271,58 +257,59 @@ const NewUserRegisterModal = ({open, handleClose}) => {
           // rules={{required: true}}
           defaultValue=""
         />
-        <Controller
-          control={control}
-          render={({onChange, onBlur, value}) => (
-            <DropDownPicker
-              items={blood_type}
-              placeholder={t('signup.bloodtype')}
-              style={[
-                {
-                  borderWidth: 1,
-                  paddingHorizontal: 10,
-                  backgroundColor: 'white',
-                  marginVertical: 10,
-                },
-                {
-                  borderColor: focus.blood_type
-                    ? COLORS.pinkPastel
-                    : COLORS.inputPlaceholderColor,
-                  height: 50,
-                },
-              ]}
-              itemStyle={{
-                justifyContent: 'flex-start',
-              }}
-              zIndex={5000}
-              dropDownStyle={{
-                backgroundColor: COLORS.backgroundColor,
-                marginTop: 10,
-                width: SIZES.width - 60,
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-                borderColor: COLORS.pinkPastel,
-                zIndex: 400,
-              }}
-              onChangeItem={(item) => {
-                onChange(item.value);
-              }}
-              onOpen={() => {
-                setFocus({...focus, blood_type: true});
-              }}
-              onClose={() => {
-                setFocus({...focus, blood_type: false});
-              }}
-            />
-          )}
-          name="blood_type"
-          // rules={{required: true}}
-          defaultValue=""
-        />
-        <View style={{zIndex: -1}}>
+        <View>
+          <Controller
+            control={control}
+            render={({onChange, onBlur, value}) => (
+              <DropDownPicker
+                items={blood_type}
+                placeholder={t('newregister.bloodtype')}
+                style={[
+                  {
+                    borderWidth: 1,
+                    paddingHorizontal: 10,
+                    backgroundColor: 'white',
+                    marginVertical: 10,
+                  },
+                  {
+                    borderColor: focus.blood_type
+                      ? COLORS.pinkPastel
+                      : COLORS.inputPlaceholderColor,
+                    height: 50,
+                  },
+                ]}
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                }}
+                dropDownStyle={{
+                  backgroundColor: COLORS.backgroundColor,
+                  marginTop: 10,
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderColor: COLORS.pinkPastel,
+                  zIndex: 400,
+                }}
+                onChangeItem={(item) => {
+                  onChange(item.value);
+                }}
+                onOpen={() => {
+                  setFocus({...focus, blood_type: true});
+                }}
+                onClose={() => {
+                  setFocus({...focus, blood_type: false});
+                }}
+              />
+            )}
+            name="blood_type"
+            // rules={{required: true}}
+            defaultValue=""
+          />
+        </View>
+        <View style={{flex: 1}} />
+        <View style={{zIndex: -1, marginBottom: 200}}>
           <View style={{alignItems: 'center'}}>
             <Button
-              label={t('signup.signup')}
+              label={t('newregister.save')}
               color={COLORS.pinkPastel}
               onPress={handleSubmit(onSubmit)}
             />
@@ -335,6 +322,18 @@ const NewUserRegisterModal = ({open, handleClose}) => {
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       />
+      <Snackbar
+        visible={error}
+        onDismiss={() => {
+          setError(false);
+        }}
+        style={{
+          backgroundColor: '#d9534f',
+        }}
+        duration={1500}>
+        {message}
+      </Snackbar>
+      <LoadingPage />
     </Modal>
   );
 };
