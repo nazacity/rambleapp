@@ -177,7 +177,7 @@ const SigninForm = () => {
             dispatch(
               setSnackbarDisplay({
                 state: 'error',
-                message: t('signin.loginerror'),
+                message: t('signin.appleloginerror'),
               }),
             );
           }
