@@ -6,7 +6,8 @@ import {Text} from 'react-native-paper';
 import {Avatar} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
-
+import profile from '../../../assets/profile/profile.png';
+import backgroundprofile from '../../../assets/profile/backgroundprofile.png';
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 // import Distance from './userdetail/Distance';
 // import Average from './userdetail/Average';
@@ -52,10 +53,13 @@ const UserDetail = ({marginTop, editable}) => {
           overflow: 'hidden',
         }}>
         <ImageBackground
-          source={{uri: user.user_background_picture_url}}
+          source={
+            user.user_background_picture_url
+              ? {uri: user.user_background_picture_url}
+              : backgroundprofile
+          }
           style={{
             flex: 1,
-            resizeMode: 'cover',
           }}>
           <View
             style={{
@@ -63,11 +67,13 @@ const UserDetail = ({marginTop, editable}) => {
               justifyContent: 'center',
               alignItems: 'center',
               padding: 25,
-              backgroundColor: 'rgba(0,0,0,0.6)',
+              backgroundColor: 'rgba(0,0,0,0.7)',
             }}>
             <Avatar
               rounded
-              source={{uri: user.user_picture_url}}
+              source={
+                user.user_picture_url ? {uri: user.user_picture_url} : profile
+              }
               size={80}
               containerStyle={{
                 borderColor: COLORS.primary,
@@ -85,20 +91,23 @@ const UserDetail = ({marginTop, editable}) => {
                   alignItems: 'center',
                 }}>
                 <Text
-                  style={{
-                    fontFamily: FONTS.default,
-                    fontSize: 16,
-                    paddingTop: 4,
-                    color: '#fff',
-                  }}>
+                  style={[
+                    {
+                      paddingTop: 4,
+                      color: '#fff',
+                    },
+                    FONTS.h3,
+                  ]}>
                   {user.first_name} {user.last_name}
                 </Text>
                 <Text
-                  style={{
-                    fontFamily: FONTS.default,
-                    color: 'grey',
-                    fontSize: 14,
-                  }}>
+                  style={[
+                    {
+                      paddingTop: 4,
+                      color: '#fff',
+                    },
+                    FONTS.body4,
+                  ]}>
                   {user.display_name}
                 </Text>
               </View>

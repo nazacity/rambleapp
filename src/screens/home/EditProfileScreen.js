@@ -9,10 +9,6 @@ import {COLORS} from '../../constants';
 import LastNameDisplay from '../../components/editprofile/LastNameDisplay';
 import DisplayNameDisplay from '../../components/editprofile/DisplayNameDisplay';
 import PhoneDisplay from '../../components/editprofile/PhoneDisplay';
-import ChangePasswordDisplay from '../../components/editprofile/ChangePasswordDisplay';
-import LineConnectDisplay from '../../components/editprofile/LineConnectDisplay';
-import VerifyIdentifyDisplay from '../../components/editprofile/VerifyIdentifyDisplay';
-import VerifyVaccineDisplay from '../../components/editprofile/VerifyVaccineDisplay';
 
 const EditProfileScreen = () => {
   const user = useSelector((state) => state.user);
@@ -41,35 +37,6 @@ const EditProfileScreen = () => {
             borderBottomColor: 'rgba(0,0,0,0.2)',
           }}
         />
-        <ChangePasswordDisplay />
-        <View
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.2)',
-          }}
-        />
-        <LineConnectDisplay />
-        <View
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.2)',
-          }}
-        />
-        <VerifyIdentifyDisplay />
-        <View
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.2)',
-          }}
-        />
-        <VerifyVaccineDisplay />
-        <View
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.2)',
-          }}
-        />
-        <View style={{margin: 25}} />
       </ScrollView>
     </View>
   );

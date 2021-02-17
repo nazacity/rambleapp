@@ -22,6 +22,7 @@ import UserPostScreen from './home/UserPostScreen';
 import AddressScreen from './home/AddressScreen';
 import QrcodeScannerScreen from './home/QrcodeScannerScreen';
 import WebViewScreen from './home/WebViewScreen';
+import SettingScreen from './home/SettingScreen';
 
 import ActivityScreen from './activity/ActivityScreen';
 import FilteredActivityScreen from './activity/FilteredActivityScreen';
@@ -43,6 +44,8 @@ import ConfirmRegisterScreen from './authorizing/ConfirmRegisterScreen';
 // import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Icon} from 'react-native-elements';
+import {MenuIcon} from '../components/Icon';
+
 // theme
 import {COLORS} from '../constants';
 
@@ -378,6 +381,21 @@ const HomeStackScreen = ({navigation}) => {
               />
             </TouchableOpacity>
           ),
+        }}
+      />
+      <HomeStack.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{
+          headerLeft: () => {
+            return (
+              <View style={{paddingLeft: 15}}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                  <MenuIcon size={14} color="#fff" />
+                </TouchableOpacity>
+              </View>
+            );
+          },
         }}
       />
       <HomeStack.Screen name="WebView" component={WebViewScreen} />

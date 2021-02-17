@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/drawer';
 import {Avatar} from 'react-native-elements';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   HomeIcon,
   UpcomingIcon,
@@ -202,6 +202,19 @@ const DrawerContent = (props) => {
           onPress={() => {
             props.navigation.jumpTo('home', {
               screen: 'EmergencyContact',
+            });
+            props.navigation.closeDrawer();
+          }}
+        />
+        <DrawerItem
+          icon={({color, size}) => (
+            <Ionicons name="settings-outline" color={color} size={22} />
+          )}
+          label={t('drawer.setting')}
+          labelStyle={[FONTS.h4]}
+          onPress={() => {
+            props.navigation.jumpTo('home', {
+              screen: 'Setting',
             });
             props.navigation.closeDrawer();
           }}

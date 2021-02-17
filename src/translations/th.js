@@ -103,6 +103,7 @@ const th = {
     emergencycontact: 'การติดต่อฉุกเฉิก',
     address: 'ที่อยู่',
     home: 'หน้าแรก',
+    setting: 'ตั้งค่า',
   },
   home: {
     upcomingactivity: 'Upcoming Activity',

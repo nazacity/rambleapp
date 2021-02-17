@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, FlatList, Text} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
 import AddAddressModal from '../../components/modal/AddAddressModal';
 import {useSelector, useDispatch} from 'react-redux';
 import LocalizationContext from '../LocalizationContext';
@@ -51,5 +51,3 @@ const AddressScreen = () => {
 };
 
 export default AddressScreen;
-
-const styles = StyleSheet.create({});

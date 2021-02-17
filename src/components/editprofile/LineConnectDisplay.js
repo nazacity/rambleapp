@@ -16,12 +16,14 @@ const LineConnectDisplay = ({user}) => {
   const {t} = React.useContext(LocalizationContext);
   const lineId = useSelector((state) => state.user.lineId);
   const dispatch = useDispatch();
+  const [click, setClick] = useState(false);
   // const [open, setOpen] = useState(false);
   // const handleClose = () => {
   //   setOpen(false);
   // };
 
   const handleLineConnect = async () => {
+    setClick(true);
     try {
       // dispatch(setLoading(true));
       const line = await LineLogin.login();
@@ -33,6 +35,7 @@ const LineConnectDisplay = ({user}) => {
             message: t('lineconnect.lineisconnected'),
           }),
         );
+        setClick(false);
       } else {
         const res = await post('/api/users/lineconnect', {
           lineId: line.userProfile.userID,
@@ -61,16 +64,19 @@ const LineConnectDisplay = ({user}) => {
             }),
           );
         }
+        setClick(false);
+
         // dispatch(setLoading(false));
       }
     } catch (error) {
-      console.log(error);
       dispatch(
         setSnackbarDisplay({
           state: 'error',
           message: t('lineconnect.failed'),
         }),
       );
+      setClick(false);
+
       // dispatch(setLoading(false));
     }
   };
@@ -79,6 +85,7 @@ const LineConnectDisplay = ({user}) => {
       <View>
         <TouchableOpacity
           activeOpacity={0.6}
+          disabled={click}
           style={{
             borderRadius: 20,
             marginLeft: 5,
@@ -87,8 +94,7 @@ const LineConnectDisplay = ({user}) => {
             alignItems: 'center',
             height: 60,
           }}
-          on
-          Press={handleLineConnect}>
+          onPress={handleLineConnect}>
           <Fontisto
             name="line"
             color={lineId ? COLORS.primary : COLORS.inactiveColor}

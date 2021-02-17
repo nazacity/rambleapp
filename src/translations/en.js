@@ -102,6 +102,7 @@ const en = {
     emergencycontact: 'Emergency Contact',
     address: 'Address',
     home: 'Home',
+    setting: 'Setting',
   },
   home: {
     upcomingactivity: 'Upcoming Activity',

@@ -27,6 +27,7 @@ const VerifyVaccineDisplay = ({user}) => {
             alignItems: 'center',
             height: 60,
           }}
+          disabled={verifyState === 'verifying' || verifyState === 'verified'}
           onPress={() => {
             if (verifyState === 'rejected' || verifyState === 'not_verify') {
               setOpen(true);

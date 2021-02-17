@@ -82,7 +82,7 @@ const HomeScreen = ({navigation}) => {
         <UserDetail marginTop={30} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />
-        <MainAdvertise />
+        {/* <MainAdvertise /> */}
         {/* <MinorAdvertise /> */}
       </ScrollView>
     </View>
