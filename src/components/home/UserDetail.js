@@ -78,6 +78,7 @@ const UserDetail = ({marginTop, editable}) => {
               containerStyle={{
                 borderColor: COLORS.primary,
                 borderWidth: 2,
+                backgroundColor: COLORS.white,
               }}
             />
             <View
@@ -128,7 +129,7 @@ const UserDetail = ({marginTop, editable}) => {
             </View>
           </View>
         </ImageBackground>
-        <View style={{flexDirection: 'row', paddingBottom: 20}}>
+        <View style={{flexDirection: 'row', paddingVertical: 20}}>
           {/* <Distance /> */}
           {/* <Average /> */}
           {/* <Time /> */}

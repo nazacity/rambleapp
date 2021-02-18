@@ -18,7 +18,7 @@ const UserHeader = ({user}) => {
   const dispatch = useDispatch();
   const [upload, setUpload] = useState('uploadUserPictureProfile');
   const [delFile, setDelFile] = useState(null);
-  console.log(user.user_background_picture_url);
+
   return (
     <SafeAreaView style={{width: SIZES.width, height: SIZES.width / 2}}>
       <ImageBackground
@@ -46,6 +46,7 @@ const UserHeader = ({user}) => {
               containerStyle={{
                 borderColor: COLORS.primary,
                 borderWidth: 2,
+                backgroundColor: COLORS.white,
               }}
             />
             <TouchableOpacity

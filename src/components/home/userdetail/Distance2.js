@@ -17,14 +17,13 @@ const Distance = ({distance}) => {
           backgroundColor: 'white',
           borderRadius: 15,
           width: (SIZES.width - 40) / 2,
-          padding: 20,
         },
       ]}>
-      <Caption style={[FONTS.h4]}>{t('profile.distance')}</Caption>
-      <View style={{height: 30, flexDirection: 'row'}}>
-        <Text style={[FONTS.h2]}>{distance}</Text>
+      <Caption style={[FONTS.h3]}>{t('profile.distance')}</Caption>
+      <View style={{height: 50, flexDirection: 'row', alignItems: 'center'}}>
+        <Text style={[FONTS.h1]}>{distance}</Text>
       </View>
-      <Caption style={[FONTS.h5]}>{t('profile.km')}</Caption>
+      <Caption style={[FONTS.h4]}>{t('profile.km')}</Caption>
     </View>
   );
 };

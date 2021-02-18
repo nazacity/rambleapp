@@ -308,6 +308,7 @@ const th = {
     rejected: 'ยืนยันตัวตนอีกครั้ง',
     sentinformation: 'ส่งข้อมูลเรียบร้อย',
     rejectedvaccine: 'ยืนยันการฉีดวัคซีนอีกครั้ง',
+    vaccinedoc: 'รูปเอกสาร หรือใบเสร็จยืนยันการฉีดวัคซีน Covid-19',
   },
   lineconnect: {
     successed: 'เชื่อมต่อ Line สำเร็จ',

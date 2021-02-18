@@ -180,13 +180,15 @@ const VerifyVaccineModal = ({handleClose, open}) => {
                   height: 200,
                   borderRadius: 5,
                   backgroundColor: COLORS.white,
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 },
                 SHADOW.default,
               ]}
               onPress={() => {
                 setUploadModalOpen(true);
               }}>
-              <Image
+              {/* <Image
                 source={
                   image.uri
                     ? {uri: image.uri}
@@ -197,7 +199,10 @@ const VerifyVaccineModal = ({handleClose, open}) => {
                   height: 200,
                   borderRadius: 5,
                 }}
-              />
+              /> */}
+              <Text style={[FONTS.h3, {textAlign: 'center'}]}>
+                {t('editprofile.vaccinedoc')}
+              </Text>
             </TouchableOpacity>
           </View>
 
