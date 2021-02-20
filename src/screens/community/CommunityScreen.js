@@ -1,59 +1,50 @@
-import React, {Fragment} from 'react';
-import {StyleSheet, View, FlatList, Text} from 'react-native';
-
-import MinorAdvertise from '../../components/advertise/MinorAdvertise';
-import {FONTS, COLORS, SIZES} from '../../constants';
-
-import moment from 'moment';
-import 'moment/locale/th';
-import LocalizationContext from '../LocalizationContext';
-import FilterButton from '../../components/layout/FilterButton';
-import {useSelector} from 'react-redux';
-import UserPostCard from '../../components/card/UserPostCard';
-import BackButton from '../../components/layout/BackButton';
-moment.locale('th');
+import React, {useEffect, useState} from 'react';
+import {View, Text} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {loadSocial} from '../../redux/actions/SocialAction';
+import io from 'socket.io-client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {socialurl} from '../../redux/actions/request';
+import axios from 'axios';
 
 const CommunityScreen = ({navigation}) => {
-  const {t} = React.useContext(LocalizationContext);
-  const user_posts = useSelector(
-    (state) => state.community.user_post_by_activity,
-  );
+  const [socket, setSocket] = useState(null);
+  const dispatch = useDispatch();
+  const setupSocket = async () => {
+    const token = await AsyncStorage.getItem('accessToken');
+    if (token && !socket) {
+      const newSocket = io(socialurl, {
+        query: {
+          token: token,
+        },
+      });
 
-  const CommunityCard = ({item, index}) => {
-    return (
-      <Fragment>
-        <UserPostCard item={item} />
-        {/* {(index + 1) % 5 === 0 && <MinorAdvertise />} */}
-      </Fragment>
-    );
+      newSocket.on('disconnect', () => {
+        setSocket(null);
+        setTimeout(setupSocket, 3000);
+      });
+
+      newSocket.on('connect', () => {
+        console.log('successed');
+      });
+
+      setSocket(newSocket);
+    }
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setupSocket();
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
-    <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
-      <BackButton />
-      <FilterButton onPress={() => navigation.navigate('CommunityFilter')} />
-      {user_posts.length === 0 ? (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-            {t('community.nopost')}
-          </Text>
-        </View>
-      ) : (
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={user_posts}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={({item, index}) => {
-            return <CommunityCard item={item} index={index} />;
-          }}
-          ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-          style={{padding: 20, paddingTop: 60}}
-        />
-      )}
+    <View>
+      <Text>Community</Text>
     </View>
   );
 };
 
 export default CommunityScreen;
-
-const styles = StyleSheet.create({});

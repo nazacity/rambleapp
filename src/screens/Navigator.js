@@ -115,7 +115,7 @@ export const MainTabScreen = ({navigation, route}) => {
           },
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="community"
         component={CommunityStackScreen}
         options={{
@@ -129,7 +129,7 @@ export const MainTabScreen = ({navigation, route}) => {
             navigation.jumpTo('community', {screen: 'SelectActivity'});
           },
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
@@ -480,6 +480,84 @@ const ActivityStackScreen = ({navigation}) => {
   );
 };
 
+// const CommunityStackScreen = ({navigation}) => {
+//   return (
+//     <CommunityStack.Navigator
+//       screenOptions={{
+//         headerStyle: {
+//           backgroundColor: COLORS.pinkPastel,
+//         },
+//         headerTintColor: '#fff',
+//         headerTitleStyle: {
+//           fontWeight: 'bold',
+//           alignSelf: 'center',
+//         },
+//         animationEnabled: false,
+//         title: '',
+//       }}>
+//       <CommunityStack.Screen
+//         name="SelectActivity"
+//         component={SelectActivityScreen}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <CommunityStack.Screen
+//         name="Community"
+//         component={CommunityScreen}
+//         options={{
+//           headerShown: false,
+//           headerLeft: () => {
+//             return (
+//               <View style={{paddingLeft: 10}}>
+//                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
+//                   <Ionicons
+//                     name="ios-menu"
+//                     size={25}
+//                     borderRadius={50}
+//                     backgroundColor={COLORS.pinkPastel}
+//                     color="#fff"
+//                   />
+//                 </TouchableOpacity>
+//               </View>
+//             );
+//           },
+//           headerRight: () => {
+//             return (
+//               <View style={{paddingRight: 10}}>
+//                 <TouchableOpacity
+//                   onPress={() => navigation.navigate('CommunityFilter')}>
+//                   <Ionicons
+//                     name="ios-options-sharp"
+//                     size={25}
+//                     borderRadius={50}
+//                     backgroundColor={COLORS.pinkPastel}
+//                     color="#fff"
+//                   />
+//                 </TouchableOpacity>
+//               </View>
+//             );
+//           },
+//         }}
+//       />
+//       <CommunityStack.Screen
+//         name="CommunityFilter"
+//         component={CommunityFilterScreen}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <CommunityStack.Screen
+//         name="FilteredCommunity"
+//         component={FilteredCommunityScreen}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//     </CommunityStack.Navigator>
+//   );
+// };
+
 const CommunityStackScreen = ({navigation}) => {
   return (
     <CommunityStack.Navigator
@@ -496,60 +574,8 @@ const CommunityStackScreen = ({navigation}) => {
         title: '',
       }}>
       <CommunityStack.Screen
-        name="SelectActivity"
-        component={SelectActivityScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <CommunityStack.Screen
         name="Community"
         component={CommunityScreen}
-        options={{
-          headerShown: false,
-          headerLeft: () => {
-            return (
-              <View style={{paddingLeft: 10}}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                  <Ionicons
-                    name="ios-menu"
-                    size={25}
-                    borderRadius={50}
-                    backgroundColor={COLORS.pinkPastel}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-              </View>
-            );
-          },
-          headerRight: () => {
-            return (
-              <View style={{paddingRight: 10}}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('CommunityFilter')}>
-                  <Ionicons
-                    name="ios-options-sharp"
-                    size={25}
-                    borderRadius={50}
-                    backgroundColor={COLORS.pinkPastel}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-              </View>
-            );
-          },
-        }}
-      />
-      <CommunityStack.Screen
-        name="CommunityFilter"
-        component={CommunityFilterScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <CommunityStack.Screen
-        name="FilteredCommunity"
-        component={FilteredCommunityScreen}
         options={{
           headerShown: false,
         }}
