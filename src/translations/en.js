@@ -309,7 +309,7 @@ const en = {
     rejected: 'Reverify identity',
     rejectedvaccine: 'Reverify covid vaccine',
     sentinformation: 'Sent Information successfully',
-    vaccinedoc: 'Document or Receive that confirms Covide-19 vaccine injection',
+    vaccinedoc: 'Document or Receive that confirms Covid-19 vaccine injection',
   },
   lineconnect: {
     successed: 'Connect to Line Successfully',
