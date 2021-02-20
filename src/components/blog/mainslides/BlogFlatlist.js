@@ -47,7 +47,7 @@ const BlogFlatlist = ({data}) => {
       horizontal
       showsHorizontalScrollIndicator={false}
       data={data}
-      keyExtractor={(item) => item.key}
+      keyExtractor={(item) => item._id}
       pagingEnabled
       contentContainerStyle={{paddingHorizontal: 10}}
       bounces={false}

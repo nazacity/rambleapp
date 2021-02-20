@@ -2,11 +2,12 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import Indicator from './Indicator';
 import Tab from './Tab';
-import {SIZES, FONTS, COLORS, SHADOW} from '../../../constants';
+import {SIZES} from '../../../constants';
 
 const Tabs = ({data, scrollX, onItemPress}) => {
   const [measures, setMeasures] = React.useState([]);
   const containerRef = React.useRef();
+
   React.useEffect(() => {
     const m = [];
     data.forEach((item) => {
@@ -41,7 +42,7 @@ const Tabs = ({data, scrollX, onItemPress}) => {
         {data.map((item, index) => {
           return (
             <Tab
-              key={item.key}
+              key={item._id}
               item={item}
               ref={item.ref}
               onItemPress={() => {
