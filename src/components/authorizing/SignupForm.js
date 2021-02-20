@@ -1,39 +1,32 @@
-import React, {useState, Fragment} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import React, {useState, Fragment, useEffect} from 'react';
+import {Text, View, TouchableOpacity, ImageBackground} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {signIn} from '../../redux/actions/UserAction';
 import {
   setLoading,
   setUploadPictureModal,
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
-import {Input, Icon} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
 
 import {useForm, Controller} from 'react-hook-form';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UploadPictureModal from '../../components/modal/UploadPictureModal';
-import {blood_type, gender} from '../../constants';
+import {blood_type} from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import 'moment/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
 import {post, get} from '../../redux/actions/request';
+import PolicyModal from './PolicyModal';
+import UserAgreementModal from './UserAgreementModal';
 
 const SignupForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -41,19 +34,44 @@ const SignupForm = () => {
   const {control, handleSubmit, errors, reset} = useForm();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const lineInfo = route.params.lineInfo;
   const [image, setImage] = useState('');
   moment.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
-  const [checkIdLoading, setCheckIdLoading] = useState(false);
-  const [message, setMessage] = useState({
-    msg: '',
-    state: 'success',
-  });
+
+  useEffect(() => {
+    if (lineInfo.userProfile) {
+      setImage(lineInfo.userProfile.pictureURL);
+    }
+  }, [route]);
 
   const handleCalendarModalClose = () => {
     setCalendarModalOpen(false);
   };
+  const [policyModalOpen, setPolicyModalOpen] = useState(false);
+  const handlePolicyModalClose = () => {
+    setPolicyModalOpen(false);
+  };
+
+  const [userAgreementModalOpen, setUserAgreementModalOpen] = useState(false);
+  const handleUserAgreementModalClose = () => {
+    setUserAgreementModalOpen(false);
+  };
+
+  const [gender, setGener] = useState([
+    {value: 'male', label: t('signup.male')},
+    {value: 'female', label: t('signup.female')},
+  ]);
+
+  useEffect(() => {
+    setGener([
+      {value: 'male', label: t('signup.male')},
+      {value: 'female', label: t('signup.female')},
+    ]);
+  }, [lang]);
 
   // INPUT FUNCTIONS
   const [hidePassword, setHidePassword] = useState(true);
@@ -93,18 +111,11 @@ const SignupForm = () => {
           message: t('signup.password8'),
         }),
       );
-    } else if (data.display_name.length < 6) {
+    } else if (!data.display_name) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
           message: t('signup.displaynameerror'),
-        }),
-      );
-    } else if (data.idcard.length < 13) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.idcarderror'),
         }),
       );
     } else if (!data.first_name) {
@@ -142,14 +153,19 @@ const SignupForm = () => {
           username: data.username,
           password: data.password,
           display_name: data.display_name,
-          idcard: data.idcard,
+          idcard: 'not provided yet',
           first_name: data.first_name,
           last_name: data.last_name,
-          phone_number: data.phone_number ? data.phone_number : 'not provided',
+          phone_number: data.phone_number
+            ? data.phone_number
+            : 'not provided yet',
           birthday: selectedDate,
           gender: data.gender,
           blood_type: data.blood_type,
           user_picture_url: image,
+          lineId: lineInfo?.userProfile?.userID
+            ? lineInfo.userProfile.userID
+            : '',
         };
 
         const res = await post('/api/everyone/createuser', userinfo);
@@ -157,6 +173,13 @@ const SignupForm = () => {
         if (res.data === 'Successed') {
           dispatch(setLoading(false));
           reset({});
+          dispatch(
+            setSnackbarDisplay({
+              state: 'success',
+              message: t('signup.successed'),
+            }),
+          );
+          dispatch(setLoading(false));
           navigation.navigate('Signin');
         } else if (res.data === 'Username is used') {
           dispatch(
@@ -340,88 +363,12 @@ const SignupForm = () => {
                 />
               )}
               name="display_name"
-              // rules={{required: true}}
               defaultValue=""
             />
 
             <View style={{marginHorizontal: 10, marginVertical: 10}}>
               <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
             </View>
-            <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <FloatingLabelInput
-                  floatingLabel={t('signup.idcard')}
-                  inputContainerStyle={{borderBottomWidth: 0}}
-                  onChangeText={async (value) => {
-                    onChange(value);
-                    setMessage({
-                      ...message,
-                      msg: '',
-                    });
-                    if (value.length === 13) {
-                      setCheckIdLoading(true);
-                      const res = await get(
-                        `/api/everyone/checkcitizenidnumber/${value}`,
-                      );
-
-                      if (res.status === 200) {
-                        if (
-                          res.data === 'หมายเลขบัตรประจำตัวประชาชนของคุณถูกต้อง'
-                        ) {
-                          setTimeout(() => {
-                            setMessage({
-                              msg: t('signup.rightidcard'),
-                              state: 'success',
-                            });
-                            setCheckIdLoading(false);
-                          }, 800);
-                        } else if (
-                          res.data === 'รหัสบัตรประชาชนถูกใช้งานแล้ว'
-                        ) {
-                          setMessage({
-                            msg: t('signup.usedidcard'),
-                            state: 'error',
-                          });
-                          setCheckIdLoading(false);
-                        } else {
-                          setTimeout(() => {
-                            setMessage({
-                              msg: t('signup.wrongidcard'),
-                              state: 'error',
-                            });
-                            setCheckIdLoading(false);
-                          }, 800);
-                        }
-                      }
-                    }
-                  }}
-                  rightIcon={
-                    checkIdLoading && (
-                      <ActivityIndicator size={25} color={COLORS.primary} />
-                    )
-                  }
-                  value={value}
-                />
-              )}
-              name="idcard"
-              // rules={{required: true}}
-              defaultValue=""
-            />
-            {message.msg !== '' && (
-              <Text
-                style={[
-                  FONTS.h5,
-                  {
-                    color: message.state === 'success' ? '#5cb85c' : '#d9534f',
-                    marginTop: -10,
-                    marginBottom: 15,
-                    marginLeft: 5,
-                  },
-                ]}>
-                {message.msg}
-              </Text>
-            )}
             <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
@@ -433,7 +380,6 @@ const SignupForm = () => {
                 />
               )}
               name="first_name"
-              // rules={{required: true}}
               defaultValue=""
             />
             <Controller
@@ -447,7 +393,6 @@ const SignupForm = () => {
                 />
               )}
               name="last_name"
-              // rules={{required: true}}
               defaultValue=""
             />
             <Controller
@@ -462,7 +407,6 @@ const SignupForm = () => {
                 />
               )}
               name="phone_number"
-              // rules={{required: true}}
               defaultValue=""
             />
             <View
@@ -579,8 +523,8 @@ const SignupForm = () => {
                   zIndex={5000}
                   dropDownStyle={{
                     backgroundColor: COLORS.backgroundColor,
-                    width: SIZES.width - 60,
                     marginTop: 10,
+                    width: SIZES.width - 60,
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
                     borderColor: COLORS.pinkPastel,
@@ -602,6 +546,140 @@ const SignupForm = () => {
               defaultValue=""
             />
           </View>
+          {lang === 'th' && (
+            <View
+              style={{
+                width: '80%',
+                alignSelf: 'center',
+                marginVertical: 20,
+                zIndex: -1,
+              }}>
+              <Text
+                style={[
+                  FONTS.body4,
+                  {
+                    color: 'grey',
+                    fontSize: 14,
+                    textAlign: 'center',
+                  },
+                ]}>
+                {t('signup.condition1')}
+              </Text>
+              <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setUserAgreementModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.useragreement')}
+                  </Text>
+                </TouchableOpacity>
+                <Text
+                  style={[
+                    FONTS.body4,
+                    {
+                      color: 'grey',
+                      fontSize: 14,
+                      textAlign: 'center',
+                    },
+                  ]}>
+                  {t('signup.condition2')}
+                </Text>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setPolicyModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.policy')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
+          {lang === 'en' && (
+            <View
+              style={{
+                width: '60%',
+                alignSelf: 'center',
+                marginVertical: 20,
+                zIndex: -1,
+              }}>
+              <Text
+                style={[
+                  FONTS.body4,
+                  {
+                    color: 'grey',
+                    fontSize: 14,
+                    textAlign: 'center',
+                  },
+                ]}>
+                {t('signup.condition1')}
+              </Text>
+              <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setUserAgreementModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.useragreement')}
+                  </Text>
+                </TouchableOpacity>
+                <Text style={[FONTS.body4, {textAlign: 'center'}]}>
+                  {t('signup.condition2')}
+                </Text>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    setPolicyModalOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      FONTS.body4,
+                      {
+                        fontSize: 14,
+                        textAlign: 'center',
+                        color: COLORS.buttonBlue,
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {t('signup.policy')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
           <View style={{zIndex: -1}}>
             <View style={{alignItems: 'center'}}>
               <Button
@@ -659,6 +737,14 @@ const SignupForm = () => {
         handleClose={handleCalendarModalClose}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
+      />
+      <PolicyModal
+        open={policyModalOpen}
+        handleClose={handlePolicyModalClose}
+      />
+      <UserAgreementModal
+        open={userAgreementModalOpen}
+        handleClose={handleUserAgreementModalClose}
       />
     </Fragment>
   );

@@ -85,7 +85,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [routes] = useState([
     {key: 'first', title: 'Info'},
     {key: 'second', title: 'Timeline'},
-    {key: 'third', title: 'Announce'},
+    {key: 'third', title: 'Announcement'},
   ]);
 
   const renderScene = SceneMap({

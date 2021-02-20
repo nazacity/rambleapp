@@ -28,9 +28,6 @@ const PhoneDisplay = ({user}) => {
     setOpen(false);
   };
 
-  // FOCUSES
-  const [focus, setFocus] = useState({});
-
   const onSubmit = async (data) => {
     if (data.phone_number.length < 10) {
       setErrorMessage(t('signup.phoneerror'));
@@ -52,7 +49,7 @@ const PhoneDisplay = ({user}) => {
     <Fragment>
       <View style={{flex: 1}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[FONTS.h3]}>{t('signup.phone_number')}</Text>
+          <Text style={[FONTS.h3]}>{t('editprofile.phone_number')}</Text>
           <View style={{flex: 1}} />
           <TouchableOpacity
             activeOpacity={0.6}
@@ -76,7 +73,8 @@ const PhoneDisplay = ({user}) => {
       <Modal
         isVisible={open}
         style={{justifyContent: 'center'}}
-        onBackdropPress={handleClose}>
+        onBackdropPress={handleClose}
+        onBackButtonPress={handleClose}>
         <View
           style={{
             backgroundColor: COLORS.backgroundColor,
@@ -87,16 +85,10 @@ const PhoneDisplay = ({user}) => {
             control={control}
             render={({onChange, onBlur, value}) => (
               <FloatingLabelInput
-                floatingLabel={t('signup.phone_number')}
+                floatingLabel={t('editprofile.phone_number')}
                 inputContainerStyle={{borderBottomWidth: 0}}
                 onChangeText={(value) => onChange(value)}
                 value={value}
-                onFocus={() => {
-                  setFocus({...focus, email: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, email: false});
-                }}
                 rightIcon={
                   <TouchableOpacity
                     activeOpacity={0.6}

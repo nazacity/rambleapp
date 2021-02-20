@@ -4,9 +4,17 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.rambleclub.rambleios.onesignal</string>
+	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>3YZ3F2R47K.com.rambleclub.rambleios</string>
 	</array>
 </dict>
 </plist>

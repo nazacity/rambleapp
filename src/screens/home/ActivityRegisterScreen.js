@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageModal from 'react-native-image-modal';
@@ -28,10 +29,17 @@ import {setSnackbarDisplay} from '../../redux/actions/AppStateAction';
 const ActivityRegisterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
+
   const {activity} = route.params;
-  const [course, setCourse] = useState(activity.courses[0]);
-  const [address, setAddress] = useState(user.addresses[0]);
-  const [emergency, setEmergency] = useState(user.emergency_contacts[0]);
+  const [course, setCourse] = useState(
+    route.params.course ? route.params.course : activity.courses[0],
+  );
+  const [address, setAddress] = useState(
+    user.addresses[0] ? user.addresses[0] : {_id: ''},
+  );
+  const [emergency, setEmergency] = useState(
+    user.emergency_contacts[0] ? user.emergency_contacts[0] : {_id: ''},
+  );
   const [size, setSize] = useState(activity.size[0]);
   const [acceptTerm, setAcceptTerm] = useState(false);
   const [termModalOpen, setTermModalOpen] = useState(false);
@@ -87,10 +95,33 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             announcement: activity.announcement,
           },
           navigateUser,
+          t,
         ),
       );
     }
   };
+
+  useEffect(() => {
+    if (user.addresses.length === 0) {
+      Alert.alert(t('activity.noaddresses'), t('activity.pleaseaddaddresses'), [
+        {
+          text: t('activity.okay'),
+          onPress: () => {
+            navigation.navigate('Address');
+          },
+        },
+      ]);
+    } else if (user.emergency_contacts.length === 0) {
+      Alert.alert(t('activity.noemergency'), t('activity.pleaseaddemergency'), [
+        {
+          text: t('activity.okay'),
+          onPress: () => {
+            navigation.navigate('EmergencyContact');
+          },
+        },
+      ]);
+    }
+  }, []);
 
   return (
     <ScrollView

@@ -20,11 +20,11 @@ const FloatingLabelInput = (props) => {
     }),
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, -20],
+      outputRange: [14, -20],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [18, 12],
+      outputRange: [14, 12],
     }),
     color: animatedIsFocused.interpolate({
       inputRange: [0, 1],
@@ -56,7 +56,7 @@ const FloatingLabelInput = (props) => {
         useNativeDriver: false,
       }).start();
     }
-  }, [isFocused]);
+  }, [isFocused, props.value]);
 
   // if (props.value) {
   //   Animated.timing(animatedIsFocused, {

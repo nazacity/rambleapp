@@ -9,11 +9,27 @@ const LoadingPage = () => {
   return (
     <Spinner
       visible={isLoading}
-      textContent={'Loading...'}
       textStyle={{
         color: '#FFF',
       }}
       color={COLORS.pinkPastel}
+      // customIndicator={
+      //   <View style={{backgroundColor: 'white', padding: 20, borderRadius: 10}}>
+      //     <Text
+      //       style={{
+      //         fontFamily: theme.fontFamily.default,
+      //         fontSize: 18,
+      //         padding: 10,
+      //       }}>
+      //       Loading...
+      //     </Text>
+      //     <ActivityIndicator
+      //       style={{padding: 10}}
+      //       size="small"
+      //       color={theme.colors.primary}
+      //     />
+      //   </View>
+      // }
     />
   );
 };

@@ -25,6 +25,17 @@ export const COLORS = {
   backgroundColor: '#fff',
   link: '#2196f3',
   black: '#000',
+  buttonBlue: '#0CBCFD',
+  greenLine: '#00C300',
+  white: '#fff',
+};
+
+export const Radius = {
+  xs: 3,
+  s: 5,
+  m: 10,
+  l: 15,
+  xl: 20,
 };
 
 export const SHADOW = {
@@ -53,25 +64,21 @@ export const SHADOW = {
 export const SIZES = {
   // global sizes
   base: 8,
-  radius: {
-    small: 5,
-    medium: 10,
-    large: 20,
-  },
+
   padding: 20,
 
   // font sizes
   navTitle: 25,
-  h1: 30,
-  h2: 22,
-  h3: 16,
-  h4: 14,
-  h5: 12,
-  body1: 24,
-  body2: 20,
-  body3: 16,
-  body4: 14,
-  body5: 12,
+  h1: 18,
+  h2: 16,
+  h3: 14,
+  h4: 12,
+  h5: 10,
+  body1: 18,
+  body2: 16,
+  body3: 14,
+  body4: 12,
+  body5: 10,
 
   // app dimensions
   width,
@@ -90,52 +97,57 @@ export const FONTS = {
   h1: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h1,
-    lineHeight: 36,
+    lineHeight: 20,
   },
   h2: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h2,
-    lineHeight: 30,
+    lineHeight: 18,
   },
   h3: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h3,
-    lineHeight: 22,
+    lineHeight: 16,
   },
   h4: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h4,
-    lineHeight: 22,
+    lineHeight: 14,
   },
   h5: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h5,
-    lineHeight: 22,
+    lineHeight: 12,
   },
   body1: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body1,
-    lineHeight: 30,
+    lineHeight: 20,
   },
   body2: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body2,
-    lineHeight: 30,
+    lineHeight: 18,
   },
   body3: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body3,
-    lineHeight: 22,
+    lineHeight: 16,
   },
   body4: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body4,
-    lineHeight: 22,
+    lineHeight: 14,
   },
   body5: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body5,
-    lineHeight: 22,
+    lineHeight: 12,
+  },
+  button: {
+    fontFamily: 'SFProText-Bold',
+    fontSize: SIZES.body4,
+    lineHeight: 14,
   },
 };
 

@@ -54,13 +54,16 @@ const MainAdvertise = () => {
                   uri: item.uri,
                 });
               }}
-              style={{
-                width: SIZES.width - 40,
-                height: 200,
-                borderRadius: 10,
-                overflow: 'hidden',
-                marginVertical: 10,
-              }}>
+              style={[
+                SHADOW.image,
+                {
+                  width: SIZES.width - 40,
+                  height: 200,
+                  borderRadius: 10,
+                  overflow: 'hidden',
+                  marginVertical: 10,
+                },
+              ]}>
               <Image
                 source={{uri: item.advertize_picture_url}}
                 style={{width: SIZES.width - 40, height: 200, borderRadius: 5}}

@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   ActivityIndicator,
+  ImageBackground,
 } from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
@@ -62,11 +63,30 @@ const HistoryActivity = () => {
           overflow: 'hidden',
           backgroundColor: COLORS.backgroundColor,
         }}>
-        <View style={[SHADOW.image]}>
-          <Image
-            source={{uri: item.activity.id.activity_picture_url}}
-            style={{width: 150, height: 150, borderRadius: 5}}
-          />
+        <View
+          style={[
+            SHADOW.image,
+            {
+              width: 150,
+              height: 150,
+              borderRadius: 5,
+            },
+          ]}>
+          <View
+            style={{
+              borderRadius: 5,
+              overflow: 'hidden',
+            }}>
+            <ImageBackground
+              source={{uri: item.activity.id.activity_picture_url}}
+              style={{
+                width: 150,
+                height: 150,
+                resizeMode: 'cover',
+                borderRadius: 5,
+              }}
+            />
+          </View>
         </View>
       </TouchableOpacity>
     );

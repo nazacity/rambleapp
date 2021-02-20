@@ -1,34 +1,49 @@
 import React from 'react';
+import {View} from 'react-native';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import {FONTS} from '../constants';
+import {FONTS, SHADOW} from '../constants';
 
-const Button = ({label, onPress, color, width}) => {
+const Button = ({label, onPress, color, width, leftIcon}) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
+    <View
       style={[
+        SHADOW.default,
         {
-          borderRadius: 10,
+          borderRadius: 5,
           height: 50,
           width: width ? width : 300,
-          justifyContent: 'center',
-          alignItems: 'center',
         },
-        {backgroundColor: color},
-      ]}
-      {...{onPress}}>
-      <Text
+      ]}>
+      <TouchableOpacity
+        activeOpacity={0.95}
         style={[
           {
-            color: '#fff',
-            textAlign: 'center',
+            borderRadius: 5,
+            height: 50,
+            width: width ? width : 300,
+            alignItems: 'center',
+            flexDirection: 'row',
           },
-          FONTS.h3,
-        ]}>
-        {label}
-      </Text>
-    </TouchableOpacity>
+          {backgroundColor: color},
+          SHADOW.default,
+        ]}
+        {...{onPress}}>
+        <View style={{marginHorizontal: 10}}>{leftIcon && leftIcon()}</View>
+        <View style={{position: 'absolute', width: width ? width : 300}}>
+          <Text
+            style={[
+              {
+                color: '#fff',
+                textAlign: 'center',
+              },
+              FONTS.button,
+            ]}>
+            {label}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 

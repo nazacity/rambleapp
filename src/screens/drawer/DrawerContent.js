@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/drawer';
 import {Avatar} from 'react-native-elements';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   HomeIcon,
   UpcomingIcon,
@@ -84,7 +84,11 @@ const DrawerContent = (props) => {
         </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItem
-            icon={({color, size}) => <HomeIcon color={color} size={size} />}
+            icon={({color, size}) => (
+              <View style={{marginLeft: 2}}>
+                <HomeIcon color={color} size={22} />
+              </View>
+            )}
             label={t('drawer.home')}
             labelStyle={[FONTS.h4]}
             onPress={() => {
@@ -106,7 +110,7 @@ const DrawerContent = (props) => {
             }}
           />
           <DrawerItem
-            icon={({color, size}) => <HistoryIcon color={color} size={size} />}
+            icon={({color, size}) => <HistoryIcon color={color} size={22} />}
             label={t('drawer.history')}
             labelStyle={[FONTS.h4]}
             onPress={() => {
@@ -192,7 +196,7 @@ const DrawerContent = (props) => {
           }}
         />
         <DrawerItem
-          icon={({color, size}) => <EmergencyIcon color={color} size={size} />}
+          icon={({color, size}) => <EmergencyIcon color={color} size={20} />}
           label={t('drawer.emergencycontact')}
           labelStyle={[FONTS.h4]}
           onPress={() => {
@@ -202,9 +206,22 @@ const DrawerContent = (props) => {
             props.navigation.closeDrawer();
           }}
         />
+        <DrawerItem
+          icon={({color, size}) => (
+            <Ionicons name="settings-outline" color={color} size={22} />
+          )}
+          label={t('drawer.setting')}
+          labelStyle={[FONTS.h4]}
+          onPress={() => {
+            props.navigation.jumpTo('home', {
+              screen: 'Setting',
+            });
+            props.navigation.closeDrawer();
+          }}
+        />
       </Drawer.Section>
       <DrawerItem
-        icon={({color, size}) => <SignoutIcon color={color} size={size} />}
+        icon={({color, size}) => <SignoutIcon color={color} size={18} />}
         label={t('drawer.signout')}
         // labelStyle={{fontFamily: ''}}
         onPress={async () => {

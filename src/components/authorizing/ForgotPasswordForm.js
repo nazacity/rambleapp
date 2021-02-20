@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {signIn} from '../../redux/actions/UserAction';
 import {post} from '../../redux/actions/request';
 import {
   setLoading,
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
-
-import {Icon} from 'react-native-elements';
 
 import {FONTS, COLORS} from '../../constants';
 import Button from '../Button';
@@ -17,8 +14,6 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {useForm, Controller} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import SplashScreen from 'react-native-splash-screen';
 
 const ForgotPasswordForm = () => {
   const lang = useSelector((state) => state.appState.lang);
@@ -28,7 +23,7 @@ const ForgotPasswordForm = () => {
   const navigation = useNavigation();
 
   const onSubmit = async (data) => {
-    if (!data.idcard || !data.phone_number) {
+    if (!data.username || !data.phone_number) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -40,7 +35,7 @@ const ForgotPasswordForm = () => {
       dispatch(setLoading(true));
       try {
         const res = await post('/api/everyone/forgotpassword', {
-          idcard: data.idcard,
+          username: data.username,
           phone_number: data.phone_number,
         });
 
@@ -77,13 +72,13 @@ const ForgotPasswordForm = () => {
             control={control}
             render={({onChange, onBlur, value}) => (
               <FloatingLabelInput
-                floatingLabel={t('forgotpassword.idcard')}
+                floatingLabel={t('forgotpassword.username')}
                 inputContainerStyle={{borderBottomWidth: 0}}
                 onChangeText={(value) => onChange(value)}
                 value={value}
               />
             )}
-            name="idcard"
+            name="username"
             defaultValue=""
           />
         </View>
@@ -92,7 +87,7 @@ const ForgotPasswordForm = () => {
             control={control}
             render={({onChange, onBlur, value}) => (
               <FloatingLabelInput
-                floatingLabel={t('signup.phone_number')}
+                floatingLabel={t('forgotpassword.phone_number')}
                 inputContainerStyle={{borderBottomWidth: 0}}
                 onChangeText={(value) => onChange(value)}
                 value={value}

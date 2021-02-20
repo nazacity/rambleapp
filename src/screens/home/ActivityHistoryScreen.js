@@ -12,7 +12,7 @@ const HistoryActivityScreen = ({navigation, route}) => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <BackButton backTo={'Home'} />
+      <BackButton />
       <View
         style={{
           backgroundColor: COLORS.primary,

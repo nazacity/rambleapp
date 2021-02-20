@@ -1,20 +1,32 @@
 import React, {useState} from 'react';
-import {Text, View, ImageBackground, TouchableOpacity} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import {COLORS, SIZES} from '../../constants';
 import {Avatar} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import UploadPictureModal from '../../components/modal/UploadPictureModal';
 import {setUploadPictureModal} from '../../redux/actions/AppStateAction';
 import {useDispatch} from 'react-redux';
+import profile from '../../../assets/profile/profile.png';
+import backgroundprofile from '../../../assets/profile/backgroundprofile.png';
 
 const UserHeader = ({user}) => {
   const dispatch = useDispatch();
   const [upload, setUpload] = useState('uploadUserPictureProfile');
   const [delFile, setDelFile] = useState(null);
+
   return (
-    <View style={{width: SIZES.width, height: SIZES.width / 2}}>
+    <SafeAreaView style={{width: SIZES.width, height: SIZES.width / 2}}>
       <ImageBackground
-        source={{uri: user.user_background_picture_url}}
+        source={
+          user.user_background_picture_url
+            ? {uri: user.user_background_picture_url}
+            : backgroundprofile
+        }
         style={{resizeMode: 'cover', flex: 1}}>
         <View
           style={{
@@ -22,16 +34,19 @@ const UserHeader = ({user}) => {
             justifyContent: 'center',
             alignItems: 'center',
             padding: 25,
-            backgroundColor: 'rgba(0,0,0,0.6)',
+            backgroundColor: 'rgba(0,0,0,0.7)',
           }}>
           <View>
             <Avatar
               rounded
-              source={{uri: user.user_picture_url}}
+              source={
+                user.user_picture_url ? {uri: user.user_picture_url} : profile
+              }
               size={80}
               containerStyle={{
                 borderColor: COLORS.primary,
                 borderWidth: 2,
+                backgroundColor: COLORS.white,
               }}
             />
             <TouchableOpacity
@@ -104,7 +119,7 @@ const UserHeader = ({user}) => {
         </TouchableOpacity>
       </ImageBackground>
       <UploadPictureModal upload={upload} delFile={delFile} />
-    </View>
+    </SafeAreaView>
   );
 };
 

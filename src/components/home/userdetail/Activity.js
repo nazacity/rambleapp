@@ -17,14 +17,13 @@ const Distance = ({activity_number}) => {
           backgroundColor: 'white',
           borderRadius: 15,
           width: (SIZES.width - 40) / 2,
-          padding: 20,
         },
       ]}>
-      <Caption style={[FONTS.h4]}>{t('profile.activity')}</Caption>
-      <View style={{height: 30, flexDirection: 'row'}}>
-        <Text style={[FONTS.h2]}>{activity_number}</Text>
+      <Caption style={[FONTS.h3]}>{t('profile.activity')}</Caption>
+      <View style={{height: 50, flexDirection: 'row', alignItems: 'center'}}>
+        <Text style={[FONTS.h1]}>{activity_number}</Text>
       </View>
-      <Caption style={[FONTS.h5]}>{t('profile.activityunit')}</Caption>
+      <Caption style={[FONTS.h4]}>{t('profile.activityunit')}</Caption>
     </View>
   );
 };

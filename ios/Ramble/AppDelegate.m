@@ -5,6 +5,8 @@
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
 
+@import RNLine;
+
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
@@ -29,6 +31,7 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
@@ -48,6 +51,7 @@ static void InitializeFlipper(UIApplication *application) {
   
   [RNSplashScreen show];
   // [RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
+  [LineLogin setupWithChannelID:@"1655591354" universalLinkURL:nil];
   return YES;
 }
 
@@ -58,6 +62,20 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+//
+// Handle redirection back to the app from Line
+//
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [LineLogin application:app open:url options:options];
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+  BOOL handledLine = [LineLogin application:application continue:userActivity restorationHandler:restorationHandler];
+  return handledLine;
 }
 
 @end
