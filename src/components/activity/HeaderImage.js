@@ -12,10 +12,6 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-import moment from 'moment';
-import 'moment/locale/th';
-moment.locale('th');
 import {
   ImageHeaderScrollView,
   TriggeringView,
@@ -28,6 +24,7 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
 import BackButton from '../layout/BackButton';
 import ButtonSection from './ButtonSection';
+import {useSelector} from 'react-redux';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
 const MAX_HEIGHT = 300;

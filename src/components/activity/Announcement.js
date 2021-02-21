@@ -18,13 +18,15 @@ import {get} from '../../redux/actions/request';
 import {refresh} from '../../redux/actions/UserAction';
 import AnnouncementModal from '../modal/AnnouncementModal';
 import TitleHeader from '../layout/TitleHeader';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import {checkTimeFromPast} from '../../services/util';
+dayjs.extend(relativeTime);
 
 const UpcomingActivity = ({userActivity, setUserActivity}) => {
   const {t} = React.useContext(LocalizationContext);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -97,7 +99,9 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
               }}>
               <Text style={[FONTS.h5]}>{item.title}</Text>
               <Text style={[FONTS.body5]}>
-                {moment(item.createdAt).fromNow()}
+                {checkTimeFromPast(item.createdAt)
+                  ? dayjs(item.createdAt).locale(lang).format('DD MMM YY')
+                  : dayjs(item.createdAt).locale(lang).fromNow()}
               </Text>
             </View>
             <Text style={[FONTS.body5, {width: SIZES.width - 180}]}>

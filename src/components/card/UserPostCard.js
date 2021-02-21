@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {FONTS, COLORS, SIZES} from '../../constants';
 import ImageModal from 'react-native-image-modal';
@@ -11,7 +11,7 @@ import {Avatar} from 'react-native-elements';
 const UserPostCard = ({item, editState}) => {
   const user = useSelector((state) => state.user);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
+  dayjs.locale(lang);
   const {t} = React.useContext(LocalizationContext);
   return (
     <Fragment>
@@ -50,7 +50,7 @@ const UserPostCard = ({item, editState}) => {
             </View>
             <View style={{width: 200}}>
               <Text style={[FONTS.body4]}>
-                {moment(item.activity.activity_date).format(
+                {dayjs(item.activity.activity_date).format(
                   'วันที่ DD MMMM YYYY',
                 )}
               </Text>

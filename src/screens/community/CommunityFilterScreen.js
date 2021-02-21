@@ -14,8 +14,6 @@ import Button from '../../components/Button';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
 
-import moment from 'moment';
-import 'moment/locale/th';
 import LocalizationContext from '../LocalizationContext';
 import BackButton from '../../components/layout/BackButton';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -24,7 +22,6 @@ import TitleHeader from '../../components/layout/TitleHeader';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import {setFilteredUserPosts} from '../../redux/actions/CommunityAction';
 import {get} from '../../redux/actions/request';
-moment.locale('th');
 
 const ActivityFilterScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);

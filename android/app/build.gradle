@@ -133,7 +133,7 @@ android {
         applicationId "com.ramble"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10
+        versionCode 11
         versionName "1.1.8"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

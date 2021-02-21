@@ -4,14 +4,16 @@ import {useSelector, useDispatch} from 'react-redux';
 import {get} from '../../redux/actions/request';
 import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import {FONTS, COLORS, SIZES} from '../../constants';
 import {FlatList} from 'react-native-gesture-handler';
 import FilterButton from '../../components/layout/FilterButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {listUserPostsByActivity} from '../../redux/actions/CommunityAction';
 import LocalizationContext from '../LocalizationContext';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 const CardSize = SIZES.width - 80;
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
@@ -20,7 +22,7 @@ const SelectActivityScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
   const user_activities = useSelector((state) => state.user.user_activities);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
+  dayjs.locale(lang);
   const dispatch = useDispatch();
   const [activities, setActivities] = useState([]);
 
@@ -67,7 +69,7 @@ const SelectActivityScreen = ({navigation}) => {
             {item.activity.id.title}
           </Text>
           <Text style={[FONTS.h1, {color: '#fff'}]}>
-            {moment(item.activity.id.actual_date).fromNow()}
+            {dayjs(item.activity.id.actual_date).fromNow()}
           </Text>
         </View>
       </ActivityCard>

@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import {useSelector} from 'react-redux';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
@@ -18,7 +18,7 @@ const HistoryActivityScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const activities = useSelector((state) => state.activity.history_activities);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
+  dayjs.locale(lang);
   const HistoryActivityCard = ({item, index}) => {
     const scale = scrollY.interpolate({
       inputRange: [
@@ -39,11 +39,11 @@ const HistoryActivityScreen = () => {
         }}
         scale={scale}>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text style={[FONTS.h4, {color: '#fff'}]}>
+          <Text style={[FONTS.h4, {color: COLORS.white, lineHeight: 22}]}>
             {item.activity.id.title}
           </Text>
-          <Text style={[FONTS.h1, {color: '#fff'}]}>
-            {moment(item.activity.id.actual_date).format('DD MMMM YYYY')}
+          <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
+            {dayjs(item.activity.id.actual_date).format('DD MMMM YYYY')}
           </Text>
         </View>
       </ActivityCard>

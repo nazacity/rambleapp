@@ -11,8 +11,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setActivities} from '../../redux/actions/ActivityAction';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import LocalizationContext from '../LocalizationContext';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
@@ -27,7 +27,7 @@ const ActivityScreen = ({navigation}) => {
   const activities = useSelector((state) => state.activity.activities);
   const isLoading = useSelector((state) => state.appState.isLoading);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
+  dayjs.locale(lang);
   const onLoadMore = async () => {
     if (!noMore) {
       dispatch(setLoading(true));
@@ -77,17 +77,23 @@ const ActivityScreen = ({navigation}) => {
           }}
           scale={scale}>
           <View style={{position: 'absolute', bottom: 20, left: 20}}>
-            <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
+            <Text style={[FONTS.h3, {color: COLORS.white, lineHeight: 18}]}>
+              {item.title}
+            </Text>
             <View style={{flexDirection: 'row'}}>
-              <Text style={[FONTS.h5, {color: '#fff', marginRight: 10}]}>
+              <Text
+                style={[
+                  FONTS.h4,
+                  {color: COLORS.white, lineHeight: 18, marginRight: 10},
+                ]}>
                 {item.location.place_name}
               </Text>
-              <Text style={[FONTS.h5, {color: '#fff'}]}>
+              <Text style={[FONTS.h4, {color: COLORS.white, lineHeight: 18}]}>
                 {item.location.province}
               </Text>
             </View>
-            <Text style={[FONTS.h1, {color: '#fff'}]}>
-              {moment(item.actual_date).format('DD MMMM YY')}
+            <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
+              {dayjs(item.actual_date).format('DD MMMM YY')}
             </Text>
           </View>
         </ActivityCard>

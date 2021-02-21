@@ -15,8 +15,8 @@ import Button from '../../components/Button';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
 import RangeCalendarModal from '../../components/modal/RangeCalendarModal';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import {useSelector, useDispatch} from 'react-redux';
 import LocalizationContext from '../LocalizationContext';
 import BackButton from '../../components/layout/BackButton';
@@ -36,7 +36,6 @@ import Notch from './components/Notch';
 const ActivityFilterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
   const dispatch = useDispatch();
   // const activities = useSelector((state) => state.activity.filtered_activities);
   const {control, handleSubmit, errors} = useForm();
@@ -198,11 +197,11 @@ const ActivityFilterScreen = ({navigation, route}) => {
               marginVertical: 20,
             }}>
             <Text style={[FONTS.body3]}>
-              {moment(selectedDate.startDate).format('DD MMM YYYY')}
+              {dayjs(selectedDate.startDate).locale(lang).format('DD MMM YYYY')}
             </Text>
             <Text style={[FONTS.body3, {marginHorizontal: 5}]}>-</Text>
             <Text style={[FONTS.body3]}>
-              {moment(selectedDate.endDate).format('DD MMM YYYY')}
+              {dayjs(selectedDate.endDate).locale(lang).format('DD MMM YYYY')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.6}

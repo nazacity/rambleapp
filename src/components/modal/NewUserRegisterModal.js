@@ -20,8 +20,8 @@ import UploadPictureModal from '../../components/modal/UploadPictureModal';
 import {blood_type} from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
 import {post, get} from '../../redux/actions/request';
 import Modal from 'react-native-modal';
@@ -38,7 +38,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
   const {control, handleSubmit, errors, reset} = useForm();
   const dispatch = useDispatch();
-  moment.locale(lang);
+
   const navigation = useNavigation();
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
@@ -194,7 +194,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
               paddingLeft: 20,
             }}>
             <Text style={[FONTS.body3, {flex: 1}]}>
-              {moment(selectedDate).format('DD MMMM YYYY')}
+              {dayjs(selectedDate).locale(lang).format('DD MMMM YYYY')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.6}

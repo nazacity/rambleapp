@@ -4,14 +4,11 @@ import {StyleSheet, View, FlatList, Text} from 'react-native';
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 import {FONTS, COLORS, SIZES} from '../../constants';
 
-import moment from 'moment';
-import 'moment/locale/th';
 import LocalizationContext from '../LocalizationContext';
 import FilterButton from '../../components/layout/FilterButton';
 import {useSelector} from 'react-redux';
 import UserPostCard from '../../components/card/UserPostCard';
 import BackButton from '../../components/layout/BackButton';
-moment.locale('th');
 
 const CommunityScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
