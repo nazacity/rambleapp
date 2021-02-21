@@ -21,8 +21,8 @@ import UploadPictureModal from '../../components/modal/UploadPictureModal';
 import {blood_type} from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
 import {post, get} from '../../redux/actions/request';
 import PolicyModal from './PolicyModal';
@@ -38,7 +38,7 @@ const SignupForm = () => {
 
   const lineInfo = route.params.lineInfo;
   const [image, setImage] = useState('');
-  moment.locale(lang);
+  dayjs.locale(lang);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarModalOpen, setCalendarModalOpen] = useState(false);
 
@@ -433,7 +433,7 @@ const SignupForm = () => {
                   paddingLeft: 20,
                 }}>
                 <Text style={[FONTS.body3, {flex: 1}]}>
-                  {moment(selectedDate).format('DD MMMM YYYY')}
+                  {dayjs(selectedDate).format('DD MMMM YYYY')}
                 </Text>
                 <TouchableOpacity
                   activeOpacity={0.6}

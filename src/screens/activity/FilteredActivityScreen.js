@@ -11,8 +11,8 @@ import {setFilActivities} from '../../redux/actions/ActivityAction';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import LocalizationContext from '../LocalizationContext';
 import Button from '../../components/Button';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
 import BackButton from '../../components/layout/BackButton';
 
@@ -25,7 +25,6 @@ const FilteredActivityScreen = ({navigation}) => {
 
   const isLoading = useSelector((state) => state.appState.isLoading);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
 
   const ActivityCardDetail = ({item, index}) => {
     const scale = scrollY.interpolate({
@@ -58,7 +57,7 @@ const FilteredActivityScreen = ({navigation}) => {
               </Text>
             </View>
             <Text style={[FONTS.h1, {color: '#fff'}]}>
-              {moment(item.actual_date).format('DD MMMM YY')}
+              {dayjs(item.actual_date).locale(lang).format('DD MMMM YY')}
             </Text>
           </View>
         </ActivityCard>

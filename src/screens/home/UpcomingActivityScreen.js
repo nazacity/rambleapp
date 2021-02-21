@@ -1,7 +1,10 @@
 import React, {useRef} from 'react';
 import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
 import {useSelector} from 'react-redux';
 
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
@@ -10,6 +13,7 @@ import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
 import {Badge} from 'react-native-elements';
+import {checkTimeTilFuture} from '../../services/util';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
 
@@ -19,7 +23,7 @@ const UpcomingActivityScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const activities = useSelector((state) => state.activity.upcoming_activities);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
+  dayjs.locale(lang);
 
   const UpcomingActivityCard = ({item, index}) => {
     const badgeNumber = item.announcement.filter(
@@ -44,11 +48,13 @@ const UpcomingActivityScreen = () => {
         }}
         scale={scale}>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text style={[FONTS.h4, {color: '#fff'}]}>
+          <Text style={[FONTS.h4, {color: COLORS.white, lineHeight: 22}]}>
             {item.activity.id.title}
           </Text>
-          <Text style={[FONTS.h1, {color: '#fff'}]}>
-            {moment(item.activity.id.actual_date).fromNow()}
+          <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
+            {checkTimeTilFuture(item.activity.id.actual_date)
+              ? dayjs(item.activity.id.actual_date).format('DD MMM YY')
+              : dayjs(item.activity.id.actual_date).fromNow()}
           </Text>
         </View>
         {badgeNumber.length > 0 && (

@@ -8,8 +8,6 @@ import FilterButton from '../../components/layout/FilterButton';
 import {useSelector} from 'react-redux';
 import LocalizationContext from '../LocalizationContext';
 import Button from '../../components/Button';
-import moment from 'moment';
-import 'moment/locale/th';
 import BackButton from '../../components/layout/BackButton';
 import UserPostCard from '../../components/card/UserPostCard';
 
@@ -20,7 +18,6 @@ const FilteredCommunityScreen = ({navigation}) => {
   );
   const isLoading = useSelector((state) => state.appState.isLoading);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
 
   const UserPostContainer = ({item, index}) => {
     return (

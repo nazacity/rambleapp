@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import moment from 'moment';
-import 'moment/locale/th';
-moment.locale('th');
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 import {FONTS, COLORS} from '../../constants';

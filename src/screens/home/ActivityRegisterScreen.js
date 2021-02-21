@@ -11,9 +11,6 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageModal from 'react-native-image-modal';
-import moment from 'moment';
-import 'moment/locale/th';
-moment.locale('th');
 
 import Button from '../../components/Button';
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';

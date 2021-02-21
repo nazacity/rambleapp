@@ -12,8 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 import {get} from '../../redux/actions/request';
 import {SHADOW, SIZES, FONTS, COLORS} from '../../constants';
 import LinearGradient from 'react-native-linear-gradient';
-import moment from 'moment';
-import 'moment/locale/th';
+import dayjs from 'dayjs';
+import 'dayjs/locale/th';
 import Swiper from 'react-native-swiper';
 import {useSelector} from 'react-redux';
 import LocalizationContext from '../../screens/LocalizationContext';
@@ -21,7 +21,7 @@ import LocalizationContext from '../../screens/LocalizationContext';
 const PromoteActivity = () => {
   const {t} = React.useContext(LocalizationContext);
   const lang = useSelector((state) => state.appState.lang);
-  moment.locale(lang);
+  dayjs.locale(lang);
   const navigation = useNavigation();
   const [promote_activities, setPromote_activities] = useState([]);
   const fetchPromoteActivity = async () => {
@@ -67,7 +67,7 @@ const PromoteActivity = () => {
           <View style={{flex: 1}}>
             <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
             <Text style={[FONTS.h1, {color: '#fff'}]}>
-              {moment(item.actual_date).format('DD MMMM YY')}
+              {dayjs(item.actual_date).format('DD MMMM YY')}
             </Text>
           </View>
           <TouchableOpacity
