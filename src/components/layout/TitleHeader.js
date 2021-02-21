@@ -6,7 +6,6 @@ import LocalizationContext from '../../screens/LocalizationContext';
 
 const TitleHeader = ({title, seeAll, paddingHorizontal, noDot}) => {
   const {t} = React.useContext(LocalizationContext);
-  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -32,10 +31,10 @@ const TitleHeader = ({title, seeAll, paddingHorizontal, noDot}) => {
             }}
           />
         )}
-        <Text style={[FONTS.h3, {color: COLORS.pinkText}]}>{title}</Text>
+        <Text style={[FONTS.h3, {color: COLORS.black}]}>{title}</Text>
       </View>
       {seeAll && (
-        <TouchableOpacity activeOpacity={0.6} onPress={seeAll}>
+        <TouchableOpacity activeOpacity={0.8} onPress={seeAll}>
           <Text style={[FONTS.h4]}>{t('home.seeall')}</Text>
         </TouchableOpacity>
       )}

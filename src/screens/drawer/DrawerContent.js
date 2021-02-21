@@ -66,6 +66,7 @@ const DrawerContent = (props) => {
   const lang = useSelector((state) => state.appState.lang);
   const dispatch = useDispatch();
   const [focus, setFocus] = useState({});
+
   return (
     <View style={{flex: 1, borderTopRightRadius: 100, backgroundColor: '#fff'}}>
       <DrawerContentScrollView {...props}>

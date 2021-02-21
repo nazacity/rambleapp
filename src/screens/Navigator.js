@@ -30,6 +30,9 @@ import ActivityFilterScreen from './activity/ActivityFilterScreen';
 
 import SelectActivityScreen from './community/SelectActivityScreen';
 import CommunityScreen from './community/CommunityScreen';
+import BlogContentScreen from './community/BlogContentScreen';
+import SocialCommunityScreen from './community/SocialCommunityScreen';
+import BlogsScreen from './community/BlogsScreen';
 import CommunityFilterScreen from './community/CommunityFilterScreen';
 import FilteredCommunityScreen from './community/FilteredCommunityScreen';
 
@@ -124,11 +127,11 @@ export const MainTabScreen = ({navigation, route}) => {
             <Ionicons name="md-people-circle-sharp" color={color} size={24} />
           ),
         }}
-        listeners={{
-          tabPress: (e) => {
-            navigation.jumpTo('community', {screen: 'SelectActivity'});
-          },
-        }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     navigation.jumpTo('community', {screen: 'SelectActivity'});
+        //   },
+        // }}
       />
     </Tab.Navigator>
   );
@@ -576,6 +579,27 @@ const CommunityStackScreen = ({navigation}) => {
       <CommunityStack.Screen
         name="Community"
         component={CommunityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="Blogs"
+        component={BlogsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="BlogContent"
+        component={BlogContentScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="SocialCommunity"
+        component={SocialCommunityScreen}
         options={{
           headerShown: false,
         }}

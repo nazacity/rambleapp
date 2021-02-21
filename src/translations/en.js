@@ -148,6 +148,9 @@ const en = {
   community: {
     nopost: 'No post was created yet',
     noactivity: "You don't have any new activity",
+    recently: 'Recenet Contents',
+    social: 'Sharing Community',
+    seemore: 'See more',
   },
   activityfilter: {
     course: 'Distance (Km)',

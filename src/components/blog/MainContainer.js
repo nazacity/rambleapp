@@ -7,7 +7,7 @@ import BlogSlide from './mainslides/BlogSlide';
 import {SafeAreaView} from 'react-native';
 import {blog_categories} from './data';
 
-const MainSlide = () => {
+const MainContainer = () => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const ref = React.useRef();
   const onItemPress = React.useCallback((itemIndex) => {
@@ -22,7 +22,7 @@ const MainSlide = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{height: 510}}>
+        <View style={{height: 460}}>
           <Animated.FlatList
             ref={ref}
             horizontal
@@ -50,7 +50,7 @@ const MainSlide = () => {
   );
 };
 
-export default MainSlide;
+export default MainContainer;
 
 const styles = StyleSheet.create({
   container: {

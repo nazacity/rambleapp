@@ -4,7 +4,6 @@ import {FONTS, COLORS, theme, SIZES, SHADOW} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Modal from 'react-native-modal';
-import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {useDispatch, useSelector} from 'react-redux';
 import Button from '../Button';
 
@@ -19,6 +18,7 @@ import {Image} from 'react-native';
 import {Alert} from 'react-native';
 import {setUser} from '../../redux/actions/UserAction';
 import {post} from '../../redux/actions/request';
+import ModalCloseButton from '../layout/ModalCloseButton';
 
 const VerifyVaccineModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -155,22 +155,7 @@ const VerifyVaccineModal = ({handleClose, open}) => {
         }}>
         <View
           style={{flex: 1, alignItems: 'center', padding: 20, paddingTop: 40}}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{
-              width: 30,
-              height: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              position: 'absolute',
-              zIndex: 100,
-              top: 10,
-              right: 10,
-            }}
-            onPress={handleResetClose}>
-            <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
-          </TouchableOpacity>
+          <ModalCloseButton onPress={handleResetClose} />
           <View style={[SHADOW.default, {borderRadius: 5, marginBottom: 20}]}>
             <TouchableOpacity
               activeOpacity={0.9}

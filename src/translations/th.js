@@ -148,6 +148,9 @@ const th = {
   community: {
     nopost: 'ยังไม่มีโพส์ต',
     noactivity: 'คุณยังไม่ได้สมัครกิจกรรมใหม่',
+    recently: 'Recenet Contents',
+    social: 'Sharing Community',
+    seemore: 'ดูเพิ่มเติม',
   },
   activityfilter: {
     course: 'ระยะทางวิ่ง (กม.)',

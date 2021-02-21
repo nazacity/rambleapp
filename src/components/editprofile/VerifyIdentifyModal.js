@@ -27,6 +27,7 @@ import {Image} from 'react-native';
 import {ScrollView} from 'react-native';
 import {Alert} from 'react-native';
 import {get, post} from '../../redux/actions/request';
+import ModalCloseButton from '../layout/ModalCloseButton';
 
 const VerifyIdentifyModal = ({handleClose, open}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -218,26 +219,7 @@ const VerifyIdentifyModal = ({handleClose, open}) => {
               padding: 20,
               paddingTop: 40,
             }}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{
-                width: 30,
-                height: 30,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 15,
-                position: 'absolute',
-                zIndex: 100,
-                top: 10,
-                right: 10,
-              }}
-              onPress={handleResetClose}>
-              <MaterialIcons
-                name="cancel"
-                color={COLORS.buttonBlue}
-                size={24}
-              />
-            </TouchableOpacity>
+            <ModalCloseButton onPress={handleResetClose} />
             {view === 0 && (
               <Fragment>
                 <View

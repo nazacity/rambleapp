@@ -2,11 +2,19 @@ import React from 'react';
 import {View, Text, Image, ImageBackground, FlatList} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
-import {SIZES} from '../../../constants';
+import {FONTS, SIZES} from '../../../constants';
 import BlogFlatlist from './BlogFlatlist';
 import {blogs} from '../data';
+import LocalizationContext from '../../../screens/LocalizationContext';
+import {TouchableOpacity} from 'react-native';
+import TitleHeader from '../../layout/TitleHeader';
+import {useNavigation} from '@react-navigation/native';
 
 const BlogSlide = ({item}) => {
+  const {t} = React.useContext(LocalizationContext);
+  const navigation = useNavigation();
+  const data = blogs.slice(0, 5);
+  const lang = useSelector((state) => state.appState.lang);
   return (
     <View style={{width: SIZES.width}}>
       <View>
@@ -15,7 +23,7 @@ const BlogSlide = ({item}) => {
           style={{
             resizeMode: 'cover',
             width: SIZES.width,
-            height: 300,
+            height: 200,
           }}>
           <LinearGradient
             colors={['rgba(0,0,0,1)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,0.0)']}
@@ -33,10 +41,23 @@ const BlogSlide = ({item}) => {
           />
         </ImageBackground>
       </View>
-      <View style={{margin: 20}}>
-        <Text>Top Trend</Text>
-      </View>
-      <BlogFlatlist data={blogs} />
+      <TitleHeader
+        title={t('community.recently')}
+        seeAll={() => {
+          navigation.jumpTo('community', {
+            screen: 'Blogs',
+            params: {
+              blog: item._id,
+              picture_url: item.image,
+              title:
+                lang === 'th' ? item.title_th : lang === 'en' && item.title_en,
+            },
+          });
+        }}
+        paddingHorizontal={20}
+        noDot={true}
+      />
+      <BlogFlatlist data={data} />
     </View>
   );
 };

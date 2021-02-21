@@ -56,7 +56,9 @@ export default function App() {
       <NavigationContainer>
         {isSignedIn ? (
           <Drawer.Navigator
-            drawerContent={(props) => <DrawerContent {...props} />}
+            drawerContent={(props) => {
+              return <DrawerContent {...props} />;
+            }}
             drawerStyle={{backgroundColor: 'transparent'}}>
             <Drawer.Screen name="Home" component={MainTabScreen} />
           </Drawer.Navigator>

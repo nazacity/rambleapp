@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {FONTS, COLORS, SIZES} from '../../constants';
-import ImageModal from 'react-native-image-modal';
 import {Avatar} from 'react-native-elements';
 
 const UserPostCard = ({item, editState}) => {

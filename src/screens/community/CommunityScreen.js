@@ -6,10 +6,11 @@ import io from 'socket.io-client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {socialurl} from '../../redux/actions/request';
 import axios from 'axios';
-import MainSlide from '../../components/blog/MainSlides';
-import SocialFlatlist from '../../components/blog/social/SocialFlatlist';
+import MainContainer from '../../components/blog/MainContainer';
 import {ScrollView} from 'react-native';
 import {COLORS} from '../../constants';
+import MenuButton from '../../components/layout/MenuButton';
+import SocialContainer from '../../components/social/SocialContainer';
 
 const CommunityScreen = ({navigation}) => {
   const [socket, setSocket] = useState(null);
@@ -45,18 +46,15 @@ const CommunityScreen = ({navigation}) => {
   // }, []);
 
   return (
-    <ScrollView
-      style={{backgroundColor: COLORS.backgroundColor}}
-      showsVerticalScrollIndicator={false}>
-      <MainSlide />
-      <View>
-        <View style={{margin: 20}}>
-          <Text>Social</Text>
-        </View>
-        <SocialFlatlist />
-        <View style={{margin: 10}} />
-      </View>
-    </ScrollView>
+    <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
+      <MenuButton />
+      <ScrollView
+        style={{backgroundColor: COLORS.backgroundColor}}
+        showsVerticalScrollIndicator={false}>
+        <MainContainer />
+        <SocialContainer />
+      </ScrollView>
+    </View>
   );
 };
 
