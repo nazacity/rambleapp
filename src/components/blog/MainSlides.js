@@ -22,7 +22,7 @@ const MainSlide = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{height: 560}}>
+        <View style={{height: 510}}>
           <Animated.FlatList
             ref={ref}
             horizontal

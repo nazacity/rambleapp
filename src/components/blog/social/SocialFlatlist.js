@@ -36,8 +36,8 @@ const SocialFlatlist = () => {
     return (
       <View
         style={{
-          width: 200,
-          height: 200,
+          width: 150,
+          height: 150,
           borderRadius: 10,
           marginRight: index === blog_categories.length - 1 ? 0 : 10,
           overflow: 'hidden',
@@ -45,8 +45,8 @@ const SocialFlatlist = () => {
         <ImageBackground
           source={{uri: item.image}}
           style={{
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 150,
             resizeMode: 'cover',
             borderRadius: 10,
             overflow: 'hidden',

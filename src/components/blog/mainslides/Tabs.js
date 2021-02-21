@@ -30,7 +30,7 @@ const Tabs = ({data, scrollX, onItemPress}) => {
   }, []);
 
   return (
-    <View style={{position: 'absolute', top: 30, width: SIZES.width}}>
+    <View style={{position: 'absolute', top: 50, width: SIZES.width}}>
       <View
         ref={containerRef}
         style={{

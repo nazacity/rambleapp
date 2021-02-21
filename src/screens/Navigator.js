@@ -115,7 +115,7 @@ export const MainTabScreen = ({navigation, route}) => {
           },
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="community"
         component={CommunityStackScreen}
         options={{
@@ -129,7 +129,7 @@ export const MainTabScreen = ({navigation, route}) => {
             navigation.jumpTo('community', {screen: 'SelectActivity'});
           },
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
