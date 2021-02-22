@@ -29,7 +29,7 @@ const BlogContentScreen = ({navigation, route}) => {
         <LoveButton top={40} size={30} />
         <View
           style={{
-            height: Platform.OS === 'ios' ? SIZES.height : SIZES.height - 60,
+            height: SIZES.height,
           }}>
           <WebView
             source={{uri: uri}}
@@ -61,28 +61,22 @@ const BlogContentScreen = ({navigation, route}) => {
       showsVerticalScrollIndicator={false}>
       <BackButton />
       <LoveButton top={40} size={30} />
-      <View
-        style={{
-          height: Platform.OS === 'ios' ? SIZES.height : SIZES.height - 60,
-        }}>
-        <WebView
-          source={{uri: uri}}
-          showsVerticalScrollIndicator={false}
-          startInLoadingState={true}
-          renderLoading={() => (
-            <Spinner
-              visible={true}
-              textContent={'Loading...'}
-              textStyle={{
-                color: '#FFF',
-              }}
-              color={COLORS.primary}
-            />
-          )}
-        />
-      </View>
+      <WebView
+        source={{uri: uri}}
+        showsVerticalScrollIndicator={false}
+        startInLoadingState={true}
+        renderLoading={() => (
+          <Spinner
+            visible={true}
+            textContent={'Loading...'}
+            textStyle={{
+              color: '#FFF',
+            }}
+            color={COLORS.primary}
+          />
+        )}
+      />
       <CommentTab setOpen={setOpen} bottom={20} />
-
       <CommentModal open={open} handleClose={handleClose} />
     </View>
   );
