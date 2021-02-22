@@ -123,7 +123,6 @@ const SocialCategoryContainer = () => {
         renderItem={({item, index}) => {
           return <SocialCategoryCard item={item} index={index} />;
         }}
-        ListFooterComponent={() => <View style={{margin: 40}} />}
       />
     </View>
   );
