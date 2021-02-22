@@ -20,13 +20,51 @@ const BlogContentScreen = ({navigation, route}) => {
   const handleClose = () => {
     setOpen(false);
   };
+  if (Platform.OS === 'ios') {
+    return (
+      <ScrollView
+        style={{backgroundColor: COLORS.white}}
+        showsVerticalScrollIndicator={false}>
+        <BackButton />
+        <LoveButton top={40} size={30} />
+        <View
+          style={{
+            height: Platform.OS === 'ios' ? SIZES.height : SIZES.height - 60,
+          }}>
+          <WebView
+            source={{uri: uri}}
+            showsVerticalScrollIndicator={false}
+            startInLoadingState={true}
+            renderLoading={() => (
+              <Spinner
+                visible={true}
+                textContent={'Loading...'}
+                textStyle={{
+                  color: '#FFF',
+                }}
+                color={COLORS.primary}
+              />
+            )}
+          />
+
+          <CommentTab setOpen={setOpen} bottom={100} />
+        </View>
+
+        <CommentModal open={open} handleClose={handleClose} />
+      </ScrollView>
+    );
+  }
+
   return (
-    <ScrollView
-      style={{backgroundColor: COLORS.white}}
+    <View
+      style={{backgroundColor: COLORS.white, flex: 1}}
       showsVerticalScrollIndicator={false}>
       <BackButton />
       <LoveButton top={40} size={30} />
-      <View style={{height: SIZES.height}}>
+      <View
+        style={{
+          height: Platform.OS === 'ios' ? SIZES.height : SIZES.height - 60,
+        }}>
         <WebView
           source={{uri: uri}}
           showsVerticalScrollIndicator={false}
@@ -42,12 +80,11 @@ const BlogContentScreen = ({navigation, route}) => {
             />
           )}
         />
-
-        <CommentTab setOpen={setOpen} bottom={100} />
       </View>
+      <CommentTab setOpen={setOpen} bottom={20} />
 
       <CommentModal open={open} handleClose={handleClose} />
-    </ScrollView>
+    </View>
   );
 };
 

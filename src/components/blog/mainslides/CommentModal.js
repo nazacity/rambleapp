@@ -1,8 +1,6 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
-import {WebView} from 'react-native-webview';
+import {View, FlatList, Platform} from 'react-native';
 import Modal from 'react-native-modal';
-import {TouchableOpacity} from 'react-native';
 
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import LocalizationContext from '../../../screens/LocalizationContext';
@@ -10,7 +8,6 @@ import CommentTab from './CommentTab';
 import ModalCloseButton from '../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
 import {comments} from '../data';
-import {ScrollView} from 'react-native-gesture-handler';
 
 const CommentModal = ({open, handleClose}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -41,7 +38,7 @@ const CommentModal = ({open, handleClose}) => {
           ListFooterComponent={<View style={{margin: 40}} />}
         />
       </View>
-      <CommentTab bottom={40} />
+      <CommentTab bottom={Platform.OS === 'ios' ? 40 : 20} />
     </Modal>
   );
 };

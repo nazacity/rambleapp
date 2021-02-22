@@ -9,14 +9,15 @@ import LocalizationContext from '../../../screens/LocalizationContext';
 const CommentTab = ({setOpen, onSubmit, bottom}) => {
   const [value, setValue] = useState('');
   const {t} = React.useContext(LocalizationContext);
+
   return (
     <KeyboardAvoidingView
-      behavior="position"
+      behavior={Platform.OS === 'ios' ? 'position' : 'height'}
       style={{
         position: 'absolute',
         left: 20,
         right: 20,
-        bottom: bottom ? bottom : 20,
+        bottom: bottom ? bottom : 0,
         zIndex: 100,
       }}>
       <View
