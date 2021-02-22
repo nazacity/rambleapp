@@ -53,7 +53,6 @@ const SocialCategoryContainer = () => {
             width: 300,
             height: 200,
             borderRadius: 10,
-            marginRight: index === data.length - 1 ? 0 : 20,
             overflow: 'hidden',
             backgroundColor: COLORS.white,
           },
