@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import {COLORS, SHADOW, SIZES} from '../../../constants';
-import FloatingLabelInput from '../../floatinglabelinput/FloatingLabelInput';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
+import {Input} from 'react-native-elements';
+import LocalizationContext from '../../../screens/LocalizationContext';
 
-const CommentTab = ({setOpen}) => {
+const CommentTab = ({setOpen, onSubmit}) => {
   const [value, setValue] = useState('');
+  const {t} = React.useContext(LocalizationContext);
   return (
     <View
       style={[
@@ -14,11 +16,10 @@ const CommentTab = ({setOpen}) => {
           width: SIZES.width - 40,
           backgroundColor: COLORS.white,
           borderRadius: 5,
-          height: 70,
           alignSelf: 'center',
           position: 'absolute',
           bottom: 10,
-          paddingHorizontal: 10,
+          padding: 10,
           flexDirection: 'row',
           alignItems: 'center',
           zIndex: 100,
@@ -26,18 +27,29 @@ const CommentTab = ({setOpen}) => {
         SHADOW.default,
       ]}>
       <View style={{flex: 1}}>
-        <FloatingLabelInput
-          placeholder="Type something..."
+        <Input
+          placeholder={t('community.comment.commentblog')}
           inputContainerStyle={{borderBottomWidth: 0}}
           onChangeText={(text) => {
             setValue(text);
           }}
           value={value}
+          multiline
+          containerStyle={{
+            backgroundColor: COLORS.lightGrey,
+            borderRadius: 5,
+            height: value.length > 30 ? undefined : 50,
+            borderColor: COLORS.black,
+            borderWidth: 0.5,
+            borderRadius: 5,
+          }}
+          style={[FONTS.body3]}
         />
       </View>
       <TouchableOpacity
         activeOpacity={0.8}
-        style={{width: 30, height: 30, marginHorizontal: 10}}>
+        style={{width: 30, height: 30, marginLeft: 10}}
+        onSubmit={onSubmit}>
         <MaterialIcons
           name="add-circle-outline"
           size={24}

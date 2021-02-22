@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text, Image, ImageBackground, FlatList} from 'react-native';
+import {View, ImageBackground, FlatList} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
-import {FONTS, SIZES} from '../../../constants';
+import {SIZES} from '../../../constants';
 import BlogFlatlist from './BlogFlatlist';
 import {blogs} from '../data';
 import LocalizationContext from '../../../screens/LocalizationContext';
-import {TouchableOpacity} from 'react-native';
 import TitleHeader from '../../layout/TitleHeader';
 import {useNavigation} from '@react-navigation/native';
 

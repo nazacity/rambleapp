@@ -28,6 +28,7 @@ export const COLORS = {
   buttonBlue: '#0CBCFD',
   greenLine: '#00C300',
   white: '#fff',
+  lightGrey: '#eee',
 };
 
 export const Radius = {

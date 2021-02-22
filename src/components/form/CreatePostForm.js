@@ -173,7 +173,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                 style={[
                   {
                     borderWidth: 1,
-                    borderRadius: 10,
+                    borderRadius: 3,
                     paddingHorizontal: 10,
                     backgroundColor: 'white',
                   },
@@ -190,12 +190,9 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                 zIndex={5000}
                 dropDownStyle={{
                   backgroundColor: COLORS.backgroundColor,
-                  width: SIZES.width - 42,
-                  marginTop: 10,
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
+
+                  borderBottomLeftRadius: 3,
+                  borderBottomRightRadius: 3,
                   borderColor: COLORS.pinkPastel,
                   zIndex: 400,
                 }}

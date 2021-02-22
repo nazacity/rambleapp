@@ -9,10 +9,14 @@ import {
 import {COLORS, SHADOW, SIZES} from '../../constants';
 import {useSelector} from 'react-redux';
 import BackButton from '../../components/layout/BackButton';
+import {useNavigation} from '@react-navigation/native';
+import SocialCategoryContainer from '../../components/social/SocialCategoryContainer';
 
 const SocialCommuntyScreen = () => {
   const user_activities = useSelector((state) => state.user.user_activities);
   const data = user_activities.slice(0, 5);
+
+  const navigation = useNavigation();
 
   const SocialCard = ({item, index}) => {
     return (
@@ -36,7 +40,12 @@ const SocialCommuntyScreen = () => {
               height: 150,
             },
             SHADOW.image,
-          ]}>
+          ]}
+          onPress={() => {
+            navigation.navigate('SocialActivity', {
+              activity: item.activity.id,
+            });
+          }}>
           <ImageBackground
             source={{uri: item.activity.id.activity_picture_url}}
             style={{
@@ -56,14 +65,14 @@ const SocialCommuntyScreen = () => {
       style={{
         flex: 1,
         backgroundColor: COLORS.backgroundColor,
-        alignItems: 'center',
       }}>
       <BackButton />
+      <SocialCategoryContainer />
       <FlatList
         showsVerticalScrollIndicator={false}
         data={data}
-        style={{padding: 20, paddingVertical: 60}}
-        contentContainerStyle={{paddingHorizontal: 5}}
+        style={{margin: 20}}
+        contentContainerStyle={{padding: 20, alignItems: 'center'}}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         // keyExtractor={(item,index) => item._id}
         keyExtractor={(item, index) => `${index}`}

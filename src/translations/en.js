@@ -150,7 +150,11 @@ const en = {
     noactivity: "You don't have any new activity",
     recently: 'Recenet Contents',
     social: 'Sharing Community',
-    seemore: 'See more',
+    comment: {
+      commentblog: 'comment to this content',
+      seeall: 'See all',
+      seeless: 'See less',
+    },
   },
   activityfilter: {
     course: 'Distance (Km)',

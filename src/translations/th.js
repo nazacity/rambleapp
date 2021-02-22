@@ -150,7 +150,11 @@ const th = {
     noactivity: 'คุณยังไม่ได้สมัครกิจกรรมใหม่',
     recently: 'Recenet Contents',
     social: 'Sharing Community',
-    seemore: 'ดูเพิ่มเติม',
+    comment: {
+      commentblog: 'คุณคิดเห็นอย่างไรกับบทความนี้',
+      seeall: 'ดูทั้งหมด',
+      seeless: 'ดูบางส่วน',
+    },
   },
   activityfilter: {
     course: 'ระยะทางวิ่ง (กม.)',
