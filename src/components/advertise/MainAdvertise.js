@@ -42,7 +42,6 @@ const MainAdvertise = () => {
       style={{
         padding: 20,
         alignItems: 'center',
-        marginVertical: 20,
       }}>
       {mainAdvertizes.map((item) => {
         return (

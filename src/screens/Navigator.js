@@ -404,7 +404,6 @@ const HomeStackScreen = ({navigation}) => {
           },
         }}
       />
-      <HomeStack.Screen name="WebView" component={WebViewScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -598,6 +597,13 @@ const CommunityStackScreen = ({navigation}) => {
       <CommunityStack.Screen
         name="SocialCategory"
         component={SocialCategoryScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="WebView"
+        component={WebViewScreen}
         options={{
           headerShown: false,
         }}

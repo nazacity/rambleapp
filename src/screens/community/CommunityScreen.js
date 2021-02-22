@@ -11,6 +11,8 @@ import {ScrollView} from 'react-native';
 import {COLORS} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
 import SocialContainer from '../../components/social/SocialContainer';
+import MainAdvertise from '../../components/advertise/MainAdvertise';
+import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
 const CommunityScreen = ({navigation}) => {
   const [socket, setSocket] = useState(null);
@@ -53,6 +55,8 @@ const CommunityScreen = ({navigation}) => {
         showsVerticalScrollIndicator={false}>
         <MainContainer />
         <SocialContainer />
+        <MainAdvertise />
+        <MinorAdvertise />
       </ScrollView>
     </View>
   );

@@ -12,12 +12,12 @@ const MinorAdvertise = () => {
   const MinorAdvertiseCard = ({item, index}) => {
     return (
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.9}
         onPress={() => {}}
         style={{
           marginRight: minor_advertise.length === index + 1 ? 40 : 0,
           overflow: 'hidden',
-          backgroundColor: 'black',
+          backgroundColor: COLORS.backgroundColor,
           borderRadius: 5,
         }}>
         <ImageModal
@@ -44,7 +44,7 @@ const MinorAdvertise = () => {
   };
 
   return (
-    <View>
+    <View style={{marginBottom: 20}}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -54,7 +54,7 @@ const MinorAdvertise = () => {
           return <MinorAdvertiseCard item={item} index={index} />;
         }}
         ItemSeparatorComponent={() => <View style={{padding: 10}} />}
-        style={{padding: 20}}
+        style={{paddingHorizontal: 20}}
       />
     </View>
   );
