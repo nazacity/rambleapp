@@ -53,8 +53,8 @@ const MainAdvertise = () => {
                 width: SIZES.width - 40,
                 height: 200,
                 borderRadius: 10,
-                overflow: 'hidden',
                 backgroundColor: COLORS.backgroundColor,
+                marginVertical: 10,
               },
             ]}>
             <TouchableOpacity
@@ -70,8 +70,8 @@ const MainAdvertise = () => {
                   width: SIZES.width - 40,
                   height: 200,
                   borderRadius: 10,
-                  marginVertical: 10,
                   backgroundColor: COLORS.backgroundColor,
+                  overflow: 'hidden',
                 },
               ]}>
               <Image
