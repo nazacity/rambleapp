@@ -56,7 +56,7 @@ const CommunityScreen = ({navigation}) => {
         <MainContainer />
         <SocialContainer />
         <MainAdvertise />
-        <MinorAdvertise />
+        {/* <MinorAdvertise /> */}
       </ScrollView>
     </View>
   );
