@@ -23,7 +23,6 @@ const BlogFlatlist = ({data}) => {
             height: 200,
             borderRadius: 10,
             marginRight: index === data.length - 1 ? 0 : 10,
-            overflow: 'hidden',
           },
           SHADOW.default,
         ]}>
@@ -34,6 +33,8 @@ const BlogFlatlist = ({data}) => {
               width: 300,
               height: 200,
               backgroundColor: COLORS.white,
+              borderRadius: 10,
+              overflow: 'hidden',
             },
             SHADOW.default,
           ]}

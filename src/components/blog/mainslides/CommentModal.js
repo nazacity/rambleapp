@@ -10,6 +10,7 @@ import CommentTab from './CommentTab';
 import ModalCloseButton from '../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
 import {comments} from '../data';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const CommentModal = ({open, handleClose}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -27,7 +28,7 @@ const CommentModal = ({open, handleClose}) => {
           borderTopRightRadius: 20,
         }}>
         <ModalCloseButton onPress={handleClose} />
-        <CommentTab />
+
         <FlatList
           showsVerticalScrollIndicator={false}
           data={comments}
@@ -40,6 +41,7 @@ const CommentModal = ({open, handleClose}) => {
           ListFooterComponent={<View style={{margin: 40}} />}
         />
       </View>
+      <CommentTab bottom={40} />
     </Modal>
   );
 };

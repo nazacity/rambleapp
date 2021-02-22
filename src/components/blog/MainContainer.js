@@ -20,33 +20,31 @@ const MainContainer = () => {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{height: 460}}>
-          <Animated.FlatList
-            ref={ref}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={blogCategories}
-            keyExtractor={(item) => item._id}
-            pagingEnabled
-            bounces={false}
-            onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {x: scrollX}}}],
-              {useNativeDriver: false},
-            )}
-            renderItem={({item}) => {
-              return <BlogSlide item={item} />;
-            }}
-          />
-          <Tabs
-            scrollX={scrollX}
-            data={blogCategories}
-            onItemPress={onItemPress}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{height: 460}}>
+        <Animated.FlatList
+          ref={ref}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={blogCategories}
+          keyExtractor={(item) => item._id}
+          pagingEnabled
+          bounces={false}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {x: scrollX}}}],
+            {useNativeDriver: false},
+          )}
+          renderItem={({item}) => {
+            return <BlogSlide item={item} />;
+          }}
+        />
+        <Tabs
+          scrollX={scrollX}
+          data={blogCategories}
+          onItemPress={onItemPress}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
