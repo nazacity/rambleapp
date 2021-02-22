@@ -4,13 +4,19 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 import HeaderImage from '../../components/social/social/HeaderImage';
+import SocialCommentTab from '../../components/social/social/SocialCommentTab';
+import SocialCommentModal from '../../components/social/social/SocialCommentModal';
+import SocialPostFlatlist from '../../components/social/social/SocialPostFlatlist';
 
 const SocialActivityScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
   const {activity} = route.params;
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     // if (userActivity.state === 'history') {
     //   navigation.replace('ActivityHistory', {
@@ -41,8 +47,13 @@ const SocialActivityScreen = ({navigation, route}) => {
       <HeaderImage
         picture_url={activity.activity_picture_url}
         title={activity.title}>
-        <View style={{height: 1000}}></View>
+        <View>
+          <SocialPostFlatlist />
+          <View style={{margin: 60}} />
+        </View>
       </HeaderImage>
+      <SocialCommentModal open={open} handleClose={handleClose} />
+      <SocialCommentTab setOpen={setOpen} bottom={20} />
     </View>
   );
 };

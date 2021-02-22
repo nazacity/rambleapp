@@ -155,6 +155,10 @@ const en = {
       seeall: 'See all',
       seeless: 'See less',
     },
+    socialcomment: {
+      post: 'Post your story',
+      comments: 'Comments',
+    },
   },
   activityfilter: {
     course: 'Distance (Km)',

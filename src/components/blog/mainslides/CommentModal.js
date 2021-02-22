@@ -25,7 +25,6 @@ const CommentModal = ({open, handleClose}) => {
           borderTopRightRadius: 20,
         }}>
         <ModalCloseButton onPress={handleClose} />
-
         <FlatList
           showsVerticalScrollIndicator={false}
           data={comments}
@@ -35,7 +34,7 @@ const CommentModal = ({open, handleClose}) => {
           renderItem={({item, index}) => {
             return <CommentCard item={item} index={index} />;
           }}
-          ListFooterComponent={<View style={{margin: 40}} />}
+          ListFooterComponent={<View style={{margin: 60}} />}
         />
       </View>
       <CommentTab bottom={Platform.OS === 'ios' ? 40 : 20} />

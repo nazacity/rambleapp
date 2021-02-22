@@ -155,6 +155,10 @@ const th = {
       seeall: 'ดูทั้งหมด',
       seeless: 'ดูบางส่วน',
     },
+    socialcomment: {
+      post: 'โพสต์เรื่องราวของคุณ',
+      comments: 'ความคิดเห็น',
+    },
   },
   activityfilter: {
     course: 'ระยะทางวิ่ง (กม.)',
