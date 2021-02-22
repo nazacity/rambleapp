@@ -45,7 +45,18 @@ const MainAdvertise = () => {
       }}>
       {mainAdvertizes.map((item) => {
         return (
-          <View key={item._id} style={[SHADOW.image]}>
+          <View
+            key={item._id}
+            style={[
+              SHADOW.image,
+              {
+                width: SIZES.width - 40,
+                height: 200,
+                borderRadius: 10,
+                overflow: 'hidden',
+                backgroundColor: COLORS.backgroundColor,
+              },
+            ]}>
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
@@ -59,8 +70,8 @@ const MainAdvertise = () => {
                   width: SIZES.width - 40,
                   height: 200,
                   borderRadius: 10,
-                  overflow: 'hidden',
                   marginVertical: 10,
+                  backgroundColor: COLORS.backgroundColor,
                 },
               ]}>
               <Image
