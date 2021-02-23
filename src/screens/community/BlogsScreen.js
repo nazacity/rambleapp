@@ -43,7 +43,6 @@ const BlogsScreen = ({navigation, route}) => {
             width: 300,
             height: 200,
             borderRadius: 10,
-            overflow: 'hidden',
             transform: [{scale}],
           },
           SHADOW.default,
@@ -55,6 +54,8 @@ const BlogsScreen = ({navigation, route}) => {
               width: 300,
               height: 200,
               backgroundColor: COLORS.white,
+              borderRadius: 10,
+              overflow: 'hidden',
             },
             SHADOW.default,
           ]}
