@@ -1,17 +1,5 @@
 import React, {useRef, Fragment} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Linking,
-  TouchableOpacity,
-  Platform,
-  StatusBar,
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {StyleSheet, Text, View, Image, Platform} from 'react-native';
 import {
   ImageHeaderScrollView,
   TriggeringView,
@@ -96,5 +84,3 @@ const HeaderImage = ({children, picture_url, title}) => {
 };
 
 export default HeaderImage;
-
-const styles = StyleSheet.create({});

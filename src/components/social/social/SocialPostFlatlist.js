@@ -125,7 +125,6 @@ const SocialFlatlist = () => {
         style={[
           {
             borderRadius: 10,
-            overflow: 'hidden',
             backgroundColor: COLORS.white,
             padding: 10,
           },
@@ -232,21 +231,18 @@ const SocialFlatlist = () => {
   };
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <View style={{width: SIZES.width}}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={data}
-          contentContainerStyle={{paddingHorizontal: 10, paddingVertical: 10}}
-          // keyExtractor={(item,index) => item._id}
-          keyExtractor={(item, index) => `${index}`}
-          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-          renderItem={({item, index}) => {
-            return <SocialPostCard item={item} index={index} />;
-          }}
-        />
-      </View>
-    </ScrollView>
+    <FlatList
+      nestedScrollEnabled={false}
+      showsVerticalScrollIndicator={false}
+      data={data}
+      contentContainerStyle={{paddingHorizontal: 10, paddingVertical: 10}}
+      keyExtractor={(item, index) => item._id}
+      // keyExtractor={(item, index) => `${index}`}
+      ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+      renderItem={({item, index}) => {
+        return <SocialPostCard item={item} index={index} />;
+      }}
+    />
   );
 };
 
