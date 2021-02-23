@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, KeyboardAvoidingView, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TouchableOpacity} from 'react-native';
 import {Input} from 'react-native-elements';
 import LocalizationContext from '../../../screens/LocalizationContext';
 

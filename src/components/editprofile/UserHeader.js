@@ -20,7 +20,7 @@ const UserHeader = ({user}) => {
   const [delFile, setDelFile] = useState(null);
 
   return (
-    <SafeAreaView style={{width: SIZES.width, height: SIZES.width / 2}}>
+    <View style={{width: SIZES.width, height: SIZES.width / 2}}>
       <ImageBackground
         source={
           user.user_background_picture_url
@@ -119,7 +119,7 @@ const UserHeader = ({user}) => {
         </TouchableOpacity>
       </ImageBackground>
       <UploadPictureModal upload={upload} delFile={delFile} />
-    </SafeAreaView>
+    </View>
   );
 };
 
