@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Spinner from 'react-native-loading-spinner-overlay';
-import HeaderImage from '../../components/social/social/HeaderImage';
 import SocialCommentModal from '../../components/social/social/SocialCommentModal';
 import SocialCommentTab from '../../components/social/social/SocialCommentTab';
 import SocialPostFlatlist from '../../components/social/social/SocialPostFlatlist';
@@ -44,12 +43,8 @@ const SocialCategoryScreen = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1}}>
-      <HeaderImage picture_url={picture_url} title={title}>
-        <View>
-          <SocialPostFlatlist />
-          <View style={{margin: 60}} />
-        </View>
-      </HeaderImage>
+      <SocialPostFlatlist picture_url={picture_url} title={title} />
+      <View style={{margin: 60}} />
       <SocialCommentModal open={open} handleClose={handleClose} />
       <SocialCommentTab setOpen={setOpen} bottom={20} />
     </View>
@@ -57,5 +52,3 @@ const SocialCategoryScreen = ({navigation, route}) => {
 };
 
 export default SocialCategoryScreen;
-
-const styles = StyleSheet.create({});

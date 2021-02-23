@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Spinner from 'react-native-loading-spinner-overlay';
-import HeaderImage from '../../components/social/social/HeaderImage';
 import SocialCommentTab from '../../components/social/social/SocialCommentTab';
 import SocialCommentModal from '../../components/social/social/SocialCommentModal';
 import SocialPostFlatlist from '../../components/social/social/SocialPostFlatlist';
+import {COLORS} from '../../constants';
 
 const SocialActivityScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
@@ -43,15 +43,12 @@ const SocialActivityScreen = ({navigation, route}) => {
   }
 
   return (
-    <View style={{flex: 1}}>
-      <HeaderImage
+    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
+      <SocialPostFlatlist
         picture_url={activity.activity_picture_url}
-        title={activity.title}>
-        <View>
-          <SocialPostFlatlist />
-          <View style={{margin: 60}} />
-        </View>
-      </HeaderImage>
+        title={activity.title}
+      />
+
       <SocialCommentModal open={open} handleClose={handleClose} />
       <SocialCommentTab setOpen={setOpen} bottom={20} />
     </View>
@@ -59,5 +56,3 @@ const SocialActivityScreen = ({navigation, route}) => {
 };
 
 export default SocialActivityScreen;
-
-const styles = StyleSheet.create({});

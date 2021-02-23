@@ -1,32 +1,16 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
-import {useSelector} from 'react-redux';
-import {ScrollView} from 'react-native-gesture-handler';
-import {Avatar} from 'react-native-elements';
-import {Image} from 'react-native';
-import {checkTimeFromPast} from '../../../services/util';
+import React, {useRef} from 'react';
+import {View, Text, ImageBackground, Animated} from 'react-native';
+import {SIZES} from '../../../constants';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import LoveButton from './LoveButton';
-import {t} from 'i18n-js';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import CommentModal from './CommentModal';
 
 dayjs.extend(relativeTime);
+import BackButton from '../../layout/BackButton';
+import LinearGradient from 'react-native-linear-gradient';
+import SocialPostCard from './SocialPostCard';
 
-const SocialFlatlist = () => {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+const SocialFlatlist = ({picture_url, title}) => {
   const data = [
     {
       _id: '1',
@@ -119,130 +103,81 @@ const SocialFlatlist = () => {
     },
   ];
 
-  const SocialPostCard = ({item, index}) => {
-    return (
-      <View
-        style={[
-          {
-            borderRadius: 10,
-            backgroundColor: COLORS.white,
-            padding: 10,
-          },
-          SHADOW.image,
-        ]}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Avatar rounded source={{uri: item.user_picture_url}} size={40} />
-            <View style={{marginLeft: 10}}>
-              <Text style={[FONTS.h2]}>{item.display_name}</Text>
-            </View>
-          </View>
+  const scrollY = useRef(new Animated.Value(0)).current;
 
-          <View>
-            <Text style={[FONTS.body3]}>
-              {checkTimeFromPast(item.createdAt)
-                ? dayjs(item.createdAt).format('DD MMMM YYYY')
-                : dayjs(item.createdAt).fromNow()}
-            </Text>
-          </View>
-        </View>
-        <View>
-          <Text style={[FONTS.body3]}>{item.text}</Text>
-        </View>
-        <View style={{marginTop: 10}}>
-          {item.pictures.length === 1 && (
-            <Image
-              source={{uri: item.pictures[0].url}}
-              style={{height: 300, borderRadius: 5}}
-            />
-          )}
-          {item.pictures.length > 1 && (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                {item.pictures.map((pic, index) => {
-                  return (
-                    <Image
-                      key={pic._id}
-                      source={{uri: pic.url}}
-                      style={{
-                        height: 150,
-                        width: 150,
-                        borderRadius: 5,
-                        marginRight:
-                          index === item.pictures.length - 1 ? 0 : 10,
-                      }}
-                    />
-                  );
-                })}
-              </View>
-            </ScrollView>
-          )}
-        </View>
-        <View
-          style={{
-            marginTop: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <LoveButton />
-            <Text style={[FONTS.body3, {marginLeft: 5}]}>11</Text>
-          </View>
-          <View
-            style={{
-              marginRight: 10,
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{marginRight: 10}}
-              onPress={() => {
-                setOpen(true);
-              }}>
-              <MaterialIcons
-                name="add-circle-outline"
-                size={24}
-                color={COLORS.inputPlaceholderColor}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{flexDirection: 'row'}}
-              onPress={() => {
-                setOpen(true);
-              }}>
-              <Text style={[FONTS.body3, {marginRight: 5}]}>8</Text>
-              <Text style={[FONTS.body3]}>
-                {t('community.socialcomment.comments')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <CommentModal open={open} handleClose={handleClose} />
-      </View>
-    );
-  };
+  const height = scrollY.interpolate({
+    inputRange: [0, 200],
+    outputRange: [300, 100],
+    extrapolate: 'clamp',
+  });
 
   return (
-    <FlatList
-      nestedScrollEnabled={false}
-      showsVerticalScrollIndicator={false}
-      data={data}
-      contentContainerStyle={{paddingHorizontal: 10, paddingVertical: 10}}
-      keyExtractor={(item, index) => item._id}
-      // keyExtractor={(item, index) => `${index}`}
-      ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-      renderItem={({item, index}) => {
-        return <SocialPostCard item={item} index={index} />;
-      }}
-    />
+    <View>
+      <BackButton />
+      <Animated.FlatList
+        nestedScrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+        data={data}
+        ListHeaderComponent={() => (
+          <Animated.View
+            style={{
+              width: SIZES.width,
+              height: height,
+              overflow: 'hidden',
+              borderBottomRightRadius: 75,
+            }}>
+            <ImageBackground
+              source={{uri: picture_url}}
+              style={{resizeMode: 'cover', width: SIZES.width, height: 300}}>
+              <LinearGradient
+                colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,1)']}
+                start={{x: 0, y: 1}}
+                end={{x: 1, y: 1}}
+                useAngle
+                angle={180}
+                style={{
+                  flex: 1,
+                  left: 0,
+                  top: 0,
+                  width: SIZES.width,
+                  height: 300,
+                }}
+              />
+              <View
+                style={{
+                  width: SIZES.width,
+                  height: 300,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 24,
+                  }}>
+                  {title}
+                </Text>
+              </View>
+            </ImageBackground>
+          </Animated.View>
+        )}
+        keyExtractor={(item, index) => item._id}
+        // keyExtractor={(item, index) => `${index}`}
+        // ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+
+        renderItem={({item, index}) => {
+          return <SocialPostCard item={item} index={index} />;
+        }}
+        ListFooterComponent={() => <View style={{margin: 60}} />}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {
+            useNativeDriver: false,
+          },
+        )}
+      />
+    </View>
   );
 };
 
