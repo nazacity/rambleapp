@@ -9,7 +9,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {COLORS, FONTS, SHADOW} from '../../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
 import {Avatar} from 'react-native-elements';
 import {checkTimeFromPast} from '../../../services/util';
 import dayjs from 'dayjs';
@@ -19,6 +19,7 @@ import LoveButton from './LoveButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CommentModal from './CommentModal';
 import LocalizationContext from '../../../screens/LocalizationContext';
+import ImageModal from 'react-native-image-modal';
 
 dayjs.extend(relativeTime);
 
@@ -65,9 +66,19 @@ const SocialPostCard = ({item, index}) => {
       </View>
       <View style={{marginTop: 10}}>
         {item.pictures.length === 1 && (
-          <Image
-            source={{uri: item.pictures[0].url}}
-            style={{height: 300, borderRadius: 5}}
+          <ImageModal
+            resizeMode="contain"
+            imageBackgroundColor={COLORS.background}
+            overlayBackgroundColor="rgba(0,0,0,0.3)"
+            style={{
+              height: 300,
+              width: SIZES.width - 40,
+              borderRadius: 5,
+            }}
+            borderRadius={10}
+            source={{
+              uri: item.pictures[0].url,
+            }}
           />
         )}
         {item.pictures.length > 1 && (
@@ -75,16 +86,29 @@ const SocialPostCard = ({item, index}) => {
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
               {item.pictures.map((pic, index) => {
                 return (
-                  <Image
+                  <View
                     key={pic._id}
-                    source={{uri: pic.url}}
                     style={{
                       height: 150,
                       width: 150,
                       borderRadius: 5,
                       marginRight: index === item.pictures.length - 1 ? 0 : 10,
-                    }}
-                  />
+                    }}>
+                    <ImageModal
+                      resizeMode="contain"
+                      imageBackgroundColor={COLORS.background}
+                      overlayBackgroundColor="rgba(0,0,0,0.3)"
+                      style={{
+                        height: 150,
+                        width: 150,
+                        borderRadius: 10,
+                      }}
+                      borderRadius={10}
+                      source={{
+                        uri: pic.url,
+                      }}
+                    />
+                  </View>
                 );
               })}
             </View>
