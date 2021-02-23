@@ -91,18 +91,24 @@ const SocialCommentModal = ({open, handleClose}) => {
     let data = [];
     result.map((item) => {
       data.push({
-        url: item.sourceURL,
+        url: Platform.OS === 'ios' ? item.sourceURL : item.path,
       });
     });
-    console.log(result);
     setImages(data);
   };
+
+  const handleReset = () => {
+    setValue('');
+    setImages([]);
+    handleClose();
+  };
+
   return (
     <Modal
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
-      onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
+      onBackdropPress={handleReset}
+      onBackButtonPress={handleReset}>
       <View
         style={{
           backgroundColor: COLORS.white,
@@ -110,7 +116,7 @@ const SocialCommentModal = ({open, handleClose}) => {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
         }}>
-        <ModalCloseButton onPress={handleClose} />
+        <ModalCloseButton onPress={handleReset} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Avatar rounded source={{uri: user.user_picture_url}} size={40} />

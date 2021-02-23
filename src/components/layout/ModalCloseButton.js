@@ -18,7 +18,7 @@ const ModalCloseButton = ({onPress}) => {
         right: 10,
       }}
       onPress={onPress}>
-      <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
+      <MaterialIcons name="cancel" color={COLORS.primary} size={24} />
     </TouchableOpacity>
   );
 };
