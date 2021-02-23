@@ -13,6 +13,7 @@ const SocialCategoryScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [imagePicker, setImagePicker] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -45,8 +46,17 @@ const SocialCategoryScreen = ({navigation, route}) => {
     <View style={{flex: 1}}>
       <SocialPostFlatlist picture_url={picture_url} title={title} />
       <View style={{margin: 60}} />
-      <SocialCommentModal open={open} handleClose={handleClose} />
-      <SocialCommentTab setOpen={setOpen} bottom={20} />
+      <SocialCommentModal
+        open={open}
+        handleClose={handleClose}
+        setImagePicker={setImagePicker}
+        imagePicker={imagePicker}
+      />
+      <SocialCommentTab
+        setOpen={setOpen}
+        bottom={20}
+        setImagePicker={setImagePicker}
+      />
     </View>
   );
 };

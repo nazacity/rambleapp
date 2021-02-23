@@ -158,6 +158,8 @@ const en = {
     socialcomment: {
       post: 'Post your story',
       comments: 'Comments',
+      imagenumbererror: 'Select max 3 images',
+      pleaseselectagain: 'Please select again',
     },
   },
   activityfilter: {

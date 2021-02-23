@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   FlatList,
@@ -18,6 +18,7 @@ import LocalizationContext from '../../../screens/LocalizationContext';
 import ModalCloseButton from '../../layout/ModalCloseButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
+import {Alert} from 'react-native';
 
 const test = [
   {
@@ -76,11 +77,23 @@ const test = [
   },
 ];
 
-const SocialCommentModal = ({open, handleClose}) => {
+const SocialCommentModal = ({
+  open,
+  handleClose,
+  imagePicker,
+  setImagePicker,
+}) => {
   const {t} = React.useContext(LocalizationContext);
   const [value, setValue] = useState('');
   const user = useSelector((state) => state.user);
   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    if (imagePicker) {
+      choosePhotoFromLibrary();
+      setImagePicker(false);
+    }
+  }, [imagePicker]);
 
   const choosePhotoFromLibrary = async () => {
     const result = await ImagePicker.openPicker({
@@ -89,6 +102,20 @@ const SocialCommentModal = ({open, handleClose}) => {
     });
 
     let data = [];
+
+    if (result.length > 3) {
+      Alert.alert(
+        t('community.socialcomment.imagenumbererror'),
+        t('community.socialcomment.pleaseselectagain'),
+        [
+          {
+            text: t('editprofile.okay'),
+            onPress: () => {},
+          },
+        ],
+      );
+      return;
+    }
     result.map((item) => {
       data.push({
         url: Platform.OS === 'ios' ? item.sourceURL : item.path,
@@ -98,6 +125,7 @@ const SocialCommentModal = ({open, handleClose}) => {
   };
 
   const handleReset = () => {
+    setImagePicker(false);
     setValue('');
     setImages([]);
     handleClose();
@@ -124,7 +152,7 @@ const SocialCommentModal = ({open, handleClose}) => {
               <Text style={[FONTS.h2]}>{user.display_name}</Text>
             </View>
           </View>
-          <View style={{marginBottom: 20}}>
+          <View style={{marginBottom: 10}}>
             <Input
               placeholder={t('community.socialcomment.post')}
               inputContainerStyle={{
@@ -142,6 +170,15 @@ const SocialCommentModal = ({open, handleClose}) => {
               //   }}
               style={[FONTS.body3, {textAlignVertical: 'top'}]}
             />
+            <View
+              style={{
+                borderBottomWidth: 0.5,
+                width: '100%',
+                alignSelf: 'center',
+                borderColor: 'rgba(0,0,0,0.3)',
+                marginBottom: 10,
+              }}
+            />
             <View>
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -157,8 +194,38 @@ const SocialCommentModal = ({open, handleClose}) => {
               </TouchableOpacity>
             </View>
           </View>
+
           {images.length === 1 && (
             <View style={{marginBottom: 5}}>
+              <TouchableOpacity
+                activeOpacity={0.4}
+                onPress={() => {
+                  if (images.length === 1) {
+                    setImages([]);
+                  } else {
+                    const newImages = images.filter(
+                      (item) => item.url !== pic.url,
+                    );
+
+                    setImages([...newImages]);
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  borderRadius: 10,
+                  top: 5,
+                  right: 5,
+                  zIndex: 200,
+                }}>
+                <Ionicons
+                  onPress={() => {
+                    setImages([]);
+                  }}
+                  size={20}
+                  name="close"
+                  color="#fff"
+                />
+              </TouchableOpacity>
               <Image
                 source={{
                   uri: images[0].url,
@@ -176,16 +243,45 @@ const SocialCommentModal = ({open, handleClose}) => {
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                 {images.map((pic, index) => {
                   return (
-                    <Image
+                    <View
                       key={index}
-                      source={{uri: pic.url}}
                       style={{
                         height: 150,
                         width: 150,
                         borderRadius: 5,
                         marginRight: index === images.length - 1 ? 0 : 10,
-                      }}
-                    />
+                      }}>
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={() => {
+                          if (images.length === 1) {
+                            setImages([]);
+                          } else {
+                            const newImages = images.filter(
+                              (item) => item.url !== pic.url,
+                            );
+
+                            setImages([...newImages]);
+                          }
+                        }}
+                        style={{
+                          position: 'absolute',
+                          borderRadius: 10,
+                          top: 5,
+                          right: 5,
+                          zIndex: 200,
+                        }}>
+                        <Ionicons size={20} name="close" color="#fff" />
+                      </TouchableOpacity>
+                      <Image
+                        source={{uri: pic.url}}
+                        style={{
+                          height: 150,
+                          width: 150,
+                          borderRadius: 5,
+                        }}
+                      />
+                    </View>
                   );
                 })}
               </View>

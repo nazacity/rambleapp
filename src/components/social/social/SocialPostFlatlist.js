@@ -125,6 +125,7 @@ const SocialFlatlist = ({picture_url, title}) => {
               height: height,
               overflow: 'hidden',
               borderBottomRightRadius: 75,
+              marginBottom: 40,
             }}>
             <ImageBackground
               source={{uri: picture_url}}

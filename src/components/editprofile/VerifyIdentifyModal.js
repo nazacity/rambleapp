@@ -5,6 +5,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Alert,
+  ScrollView,
+  Image,
+  Platform,
 } from 'react-native';
 import {FONTS, COLORS, theme, SIZES, SHADOW} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
@@ -22,10 +26,6 @@ import {
 } from '../../redux/actions/AppStateAction';
 import UploadPictureModal from '../modal/UploadPictureModal1';
 import ImagePicker from 'react-native-image-crop-picker';
-import {Platform} from 'react-native';
-import {Image} from 'react-native';
-import {ScrollView} from 'react-native';
-import {Alert} from 'react-native';
 import {get, post} from '../../redux/actions/request';
 import ModalCloseButton from '../layout/ModalCloseButton';
 

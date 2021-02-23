@@ -117,7 +117,15 @@ const SocialPostCard = ({item, index}) => {
       </View>
       <View
         style={{
-          marginTop: 10,
+          borderBottomWidth: 0.5,
+          width: '80%',
+          alignSelf: 'center',
+          borderColor: 'rgba(0,0,0,0.3)',
+          marginVertical: 10,
+        }}
+      />
+      <View
+        style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',

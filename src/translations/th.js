@@ -20,7 +20,7 @@ const th = {
     forgotpassword: 'ลืมรหัสผ่าน',
     linelogin: 'เข้าสู่คอมมิวนิตี้ด้วย Line',
     applelogin: 'ลงชื่อเข้าด้วย Apple',
-    pdpa: 'ความยินยอมข้อมูลส่วนบุคคล',
+    pdpa: 'เงื่อนการใช้งาน และนโยบายความเป็นส่วนตัว',
     error: 'กรุณาลองใหม่',
     appleloginerror: 'การเข้าสู่ระบบด้วย Apple มีปัญหา',
   },
@@ -158,6 +158,8 @@ const th = {
     socialcomment: {
       post: 'โพสต์เรื่องราวของคุณ',
       comments: 'ความคิดเห็น',
+      imagenumbererror: 'เลือกได้สูงสุด 3 รูปภาพ',
+      pleaseselectagain: 'กรุณาเลือกอีกครั้ง',
     },
   },
   activityfilter: {

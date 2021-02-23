@@ -11,7 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Input} from 'react-native-elements';
 import LocalizationContext from '../../../screens/LocalizationContext';
 
-const SocialCommentTab = ({setOpen, onSubmit, bottom}) => {
+const SocialCommentTab = ({setOpen, bottom, setImagePicker}) => {
   const [value, setValue] = useState('');
   const {t} = React.useContext(LocalizationContext);
 
@@ -40,6 +40,7 @@ const SocialCommentTab = ({setOpen, onSubmit, bottom}) => {
           activeOpacity={0.8}
           style={{width: 30, height: 30}}
           onPress={() => {
+            setImagePicker(true);
             setOpen(true);
           }}>
           <Ionicons
