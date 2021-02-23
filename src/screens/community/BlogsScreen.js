@@ -6,11 +6,9 @@ import {
   TouchableOpacity,
   Animated,
   Platform,
-  Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
-import {FlatList} from 'react-native-gesture-handler';
 import {shortText} from '../../services/util';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
@@ -19,12 +17,6 @@ import LoveButton from '../../components/blog/layout/LoveButton';
 import {useNavigation} from '@react-navigation/native';
 import {blogs} from '../../components/blog/data';
 import BackButton from '../../components/layout/BackButton';
-import {
-  ImageHeaderScrollView,
-  TriggeringView,
-} from 'react-native-image-header-scroll-view';
-import * as Animatable from 'react-native-animatable';
-import {ScrollView} from 'react-native';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
 const MAX_HEIGHT = 200;
@@ -33,11 +25,16 @@ const BlogsScreen = ({navigation, route}) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const {picture_url, title} = route.params;
   dayjs.locale(lang);
-  const navTitleView = useRef(null);
+
+  const height = scrollY.interpolate({
+    inputRange: [0, 200],
+    outputRange: [300, 100],
+    extrapolate: 'clamp',
+  });
   const BlogCard = ({item, index}) => {
     const scale = scrollY.interpolate({
       inputRange: [-1, 0, (200 / 0.8) * index, (200 / 0.8) * (index + 1)],
-      outputRange: [1, 1, 1, 0.5],
+      outputRange: [1, 1, 1, 0.8],
     });
     return (
       <Animated.View
@@ -115,89 +112,71 @@ const BlogsScreen = ({navigation, route}) => {
   return (
     <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <BackButton />
-      <ImageHeaderScrollView
-        maxHeight={MAX_HEIGHT}
-        minHeight={MIN_HEIGHT}
-        maxOverlayOpacity={0.6}
-        minOverlayOpacity={0.3}
+
+      <Animated.FlatList
         showsVerticalScrollIndicator={false}
-        renderHeader={() => (
-          <Image
-            source={{uri: picture_url}}
+        data={blogs}
+        keyExtractor={(item) => item._id}
+        contentContainerStyle={{
+          alignItems: 'center',
+        }}
+        ListHeaderComponent={() => (
+          <Animated.View
             style={{
-              height: MAX_HEIGHT,
               width: SIZES.width,
-              alignSelf: 'stretch',
-              resizeMode: 'cover',
-            }}
-          />
-        )}
-        renderForeground={() => (
-          <View
-            style={{
-              flex: 1,
-              alignSelf: 'stretch',
-              justifyContent: 'center',
-              alignItems: 'center',
+              height: height,
+              overflow: 'hidden',
+              borderBottomRightRadius: 75,
+              marginBottom: 50,
             }}>
-            <Text
-              style={{
-                color: 'white',
-                backgroundColor: 'transparent',
-                fontSize: 24,
-                textAlign: 'center',
-                width: 350,
-              }}>
-              {title}
-            </Text>
-          </View>
+            <ImageBackground
+              source={{uri: picture_url}}
+              style={{resizeMode: 'cover', width: SIZES.width, height: 300}}>
+              <LinearGradient
+                colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,1)']}
+                start={{x: 0, y: 1}}
+                end={{x: 1, y: 1}}
+                useAngle
+                angle={180}
+                style={{
+                  flex: 1,
+                  left: 0,
+                  top: 0,
+                  width: SIZES.width,
+                  height: 300,
+                }}
+              />
+              <View
+                style={{
+                  width: SIZES.width,
+                  height: 300,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 24,
+                  }}>
+                  {title}
+                </Text>
+              </View>
+            </ImageBackground>
+          </Animated.View>
         )}
-        renderFixedForeground={() => (
-          <Animatable.View
-            style={{
-              height: MIN_HEIGHT,
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingTop: Platform.OS === 'ios' ? 40 : 5,
-              opacity: 0,
-            }}
-            ref={navTitleView}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 18,
-                backgroundColor: 'transparent',
-              }}>
-              {title}
-            </Text>
-          </Animatable.View>
-        )}>
-        <ScrollView horizontal>
-          <View style={{width: SIZES.width}}>
-            <Animated.FlatList
-              showsVerticalScrollIndicator={false}
-              data={blogs}
-              keyExtractor={(item) => item._id}
-              style={{padding: 20}}
-              contentContainerStyle={{
-                paddingHorizontal: 5,
-                alignItems: 'center',
-              }}
-              ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-              renderItem={({item, index}) => {
-                return <BlogCard item={item} index={index} />;
-              }}
-              ListFooterComponent={() => <View style={{marginBottom: 50}} />}
-              onScroll={Animated.event(
-                [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                {
-                  useNativeDriver: true,
-                },
-              )}
-            />
-          </View>
-        </ScrollView>
-      </ImageHeaderScrollView>
+        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+        renderItem={({item, index}) => {
+          return <BlogCard item={item} index={index} />;
+        }}
+        ListFooterComponent={() => <View style={{marginBottom: 50}} />}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {
+            useNativeDriver: false,
+          },
+        )}
+      />
     </View>
   );
 };
