@@ -2,14 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {COLORS, FONTS, SHADOW} from '../../../constants';
 import {Avatar} from 'react-native-elements';
-import dayjs from 'dayjs';
-import 'dayjs/locale/th';
 import {useSelector} from 'react-redux';
 import {checkTimeFromPast, shortText} from '../../../services/util';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import {Fragment} from 'react';
 import LocalizationContext from '../../../screens/LocalizationContext';
-dayjs.extend(relativeTime);
 
 const CommentCard = ({item, index}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -60,9 +56,7 @@ const CommentCard = ({item, index}) => {
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={[FONTS.h3]}>{item.user.display_name}</Text>
             <Text style={[FONTS.body3]}>
-              {checkTimeFromPast(item.createdAt)
-                ? dayjs(item.createdAt).format('DD MMMM YYYY')
-                : dayjs(item.createdAt).fromNow()}
+              {checkTimeFromPast(item.createdAt)}
             </Text>
           </View>
           <View>

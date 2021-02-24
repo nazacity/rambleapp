@@ -12,16 +12,11 @@ import {
 import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
 import {Avatar} from 'react-native-elements';
 import {checkTimeFromPast} from '../../../services/util';
-import dayjs from 'dayjs';
-import 'dayjs/locale/th';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import LoveButton from './LoveButton';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommentModal from './CommentModal';
 import LocalizationContext from '../../../screens/LocalizationContext';
 import ImageModal from 'react-native-image-modal';
-
-dayjs.extend(relativeTime);
 
 const SocialPostCard = ({item, index}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -54,11 +49,7 @@ const SocialPostCard = ({item, index}) => {
         </View>
 
         <View>
-          <Text style={[FONTS.body3]}>
-            {checkTimeFromPast(item.createdAt)
-              ? dayjs(item.createdAt).format('DD MMMM YYYY')
-              : dayjs(item.createdAt).fromNow()}
-          </Text>
+          <Text style={[FONTS.body3]}>{checkTimeFromPast(item.createdAt)}</Text>
         </View>
       </View>
       <View>
@@ -146,10 +137,10 @@ const SocialPostCard = ({item, index}) => {
             onPress={() => {
               setOpen(true);
             }}>
-            <MaterialIcons
-              name="add-circle-outline"
-              size={24}
-              color={COLORS.inputPlaceholderColor}
+            <FontAwesome
+              name="comment-o"
+              size={20}
+              color={COLORS.opcaityBlack}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -165,7 +156,7 @@ const SocialPostCard = ({item, index}) => {
           </TouchableOpacity>
         </View>
       </View>
-      <CommentModal open={open} handleClose={handleClose} />
+      <CommentModal open={open} handleClose={handleClose} item={item} />
     </View>
   );
 };

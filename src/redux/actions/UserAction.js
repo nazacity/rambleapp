@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   SET_USER,
   CLEAR_USER,
@@ -11,7 +10,6 @@ import {
 } from '../types';
 import {post, get, Delete} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 export const changePasssword = (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, Platform} from 'react-native';
+import {View, FlatList, Platform, Text, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../constants';
@@ -7,6 +7,11 @@ import LocalizationContext from '../../../screens/LocalizationContext';
 import CommentTab from './CommentTab';
 import ModalCloseButton from '../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
+import {Avatar} from 'react-native-elements';
+import {checkTimeFromPast} from '../../../services/util';
+import LoveButton from './LoveButton';
+import ImageModal from 'react-native-image-modal';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const comments = [
   {
@@ -66,7 +71,7 @@ const comments = [
   },
 ];
 
-const CommentModal = ({open, handleClose}) => {
+const CommentModal = ({open, handleClose, item}) => {
   const {t} = React.useContext(LocalizationContext);
   return (
     <Modal
@@ -76,13 +81,133 @@ const CommentModal = ({open, handleClose}) => {
       onBackButtonPress={handleClose}>
       <View
         style={{
-          height: SIZES.height / 1.1,
+          flex: 1,
           backgroundColor: COLORS.white,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
         }}>
         <ModalCloseButton onPress={handleClose} />
         <FlatList
+          ListHeaderComponent={
+            <View
+              style={[
+                {
+                  backgroundColor: COLORS.white,
+                  padding: 10,
+                },
+              ]}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Avatar
+                    rounded
+                    source={{uri: item.user_picture_url}}
+                    size={40}
+                  />
+                  <View style={{marginLeft: 10}}>
+                    <Text style={[FONTS.h2]}>{item.display_name}</Text>
+                  </View>
+                </View>
+
+                <View>
+                  <Text style={[FONTS.body3]}>
+                    {checkTimeFromPast(item.createdAt)}
+                  </Text>
+                </View>
+              </View>
+              <View>
+                <Text style={[FONTS.body3]}>{item.text}</Text>
+              </View>
+              <View style={{marginTop: 10}}>
+                {item.pictures.length === 1 && (
+                  <ImageModal
+                    resizeMode="contain"
+                    imageBackgroundColor={COLORS.background}
+                    overlayBackgroundColor="rgba(0,0,0,0.3)"
+                    style={{
+                      height: 300,
+                      width: SIZES.width - 40,
+                      borderRadius: 5,
+                    }}
+                    borderRadius={10}
+                    source={{
+                      uri: item.pictures[0].url,
+                    }}
+                  />
+                )}
+                {item.pictures.length > 1 && (
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <View
+                      style={{flexDirection: 'row', justifyContent: 'center'}}>
+                      {item.pictures.map((pic, index) => {
+                        return (
+                          <View
+                            key={pic._id}
+                            style={{
+                              height: 150,
+                              width: 150,
+                              borderRadius: 5,
+                              marginRight:
+                                index === item.pictures.length - 1 ? 0 : 10,
+                            }}>
+                            <ImageModal
+                              resizeMode="contain"
+                              imageBackgroundColor={COLORS.background}
+                              overlayBackgroundColor="rgba(0,0,0,0.3)"
+                              style={{
+                                height: 150,
+                                width: 150,
+                                borderRadius: 10,
+                              }}
+                              borderRadius={10}
+                              source={{
+                                uri: pic.url,
+                              }}
+                            />
+                          </View>
+                        );
+                      })}
+                    </View>
+                  </ScrollView>
+                )}
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginTop: 10,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <LoveButton />
+                  <Text style={[FONTS.body3, {marginLeft: 5}]}>11</Text>
+                </View>
+                <View
+                  style={{
+                    marginRight: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <View activeOpacity={0.8} style={{marginRight: 10}}>
+                    <FontAwesome
+                      name="comment-o"
+                      size={20}
+                      color={COLORS.opcaityBlack}
+                    />
+                  </View>
+                  <View activeOpacity={0.8} style={{flexDirection: 'row'}}>
+                    <Text style={[FONTS.body3, {marginRight: 5}]}>8</Text>
+                    <Text style={[FONTS.body3]}>
+                      {t('community.socialcomment.comments')}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          }
           showsVerticalScrollIndicator={false}
           data={comments}
           style={{marginTop: 40}}
