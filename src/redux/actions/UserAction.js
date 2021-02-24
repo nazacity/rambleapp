@@ -8,7 +8,7 @@ import {
   SET_UPCOMING_ACTIVITES,
   SET_SNACKBAR_DISPLAY,
 } from '../types';
-import {post, get, Delete} from './request';
+import {post, get, Delete, postSocial} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -70,6 +70,8 @@ export const editUserProfile = (data, msg) => async (dispatch) => {
   });
   try {
     const res = await post('/api/users/edituser', data);
+
+    const resSocial = await postSocial('/api/users/edituser', data);
 
     const user = await get('/api/users/getuserbyjwt');
     dispatch({
