@@ -8,9 +8,13 @@ const Tabs = ({data, scrollX, onItemPress}) => {
   const [measures, setMeasures] = React.useState([]);
   const containerRef = React.useRef();
 
+  let blogCategories = data.map((item) => {
+    return {...item, ref: React.createRef()};
+  });
+
   React.useEffect(() => {
     const m = [];
-    data.forEach((item) => {
+    blogCategories.forEach((item) => {
       item.ref.current.measureLayout(
         containerRef.current,
         (x, y, width, height) => {
@@ -21,13 +25,13 @@ const Tabs = ({data, scrollX, onItemPress}) => {
             width,
             height,
           });
-          if (m.length === data.length) {
+          if (m.length === blogCategories.length) {
             setMeasures(m);
           }
         },
       );
     });
-  }, []);
+  }, [blogCategories]);
 
   return (
     <View style={{position: 'absolute', top: 50, width: SIZES.width}}>
@@ -39,7 +43,7 @@ const Tabs = ({data, scrollX, onItemPress}) => {
           flexDirection: 'row',
           width: SIZES.width,
         }}>
-        {data.map((item, index) => {
+        {blogCategories.map((item, index) => {
           return (
             <Tab
               key={item._id}
@@ -54,7 +58,11 @@ const Tabs = ({data, scrollX, onItemPress}) => {
         })}
       </View>
       {measures.length > 0 && (
-        <Indicator measures={measures} scrollX={scrollX} data={data} />
+        <Indicator
+          measures={measures}
+          scrollX={scrollX}
+          data={blogCategories}
+        />
       )}
     </View>
   );

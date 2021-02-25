@@ -12,7 +12,7 @@ const CommentCard = ({item, index}) => {
   const [text, setText] = useState('');
   const [seeAll, setSeeAll] = useState(false);
   const lang = useSelector((state) => state.appState.lang);
-  dayjs.locale(lang);
+
   useEffect(() => {
     if (item.text.length > 150) {
       setText(shortText(item.text, 150));

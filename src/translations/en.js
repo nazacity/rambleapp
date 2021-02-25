@@ -154,6 +154,7 @@ const en = {
       commentblog: 'comment to this content',
       seeall: 'See all',
       seeless: 'See less',
+      commented: 'Commented Successfully',
     },
     socialcomment: {
       post: 'Post your story',

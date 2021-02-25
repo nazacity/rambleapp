@@ -9,12 +9,29 @@ import 'dayjs/locale/th';
 import {useSelector} from 'react-redux';
 import LoveButton from '../layout/LoveButton';
 import {useNavigation} from '@react-navigation/native';
+import {getSocial} from '../../../redux/actions/request';
 
 const BlogFlatlist = ({data}) => {
   const lang = useSelector((state) => state.appState.lang);
   const navigation = useNavigation();
   dayjs.locale(lang);
   const BlogCard = ({item, index}) => {
+    const handleLike = async () => {
+      try {
+        const res = await getSocial(`/api/users/likeblog/${item._id}`);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const handleUnlike = async () => {
+      try {
+        const res = await getSocial(`/api/users/unlikeblog/${item._id}`);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     return (
       <View
         style={[
@@ -40,11 +57,11 @@ const BlogFlatlist = ({data}) => {
           ]}
           onPress={() => {
             navigation.navigate('BlogContent', {
-              uri: item.link,
+              item: item,
             });
           }}>
           <ImageBackground
-            source={{uri: item.blog_picture_url}}
+            source={{uri: item.picture_url}}
             style={{
               width: 300,
               height: 150,
@@ -66,7 +83,11 @@ const BlogFlatlist = ({data}) => {
                 width: 300,
                 height: 150,
               }}>
-              <LoveButton />
+              <LoveButton
+                likers={item.likers}
+                handleLike={handleLike}
+                handleUnlike={handleUnlike}
+              />
               <View style={{position: 'absolute', bottom: 10, left: 20}}>
                 <Text style={[FONTS.body2, {color: COLORS.white}]}>
                   {item.title}

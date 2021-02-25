@@ -6,6 +6,10 @@ import {ScrollView} from 'react-native';
 import BlogSlide from './mainslides/BlogSlide';
 import {SafeAreaView} from 'react-native';
 import {blog_categories} from './data';
+import {useDispatch} from 'react-redux';
+import {setLoading} from '../../redux/actions/AppStateAction';
+import {getSocial} from '../../redux/actions/request';
+import {useNavigation} from '@react-navigation/native';
 
 const MainContainer = () => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -15,9 +19,36 @@ const MainContainer = () => {
       offset: itemIndex * SIZES.width,
     });
   });
-  let blogCategories = blog_categories.map((item) => {
-    return {...item, ref: React.createRef()};
-  });
+  const [blogCategories, setBlogCategories] = useState([]);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const fetchBlogCategories = async () => {
+    dispatch(setLoading(true));
+    try {
+      const res = await getSocial('/api/users/getblogcategories');
+
+      if (res.status === 200) {
+        const newData = res.data.map((item) => {
+          return {...item};
+        });
+
+        setBlogCategories(newData);
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchBlogCategories();
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

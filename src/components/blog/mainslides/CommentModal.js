@@ -9,8 +9,9 @@ import ModalCloseButton from '../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
 import {comments} from '../data';
 
-const CommentModal = ({open, handleClose}) => {
+const CommentModal = ({open, handleClose, data, setData}) => {
   const {t} = React.useContext(LocalizationContext);
+
   return (
     <Modal
       isVisible={open}
@@ -27,7 +28,7 @@ const CommentModal = ({open, handleClose}) => {
         <ModalCloseButton onPress={handleClose} />
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={comments}
+          data={data.blog_comments}
           style={{marginTop: 40}}
           contentContainerStyle={{padding: 10}}
           keyExtractor={(item) => item._id}
@@ -37,7 +38,11 @@ const CommentModal = ({open, handleClose}) => {
           ListFooterComponent={<View style={{margin: 60}} />}
         />
       </View>
-      <CommentTab bottom={Platform.OS === 'ios' ? 40 : 20} />
+      <CommentTab
+        bottom={Platform.OS === 'ios' ? 40 : 20}
+        id={data._id}
+        setData={setData}
+      />
     </Modal>
   );
 };

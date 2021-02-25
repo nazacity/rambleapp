@@ -5,10 +5,35 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
 import {Input} from 'react-native-elements';
 import LocalizationContext from '../../../screens/LocalizationContext';
+import {postSocial} from '../../../redux/actions/request';
+import {Snackbar} from 'react-native-paper';
 
-const CommentTab = ({setOpen, onSubmit, bottom}) => {
+const CommentTab = ({setOpen, bottom, id, setData}) => {
   const [value, setValue] = useState('');
   const {t} = React.useContext(LocalizationContext);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const setErrorMessage = (msg) => {
+    setError(true);
+    setMessage(msg);
+  };
+
+  const handleComment = async () => {
+    try {
+      const res = await postSocial(`/api/users/createblogcomment/${id}`, {
+        text: value,
+      });
+
+      if (res.status === 200) {
+        setData(res.data);
+        setValue('');
+      }
+      setErrorMessage(t('community.comment.commented'));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -55,13 +80,14 @@ const CommentTab = ({setOpen, onSubmit, bottom}) => {
           />
         </View>
         <TouchableOpacity
+          disabled={!value}
           activeOpacity={0.8}
           style={{width: 30, height: 30, marginLeft: 10}}
-          onPress={onSubmit}>
+          onPress={handleComment}>
           <MaterialIcons
             name="add-circle-outline"
             size={24}
-            color={COLORS.inputPlaceholderColor}
+            color={!value ? COLORS.inputPlaceholderColor : COLORS.primary}
           />
         </TouchableOpacity>
         {setOpen && (
@@ -71,14 +97,21 @@ const CommentTab = ({setOpen, onSubmit, bottom}) => {
             onPress={() => {
               setOpen(true);
             }}>
-            <MaterialIcons
-              name="more-vert"
-              size={24}
-              color={COLORS.inputPlaceholderColor}
-            />
+            <MaterialIcons name="more-vert" size={24} color={COLORS.primary} />
           </TouchableOpacity>
         )}
       </View>
+      <Snackbar
+        visible={error}
+        onDismiss={() => {
+          setError(false);
+        }}
+        style={{
+          backgroundColor: '#5cb85c',
+        }}
+        duration={1500}>
+        {message}
+      </Snackbar>
     </KeyboardAvoidingView>
   );
 };

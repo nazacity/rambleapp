@@ -4,7 +4,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
 import {SIZES} from '../../../constants';
 import BlogFlatlist from './BlogFlatlist';
-import {blogs} from '../data';
 import LocalizationContext from '../../../screens/LocalizationContext';
 import TitleHeader from '../../layout/TitleHeader';
 import {useNavigation} from '@react-navigation/native';
@@ -12,13 +11,13 @@ import {useNavigation} from '@react-navigation/native';
 const BlogSlide = ({item}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
-  const data = blogs.slice(0, 5);
   const lang = useSelector((state) => state.appState.lang);
+
   return (
     <View style={{width: SIZES.width}}>
       <View>
         <ImageBackground
-          source={{uri: item.image}}
+          source={{uri: item.picture_url}}
           style={{
             resizeMode: 'cover',
             width: SIZES.width,
@@ -46,8 +45,8 @@ const BlogSlide = ({item}) => {
           navigation.jumpTo('community', {
             screen: 'Blogs',
             params: {
-              blog: item._id,
-              picture_url: item.image,
+              blogCategoryId: item._id,
+              picture_url: item.picture_url,
               title:
                 lang === 'th' ? item.title_th : lang === 'en' && item.title_en,
             },
@@ -56,7 +55,7 @@ const BlogSlide = ({item}) => {
         paddingHorizontal={20}
         noDot={true}
       />
-      <BlogFlatlist data={data} />
+      <BlogFlatlist data={item.blogs} />
     </View>
   );
 };

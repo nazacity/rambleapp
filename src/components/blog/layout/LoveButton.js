@@ -1,13 +1,31 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 import {COLORS, SHADOW} from '../../../constants';
 import {OutlinedHeartIcon, HeartIcon} from '../../Icon';
 
-const LoveButton = ({top, right, size}) => {
+const LoveButton = ({top, right, size, likers, handleLike, handleUnlike}) => {
+  const user = useSelector((state) => state.user);
   const [loved, setLoved] = useState(false);
-  const onPress = () => {
-    setLoved(!loved);
+  const [disable, setDisable] = useState(false);
+  const onPress = async () => {
+    setDisable(true);
+    if (loved) {
+      setLoved(false);
+      await handleUnlike();
+    } else {
+      setLoved(true);
+      await handleLike();
+    }
+    setTimeout(() => {
+      setDisable(false);
+    }, 1200);
   };
+  useEffect(() => {
+    if (likers.includes(user._id)) {
+      setLoved(true);
+    }
+  }, [likers]);
   return (
     <View
       style={[
@@ -26,6 +44,7 @@ const LoveButton = ({top, right, size}) => {
       ]}>
       <TouchableOpacity
         activeOpacity={0.8}
+        disabled={disable}
         style={[
           {
             width: size ? size : 24,

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -12,19 +12,45 @@ import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
 import {shortText} from '../../services/util';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LoveButton from '../../components/blog/layout/LoveButton';
 import {useNavigation} from '@react-navigation/native';
 import {blogs} from '../../components/blog/data';
 import BackButton from '../../components/layout/BackButton';
+import {getSocial} from '../../redux/actions/request';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
-const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
-const MAX_HEIGHT = 200;
 const BlogsScreen = ({navigation, route}) => {
   const lang = useSelector((state) => state.appState.lang);
   const scrollY = useRef(new Animated.Value(0)).current;
-  const {picture_url, title} = route.params;
+  const {blogCategoryId, picture_url, title} = route.params;
   dayjs.locale(lang);
+  const [data, setData] = useState({
+    blogs: [],
+  });
+  const dispatch = useDispatch();
+  const fetchBlogs = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await getSocial(`/api/users/getblogs/${blogCategoryId}`);
+
+      if (res.status === 200) {
+        setData(res.data);
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchBlogs();
+    });
+
+    return unsubscribe;
+  }, []);
 
   const height = scrollY.interpolate({
     inputRange: [0, 200],
@@ -36,6 +62,21 @@ const BlogsScreen = ({navigation, route}) => {
       inputRange: [-1, 0, (200 / 0.8) * index, (200 / 0.8) * (index + 1)],
       outputRange: [1, 1, 1, 0.8],
     });
+
+    const handleLike = async () => {
+      try {
+        const res = await getSocial(`/api/users/likeblog/${item._id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const handleUnlike = async () => {
+      try {
+        const res = await getSocial(`/api/users/unlikeblog/${item._id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     return (
       <Animated.View
         style={[
@@ -61,11 +102,11 @@ const BlogsScreen = ({navigation, route}) => {
           ]}
           onPress={() => {
             navigation.navigate('BlogContent', {
-              uri: item.link,
+              item: item,
             });
           }}>
           <ImageBackground
-            source={{uri: item.blog_picture_url}}
+            source={{uri: item.picture_url}}
             style={{
               width: 300,
               height: 150,
@@ -87,7 +128,11 @@ const BlogsScreen = ({navigation, route}) => {
                 width: 300,
                 height: 150,
               }}>
-              <LoveButton />
+              <LoveButton
+                likers={item.likers}
+                handleLike={handleLike}
+                handleUnlike={handleUnlike}
+              />
               <View style={{position: 'absolute', bottom: 10, left: 20}}>
                 <Text style={[FONTS.body2, {color: COLORS.white}]}>
                   {item.title}
@@ -116,7 +161,7 @@ const BlogsScreen = ({navigation, route}) => {
 
       <Animated.FlatList
         showsVerticalScrollIndicator={false}
-        data={blogs}
+        data={data.blogs}
         keyExtractor={(item) => item._id}
         contentContainerStyle={{
           alignItems: 'center',

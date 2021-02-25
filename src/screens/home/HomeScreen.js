@@ -71,9 +71,6 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View>
-      <StatusBar
-        barStyle={Platform.OS === 'android' ? 'light-content' : 'dark-content'}
-      />
       <MenuButton />
       <ScrollView
         style={{backgroundColor: COLORS.backgroundColor}}

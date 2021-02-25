@@ -49,9 +49,10 @@ export default function App() {
   return (
     <LocalizationContext.Provider value={localizationContext}>
       <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0,0,0,0.6)"
+        // barStyle={Platform.OS === 'android' ? 'light-content' : 'dark-content'}
+        // translucent
+        // backgroundColor="rgba(0,0,0,0.0)"
+        hidden
       />
       <NavigationContainer>
         {isSignedIn ? (
