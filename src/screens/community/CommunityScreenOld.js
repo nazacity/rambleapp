@@ -46,7 +46,7 @@ const CommunityScreen = ({navigation}) => {
           ItemSeparatorComponent={() => <View style={{padding: 10}} />}
           style={{padding: 20, paddingTop: 60}}
           contentContainerStyle={{paddingHorizontal: 5}}
-          ListFooterComponent={() => <View style={{marginBottom: 50}} />}
+          ListFooterComponent={() => <View style={{marginBottom: 100}} />}
         />
       )}
     </View>
