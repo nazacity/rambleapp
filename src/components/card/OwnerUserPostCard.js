@@ -160,9 +160,15 @@ const OwnerUserPostCard = ({item, editState}) => {
                   )}
 
                   {item.share_transportation && (
-                    <Text style={[FONTS.body4]}>
-                      {t('createpost.share_transportation')}
-                    </Text>
+                    <View>
+                      <Text style={[FONTS.body4]}>
+                        {t('createpost.share_transportation')}
+                      </Text>
+                      <Text style={[FONTS.body4, {marginLeft: 20}]}>
+                        {t('createpost.province')}
+                        {item.province}
+                      </Text>
+                    </View>
                   )}
 
                   {item.share_trip && (
