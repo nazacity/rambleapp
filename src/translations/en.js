@@ -143,6 +143,7 @@ const en = {
     editsuccessed: 'Edit successfully',
     closepost: 'Closed post',
     openpost: 'Opened post',
+    postdate: 'Posted on',
   },
   communityfilter: {
     activity: 'Activity',

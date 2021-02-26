@@ -143,6 +143,7 @@ const th = {
     editsuccessed: 'แก้ไขสำเร็จ',
     closepost: 'ปิดโพสต์',
     openpost: 'เปิดโพสต์',
+    postdate: 'โพสต์เมื่อ',
   },
   communityfilter: {
     activity: 'กิจกรรม',

@@ -70,7 +70,8 @@ const OwnerUserPostCard = ({item, editState}) => {
                   <Text style={[FONTS.h2]}>{user.display_name}</Text>
                   <View style={{width: 200}}>
                     <Text style={[FONTS.body4]}>
-                      {dayjs(item.createdAt).format('วันที่ DD MMMM YYYY')}
+                      {t('createpost.postdate') + ' '}
+                      {dayjs(item.createdAt).format('DD MMMM YYYY')}
                     </Text>
                   </View>
                 </View>
