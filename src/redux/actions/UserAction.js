@@ -71,7 +71,9 @@ export const editUserProfile = (data, msg) => async (dispatch) => {
   try {
     const res = await post('/api/users/edituser', data);
 
-    const resSocial = await postSocial('/api/users/edituser', data);
+    if (data.type === 'display_name') {
+      const resSocial = await postSocial('/api/users/edituser', data);
+    }
 
     const user = await get('/api/users/getuserbyjwt');
     dispatch({

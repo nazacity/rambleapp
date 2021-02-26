@@ -146,7 +146,7 @@ const SigninForm = () => {
         });
         if (res.token) {
           await AsyncStorage.setItem('accessToken', res.token);
-          console.log(res.token);
+
           dispatch(signIn(res.user));
           dispatch(
             setSnackbarDisplay({

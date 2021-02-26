@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 import {checkTimeFromPast, shortText} from '../../../services/util';
 import {Fragment} from 'react';
 import LocalizationContext from '../../../screens/LocalizationContext';
+import profile from '../../../../assets/profile/profile.png';
 
 const CommentCard = ({item, index}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -51,9 +52,13 @@ const CommentCard = ({item, index}) => {
         <View>
           <Avatar
             rounded
-            source={{
-              uri: item.user.user_picture_url,
-            }}
+            source={
+              item.user.user_picture_url
+                ? {
+                    uri: item.user.user_picture_url,
+                  }
+                : profile
+            }
             containerStyle={{backgroundColor: '#fff', marginRight: 5}}
             size={60}
           />

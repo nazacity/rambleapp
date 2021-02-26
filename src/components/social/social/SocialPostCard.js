@@ -17,6 +17,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommentModal from './CommentModal';
 import LocalizationContext from '../../../screens/LocalizationContext';
 import ImageModal from 'react-native-image-modal';
+import profile from '../../../../assets/profile/profile.png';
 
 const SocialPostCard = ({item, index}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -42,7 +43,13 @@ const SocialPostCard = ({item, index}) => {
           justifyContent: 'space-between',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Avatar rounded source={{uri: item.user_picture_url}} size={40} />
+          <Avatar
+            rounded
+            source={
+              item.user_picture_url ? {uri: item.user_picture_url} : profile
+            }
+            size={40}
+          />
           <View style={{marginLeft: 10}}>
             <Text style={[FONTS.h2]}>{item.display_name}</Text>
           </View>
