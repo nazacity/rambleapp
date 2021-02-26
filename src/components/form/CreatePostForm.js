@@ -20,7 +20,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
   const [option, setOption] = useState({
     form_team: false,
     share_accommodation: false,
-    share_transportaion: false,
+    share_transportation: false,
     share_trip: false,
     male: false,
     female: false,
@@ -79,6 +79,8 @@ const CreatePostForm = ({activityId, userActivityId}) => {
           province: data.province ? data.province : '',
           user_activity_id: userActivityId,
         };
+
+        console.log(post_data);
 
         dispatch(createUserPost(post_data, navigationUser));
       } catch (error) {
