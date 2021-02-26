@@ -21,7 +21,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import TitleHeader from '../../components/layout/TitleHeader';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import {setFilteredUserPosts} from '../../redux/actions/CommunityAction';
-import {get} from '../../redux/actions/request';
+import {get, post} from '../../redux/actions/request';
 
 const ActivityFilterScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -59,10 +59,15 @@ const ActivityFilterScreen = ({navigation}) => {
     } else {
       dispatch(setLoading(true));
       try {
-        const res = await get(
-          `/api/users/filtereduserposts?activity=${data.activityId}&form_team=${option.form_team}&share_accommodation=${option.share_accommodation}&share_transportation=${option.share_transportation}&share_trip=${option.share_trip}&male=${option.male}&female=${option.female}
-          `,
-        );
+        const res = await post(`/api/users/filtereduserposts`, {
+          activity: data.activityId,
+          form_team: option.form_team,
+          share_accommodation: option.share_accommodation,
+          share_transportation: option.share_transportation,
+          share_trip: option.share_trip,
+          male: option.male,
+          female: option.female,
+        });
 
         if (res.status === 200) {
           dispatch(setFilteredUserPosts([...res.data]));
