@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
-import Button from '../../components/Button';
+import Button from '../Button';
 import {FONTS, COLORS, SIZES} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import LocalizationContext from '../../screens/LocalizationContext';
@@ -11,9 +11,9 @@ import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
 import {useDispatch} from 'react-redux';
-import {createUserPost} from '../../redux/actions/UserAction';
+import {editUserPost} from '../../redux/actions/UserAction';
 
-const CreatePostForm = ({activityId, userActivityId}) => {
+const EditPostForm = ({item}) => {
   const {t} = React.useContext(LocalizationContext);
   const {control, handleSubmit, errors, reset} = useForm();
   const [focus, setFocus] = useState({});
@@ -42,6 +42,20 @@ const CreatePostForm = ({activityId, userActivityId}) => {
     reset({});
     navigation.replace('UserPost');
   };
+
+  useEffect(() => {
+    setOption({
+      form_team: item.form_team,
+      share_accommodation: item.share_accommodation,
+      share_transportation: item.share_transportation,
+      share_trip: item.share_trip,
+      male: item.male,
+      female: item.female,
+    });
+    reset({
+      description: item.description,
+    });
+  }, [item]);
 
   const onSubmit = async (data) => {
     if (!option.acceptTerm) {
@@ -74,13 +88,11 @@ const CreatePostForm = ({activityId, userActivityId}) => {
           share_trip: option.share_trip,
           male: option.male,
           female: option.female,
-          activity: activityId,
           description: data.description,
           province: data.province ? data.province : '',
-          user_activity_id: userActivityId,
         };
 
-        dispatch(createUserPost(post_data, navigationUser));
+        dispatch(editUserPost(item._id, post_data, navigationUser, t));
       } catch (error) {
         console.log(error);
       }
@@ -292,7 +304,6 @@ const CreatePostForm = ({activityId, userActivityId}) => {
             defaultValue=""
           />
         </View>
-
         <TouchableOpacity
           activeOpacity={0.6}
           style={{
@@ -321,7 +332,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
         </TouchableOpacity>
         <View style={{alignItems: 'center'}}>
           <Button
-            label={t('createpost.createpost')}
+            label={t('createpost.editpost')}
             color={COLORS.pinkPastel}
             onPress={handleSubmit(onSubmit)}
           />
@@ -331,4 +342,4 @@ const CreatePostForm = ({activityId, userActivityId}) => {
   );
 };
 
-export default CreatePostForm;
+export default EditPostForm;

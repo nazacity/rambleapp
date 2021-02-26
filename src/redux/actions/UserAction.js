@@ -397,17 +397,83 @@ export const createUserPost = (data, navigateUser) => async (dispatch) => {
       type: SET_USER,
       payload: user,
     });
+
+    navigateUser();
     dispatch({
-      type: AddEmergencyContactModal,
+      type: SET_LOADING,
       payload: false,
     });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  }
+};
+
+export const editUserPost = (id, data, navigateUser, t) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+  try {
+    const res = await post(`/api/users/edituserpost/${id}`, data);
+    const user = await get('/api/users/getuserbyjwt');
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    dispatch({
+      type: SET_SNACKBAR_DISPLAY,
+      payload: {
+        state: 'success',
+        message: t('createpost.editsuccessed'),
+      },
+    });
+
     navigateUser();
-    setTimeout(() => {
-      dispatch({
-        type: SET_LOADING,
-        payload: false,
-      });
-    }, 700);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
+  }
+};
+
+export const changeUserPostState = (id, data, t) => async (dispatch) => {
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
+  try {
+    const res = await post(`/api/users/changeuserpoststate/${id}`, data);
+    const user = await get('/api/users/getuserbyjwt');
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+
+    dispatch({
+      type: SET_SNACKBAR_DISPLAY,
+      payload: {
+        state: data.state === 'closed' ? 'error' : 'success',
+        message:
+          data.state === 'closed'
+            ? t('createpost.closepost')
+            : t('createpost.openpost'),
+      },
+    });
+
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
   } catch (error) {
     console.log(error);
     dispatch({

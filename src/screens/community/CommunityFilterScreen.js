@@ -30,7 +30,7 @@ const ActivityFilterScreen = ({navigation}) => {
   const [option, setOption] = useState({
     form_team: false,
     share_accommodation: false,
-    share_transportaion: false,
+    share_transportation: false,
     share_trip: false,
     male: false,
     female: false,
@@ -53,19 +53,9 @@ const ActivityFilterScreen = ({navigation}) => {
 
   const onSubmit = async (data) => {
     if (!data.activityId) {
-      Alert.alert(
-        t('activityfilter.noregion'),
-        t('activityfilter.selectregion'),
-        [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        {cancelable: false},
-      );
+      Alert.alert(t('communityfilter.selectone'), '', [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
     } else {
       dispatch(setLoading(true));
       try {

@@ -56,7 +56,6 @@ const FilteredCommunityScreen = ({navigation}) => {
         alignItems: 'center',
         backgroundColor: COLORS.backgroundColor,
         flex: 1,
-        paddingTop: 60,
       }}>
       <BackButton backTo={'Community'} />
       <FilterButton onPress={() => navigation.navigate('CommunityFilter')} />
@@ -67,11 +66,10 @@ const FilteredCommunityScreen = ({navigation}) => {
         renderItem={({item, index}) => {
           return <UserPostContainer item={item} index={index} />;
         }}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{borderBottomColor: COLORS.primary, borderBottomWidth: 2}}
-          />
-        )}
+        ItemSeparatorComponent={() => <View style={{padding: 10}} />}
+        style={{padding: 20, paddingTop: 60}}
+        contentContainerStyle={{paddingHorizontal: 5}}
+        ListFooterComponent={() => <View style={{marginBottom: 50}} />}
       />
     </View>
   );

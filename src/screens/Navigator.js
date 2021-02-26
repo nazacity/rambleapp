@@ -13,6 +13,7 @@ import ActivityHistoryScreen from './home/ActivityHistoryScreen';
 import ActivityUpcomingScreen from './home/ActivityUpcomingScreen';
 import PaymentScreen from './home/PaymentScreen';
 import CreatePostScreen from './home/CreatePostScreen';
+import EditPostScreen from './home/EditPostScreen';
 import ProfileScreen from './home/ProfileScreen';
 import EditProfileScreen from './home/EditProfileScreen';
 import EmergencyContactScreen from './home/EmergencyContactScreen';
@@ -206,6 +207,11 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen
         name="CreatePost"
         component={CreatePostScreen}
+        options={{headerShown: false}}
+      />
+      <HomeStack.Screen
+        name="EditPost"
+        component={EditPostScreen}
         options={{headerShown: false}}
       />
       <HomeStack.Screen

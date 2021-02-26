@@ -1,18 +1,25 @@
 import React, {Fragment} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {Avatar} from 'react-native-elements';
 import profile from '../../../assets/profile/profile.png';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useNavigation} from '@react-navigation/native';
+import {post} from '../../redux/actions/request';
+import {changeUserPostState} from '../../redux/actions/UserAction';
 
-const UserPostCard = ({item, editState}) => {
+const OwnerUserPostCard = ({item, editState}) => {
   const lang = useSelector((state) => state.appState.lang);
+  const user = useSelector((state) => state.user);
   dayjs.locale(lang);
   const {t} = React.useContext(LocalizationContext);
-
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   return (
     <Fragment>
       <View
@@ -39,32 +46,91 @@ const UserPostCard = ({item, editState}) => {
           ]}>
           <View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 40,
-                  marginRight: 10,
-                }}>
-                <Avatar
-                  rounded
-                  source={
-                    item.user.user_picture_url
-                      ? {
-                          uri: item.user.user_picture_url,
-                        }
-                      : profile
-                  }
-                  size={60}
-                />
-              </View>
-              <View>
-                <Text style={[FONTS.h2]}>{item.user.display_name}</Text>
-                <View style={{width: 200}}>
-                  <Text style={[FONTS.body4]}>
-                    {dayjs(item.createdAt).format('วันที่ DD MMMM YYYY')}
-                  </Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 40,
+                    marginRight: 10,
+                  }}>
+                  <Avatar
+                    rounded
+                    source={
+                      user.user_picture_url
+                        ? {
+                            uri: user.user_picture_url,
+                          }
+                        : profile
+                    }
+                    size={60}
+                  />
                 </View>
+                <View>
+                  <Text style={[FONTS.h2]}>{user.display_name}</Text>
+                  <View style={{width: 200}}>
+                    <Text style={[FONTS.body4]}>
+                      {dayjs(item.createdAt).format('วันที่ DD MMMM YYYY')}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 20,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: 5,
+                  }}
+                  onPress={() => {
+                    navigation.navigate('EditPost', {
+                      item: item,
+                    });
+                  }}>
+                  <MaterialIcons name="edit" color={COLORS.primary} size={20} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 20,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: 5,
+                  }}
+                  onPress={async () => {
+                    if (item.state === 'finding') {
+                      dispatch(
+                        changeUserPostState(item._id, {state: 'closed'}, t),
+                      );
+                    }
+
+                    if (item.state === 'closed') {
+                      dispatch(
+                        changeUserPostState(item._id, {state: 'finding'}, t),
+                      );
+                    }
+                  }}>
+                  {item.state === 'finding' && (
+                    <MaterialCommunityIcons
+                      name="eye-off"
+                      color={COLORS.primary}
+                      size={20}
+                    />
+                  )}
+                  {item.state === 'closed' && (
+                    <MaterialCommunityIcons
+                      name="eye-check-outline"
+                      color={COLORS.primary}
+                      size={20}
+                    />
+                  )}
+                </TouchableOpacity>
               </View>
             </View>
             <View
@@ -140,4 +206,4 @@ const UserPostCard = ({item, editState}) => {
   );
 };
 
-export default UserPostCard;
+export default OwnerUserPostCard;

@@ -10,6 +10,7 @@ import {
 import {Avatar} from 'react-native-elements';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   HomeIcon,
   UpcomingIcon,
@@ -121,9 +122,9 @@ const DrawerContent = (props) => {
               props.navigation.closeDrawer();
             }}
           />
-          {/* <DrawerItem
+          <DrawerItem
             icon={({color, size}) => (
-              <PostIcon color={color} size={size} />
+              <AntDesign name="profile" color={color} size={22} />
             )}
             label={t('drawer.userposts')}
             labelStyle={[FONTS.h4]}
@@ -133,7 +134,7 @@ const DrawerContent = (props) => {
               });
               props.navigation.closeDrawer();
             }}
-          /> */}
+          />
         </Drawer.Section>
       </DrawerContentScrollView>
       <DropDownPicker

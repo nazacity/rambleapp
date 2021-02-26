@@ -54,3 +54,7 @@ export const HeartIcon = ({color, size}) => (
 export const OutlinedHeartIcon = ({color, size}) => (
   <Icon name="outlined-heart" size={size} color={color} />
 );
+
+export const PostIcon = ({color, size}) => (
+  <Icon name="post" size={size} color={color} />
+);
