@@ -17,7 +17,6 @@ const FilteredCommunityScreen = ({navigation}) => {
     (state) => state.community.filtered_user_posts,
   );
   const isLoading = useSelector((state) => state.appState.isLoading);
-  const lang = useSelector((state) => state.appState.lang);
 
   const UserPostContainer = ({item, index}) => {
     return (

@@ -70,10 +70,10 @@ const ActivityFilterScreen = ({navigation}) => {
         });
 
         if (res.status === 200) {
-          dispatch(setFilteredUserPosts([...res.data]));
+          dispatch(setFilteredUserPosts(res.data));
         }
         dispatch(setLoading(false));
-        navigation.navigate('FilteredCommunity');
+        navigation.push('FilteredCommunity');
       } catch (error) {
         console.log(error);
         dispatch(setLoading(false));
