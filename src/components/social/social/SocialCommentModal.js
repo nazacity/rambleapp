@@ -95,6 +95,19 @@ const SocialCommentModal = ({
     }
   }, [imagePicker]);
 
+  const takePhotoFromCamera = async () => {
+    const result = await ImagePicker.openCamera({
+      width: 600,
+      height: 600,
+      cropping: true,
+    });
+
+    setImages([
+      ...images,
+      {url: Platform.OS === 'ios' ? result.sourceURL : result.path},
+    ]);
+  };
+
   const choosePhotoFromLibrary = async () => {
     const result = await ImagePicker.openPicker({
       multiple: true,
@@ -121,7 +134,7 @@ const SocialCommentModal = ({
         url: Platform.OS === 'ios' ? item.sourceURL : item.path,
       });
     });
-    setImages(data);
+    setImages([...images, ...data]);
   };
 
   const handleReset = () => {
@@ -130,6 +143,25 @@ const SocialCommentModal = ({
     setImages([]);
     handleClose();
   };
+
+  useEffect(() => {
+    if (images.length > 3) {
+      Alert.alert(
+        t('community.socialcomment.imagenumbererror'),
+        t('community.socialcomment.pleaseselectagain'),
+        [
+          {
+            text: t('editprofile.okay'),
+            onPress: () => {
+              const newImages = images.slice(0, 3);
+              setImages(newImages);
+            },
+          },
+        ],
+      );
+      return;
+    }
+  }, [images]);
 
   return (
     <Modal
@@ -152,6 +184,7 @@ const SocialCommentModal = ({
               <Text style={[FONTS.h2]}>{user.display_name}</Text>
             </View>
           </View>
+
           <View style={{marginBottom: 10}}>
             <Input
               placeholder={t('community.socialcomment.post')}
@@ -159,7 +192,16 @@ const SocialCommentModal = ({
                 borderBottomWidth: 0,
               }}
               onChangeText={(text) => {
-                setValue(text);
+                if (text.length > 1500) {
+                  Alert.alert(t('community.comment.socialcomment'), '', [
+                    {
+                      text: t('community.comment.okay'),
+                      onPress: () => console.log('okay'),
+                    },
+                  ]);
+                } else {
+                  setValue(text);
+                }
               }}
               value={value}
               multiline
@@ -170,6 +212,11 @@ const SocialCommentModal = ({
               //   }}
               style={[FONTS.body3, {textAlignVertical: 'top'}]}
             />
+
+            <Text style={[FONTS.body4, {textAlign: 'right', marginBottom: 10}]}>
+              {value.length} / 1500
+            </Text>
+
             <View
               style={{
                 borderBottomWidth: 0.5,
@@ -179,19 +226,42 @@ const SocialCommentModal = ({
                 marginBottom: 10,
               }}
             />
-            <View>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{width: 30, height: 30}}
-                onPress={() => {
-                  choosePhotoFromLibrary();
-                }}>
-                <Ionicons
-                  name="image-outline"
-                  size={24}
-                  color={COLORS.inputPlaceholderColor}
-                />
-              </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{width: 30, height: 30, marginRight: 5}}
+                  onPress={() => {
+                    takePhotoFromCamera();
+                  }}>
+                  <Ionicons
+                    name="camera"
+                    size={24}
+                    color={COLORS.inputPlaceholderColor}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{width: 30, height: 30}}
+                  onPress={() => {
+                    choosePhotoFromLibrary();
+                  }}>
+                  <Ionicons
+                    name="image-outline"
+                    size={24}
+                    color={COLORS.inputPlaceholderColor}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text
+                style={[FONTS.body4, {textAlign: 'right', marginBottom: 10}]}>
+                {images.length} / 3
+              </Text>
             </View>
           </View>
 

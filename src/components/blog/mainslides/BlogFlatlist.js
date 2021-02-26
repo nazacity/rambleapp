@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
@@ -10,8 +10,10 @@ import {useSelector} from 'react-redux';
 import LoveButton from '../layout/LoveButton';
 import {useNavigation} from '@react-navigation/native';
 import {getSocial} from '../../../redux/actions/request';
+import LocalizationContext from '../../../screens/LocalizationContext';
 
 const BlogFlatlist = ({data}) => {
+  const {t} = React.useContext(LocalizationContext);
   const lang = useSelector((state) => state.appState.lang);
   const navigation = useNavigation();
   dayjs.locale(lang);
@@ -111,17 +113,28 @@ const BlogFlatlist = ({data}) => {
     );
   };
   return (
-    <FlatList
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      data={data}
-      keyExtractor={(item) => item._id}
-      contentContainerStyle={{paddingHorizontal: 10}}
-      bounces={false}
-      renderItem={({item, index}) => {
-        return <BlogCard item={item} index={index} />;
-      }}
-    />
+    <Fragment>
+      {data.length === 0 ? (
+        <View
+          style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={[FONTS.body4, {color: COLORS.black}]}>
+            {t('community.comment.noblog')}
+          </Text>
+        </View>
+      ) : (
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={data}
+          keyExtractor={(item) => item._id}
+          contentContainerStyle={{paddingHorizontal: 10}}
+          bounces={false}
+          renderItem={({item, index}) => {
+            return <BlogCard item={item} index={index} />;
+          }}
+        />
+      )}
+    </Fragment>
   );
 };
 

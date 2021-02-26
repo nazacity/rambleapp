@@ -20,7 +20,7 @@ const CommentModal = ({open, handleClose, data, setData}) => {
       onBackButtonPress={handleClose}>
       <View
         style={{
-          height: SIZES.height / 1.1,
+          height: SIZES.height / 2,
           backgroundColor: COLORS.white,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,

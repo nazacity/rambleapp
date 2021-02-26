@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, KeyboardAvoidingView, Platform} from 'react-native';
+import {View, Text, KeyboardAvoidingView, Platform, Alert} from 'react-native';
 import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
@@ -64,7 +64,16 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
               top: Platform.OS === 'ios' ? 5 : 0,
             }}
             onChangeText={(text) => {
-              setValue(text);
+              if (text.length > 500) {
+                Alert.alert(t('community.comment.textmorethan'), '', [
+                  {
+                    text: t('community.comment.okay'),
+                    onPress: () => console.log('okay'),
+                  },
+                ]);
+              } else {
+                setValue(text);
+              }
             }}
             value={value}
             multiline
@@ -78,6 +87,9 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
             }}
             style={[FONTS.body3]}
           />
+          <Text style={[FONTS.body4, {textAlign: 'right'}]}>
+            {value.length} / 500
+          </Text>
         </View>
         <TouchableOpacity
           disabled={!value}

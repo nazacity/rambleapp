@@ -155,6 +155,9 @@ const en = {
       seeall: 'See all',
       seeless: 'See less',
       commented: 'Commented Successfully',
+      noblog: 'No blog content yet',
+      textmorethan: 'Text must not be more than 500 characters',
+      okay: 'Okay',
     },
     socialcomment: {
       post: 'Post your story',
