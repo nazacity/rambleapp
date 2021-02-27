@@ -5,17 +5,19 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
-import {COLORS, SHADOW, SIZES} from '../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
 import {useSelector} from 'react-redux';
 import BackButton from '../../components/layout/BackButton';
 import {useNavigation} from '@react-navigation/native';
 import SocialCategoryContainer from '../../components/social/SocialCategoryContainer';
+import LocalizationContext from '../LocalizationContext';
 
 const SocialCommuntyScreen = () => {
   const user_activities = useSelector((state) => state.user.user_activities);
   const data = user_activities.slice(0, 5);
-
+  const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
 
   const SocialCard = ({item, index}) => {
@@ -26,11 +28,10 @@ const SocialCommuntyScreen = () => {
             width: 150,
             height: 150,
             borderRadius: 10,
-            marginRight: index % 2 === 1 ? 0 : 20,
+            marginRight: 10,
             overflow: 'hidden',
             backgroundColor: COLORS.white,
           },
-          SHADOW.image,
         ]}>
         <TouchableOpacity
           activeOpacity={0.9}
@@ -39,7 +40,6 @@ const SocialCommuntyScreen = () => {
               width: 150,
               height: 150,
             },
-            SHADOW.image,
           ]}
           onPress={() => {
             navigation.navigate('SocialActivity', {
@@ -61,28 +61,44 @@ const SocialCommuntyScreen = () => {
   };
 
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
         backgroundColor: COLORS.backgroundColor,
       }}>
-      <BackButton />
+      <View style={{position: 'absolute', top: 15, left: 0, right: 0}}>
+        <Text style={[FONTS.h1, {color: COLORS.black, textAlign: 'center'}]}>
+          Social Community
+        </Text>
+      </View>
+      <BackButton top={10} />
+
       <SocialCategoryContainer />
+      <View style={{marginTop: 20, marginHorizontal: 20}}>
+        <Text style={[FONTS.h3, {color: COLORS.black}]}>
+          {t('community.socialcomment.activity')}
+        </Text>
+      </View>
       <FlatList
-        showsVerticalScrollIndicator={false}
+        horizontal
+        showsHorizontalScrollIndicator={false}
         data={data}
-        style={{margin: 20}}
-        contentContainerStyle={{padding: 20, alignItems: 'center'}}
-        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+        contentContainerStyle={{paddingHorizontal: 10, paddingVertical: 20}}
+        ItemSeparatorComponent={() => <View style={{marginBottom: 10}} />}
         // keyExtractor={(item,index) => item._id}
         keyExtractor={(item, index) => `${index}`}
         renderItem={({item, index}) => {
           return <SocialCard item={item} index={index} />;
         }}
-        numColumns={2}
-        ListFooterComponent={() => <View style={{margin: 40}} />}
       />
-    </View>
+      {/* <View
+        style={{
+          height: 10,
+          backgroundColor: COLORS.lightGrey,
+          width: SIZES.width,
+        }}
+      /> */}
+    </ScrollView>
   );
 };
 

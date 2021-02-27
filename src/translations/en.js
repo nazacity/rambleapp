@@ -108,6 +108,10 @@ const en = {
     upcomingactivity: 'Upcoming Activity',
     historyactivity: 'History Activity',
     seeall: 'See All',
+    exit: 'Exit the app',
+    sure: 'Are you sure to exit the app?',
+    yes: 'Yes',
+    no: 'No',
   },
   userrecode: {
     activitiesinthisyear: 'Activities in this year',
@@ -157,6 +161,7 @@ const en = {
     noactivity: "You don't have any new activity",
     recently: 'Recenet Contents',
     social: 'Sharing Community',
+    trend: 'Trend',
     comment: {
       commentblog: 'comment to this content',
       seeall: 'See all',
@@ -172,6 +177,7 @@ const en = {
       imagenumbererror: 'Select max 3 images',
       pleaseselectagain: 'Please select again',
       textmorethan: 'Text must not be more than 1500 characters',
+      activity: 'Your activity',
     },
   },
   activityfilter: {

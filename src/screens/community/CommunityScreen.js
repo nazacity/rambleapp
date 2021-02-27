@@ -8,7 +8,7 @@ import {socialurl} from '../../redux/actions/request';
 import axios from 'axios';
 import MainContainer from '../../components/blog/MainContainer';
 import {ScrollView} from 'react-native';
-import {COLORS} from '../../constants';
+import {COLORS, SIZES} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
 import SocialContainer from '../../components/social/SocialContainer';
 import MainAdvertise from '../../components/advertise/MainAdvertise';
@@ -54,7 +54,21 @@ const CommunityScreen = ({navigation}) => {
         style={{backgroundColor: COLORS.backgroundColor}}
         showsVerticalScrollIndicator={false}>
         <MainContainer />
+        <View
+          style={{
+            height: 20,
+            backgroundColor: COLORS.lightGrey,
+            width: SIZES.width,
+          }}
+        />
         <SocialContainer />
+        <View
+          style={{
+            height: 20,
+            backgroundColor: COLORS.lightGrey,
+            width: SIZES.width,
+          }}
+        />
         <MainAdvertise />
         {/* <MinorAdvertise /> */}
       </ScrollView>

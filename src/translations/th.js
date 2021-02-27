@@ -109,6 +109,10 @@ const th = {
     upcomingactivity: 'Upcoming Activity',
     historyactivity: 'History Activity',
     seeall: 'ดูทั้งหมด',
+    exit: 'ออกจากแอพ',
+    sure: 'คุณแน่ใจที่จะออกจากแอพ ใช่หรือไม่',
+    yes: 'ใช่',
+    no: 'ไม่',
   },
   userrecode: {
     activitiesinthisyear: 'กิจกรรมในปีนี้',
@@ -157,6 +161,7 @@ const th = {
     noactivity: 'คุณยังไม่ได้สมัครกิจกรรมใหม่',
     recently: 'Recenet Contents',
     social: 'Sharing Community',
+    trend: 'Trend',
     comment: {
       commentblog: 'คุณคิดเห็นอย่างไรกับบทความนี้',
       seeall: 'ดูทั้งหมด',
@@ -171,6 +176,7 @@ const th = {
       comments: 'ความคิดเห็น',
       imagenumbererror: 'เลือกได้สูงสุด 3 รูปภาพ',
       pleaseselectagain: 'กรุณาเลือกอีกครั้ง',
+      activity: 'กิจกรรมของคุณ',
     },
   },
   activityfilter: {

@@ -13,12 +13,14 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import {get} from '../../redux/actions/request';
+import TitleHeader from '../layout/TitleHeader';
+import LocalizationContext from '../../screens/LocalizationContext';
 
 const MainAdvertise = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [mainAdvertizes, setMainAdvertizes] = useState([]);
-
+  const {t} = React.useContext(LocalizationContext);
   const fetchMainAdvertizes = async () => {
     dispatch(setLoading(true));
     try {
@@ -40,15 +42,29 @@ const MainAdvertise = () => {
   return (
     <View
       style={{
-        padding: 20,
-        alignItems: 'center',
+        paddingHorizontal: 20,
       }}>
+      <TitleHeader
+        title={t('community.trend')}
+        // seeAll={() => {
+        //   navigation.jumpTo('community', {
+        //     screen: 'Blogs',
+        //     params: {
+        //       blogCategoryId: item._id,
+        //       picture_url: item.picture_url,
+        //       title:
+        //         lang === 'th' ? item.title_th : lang === 'en' && item.title_en,
+        //     },
+        //   });
+        // }}
+        paddingHorizontal={20}
+        noDot={true}
+      />
       {mainAdvertizes.map((item) => {
         return (
           <View
             key={item._id}
             style={[
-              SHADOW.image,
               {
                 width: SIZES.width - 40,
                 height: 200,
@@ -65,7 +81,6 @@ const MainAdvertise = () => {
                 });
               }}
               style={[
-                SHADOW.image,
                 {
                   width: SIZES.width - 40,
                   height: 200,

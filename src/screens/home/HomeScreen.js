@@ -20,11 +20,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {post} from '../../redux/actions/request';
 import MenuButton from '../../components/layout/MenuButton';
 import {refresh} from '../../redux/actions/UserAction';
+import LocalizationContext from '../LocalizationContext';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const user_device_token = useSelector((state) => state.user.device_token);
-
+  const {t} = React.useContext(LocalizationContext);
   const updatedDeviceToken = async () => {
     const device_token = await AsyncStorage.getItem('device_token');
     if (device_token && device_token !== user_device_token) {
@@ -43,13 +44,13 @@ const HomeScreen = ({navigation}) => {
   useEffect(() => {
     const backAction = () => {
       if (navigation.isFocused()) {
-        Alert.alert('Hold on!', 'Are you sure you want to exit the app?', [
+        Alert.alert(t('home.exit'), t('home.sure'), [
           {
-            text: 'Cancel',
+            text: t('home.no'),
             onPress: () => null,
             style: 'cancel',
           },
-          {text: 'YES', onPress: () => BackHandler.exitApp()},
+          {text: t('home.yes'), onPress: () => BackHandler.exitApp()},
         ]);
         return true;
       }

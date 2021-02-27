@@ -28,7 +28,7 @@ export const COLORS = {
   buttonBlue: '#0CBCFD',
   greenLine: '#00C300',
   white: '#fff',
-  lightGrey: '#eee',
+  lightGrey: '#f5f5f5',
   opcaityBlack: 'rgba(0,0,0,0.6)',
 };
 
