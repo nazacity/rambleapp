@@ -54,6 +54,7 @@ const SocialCommentModal = ({
       width: 600,
       height: 600,
       cropping: true,
+      compressImageQuality: 0.8,
     });
 
     setImages([
@@ -70,6 +71,7 @@ const SocialCommentModal = ({
     const result = await ImagePicker.openPicker({
       multiple: true,
       maxFiles: 3,
+      compressImageQuality: 0.8,
     });
 
     let data = [];
@@ -133,8 +135,6 @@ const SocialCommentModal = ({
         uri: images[i].uri,
       });
     }
-
-    console.log(images);
 
     formData.append('text', value);
     if (type === 'social_category') {
