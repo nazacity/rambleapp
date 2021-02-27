@@ -40,8 +40,12 @@ const SocialCommentTab = ({setOpen, bottom, setImagePicker}) => {
           activeOpacity={0.8}
           style={{width: 30, height: 30}}
           onPress={() => {
-            setImagePicker(true);
-            setOpen(true);
+            if (Platform.OS === 'ios') {
+              setOpen(true);
+            } else {
+              setImagePicker(true);
+              setOpen(true);
+            }
           }}>
           <Ionicons
             name="image-outline"
