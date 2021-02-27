@@ -177,7 +177,7 @@ const en = {
       imagenumbererror: 'Select max 3 images',
       pleaseselectagain: 'Please select again',
       textmorethan: 'Text must not be more than 1500 characters',
-      activity: 'Your activity',
+      activity: 'Your activity community',
     },
   },
   activityfilter: {

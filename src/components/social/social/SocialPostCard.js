@@ -25,6 +25,7 @@ const SocialPostCard = ({item, index}) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <View
       style={[
@@ -46,12 +47,14 @@ const SocialPostCard = ({item, index}) => {
           <Avatar
             rounded
             source={
-              item.user_picture_url ? {uri: item.user_picture_url} : profile
+              item.user.user_picture_url
+                ? {uri: item.user.user_picture_url}
+                : profile
             }
             size={40}
           />
           <View style={{marginLeft: 10}}>
-            <Text style={[FONTS.h2]}>{item.display_name}</Text>
+            <Text style={[FONTS.h3]}>{item.user.display_name}</Text>
           </View>
         </View>
 
@@ -59,7 +62,7 @@ const SocialPostCard = ({item, index}) => {
           <Text style={[FONTS.body3]}>{checkTimeFromPast(item.createdAt)}</Text>
         </View>
       </View>
-      <View>
+      <View style={{margin: 10}}>
         <Text style={[FONTS.body3]}>{item.text}</Text>
       </View>
       <View style={{marginTop: 10}}>
@@ -75,7 +78,7 @@ const SocialPostCard = ({item, index}) => {
             }}
             borderRadius={10}
             source={{
-              uri: item.pictures[0].url,
+              uri: item.pictures[0].picture_url,
             }}
           />
         )}
@@ -103,7 +106,7 @@ const SocialPostCard = ({item, index}) => {
                       }}
                       borderRadius={10}
                       source={{
-                        uri: pic.url,
+                        uri: pic.picture_url,
                       }}
                     />
                   </View>

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Input, Avatar} from 'react-native-elements';
 import Modal from 'react-native-modal';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import LocalizationContext from '../../../screens/LocalizationContext';
@@ -19,75 +19,29 @@ import ModalCloseButton from '../../layout/ModalCloseButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Alert} from 'react-native';
-
-const test = [
-  {
-    creationDate: '1344451932',
-    cropRect: null,
-    data: null,
-    duration: null,
-    exif: null,
-    filename: 'IMG_0003.JPG',
-    height: 2002,
-    localIdentifier: '9F983DBA-EC35-42B8-8773-B597CF782EDD/L0/001',
-    mime: 'image/jpeg',
-    modificationDate: '1441224147',
-    path:
-      '/Users/nazacity/Library/Developer/CoreSimulator/Devices/5A377022-48E1-4970-92A3-56DDE0F03B70/data/Containers/Data/Application/37F8E6B3-A2F9-42D5-8EF3-7F981E15428A/tmp/react-native-image-crop-picker/2C5C98B7-53CE-4F18-9579-D5193A57F2E9.jpg',
-    size: 2505426,
-    sourceURL:
-      'file:///Users/nazacity/Library/Developer/CoreSimulator/Devices/5A377022-48E1-4970-92A3-56DDE0F03B70/data/Media/DCIM/100APPLE/IMG_0003.JPG',
-    width: 3000,
-  },
-  {
-    creationDate: '1299975445',
-    cropRect: null,
-    data: null,
-    duration: null,
-    exif: null,
-    filename: 'IMG_0001.JPG',
-    height: 2848,
-    localIdentifier: '106E99A1-4F6A-45A2-B320-B0AD4A8E8473/L0/001',
-    mime: 'image/jpeg',
-    modificationDate: '1441224147',
-    path:
-      '/Users/nazacity/Library/Developer/CoreSimulator/Devices/5A377022-48E1-4970-92A3-56DDE0F03B70/data/Containers/Data/Application/37F8E6B3-A2F9-42D5-8EF3-7F981E15428A/tmp/react-native-image-crop-picker/240D3A03-1F67-41A2-AF84-04972F86DA45.jpg',
-    size: 1896240,
-    sourceURL:
-      'file:///Users/nazacity/Library/Developer/CoreSimulator/Devices/5A377022-48E1-4970-92A3-56DDE0F03B70/data/Media/DCIM/100APPLE/IMG_0001.JPG',
-    width: 4288,
-  },
-  {
-    creationDate: '1255122560',
-    cropRect: null,
-    data: null,
-    duration: null,
-    exif: null,
-    filename: 'IMG_0002.JPG',
-    height: 2848,
-    localIdentifier: 'B84E8479-475C-4727-A4A4-B77AA9980897/L0/001',
-    mime: 'image/jpeg',
-    modificationDate: '1441224147',
-    path:
-      '/Users/nazacity/Library/Developer/CoreSimulator/Devices/5A377022-48E1-4970-92A3-56DDE0F03B70/data/Containers/Data/Application/37F8E6B3-A2F9-42D5-8EF3-7F981E15428A/tmp/react-native-image-crop-picker/0C7C77E8-E1DA-4B7E-9AC9-8C05DAD979D0.jpg',
-    size: 2604768,
-    sourceURL:
-      'file:///Users/nazacity/Library/Developer/CoreSimulator/Devices/5A377022-48E1-4970-92A3-56DDE0F03B70/data/Media/DCIM/100APPLE/IMG_0002.JPG',
-    width: 4288,
-  },
-];
+import Button from '../../Button';
+import {postSocial} from '../../../redux/actions/request';
+import {
+  setLoading,
+  setSnackbarDisplay,
+} from '../../../redux/actions/AppStateAction';
 
 const SocialCommentModal = ({
   open,
   handleClose,
   imagePicker,
   setImagePicker,
+  socialId,
+  type,
+  data,
+  setData,
 }) => {
   const {t} = React.useContext(LocalizationContext);
   const [value, setValue] = useState('');
   const user = useSelector((state) => state.user);
+  const loading = useSelector((state) => state.appState.isLoading);
   const [images, setImages] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (imagePicker) {
       choosePhotoFromLibrary();
@@ -104,7 +58,11 @@ const SocialCommentModal = ({
 
     setImages([
       ...images,
-      {url: Platform.OS === 'ios' ? result.sourceURL : result.path},
+      {
+        uri: Platform.OS === 'ios' ? result.sourceURL : result.path,
+        type: result.mime,
+        name: result.path.substring(result.path.lastIndexOf('/') + 1),
+      },
     ]);
   };
 
@@ -131,7 +89,9 @@ const SocialCommentModal = ({
     }
     result.map((item) => {
       data.push({
-        url: Platform.OS === 'ios' ? item.sourceURL : item.path,
+        uri: Platform.OS === 'ios' ? item.sourceURL : item.path,
+        type: item.mime,
+        name: item.path.substring(item.path.lastIndexOf('/') + 1),
       });
     });
     setImages([...images, ...data]);
@@ -162,6 +122,55 @@ const SocialCommentModal = ({
       return;
     }
   }, [images]);
+
+  const onSubmit = async () => {
+    const formData = new FormData();
+
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images[]', {
+        name: images[i].name,
+        type: images[i].type,
+        uri: images[i].uri,
+      });
+    }
+
+    formData.append('text', value);
+    if (type === 'social_category') {
+      formData.append('social_category', socialId);
+      try {
+        dispatch(setLoading(true));
+        const res = await postSocial(
+          '/api/users/postsocialcategories',
+          formData,
+        );
+
+        if (res.status === 200) {
+          setData([
+            {
+              ...res.data,
+              user: {
+                _id: user._id,
+                display_name: user.display_name,
+                user_picture_url: user.user_picture_url,
+              },
+            },
+            ...data,
+          ]);
+        }
+        dispatch(setLoading(false));
+        dispatch(
+          setSnackbarDisplay({
+            state: 'success',
+            message: t('editprofile.sentinformation'),
+          }),
+        );
+        handleReset();
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoading(false));
+      }
+    }
+  };
 
   return (
     <Modal
@@ -213,9 +222,33 @@ const SocialCommentModal = ({
               style={[FONTS.body3, {textAlignVertical: 'top'}]}
             />
 
-            <Text style={[FONTS.body4, {textAlign: 'right', marginBottom: 10}]}>
-              {value.length} / 1500
-            </Text>
+            <View>
+              <Text
+                style={[FONTS.body4, {textAlign: 'right', marginBottom: 10}]}>
+                {value.length} / 1500
+              </Text>
+              <TouchableOpacity
+                disabled={loading || value.length === 0 ? true : false}
+                style={{
+                  backgroundColor:
+                    loading || value.length === 0
+                      ? COLORS.inputPlaceholderColor
+                      : COLORS.primary,
+                  paddingVertical: 5,
+                  borderRadius: 2,
+                  marginBottom: 10,
+                  marginHorizontal: 20,
+                }}
+                onPress={onSubmit}>
+                <Text
+                  style={[
+                    FONTS.body4,
+                    {color: COLORS.white, textAlign: 'center'},
+                  ]}>
+                  {t('community.socialcomment.post')}
+                </Text>
+              </TouchableOpacity>
+            </View>
 
             <View
               style={{
@@ -274,7 +307,7 @@ const SocialCommentModal = ({
                     setImages([]);
                   } else {
                     const newImages = images.filter(
-                      (item) => item.url !== pic.url,
+                      (item) => item.uri !== pic.uri,
                     );
 
                     setImages([...newImages]);
@@ -298,7 +331,7 @@ const SocialCommentModal = ({
               </TouchableOpacity>
               <Image
                 source={{
-                  uri: images[0].url,
+                  uri: images[0].uri,
                 }}
                 style={{
                   width: SIZES.width - 40,
@@ -328,7 +361,7 @@ const SocialCommentModal = ({
                             setImages([]);
                           } else {
                             const newImages = images.filter(
-                              (item) => item.url !== pic.url,
+                              (item) => item.uri !== pic.uri,
                             );
 
                             setImages([...newImages]);
@@ -344,7 +377,7 @@ const SocialCommentModal = ({
                         <Ionicons size={20} name="close" color="#fff" />
                       </TouchableOpacity>
                       <Image
-                        source={{uri: pic.url}}
+                        source={{uri: pic.uri}}
                         style={{
                           height: 150,
                           width: 150,

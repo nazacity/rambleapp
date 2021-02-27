@@ -55,7 +55,6 @@ const BlogFlatlist = ({data}) => {
               borderRadius: 10,
               overflow: 'hidden',
             },
-            SHADOW.default,
           ]}
           onPress={() => {
             navigation.navigate('BlogContent', {

@@ -527,13 +527,13 @@ const CommunityStackScreen = ({navigation}) => {
           headerShown: false,
         }}
       />
-      <CommunityStack.Screen
+      {/* <CommunityStack.Screen
         name="SocialCommunity"
         component={SocialCommunityScreen}
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
       <CommunityStack.Screen
         name="SelectActivity"
         component={SelectActivityScreen}

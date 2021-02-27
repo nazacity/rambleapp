@@ -85,6 +85,7 @@ const SocialCategoryContainer = () => {
             picture_url: item.picture_url,
             title:
               lang === 'th' ? item.title_th : lang === 'en' && item.title_en,
+            socialId: item._id,
           });
         }}>
         <ImageBackground
@@ -123,7 +124,7 @@ const SocialCategoryContainer = () => {
   };
 
   return (
-    <View style={{height: 160}}>
+    <View style={{height: 120}}>
       {loading ? (
         <View
           style={{alignItems: 'center', justifyContent: 'center', height: 160}}>
@@ -138,7 +139,7 @@ const SocialCategoryContainer = () => {
           horizontal
           showsHorizontalScrollIndicator={false}
           data={data}
-          style={{marginTop: 60}}
+          style={{marginTop: 20}}
           contentContainerStyle={{paddingHorizontal: 10}}
           ItemSeparatorComponent={() => <View style={{margin: 5}} />}
           // keyExtractor={(item,index) => item._id}
@@ -148,14 +149,6 @@ const SocialCategoryContainer = () => {
           }}
         />
       )}
-      <View
-        style={{
-          height: 10,
-          backgroundColor: COLORS.lightGrey,
-          width: SIZES.width,
-          marginTop: 10,
-        }}
-      />
     </View>
   );
 };

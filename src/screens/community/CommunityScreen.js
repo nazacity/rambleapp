@@ -13,6 +13,7 @@ import MenuButton from '../../components/layout/MenuButton';
 import SocialContainer from '../../components/social/SocialContainer';
 import MainAdvertise from '../../components/advertise/MainAdvertise';
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
+import SocialCommunityScreen from './SocialCommunityScreen';
 
 const CommunityScreen = ({navigation}) => {
   const [socket, setSocket] = useState(null);
@@ -56,20 +57,24 @@ const CommunityScreen = ({navigation}) => {
         <MainContainer />
         <View
           style={{
-            height: 20,
+            height: 10,
             backgroundColor: COLORS.lightGrey,
             width: SIZES.width,
+            marginTop: 10,
           }}
         />
         <SocialContainer />
+
         <View
           style={{
-            height: 20,
+            height: 10,
             backgroundColor: COLORS.lightGrey,
             width: SIZES.width,
+            marginTop: 10,
           }}
         />
         <MainAdvertise />
+
         {/* <MinorAdvertise /> */}
       </ScrollView>
     </View>

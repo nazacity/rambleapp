@@ -57,7 +57,6 @@ const MainAdvertise = () => {
         //     },
         //   });
         // }}
-        paddingHorizontal={20}
         noDot={true}
       />
       {mainAdvertizes.map((item) => {

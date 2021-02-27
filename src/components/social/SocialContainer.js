@@ -9,6 +9,8 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
 import SocialFlatlist from './social/SocialFlatlist';
 import LinearGradient from 'react-native-linear-gradient';
+import SocialCategoryContainer from './SocialCategoryContainer';
+import SocialActivityContainer from './SocialActivityContainer';
 
 const SocialContainer = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -17,8 +19,8 @@ const SocialContainer = () => {
 
   return (
     <View>
-      <View style={{height: SIZES.width / 2, flexDirection: 'row'}}>
-        <TouchableOpacity
+      <View style={{height: 100, flexDirection: 'row'}}>
+        {/* <TouchableOpacity
           activeOpacity={0.8}
           style={{width: SIZES.width / 2}}
           onPress={() => {
@@ -54,10 +56,10 @@ const SocialContainer = () => {
               </Text>
             </View>
           </ImageBackground>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           activeOpacity={0.8}
-          style={{width: SIZES.width / 2}}
+          style={{width: SIZES.width}}
           onPress={() => {
             navigation.navigate('SelectActivity');
           }}>
@@ -67,8 +69,8 @@ const SocialContainer = () => {
                 'https://images.pexels.com/photos/5080167/pexels-photo-5080167.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
             }}
             style={{
-              width: SIZES.width / 2,
-              height: SIZES.width / 2,
+              width: SIZES.width,
+              height: 100,
               resizeMode: 'cover',
             }}>
             <LinearGradient
@@ -81,8 +83,8 @@ const SocialContainer = () => {
                 flex: 1,
                 left: 0,
                 top: 0,
-                width: SIZES.width / 2,
-                height: SIZES.width / 2,
+                width: SIZES.width,
+                height: 100,
               }}
             />
             <View style={{position: 'absolute', bottom: 10, right: 10}}>
@@ -93,6 +95,18 @@ const SocialContainer = () => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
+      <View style={{marginTop: 20}}>
+        <Text style={[FONTS.h1, {color: COLORS.black, textAlign: 'center'}]}>
+          Social Community
+        </Text>
+      </View>
+      <SocialCategoryContainer />
+      <View style={{marginTop: 20, marginHorizontal: 20}}>
+        <Text style={[FONTS.h3, {color: COLORS.black}]}>
+          {t('community.socialcomment.activity')}
+        </Text>
+      </View>
+      <SocialActivityContainer />
     </View>
   );
 };

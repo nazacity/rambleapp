@@ -176,7 +176,8 @@ const th = {
       comments: 'ความคิดเห็น',
       imagenumbererror: 'เลือกได้สูงสุด 3 รูปภาพ',
       pleaseselectagain: 'กรุณาเลือกอีกครั้ง',
-      activity: 'กิจกรรมของคุณ',
+      activity: 'สังคมกิจกรรมของคุณ',
+      post: 'โพสต์',
     },
   },
   activityfilter: {

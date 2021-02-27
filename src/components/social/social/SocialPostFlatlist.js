@@ -1,6 +1,6 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, ImageBackground, Animated} from 'react-native';
-import {SIZES} from '../../../constants';
+import {COLORS, SIZES} from '../../../constants';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -9,100 +9,10 @@ dayjs.extend(relativeTime);
 import BackButton from '../../layout/BackButton';
 import LinearGradient from 'react-native-linear-gradient';
 import SocialPostCard from './SocialPostCard';
+import {postSocial} from '../../../redux/actions/request';
+import {ActivityIndicator} from 'react-native';
 
-const SocialFlatlist = ({picture_url, title}) => {
-  const data = [
-    {
-      _id: '1',
-      user_picture_url: 'https://img.kapook.com/u/2019/jutharat/w1/za23_8.jpg',
-      display_name: 'Ramble',
-      text:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-      pictures: [
-        {
-          _id: '1',
-          url:
-            'https://images.unsplash.com/photo-1600712662084-e54770a9668e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-        },
-      ],
-      createdAt: new Date('2021-01-21'),
-    },
-    {
-      _id: '2',
-      user_picture_url: 'https://img.kapook.com/u/2019/jutharat/w1/za23_8.jpg',
-      display_name: 'Ramble',
-      text:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has',
-      pictures: [
-        {
-          _id: '1',
-          url:
-            'https://images.unsplash.com/photo-1600712662084-e54770a9668e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-        },
-        {
-          _id: '2',
-          url:
-            'https://images.unsplash.com/flagged/photo-1556746834-cbb4a38ee593?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80',
-        },
-        {
-          _id: '3',
-          url:
-            'https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1949&q=80',
-        },
-      ],
-      createdAt: new Date('2021-02-21'),
-    },
-    {
-      _id: '3',
-      user_picture_url: 'https://img.kapook.com/u/2019/jutharat/w1/za23_8.jpg',
-      display_name: 'Ramble',
-      text:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ',
-      pictures: [
-        {
-          _id: '2',
-          url:
-            'https://images.unsplash.com/flagged/photo-1556746834-cbb4a38ee593?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80',
-        },
-        {
-          _id: '3',
-          url:
-            'https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1949&q=80',
-        },
-      ],
-      createdAt: new Date('2021-02-11'),
-    },
-    {
-      _id: '4',
-      user_picture_url: 'https://img.kapook.com/u/2019/jutharat/w1/za23_8.jpg',
-      display_name: 'Ramble',
-      text:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ',
-      pictures: [],
-      createdAt: new Date('2021-02-15'),
-    },
-    {
-      _id: '5',
-      user_picture_url: 'https://img.kapook.com/u/2019/jutharat/w1/za23_8.jpg',
-      display_name: 'Ramble',
-      text:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has',
-      pictures: [
-        {
-          _id: '1',
-          url:
-            'https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1949&q=80',
-        },
-        {
-          _id: '2',
-          url:
-            'https://images.unsplash.com/flagged/photo-1556746834-cbb4a38ee593?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1952&q=80',
-        },
-      ],
-      createdAt: new Date('2021-02-22'),
-    },
-  ];
-
+const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const height = scrollY.interpolate({
@@ -170,13 +80,23 @@ const SocialFlatlist = ({picture_url, title}) => {
         renderItem={({item, index}) => {
           return <SocialPostCard item={item} index={index} />;
         }}
-        ListFooterComponent={() => <View style={{margin: 60}} />}
+        ListFooterComponent={
+          <View style={{marginBottom: 100}}>
+            {loading && (
+              <View style={{flex: 1, marginBottom: 50}}>
+                <ActivityIndicator color={COLORS.primary} size={24} />
+              </View>
+            )}
+          </View>
+        }
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {
             useNativeDriver: false,
           },
         )}
+        onEndReached={fetchPosts}
+        onEndReachedThreshold={10}
       />
     </View>
   );

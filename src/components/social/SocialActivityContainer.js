@@ -7,14 +7,15 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import LocalizationContext from '../LocalizationContext';
+import {COLORS, SHADOW} from '../../constants';
+import LocalizationContext from '../../screens/LocalizationContext';
 
-const SocialCommuntyScreen = () => {
+const SocialActivityContainer = () => {
   const user_activities = useSelector((state) => state.user.user_activities);
   const data = user_activities.slice(0, 5);
+  //   const data = [...user_activities, ...user_activities, ...user_activities];
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
 
@@ -23,21 +24,25 @@ const SocialCommuntyScreen = () => {
       <View
         style={[
           {
-            width: 150,
-            height: 150,
-            borderRadius: 10,
+            width: 100,
+            height: 100,
+            borderRadius: 100,
             marginRight: 10,
-            overflow: 'hidden',
+
             backgroundColor: COLORS.white,
           },
+          SHADOW.image,
         ]}>
         <TouchableOpacity
           activeOpacity={0.9}
           style={[
             {
-              width: 150,
-              height: 150,
+              width: 100,
+              height: 100,
+              borderRadius: 100,
+              overflow: 'hidden',
             },
+            SHADOW.image,
           ]}
           onPress={() => {
             navigation.navigate('SocialActivity', {
@@ -47,10 +52,10 @@ const SocialCommuntyScreen = () => {
           <ImageBackground
             source={{uri: item.activity.id.activity_picture_url}}
             style={{
-              width: 150,
-              height: 150,
+              width: 100,
+              height: 100,
               resizeMode: 'cover',
-              borderRadius: 10,
+              borderRadius: 100,
               overflow: 'hidden',
             }}></ImageBackground>
         </TouchableOpacity>
@@ -74,4 +79,4 @@ const SocialCommuntyScreen = () => {
   );
 };
 
-export default SocialCommuntyScreen;
+export default SocialActivityContainer;
