@@ -25,6 +25,7 @@ import {
   setLoading,
   setSnackbarDisplay,
 } from '../../../redux/actions/AppStateAction';
+import ImageResizer from 'react-native-image-resizer';
 
 const SocialCommentModal = ({
   open,
@@ -54,6 +55,7 @@ const SocialCommentModal = ({
       width: 600,
       height: 600,
       cropping: true,
+      compressImageQuality: 0.8,
     });
 
     setImages([
@@ -72,7 +74,7 @@ const SocialCommentModal = ({
       maxFiles: 3,
     });
 
-    let data = [];
+    // let data = [];
 
     if (result.length > 3) {
       Alert.alert(
@@ -87,13 +89,31 @@ const SocialCommentModal = ({
       );
       return;
     }
-    result.map((item) => {
-      data.push({
-        uri: Platform.OS === 'ios' ? item.sourceURL : item.path,
-        type: item.mime,
-        name: item.path.substring(item.path.lastIndexOf('/') + 1),
-      });
-    });
+
+    const convertImage = async () => {
+      return Promise.all(
+        result.map(async (item) => {
+          const resizeItem = await ImageResizer.createResizedImage(
+            Platform.OS === 'ios' ? item.sourceURL : item.path,
+            600,
+            600,
+            'JPEG',
+            100,
+            0,
+            undefined,
+            false,
+            {mode: 'contain', onlyScaleDown: false},
+          );
+
+          return {
+            uri: resizeItem.uri,
+            type: item.mime,
+            name: resizeItem.name,
+          };
+        }),
+      );
+    };
+    const data = await convertImage();
     setImages([...images, ...data]);
   };
 
