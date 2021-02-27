@@ -134,6 +134,8 @@ const SocialCommentModal = ({
       });
     }
 
+    console.log(images);
+
     formData.append('text', value);
     if (type === 'social_category') {
       formData.append('social_category', socialId);
