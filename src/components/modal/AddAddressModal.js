@@ -43,8 +43,88 @@ const AddAddressModal = ({}) => {
       style={{margin: 0, justifyContent: 'flex-end', zIndex: 1}}
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      {Platform.OS === 'ios' ? (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View
+            style={{
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+              backgroundColor: '#fff',
+              padding: 20,
+            }}>
+            <View style={{marginBottom: 20}}>
+              <Text style={[FONTS.h2, {textAlign: 'center'}]}>
+                {t('addaddress.title')}
+              </Text>
+            </View>
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('addaddress.address')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+              )}
+              name="address"
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('addaddress.province')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                />
+              )}
+              name="province"
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('addaddress.zip')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  keyboardType="number-pad"
+                />
+              )}
+              name="zip"
+              defaultValue=""
+            />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <FloatingLabelInput
+                  floatingLabel={t('addaddress.phone')}
+                  inputContainerStyle={{borderBottomWidth: 0}}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  keyboardType="phone-pad"
+                />
+              )}
+              name="phone_number"
+              defaultValue=""
+            />
+            <View
+              style={{
+                alignItems: 'center',
+              }}>
+              <Button
+                label={t('addaddress.add')}
+                color={COLORS.pinkPastel}
+                onPress={handleSubmit(onSubmit)}
+              />
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      ) : (
         <View
           style={{
             borderTopLeftRadius: 20,
@@ -122,7 +202,7 @@ const AddAddressModal = ({}) => {
             />
           </View>
         </View>
-      </KeyboardAvoidingView>
+      )}
       <Snackbar
         visible={error}
         onDismiss={() => {
