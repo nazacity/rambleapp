@@ -70,52 +70,64 @@ const SocialCommentModal = ({
   };
 
   const choosePhotoFromLibrary = async () => {
-    const result = await ImagePicker.openPicker({
-      multiple: true,
-      maxFiles: 3,
-    });
-
-    // let data = [];
-
-    if (result.length > 3) {
-      Alert.alert(
-        t('community.socialcomment.imagenumbererror'),
-        t('community.socialcomment.pleaseselectagain'),
-        [
-          {
-            text: t('editprofile.okay'),
-            onPress: () => {},
-          },
-        ],
-      );
-      return;
-    } else {
-      dispatch(setLoading(true));
-      const convertImage = async () => {
-        return Promise.all(
-          result.map(async (item) => {
-            const resizeItem = await ImageResizer.createResizedImage(
-              Platform.OS === 'ios' ? item.sourceURL : item.path,
-              600,
-              600,
-              'JPEG',
-              100,
-              0,
-              undefined,
-              false,
-              {mode: 'contain', onlyScaleDown: false},
-            );
-
-            return {
-              uri: resizeItem.uri,
-              type: item.mime,
-              name: resizeItem.name,
-            };
-          }),
+    try {
+      const result = await ImagePicker.openPicker({
+        multiple: true,
+        maxFiles: 3,
+      });
+      if (result.length > 3) {
+        Alert.alert(
+          t('community.socialcomment.imagenumbererror'),
+          t('community.socialcomment.pleaseselectagain'),
+          [
+            {
+              text: t('editprofile.okay'),
+              onPress: () => {},
+            },
+          ],
         );
-      };
-      const data = await convertImage();
-      setImages([...images, ...data]);
+        return;
+      } else {
+        dispatch(setLoading(true));
+        const convertImage = async () => {
+          return Promise.all(
+            result.map(async (item) => {
+              const resizeItem = await ImageResizer.createResizedImage(
+                Platform.OS === 'ios' ? item.sourceURL : item.path,
+                600,
+                600,
+                'JPEG',
+                100,
+                0,
+                undefined,
+                false,
+                {mode: 'contain', onlyScaleDown: false},
+              );
+
+              return {
+                uri: resizeItem.uri,
+                type: item.mime,
+                name: resizeItem.name,
+              };
+            }),
+          );
+        };
+        const data = await convertImage();
+        setImages([...images, ...data]);
+        dispatch(setLoading(false));
+      }
+    } catch (error) {
+      console.log(error);
+
+      Alert.alert(t('community.socialcomment.selectimageerror'), '', [
+        {
+          text: t('editprofile.okay'),
+          onPress: () => {
+            const newImages = images.slice(0, 3);
+            setImages(newImages);
+          },
+        },
+      ]);
       dispatch(setLoading(false));
     }
   };
@@ -184,7 +196,7 @@ const SocialCommentModal = ({
         dispatch(
           setSnackbarDisplay({
             state: 'success',
-            message: t('editprofile.sentinformation'),
+            message: t('community.socialcomment.postsuccessed'),
           }),
         );
         handleReset();
@@ -344,6 +356,7 @@ const SocialCommentModal = ({
                     top: 5,
                     right: 5,
                     zIndex: 200,
+                    backgroundColor: COLORS.primary,
                   }}>
                   <Ionicons
                     onPress={() => {
@@ -398,6 +411,7 @@ const SocialCommentModal = ({
                             top: 5,
                             right: 5,
                             zIndex: 200,
+                            backgroundColor: COLORS.primary,
                           }}>
                           <Ionicons size={20} name="close" color="#fff" />
                         </TouchableOpacity>

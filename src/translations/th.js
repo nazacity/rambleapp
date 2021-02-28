@@ -178,6 +178,8 @@ const th = {
       pleaseselectagain: 'กรุณาเลือกอีกครั้ง',
       activity: 'สังคมกิจกรรมของคุณ',
       post: 'โพสต์',
+      selectimageerror: 'กรุณาเลือกรูปภาพอีกครั้ง',
+      postsuccessed: 'โพสต์เรียบร้อยแล้ว',
     },
   },
   activityfilter: {

@@ -178,6 +178,8 @@ const en = {
       pleaseselectagain: 'Please select again',
       textmorethan: 'Text must not be more than 1500 characters',
       activity: 'Your activity community',
+      selectimageerror: 'Please select images again',
+      postsuccessed: 'Posted successfully',
     },
   },
   activityfilter: {
