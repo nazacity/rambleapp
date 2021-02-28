@@ -56,7 +56,6 @@ const SocialCommentModal = ({
       width: 600,
       height: 600,
       cropping: true,
-      compressImageQuality: 0.8,
     });
 
     setImages([
@@ -94,8 +93,8 @@ const SocialCommentModal = ({
             result.map(async (item) => {
               const resizeItem = await ImageResizer.createResizedImage(
                 Platform.OS === 'ios' ? item.sourceURL : item.path,
-                600,
-                600,
+                900,
+                900,
                 'JPEG',
                 100,
                 0,
