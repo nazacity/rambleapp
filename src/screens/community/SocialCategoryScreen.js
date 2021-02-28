@@ -3,9 +3,9 @@ import {View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Spinner from 'react-native-loading-spinner-overlay';
-import SocialCommentModal from '../../components/social/social/SocialCommentModal';
-import SocialCommentTab from '../../components/social/social/SocialCommentTab';
-import SocialPostFlatlist from '../../components/social/social/SocialPostFlatlist';
+import SocialCommentModal from '../../components/social/social/category/SocialCommentModal';
+import SocialCommentTab from '../../components/social/social/category/SocialCommentTab';
+import SocialPostFlatlist from '../../components/social/social/category/SocialPostFlatlist';
 import {getSocial, postSocial} from '../../redux/actions/request';
 import {COLORS} from '../../constants';
 
@@ -29,9 +29,44 @@ const SocialCategoryScreen = ({navigation, route}) => {
       const res = await getSocial(`/api/users/getsocialcategory/${socialId}`);
       if (res.status === 200) {
         setPostsId(res.data.social_posts);
+        setPage(0);
+        setNoMore(false);
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const reset = () => {
+    setNoMore(false);
+    setData([]);
+    setPage(1);
+  };
+
+  const fetchPosts3 = async () => {
+    try {
+      const res = await getSocial(`/api/users/getsocialcategory/${socialId}`);
+
+      if (res.status === 200) {
+        setPostsId(res.data.social_posts);
+
+        const ids = res.data.social_posts.slice(0, 10);
+        setLoading(true);
+        try {
+          const res1 = await postSocial('/api/users/getposts', ids);
+          if (res1.status === 200) {
+            setData(res1.data);
+          }
+
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -39,25 +74,41 @@ const SocialCategoryScreen = ({navigation, route}) => {
     setLoading(true);
     if ((page + 1) * 10 > postsId.length) {
       setNoMore(true);
-    } else {
-      setPage(page + 1);
-    }
-    if (!noMore && !loading) {
-      const ids = postsId.slice(page * 10, (page + 1) * 10);
+      if (!noMore && !loading) {
+        const ids = postsId.slice(page * 10, postsId.length);
+        try {
+          const res = await postSocial('/api/users/getposts', ids);
 
-      try {
-        const res = await postSocial('/api/users/getposts', ids);
-
-        if (res.status === 200) {
-          setData([...data, ...res.data]);
+          if (res.status === 200) {
+            setData([...data, ...res.data]);
+          }
+          setPage(page + 1);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
       }
       setLoading(false);
     } else {
-      setLoading(false);
+      if (!noMore && !loading) {
+        const ids = postsId.slice(page * 10, (page + 1) * 10);
+
+        try {
+          const res = await postSocial('/api/users/getposts', ids);
+
+          if (res.status === 200) {
+            setData([...data, ...res.data]);
+          }
+          setPage(page + 1);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
     }
   };
 
@@ -84,7 +135,9 @@ const SocialCategoryScreen = ({navigation, route}) => {
         postsId={postsId}
         loading={loading}
         data={data}
-        fetchPosts={fetchPosts}
+        fetchPosts2={fetchPosts2}
+        fetchPosts3={fetchPosts3}
+        reset={reset}
       />
       <View style={{margin: 60}} />
       <SocialCommentModal
@@ -93,7 +146,6 @@ const SocialCategoryScreen = ({navigation, route}) => {
         setImagePicker={setImagePicker}
         imagePicker={imagePicker}
         socialId={socialId}
-        type="social_category"
         fetchPosts={fetchPosts}
         data={data}
         setData={setData}

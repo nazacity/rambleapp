@@ -163,7 +163,7 @@ const en = {
     social: 'Sharing Community',
     trend: 'Trend',
     comment: {
-      commentblog: 'comment to this content',
+      commentblog: 'Comment to this content',
       seeall: 'See all',
       seeless: 'See less',
       commented: 'Commented Successfully',
@@ -180,6 +180,9 @@ const en = {
       activity: 'Your activity community',
       selectimageerror: 'Please select images again',
       postsuccessed: 'Posted successfully',
+      post1: 'Post',
+      commentpost: 'Comment to this post',
+      commentsuccessed: 'Commented Successfully',
     },
   },
   activityfilter: {

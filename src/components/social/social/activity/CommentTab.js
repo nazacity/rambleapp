@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, KeyboardAvoidingView, Platform} from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../../../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
 import {Input} from 'react-native-elements';
-import LocalizationContext from '../../../screens/LocalizationContext';
+import LocalizationContext from '../../../../screens/LocalizationContext';
 
 const CommentTab = ({setOpen, onSubmit, bottom}) => {
   const [value, setValue] = useState('');
@@ -33,7 +33,7 @@ const CommentTab = ({setOpen, onSubmit, bottom}) => {
         ]}>
         <View style={{flex: 1}}>
           <Input
-            placeholder={t('community.comment.commentblog')}
+            placeholder={t('community.socialcomment.commentpost')}
             inputContainerStyle={{
               borderBottomWidth: 0,
               top: Platform.OS === 'ios' ? 5 : 0,
@@ -57,7 +57,7 @@ const CommentTab = ({setOpen, onSubmit, bottom}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           style={{width: 30, height: 30, marginLeft: 10}}
-          onPress={onSubmit}>
+          onPress={() => onSubmit(value, setValue)}>
           <MaterialIcons
             name="add-circle-outline"
             size={24}

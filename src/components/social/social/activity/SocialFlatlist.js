@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import {COLORS, SHADOW, SIZES} from '../../../constants';
+import {COLORS, SHADOW, SIZES} from '../../../../constants';
 import {useSelector} from 'react-redux';
 
 const SocialFlatlist = () => {

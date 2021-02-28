@@ -6,10 +6,10 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Input} from 'react-native-elements';
-import LocalizationContext from '../../../screens/LocalizationContext';
+import LocalizationContext from '../../../../screens/LocalizationContext';
 
 const SocialCommentTab = ({setOpen, bottom, setImagePicker}) => {
   const [value, setValue] = useState('');

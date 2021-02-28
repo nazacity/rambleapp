@@ -1,78 +1,89 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList, Platform, Text, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 
-import {COLORS, FONTS, SIZES} from '../../../constants';
-import LocalizationContext from '../../../screens/LocalizationContext';
+import {COLORS, FONTS, SIZES} from '../../../../constants';
+import LocalizationContext from '../../../../screens/LocalizationContext';
 import CommentTab from './CommentTab';
-import ModalCloseButton from '../../layout/ModalCloseButton';
+import ModalCloseButton from '../../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
 import {Avatar} from 'react-native-elements';
-import {checkTimeFromPast} from '../../../services/util';
-import LoveButton from './LoveButton';
+import {checkTimeFromPast} from '../../../../services/util';
 import ImageModal from 'react-native-image-modal';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
-const comments = [
-  {
-    _id: '1',
-    user: {
-      user_picture_url:
-        'https://s.isanook.com/mv/0/rp/r/w850/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvMjEvMTA1OTQxL2NvbGxhZ2UuanBn.jpg',
-      display_name: 'ramble',
-    },
-    text:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ',
-    createdAt: new Date('2021-01-25'),
-  },
-  {
-    _id: '2',
-    user: {
-      user_picture_url:
-        'https://s.isanook.com/mv/0/rp/r/w850/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvMjEvMTA1OTQxL2NvbGxhZ2UuanBn.jpg',
-      display_name: 'ramble',
-    },
-    text:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-    createdAt: new Date('2021-02-19'),
-  },
-  {
-    _id: '3',
-    user: {
-      user_picture_url:
-        'https://s.isanook.com/mv/0/rp/r/w850/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvMjEvMTA1OTQxL2NvbGxhZ2UuanBn.jpg',
-      display_name: 'ramble',
-    },
-    text:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has',
-    createdAt: new Date('2021-01-31'),
-  },
-  {
-    _id: '4',
-    user: {
-      user_picture_url:
-        'https://s.isanook.com/mv/0/rp/r/w850/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvMjEvMTA1OTQxL2NvbGxhZ2UuanBn.jpg',
-      display_name: 'ramble',
-    },
-    text:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ',
-    createdAt: new Date('2021-02-20'),
-  },
-  {
-    _id: '5',
-    user: {
-      user_picture_url:
-        'https://s.isanook.com/mv/0/rp/r/w850/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvMjEvMTA1OTQxL2NvbGxhZ2UuanBn.jpg',
-      display_name: 'ramble',
-    },
-    text:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has',
-    createdAt: new Date('2021-02-19'),
-  },
-];
+import {getSocial, postSocial} from '../../../../redux/actions/request';
+import {useDispatch} from 'react-redux';
+import {setLoading} from '../../../../redux/actions/AppStateAction';
+import {Snackbar} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 
 const CommentModal = ({open, handleClose, item}) => {
   const {t} = React.useContext(LocalizationContext);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const [data, setData] = useState({
+    _id: '',
+    createdAt: '',
+    likeCount: 0,
+    likers: [],
+    pictures: [],
+    activity: '',
+    activity_post_comments: [],
+    state: '',
+    text: '',
+    updatedAt: '',
+    user: {
+      _id: '',
+      display_name: '',
+      user_picture_url: '',
+    },
+  });
+  const [snackbarDisplay, setSnackbarDisplay] = useState(false);
+
+  const fetchPost = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await getSocial(
+        `/api/users/getsocialactivitypost/${item._id}`,
+      );
+      if (res.status === 200) {
+        setData(res.data);
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchPost();
+    });
+    return unsubscribe;
+  }, []);
+
+  const onSubmit = async (value, setValue) => {
+    try {
+      dispatch(setLoading(true));
+      const res = await postSocial(
+        `/api/users/commentsocialactivitypost/${item._id}`,
+        {
+          text: value,
+        },
+      );
+      if (res.status === 200) {
+        setData(res.data);
+        setSnackbarDisplay(true);
+      }
+      setValue('');
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
+
   return (
     <Modal
       isVisible={open}
@@ -103,11 +114,11 @@ const CommentModal = ({open, handleClose, item}) => {
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Avatar
                     rounded
-                    source={{uri: item.user_picture_url}}
+                    source={{uri: item.user.user_picture_url}}
                     size={40}
                   />
                   <View style={{marginLeft: 10}}>
-                    <Text style={[FONTS.h2]}>{item.display_name}</Text>
+                    <Text style={[FONTS.h2]}>{item.user.display_name}</Text>
                   </View>
                 </View>
 
@@ -133,7 +144,7 @@ const CommentModal = ({open, handleClose, item}) => {
                     }}
                     borderRadius={10}
                     source={{
-                      uri: item.pictures[0].url,
+                      uri: item.pictures[0].picture_url,
                     }}
                   />
                 )}
@@ -148,7 +159,7 @@ const CommentModal = ({open, handleClose, item}) => {
                             style={{
                               height: 150,
                               width: 150,
-                              borderRadius: 5,
+                              borderRadius: 10,
                               marginRight:
                                 index === item.pictures.length - 1 ? 0 : 10,
                             }}>
@@ -163,7 +174,7 @@ const CommentModal = ({open, handleClose, item}) => {
                               }}
                               borderRadius={10}
                               source={{
-                                uri: pic.url,
+                                uri: pic.picture_url,
                               }}
                             />
                           </View>
@@ -182,8 +193,13 @@ const CommentModal = ({open, handleClose, item}) => {
                   marginTop: 10,
                 }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <LoveButton />
-                  <Text style={[FONTS.body3, {marginLeft: 5}]}>11</Text>
+                  {/* <LoveButton
+                    id={item._id}
+                    likers={item.likers}
+                    handleLike={handleLike}
+                    handleUnlike={handleUnlike}
+                  />
+                  <Text style={[FONTS.body3, {marginLeft: 5}]}>11</Text> */}
                 </View>
                 <View
                   style={{
@@ -199,7 +215,9 @@ const CommentModal = ({open, handleClose, item}) => {
                     />
                   </View>
                   <View activeOpacity={0.8} style={{flexDirection: 'row'}}>
-                    <Text style={[FONTS.body3, {marginRight: 5}]}>8</Text>
+                    <Text style={[FONTS.body3, {marginRight: 5}]}>
+                      {data.activity_post_comments.length}
+                    </Text>
                     <Text style={[FONTS.body3]}>
                       {t('community.socialcomment.comments')}
                     </Text>
@@ -209,7 +227,7 @@ const CommentModal = ({open, handleClose, item}) => {
             </View>
           }
           showsVerticalScrollIndicator={false}
-          data={comments}
+          data={data.activity_post_comments}
           style={{marginTop: 40}}
           contentContainerStyle={{padding: 10}}
           keyExtractor={(item) => item._id}
@@ -219,7 +237,21 @@ const CommentModal = ({open, handleClose, item}) => {
           ListFooterComponent={<View style={{margin: 60}} />}
         />
       </View>
-      <CommentTab bottom={Platform.OS === 'ios' ? 40 : 20} />
+      <CommentTab
+        bottom={Platform.OS === 'ios' ? 40 : 20}
+        onSubmit={onSubmit}
+      />
+      <Snackbar
+        visible={snackbarDisplay}
+        onDismiss={() => {
+          setSnackbarDisplay(false);
+        }}
+        style={{
+          backgroundColor: '#5cb85c',
+        }}
+        duration={1500}>
+        {t('community.socialcomment.commentsuccessed')}
+      </Snackbar>
     </Modal>
   );
 };

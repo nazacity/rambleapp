@@ -14,18 +14,18 @@ import {Input, Avatar} from 'react-native-elements';
 import Modal from 'react-native-modal';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {COLORS, FONTS, SIZES} from '../../../constants';
-import LocalizationContext from '../../../screens/LocalizationContext';
-import ModalCloseButton from '../../layout/ModalCloseButton';
+import {COLORS, FONTS, SIZES} from '../../../../constants';
+import LocalizationContext from '../../../../screens/LocalizationContext';
+import ModalCloseButton from '../../../layout/ModalCloseButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Alert} from 'react-native';
-import Button from '../../Button';
-import {postSocial} from '../../../redux/actions/request';
+import Button from '../../../Button';
+import {postSocial} from '../../../../redux/actions/request';
 import {
   setLoading,
   setSnackbarDisplay,
-} from '../../../redux/actions/AppStateAction';
+} from '../../../../redux/actions/AppStateAction';
 import ImageResizer from 'react-native-image-resizer';
 
 const SocialCommentModal = ({
@@ -34,7 +34,6 @@ const SocialCommentModal = ({
   imagePicker,
   setImagePicker,
   socialId,
-  type,
   data,
   setData,
 }) => {
@@ -116,17 +115,18 @@ const SocialCommentModal = ({
         dispatch(setLoading(false));
       }
     } catch (error) {
-      console.log(error);
-
-      Alert.alert(t('community.socialcomment.selectimageerror'), '', [
-        {
-          text: t('editprofile.okay'),
-          onPress: () => {
-            const newImages = images.slice(0, 3);
-            setImages(newImages);
+      console.log(error.message);
+      if (error.message !== 'User cancelled image selection') {
+        Alert.alert(t('community.socialcomment.selectimageerror'), '', [
+          {
+            text: t('editprofile.okay'),
+            onPress: () => {
+              const newImages = images.slice(0, 3);
+              setImages(newImages);
+            },
           },
-        },
-      ]);
+        ]);
+      }
       dispatch(setLoading(false));
     }
   };
@@ -169,40 +169,36 @@ const SocialCommentModal = ({
     }
 
     formData.append('text', value);
-    if (type === 'social_category') {
-      formData.append('social_category', socialId);
-      try {
-        dispatch(setLoading(true));
-        const res = await postSocial(
-          '/api/users/postsocialcategories',
-          formData,
-        );
+    formData.append('social_category', socialId);
 
-        if (res.status === 200) {
-          setData([
-            {
-              ...res.data,
-              user: {
-                _id: user._id,
-                display_name: user.display_name,
-                user_picture_url: user.user_picture_url,
-              },
+    try {
+      dispatch(setLoading(true));
+      const res = await postSocial('/api/users/postsocialcategories', formData);
+
+      if (res.status === 200) {
+        setData([
+          {
+            ...res.data,
+            user: {
+              _id: user._id,
+              display_name: user.display_name,
+              user_picture_url: user.user_picture_url,
             },
-            ...data,
-          ]);
-        }
-        dispatch(setLoading(false));
-        dispatch(
-          setSnackbarDisplay({
-            state: 'success',
-            message: t('community.socialcomment.postsuccessed'),
-          }),
-        );
-        handleReset();
-      } catch (error) {
-        console.log(error);
-        dispatch(setLoading(false));
+          },
+          ...data,
+        ]);
       }
+      dispatch(setLoading(false));
+      dispatch(
+        setSnackbarDisplay({
+          state: 'success',
+          message: t('community.socialcomment.postsuccessed'),
+        }),
+      );
+      handleReset();
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
     }
   };
 
@@ -281,7 +277,7 @@ const SocialCommentModal = ({
                       FONTS.body4,
                       {color: COLORS.white, textAlign: 'center'},
                     ]}>
-                    {t('community.socialcomment.post')}
+                    {t('community.socialcomment.post1')}
                   </Text>
                 </TouchableOpacity>
               </View>

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {COLORS, FONTS, SHADOW} from '../../../constants';
+import {COLORS, FONTS, SHADOW} from '../../../../constants';
 import {Avatar} from 'react-native-elements';
 import {useSelector} from 'react-redux';
-import {checkTimeFromPast, shortText} from '../../../services/util';
+import {checkTimeFromPast, shortText} from '../../../../services/util';
 import {Fragment} from 'react';
-import LocalizationContext from '../../../screens/LocalizationContext';
-import profile from '../../../../assets/profile/profile.png';
+import LocalizationContext from '../../../../screens/LocalizationContext';
+import profile from '../../../../../assets/profile/profile.png';
 
 const CommentCard = ({item, index}) => {
   const {t} = React.useContext(LocalizationContext);

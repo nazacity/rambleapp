@@ -9,21 +9,46 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../../../constants';
 import {Avatar} from 'react-native-elements';
-import {checkTimeFromPast} from '../../../services/util';
+import {checkTimeFromPast} from '../../../../services/util';
 import LoveButton from './LoveButton';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CommentModal from './CommentModal';
-import LocalizationContext from '../../../screens/LocalizationContext';
+import LocalizationContext from '../../../../screens/LocalizationContext';
 import ImageModal from 'react-native-image-modal';
-import profile from '../../../../assets/profile/profile.png';
+import profile from '../../../../../assets/profile/profile.png';
+import {getSocial} from '../../../../redux/actions/request';
 
 const SocialPostCard = ({item, index}) => {
   const {t} = React.useContext(LocalizationContext);
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
+  };
+  const [likeCount, setLikeCount] = useState(item.likeCount);
+
+  const handleLike = async () => {
+    try {
+      const res = await getSocial(
+        `/api/users/likesocialactivitypost/${item._id}`,
+      );
+      console.log(res);
+      setLikeCount(likeCount + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUnlike = async () => {
+    try {
+      const res = await getSocial(
+        `/api/users/unlikesocialactivitypost/${item._id}`,
+      );
+      setLikeCount(likeCount - 1);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -92,7 +117,7 @@ const SocialPostCard = ({item, index}) => {
                     style={{
                       height: 150,
                       width: 150,
-                      borderRadius: 5,
+                      borderRadius: 10,
                       marginRight: index === item.pictures.length - 1 ? 0 : 10,
                     }}>
                     <ImageModal
@@ -132,8 +157,12 @@ const SocialPostCard = ({item, index}) => {
           alignItems: 'center',
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <LoveButton />
-          <Text style={[FONTS.body3, {marginLeft: 5}]}>11</Text>
+          <LoveButton
+            likers={item.likers}
+            handleLike={handleLike}
+            handleUnlike={handleUnlike}
+          />
+          <Text style={[FONTS.body3, {marginLeft: 5}]}>{item.likeCount}</Text>
         </View>
         <View
           style={{
@@ -159,14 +188,18 @@ const SocialPostCard = ({item, index}) => {
             onPress={() => {
               setOpen(true);
             }}>
-            <Text style={[FONTS.body3, {marginRight: 5}]}>8</Text>
+            <Text style={[FONTS.body3, {marginRight: 5}]}>
+              {item.activity_post_comments.length}
+            </Text>
             <Text style={[FONTS.body3]}>
               {t('community.socialcomment.comments')}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
-      <CommentModal open={open} handleClose={handleClose} item={item} />
+      {open && (
+        <CommentModal open={open} handleClose={handleClose} item={item} />
+      )}
     </View>
   );
 };

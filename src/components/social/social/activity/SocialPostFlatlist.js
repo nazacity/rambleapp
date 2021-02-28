@@ -1,23 +1,46 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, ImageBackground, FlatList, Image} from 'react-native';
-import {COLORS, SIZES} from '../../../constants';
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
-import BackButton from '../../layout/BackButton';
+import BackButton from '../../../layout/BackButton';
 import LinearGradient from 'react-native-linear-gradient';
 import SocialPostCard from './SocialPostCard';
-import {postSocial} from '../../../redux/actions/request';
 import {ActivityIndicator} from 'react-native';
+import {SIZES, COLORS} from '../../../../constants';
+import {useNavigation} from '@react-navigation/native';
 
-const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
+const SocialFlatlist = ({
+  picture_url,
+  title,
+  data,
+  loading,
+  fetchPosts2,
+  fetchPosts3,
+  reset,
+}) => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const loadProducts = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      reset();
+      await fetchPosts3();
+    } catch (err) {
+      console.log(err.message);
+    }
+    setIsRefreshing(false);
+  }, []);
+
   return (
     <View>
       <BackButton />
       <FlatList
-        nestedScrollEnabled={false}
+        onRefresh={loadProducts}
+        refreshing={isRefreshing}
         showsVerticalScrollIndicator={false}
         data={data}
         ListHeaderComponent={() => (
@@ -80,7 +103,7 @@ const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
                 }}
               />
               <Image
-                source={require('../../../../assets/boderradius/bottomright.png')}
+                source={require('../../../../../assets/boderradius/bottomright.png')}
                 style={{width: 100, height: 100}}
                 style={{
                   height: 100,
@@ -109,7 +132,7 @@ const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
             )}
           </View>
         }
-        onEndReached={fetchPosts}
+        onEndReached={fetchPosts2}
         onEndReachedThreshold={10}
       />
     </View>

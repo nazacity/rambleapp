@@ -6,8 +6,6 @@ import {View, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import {COLORS, FONTS, SIZES} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
-import TitleHeader from '../layout/TitleHeader';
-import SocialFlatlist from './social/SocialFlatlist';
 import LinearGradient from 'react-native-linear-gradient';
 import SocialCategoryContainer from './SocialCategoryContainer';
 import SocialActivityContainer from './SocialActivityContainer';

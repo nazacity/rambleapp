@@ -177,9 +177,11 @@ const th = {
       imagenumbererror: 'เลือกได้สูงสุด 3 รูปภาพ',
       pleaseselectagain: 'กรุณาเลือกอีกครั้ง',
       activity: 'สังคมกิจกรรมของคุณ',
-      post: 'โพสต์',
+      post1: 'โพสต์',
       selectimageerror: 'กรุณาเลือกรูปภาพอีกครั้ง',
       postsuccessed: 'โพสต์เรียบร้อยแล้ว',
+      commentpost: 'คุณคิดเห็นอย่างไรกับโพสต์นี้',
+      commentsuccessed: 'แสดงความคิดเห็นเรียบร้อย',
     },
   },
   activityfilter: {
