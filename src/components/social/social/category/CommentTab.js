@@ -57,11 +57,14 @@ const CommentTab = ({setOpen, onSubmit, bottom}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           style={{width: 30, height: 30, marginLeft: 10}}
+          disabled={value.length === 0}
           onPress={() => onSubmit(value, setValue)}>
           <MaterialIcons
             name="add-circle-outline"
             size={24}
-            color={COLORS.inputPlaceholderColor}
+            color={
+              value.length > 0 ? COLORS.primary : COLORS.inputPlaceholderColor
+            }
           />
         </TouchableOpacity>
         {setOpen && (
