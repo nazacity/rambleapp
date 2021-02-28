@@ -7,6 +7,7 @@ import SocialCommentModal from '../../components/social/social/SocialCommentModa
 import SocialCommentTab from '../../components/social/social/SocialCommentTab';
 import SocialPostFlatlist from '../../components/social/social/SocialPostFlatlist';
 import {getSocial, postSocial} from '../../redux/actions/request';
+import {COLORS} from '../../constants';
 
 const SocialCategoryScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
@@ -18,6 +19,10 @@ const SocialCategoryScreen = ({navigation, route}) => {
     setOpen(false);
   };
   const [postsId, setPostsId] = useState([]);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(0);
+  const [noMore, setNoMore] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchPosts = async () => {
     try {
@@ -30,11 +35,6 @@ const SocialCategoryScreen = ({navigation, route}) => {
     }
   };
 
-  const [data, setData] = useState([]);
-  const [page, setPage] = useState(0);
-  const [noMore, setNoMore] = useState(false);
-  const [loading, setLoading] = useState(true);
-
   const fetchPosts2 = async () => {
     setLoading(true);
     if ((page + 1) * 10 > postsId.length) {
@@ -42,7 +42,7 @@ const SocialCategoryScreen = ({navigation, route}) => {
     } else {
       setPage(page + 1);
     }
-    if (!noMore) {
+    if (!noMore && !loading) {
       const ids = postsId.slice(page * 10, (page + 1) * 10);
 
       try {
@@ -77,7 +77,7 @@ const SocialCategoryScreen = ({navigation, route}) => {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <SocialPostFlatlist
         picture_url={picture_url}
         title={title}

@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Text, ImageBackground, Animated} from 'react-native';
+import React from 'react';
+import {View, Text, ImageBackground, FlatList, Image} from 'react-native';
 import {COLORS, SIZES} from '../../../constants';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
@@ -13,35 +13,32 @@ import {postSocial} from '../../../redux/actions/request';
 import {ActivityIndicator} from 'react-native';
 
 const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
-  const scrollY = useRef(new Animated.Value(0)).current;
-
-  const height = scrollY.interpolate({
-    inputRange: [0, 200],
-    outputRange: [300, 100],
-    extrapolate: 'clamp',
-  });
-
   return (
     <View>
       <BackButton />
-      <Animated.FlatList
+      <FlatList
         nestedScrollEnabled={false}
         showsVerticalScrollIndicator={false}
         data={data}
         ListHeaderComponent={() => (
-          <Animated.View
+          <View
             style={{
               width: SIZES.width,
-              height: height,
+              height: 300,
               overflow: 'hidden',
-              borderBottomRightRadius: 75,
               marginBottom: 40,
+              position: 'relative',
             }}>
             <ImageBackground
               source={{uri: picture_url}}
-              style={{resizeMode: 'cover', width: SIZES.width, height: 300}}>
+              style={{
+                resizeMode: 'cover',
+                width: SIZES.width,
+                height: 300,
+                position: 'relative',
+              }}>
               <LinearGradient
-                colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,1)']}
+                colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
                 start={{x: 0, y: 1}}
                 end={{x: 1, y: 1}}
                 useAngle
@@ -57,7 +54,7 @@ const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
               <View
                 style={{
                   width: SIZES.width,
-                  height: 300,
+                  height: 200,
                   justifyContent: 'center',
                   alignItems: 'center',
                   position: 'absolute',
@@ -70,9 +67,32 @@ const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
                   {title}
                 </Text>
               </View>
+
+              <View
+                style={{
+                  height: 100,
+                  borderTopLeftRadius: 75,
+                  backgroundColor: COLORS.backgroundColor,
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                }}
+              />
+              <Image
+                source={require('../../../../assets/boderradius/bottomright.png')}
+                style={{width: 100, height: 100}}
+                style={{
+                  height: 100,
+                  position: 'absolute',
+                  bottom: 100,
+                  right: 0,
+                }}
+              />
             </ImageBackground>
-          </Animated.View>
+          </View>
         )}
+        ListHeaderComponentStyle={{marginBottom: -100}}
         keyExtractor={(item, index) => item._id}
         // keyExtractor={(item, index) => `${index}`}
         // ItemSeparatorComponent={() => <View style={{margin: 10}} />}
@@ -89,12 +109,6 @@ const SocialFlatlist = ({picture_url, title, data, loading, fetchPosts}) => {
             )}
           </View>
         }
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {
-            useNativeDriver: false,
-          },
-        )}
         onEndReached={fetchPosts}
         onEndReachedThreshold={10}
       />

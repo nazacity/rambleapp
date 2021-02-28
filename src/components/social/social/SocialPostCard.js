@@ -171,4 +171,4 @@ const SocialPostCard = ({item, index}) => {
   );
 };
 
-export default SocialPostCard;
+export default React.memo(SocialPostCard);
