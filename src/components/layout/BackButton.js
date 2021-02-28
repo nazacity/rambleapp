@@ -11,7 +11,7 @@ const BackButton = ({backTo, top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : StatusBar.currentHeight,
+        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
         left: 10,
         zIndex: 100,
       }}>

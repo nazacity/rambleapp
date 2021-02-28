@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
+import {View, Text, TouchableOpacity, StatusBar, Platform} from 'react-native';
 import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -11,7 +11,7 @@ const FilterButton = ({onPress, top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : StatusBar.currentHeight,
+        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
         right: 10,
         zIndex: 100,
       }}>
