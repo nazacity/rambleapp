@@ -55,10 +55,7 @@ const CommentModal = ({open, handleClose, item}) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      fetchPost();
-    });
-    return unsubscribe;
+    fetchPost();
   }, []);
 
   const onSubmit = async (value, setValue) => {

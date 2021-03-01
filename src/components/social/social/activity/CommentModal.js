@@ -20,7 +20,6 @@ import {useNavigation} from '@react-navigation/native';
 const CommentModal = ({open, handleClose, item}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const [data, setData] = useState({
     _id: '',
     createdAt: '',
@@ -57,10 +56,7 @@ const CommentModal = ({open, handleClose, item}) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      fetchPost();
-    });
-    return unsubscribe;
+    fetchPost();
   }, []);
 
   const onSubmit = async (value, setValue) => {
