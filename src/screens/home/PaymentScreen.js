@@ -86,7 +86,6 @@ const PaymentScreen = ({navigation, route}) => {
       showsVerticalScrollIndicator={false}
       style={{
         padding: 20,
-        marginTop: 20,
         backgroundColor: COLORS.backgroundColor,
       }}>
       <Text style={[FONTS.h2, {textAlign: 'center', color: COLORS.primary}]}>

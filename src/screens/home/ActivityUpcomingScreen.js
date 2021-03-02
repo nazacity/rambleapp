@@ -18,6 +18,7 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import ContestNo from '../../components/activity/ContestNo';
 import Announcement from '../../components/activity/Announcement';
 import ActualDate from '../../components/activity/ActualDate';
+import Transaction from '../../components/activity/Transaction';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -56,6 +57,12 @@ const ActivityDetailScreen = ({navigation, route}) => {
     </View>
   );
 
+  const FourthRoute = () => (
+    <View style={{padding: 20}}>
+      <Transaction userActivity={userActivity} />
+    </View>
+  );
+
   const checkUserActivities = () => {
     const checkActivity = user.user_activities.find(
       (item) => item.activity.id._id === activityId,
@@ -82,13 +89,15 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [routes] = useState([
     {key: 'first', title: 'Info'},
     {key: 'second', title: 'Timeline'},
-    {key: 'third', title: 'Announcement'},
+    {key: 'third', title: 'Announce'},
+    {key: 'fourth', title: 'Receive'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
+    fourth: FourthRoute,
   });
 
   if (loading) {
