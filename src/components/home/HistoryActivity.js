@@ -70,6 +70,7 @@ const HistoryActivity = () => {
               width: 150,
               height: 150,
               borderRadius: 5,
+              backgroundColor: COLORS.backgroundColor,
             },
           ]}>
           <View

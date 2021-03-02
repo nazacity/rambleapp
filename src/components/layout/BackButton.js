@@ -1,14 +1,20 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Platform} from 'react-native';
+import {View, Text, TouchableOpacity, Platform, StatusBar} from 'react-native';
 import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/stack';
 
-const BackButton = ({backTo}) => {
+const BackButton = ({backTo, top}) => {
   const navigation = useNavigation();
   return (
-    <View style={{position: 'absolute', top: 40, left: 10, zIndex: 100}}>
+    <View
+      style={{
+        position: 'absolute',
+        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
+        left: 10,
+        zIndex: 100,
+      }}>
       <TouchableOpacity
         activeOpacity={0.8}
         style={{

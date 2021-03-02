@@ -1,21 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {View, Text, Animated} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {get} from '../../redux/actions/request';
 import ActivityCard from '../../components/activity/ActivityCard';
-import MenuButton from '../../components/layout/MenuButton';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import {FONTS, COLORS, SIZES} from '../../constants';
-import {FlatList} from 'react-native-gesture-handler';
 import FilterButton from '../../components/layout/FilterButton';
-import LinearGradient from 'react-native-linear-gradient';
 import {listUserPostsByActivity} from '../../redux/actions/CommunityAction';
 import LocalizationContext from '../LocalizationContext';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import BackButton from '../../components/layout/BackButton';
 dayjs.extend(relativeTime);
 
-const CardSize = SIZES.width - 80;
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
 
 const SelectActivityScreen = ({navigation}) => {
@@ -25,6 +21,7 @@ const SelectActivityScreen = ({navigation}) => {
   dayjs.locale(lang);
   const dispatch = useDispatch();
   const [activities, setActivities] = useState([]);
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const checkActivityState = () => {
     let data = [];
@@ -42,7 +39,7 @@ const SelectActivityScreen = ({navigation}) => {
   };
 
   const navigateUser = () => {
-    navigation.navigate('Community');
+    navigation.navigate('CommunityOld');
   };
 
   const fetchUserPosts = (id) => {
@@ -58,12 +55,22 @@ const SelectActivityScreen = ({navigation}) => {
   }, [user_activities]);
 
   const UserActivityCard = ({item, index}) => {
+    const scale = scrollY.interpolate({
+      inputRange: [
+        -1,
+        0,
+        (CardHeight / 0.8) * index,
+        (CardHeight / 0.8) * (index + 1),
+      ],
+      outputRange: [1, 1, 1, 0.5],
+    });
     return (
       <ActivityCard
         item={item}
         onPress={() => {
           fetchUserPosts(item.activity.id._id);
-        }}>
+        }}
+        scale={scale}>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
           <Text style={[FONTS.h4, {color: '#fff'}]}>
             {item.activity.id.title}
@@ -83,7 +90,7 @@ const SelectActivityScreen = ({navigation}) => {
         backgroundColor: COLORS.backgroundColor,
         alignItems: 'center',
       }}>
-      <MenuButton />
+      <BackButton />
       <FilterButton onPress={() => navigation.navigate('CommunityFilter')} />
       {activities.length === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -92,7 +99,7 @@ const SelectActivityScreen = ({navigation}) => {
           </Text>
         </View>
       ) : (
-        <FlatList
+        <Animated.FlatList
           showsVerticalScrollIndicator={false}
           data={activities}
           keyExtractor={(item) => `${item._id}`}
@@ -101,7 +108,16 @@ const SelectActivityScreen = ({navigation}) => {
           }}
           ItemSeparatorComponent={() => <View style={{margin: 10}} />}
           style={{padding: 20, paddingTop: 60}}
-          ListFooterComponent={() => <View style={{margin: 50}} />}
+          contentContainerStyle={{paddingHorizontal: 5}}
+          ListFooterComponent={() => (
+            <View
+              style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
+            />
+          )}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: true},
+          )}
         />
       )}
     </View>

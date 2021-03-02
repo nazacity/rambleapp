@@ -46,3 +46,15 @@ export const SignoutIcon = ({color, size}) => (
 export const FilterIcon = ({color, size}) => (
   <Icon name="filter" size={size} color={color} />
 );
+
+export const HeartIcon = ({color, size}) => (
+  <Icon name="heart" size={size} color={color} />
+);
+
+export const OutlinedHeartIcon = ({color, size}) => (
+  <Icon name="outlined-heart" size={size} color={color} />
+);
+
+export const PostIcon = ({color, size}) => (
+  <Icon name="post" size={size} color={color} />
+);

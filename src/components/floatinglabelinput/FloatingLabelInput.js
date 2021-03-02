@@ -70,7 +70,6 @@ const FloatingLabelInput = (props) => {
     <Animated.View style={BorderColor}>
       <Animated.Text style={labelStyle}>{props.floatingLabel}</Animated.Text>
       <Input
-        {...props}
         onFocus={() => {
           handleFocus();
           if (props.onFocus) {
@@ -86,6 +85,7 @@ const FloatingLabelInput = (props) => {
         containerStyle={{height: 50}}
         blurOnSubmit
         inputStyle={{fontFamily: 'SFProText-Regular'}}
+        {...props}
       />
     </Animated.View>
   );

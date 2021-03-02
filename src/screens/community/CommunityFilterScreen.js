@@ -21,7 +21,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import TitleHeader from '../../components/layout/TitleHeader';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import {setFilteredUserPosts} from '../../redux/actions/CommunityAction';
-import {get} from '../../redux/actions/request';
+import {get, post} from '../../redux/actions/request';
 
 const ActivityFilterScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -30,7 +30,7 @@ const ActivityFilterScreen = ({navigation}) => {
   const [option, setOption] = useState({
     form_team: false,
     share_accommodation: false,
-    share_transportaion: false,
+    share_transportation: false,
     share_trip: false,
     male: false,
     female: false,
@@ -53,32 +53,27 @@ const ActivityFilterScreen = ({navigation}) => {
 
   const onSubmit = async (data) => {
     if (!data.activityId) {
-      Alert.alert(
-        t('activityfilter.noregion'),
-        t('activityfilter.selectregion'),
-        [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
-        {cancelable: false},
-      );
+      Alert.alert(t('communityfilter.selectone'), '', [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
     } else {
       dispatch(setLoading(true));
       try {
-        const res = await get(
-          `/api/users/filtereduserposts?activity=${data.activityId}&form_team=${option.form_team}&share_accommodation=${option.share_accommodation}&share_transportation=${option.share_transportation}&share_trip=${option.share_trip}&male=${option.male}&female=${option.female}
-          `,
-        );
+        const res = await post(`/api/users/filtereduserposts`, {
+          activity: data.activityId,
+          form_team: option.form_team,
+          share_accommodation: option.share_accommodation,
+          share_transportation: option.share_transportation,
+          share_trip: option.share_trip,
+          male: option.male,
+          female: option.female,
+        });
 
         if (res.status === 200) {
-          dispatch(setFilteredUserPosts([...res.data]));
+          dispatch(setFilteredUserPosts(res.data));
         }
         dispatch(setLoading(false));
-        navigation.navigate('FilteredCommunity');
+        navigation.push('FilteredCommunity');
       } catch (error) {
         console.log(error);
         dispatch(setLoading(false));
@@ -107,7 +102,7 @@ const ActivityFilterScreen = ({navigation}) => {
               style={[
                 {
                   borderWidth: 1,
-                  borderRadius: 10,
+                  borderRadius: 3,
                   paddingHorizontal: 10,
                   backgroundColor: 'white',
                 },
@@ -121,15 +116,10 @@ const ActivityFilterScreen = ({navigation}) => {
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
-              zIndex={5000}
               dropDownStyle={{
                 backgroundColor: COLORS.backgroundColor,
-                width: SIZES.width - 42,
-                marginTop: 10,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
+                borderBottomLeftRadius: 3,
+                borderBottomRightRadius: 3,
                 borderColor: COLORS.pinkPastel,
                 zIndex: 400,
               }}

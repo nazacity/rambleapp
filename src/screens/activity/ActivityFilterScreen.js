@@ -57,16 +57,9 @@ const ActivityFilterScreen = ({navigation, route}) => {
   const onSubmit = async (data) => {
     if (!data.region) {
       Alert.alert(
-        t('activityfilter.noregion'),
         t('activityfilter.selectregion'),
-        [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ],
+        '',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
         {cancelable: false},
       );
     } else {

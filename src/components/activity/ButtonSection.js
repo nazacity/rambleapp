@@ -57,7 +57,7 @@ const ButtonSection = ({userActivity, activity}) => {
             }}
           />
         )}
-      {/* {userActivity.state === 'upcoming' && !userActivity.user_post && (
+      {userActivity.state === 'upcoming' && !userActivity.user_post && (
         <Button
           label={t('activity.findfriend')}
           color={COLORS.pinkPastel}
@@ -72,7 +72,7 @@ const ButtonSection = ({userActivity, activity}) => {
             });
           }}
         />
-      )} */}
+      )}
       {userActivity.state === 'actual_date' && (
         <Button
           width={200}

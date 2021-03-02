@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
 import {COLORS} from '../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {MenuIcon} from '../Icon';
+import {Platform} from 'react-native';
 
 const MenuButton = ({top}) => {
   const navigation = useNavigation();
@@ -11,7 +12,7 @@ const MenuButton = ({top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : 40,
+        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
         left: 10,
         zIndex: 100,
       }}>

@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import MenuButton from '../../components/layout/MenuButton';
 import {COLORS, FONTS} from '../../constants';
-import UserPostCard from '../../components/card/UserPostCard';
+import OwnerUserPostCard from '../../components/card/OwnerUserPostCard';
 import LocalizationContext from '../LocalizationContext';
 
 const UserPostScreen = () => {
@@ -30,9 +30,14 @@ const UserPostScreen = () => {
           data={user_posts}
           keyExtractor={(item) => `${item._id}`}
           renderItem={({item, index}) => {
-            return <UserPostCard item={item} index={index} editState={true} />;
+            return (
+              <OwnerUserPostCard item={item} index={index} editState={true} />
+            );
           }}
           ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          style={{padding: 20}}
+          contentContainerStyle={{paddingHorizontal: 5}}
+          ListFooterComponent={() => <View style={{marginBottom: 50}} />}
         />
       )}
     </View>

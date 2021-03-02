@@ -19,11 +19,8 @@ import {
 } from '../../redux/actions/AppStateAction';
 import {useSelector, useDispatch} from 'react-redux';
 import {uploadSecretKey} from '../../services/uploadpicture';
-// import fs from 'react-native-fs';
-// import {decode} from 'base64-arraybuffer';
-// import {v4 as uuidv4} from 'uuid';
 import 'react-native-get-random-values';
-import {everyPost, post} from '../../redux/actions/request';
+import {everyPost, post, postSocial} from '../../redux/actions/request';
 import {refresh} from '../../redux/actions/UserAction';
 import {Platform} from 'react-native';
 
@@ -75,6 +72,11 @@ const UploadPictureModal = ({setImage, upload, delFile}) => {
             handleClose();
           } else if (upload === 'uploadUserPictureProfile') {
             const res = await post('/api/users/edituser', {
+              type: 'editUserPictureProfile',
+              user_picture_url: imageUrl,
+            });
+
+            const resSocial = await postSocial('/api/users/edituser', {
               type: 'editUserPictureProfile',
               user_picture_url: imageUrl,
             });

@@ -33,7 +33,7 @@ const DisplayNameDisplay = ({user}) => {
           type: 'display_name',
           display_name: data.display_name,
         },
-        `${t('signup.displayname')} ${t('editprofile.sucessed')}`,
+        `${t('editprofile.displayname')} ${t('editprofile.sucessed')}`,
       ),
     );
     handleClose();

@@ -1,5 +1,12 @@
 import React, {Fragment, useState, useEffect, useRef} from 'react';
-import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Animated,
+  StatusBar,
+} from 'react-native';
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 

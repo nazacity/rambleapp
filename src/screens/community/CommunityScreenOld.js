@@ -39,12 +39,14 @@ const CommunityScreen = ({navigation}) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={user_posts}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={(item) => item._id}
           renderItem={({item, index}) => {
             return <CommunityCard item={item} index={index} />;
           }}
           ItemSeparatorComponent={() => <View style={{padding: 10}} />}
           style={{padding: 20, paddingTop: 60}}
+          contentContainerStyle={{paddingHorizontal: 5}}
+          ListFooterComponent={() => <View style={{marginBottom: 100}} />}
         />
       )}
     </View>

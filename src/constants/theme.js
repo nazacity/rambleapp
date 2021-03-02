@@ -22,12 +22,14 @@ export const COLORS = {
   endDate: '#b72065',
   pickedRangeDate: '#70d7c7',
   pickedDateText: '#fff',
-  backgroundColor: '#fff',
+  backgroundColor: '#fbfcfc',
   link: '#2196f3',
   black: '#000',
   buttonBlue: '#0CBCFD',
   greenLine: '#00C300',
   white: '#fff',
+  lightGrey: '#eceff1',
+  opcaityBlack: 'rgba(0,0,0,0.6)',
 };
 
 export const Radius = {
@@ -97,52 +99,52 @@ export const FONTS = {
   h1: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h1,
-    lineHeight: 20,
+    lineHeight: 24,
   },
   h2: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h2,
-    lineHeight: 18,
+    lineHeight: 22,
   },
   h3: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h3,
-    lineHeight: 16,
+    lineHeight: 20,
   },
   h4: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h4,
-    lineHeight: 14,
+    lineHeight: 18,
   },
   h5: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h5,
-    lineHeight: 12,
+    lineHeight: 16,
   },
   body1: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body1,
-    lineHeight: 20,
+    lineHeight: 24,
   },
   body2: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body2,
-    lineHeight: 18,
+    lineHeight: 22,
   },
   body3: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body3,
-    lineHeight: 16,
+    lineHeight: 20,
   },
   body4: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body4,
-    lineHeight: 14,
+    lineHeight: 18,
   },
   body5: {
     fontFamily: 'SFProText-Regular',
     fontSize: SIZES.body5,
-    lineHeight: 12,
+    lineHeight: 16,
   },
   button: {
     fontFamily: 'SFProText-Bold',

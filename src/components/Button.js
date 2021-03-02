@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import {FONTS, SHADOW} from '../constants';
+import {COLORS, FONTS, SHADOW} from '../constants';
 
 const Button = ({label, onPress, color, width, leftIcon}) => {
   return (
@@ -13,6 +13,7 @@ const Button = ({label, onPress, color, width, leftIcon}) => {
           borderRadius: 5,
           height: 50,
           width: width ? width : 300,
+          backgroundColor: COLORS.backgroundColor,
         },
       ]}>
       <TouchableOpacity

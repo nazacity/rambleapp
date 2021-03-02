@@ -13,6 +13,7 @@ import ActivityHistoryScreen from './home/ActivityHistoryScreen';
 import ActivityUpcomingScreen from './home/ActivityUpcomingScreen';
 import PaymentScreen from './home/PaymentScreen';
 import CreatePostScreen from './home/CreatePostScreen';
+import EditPostScreen from './home/EditPostScreen';
 import ProfileScreen from './home/ProfileScreen';
 import EditProfileScreen from './home/EditProfileScreen';
 import EmergencyContactScreen from './home/EmergencyContactScreen';
@@ -30,6 +31,12 @@ import ActivityFilterScreen from './activity/ActivityFilterScreen';
 
 import SelectActivityScreen from './community/SelectActivityScreen';
 import CommunityScreen from './community/CommunityScreen';
+import CommunityScreenOld from './community/CommunityScreenOld';
+import BlogContentScreen from './community/BlogContentScreen';
+import SocialCommunityScreen from './community/SocialCommunityScreen';
+import SocialActivityScreen from './community/SocialActivityScreen';
+import SocialCategoryScreen from './community/SocialCategoryScreen';
+import BlogsScreen from './community/BlogsScreen';
 import CommunityFilterScreen from './community/CommunityFilterScreen';
 import FilteredCommunityScreen from './community/FilteredCommunityScreen';
 
@@ -115,7 +122,7 @@ export const MainTabScreen = ({navigation, route}) => {
           },
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="community"
         component={CommunityStackScreen}
         options={{
@@ -124,12 +131,12 @@ export const MainTabScreen = ({navigation, route}) => {
             <Ionicons name="md-people-circle-sharp" color={color} size={24} />
           ),
         }}
-        listeners={{
-          tabPress: (e) => {
-            navigation.jumpTo('community', {screen: 'SelectActivity'});
-          },
-        }}
-      /> */}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     navigation.jumpTo('community', {screen: 'SelectActivity'});
+        //   },
+        // }}
+      />
     </Tab.Navigator>
   );
 };
@@ -200,6 +207,11 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen
         name="CreatePost"
         component={CreatePostScreen}
+        options={{headerShown: false}}
+      />
+      <HomeStack.Screen
+        name="EditPost"
+        component={EditPostScreen}
         options={{headerShown: false}}
       />
       <HomeStack.Screen
@@ -398,7 +410,6 @@ const HomeStackScreen = ({navigation}) => {
           },
         }}
       />
-      <HomeStack.Screen name="WebView" component={WebViewScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -480,84 +491,6 @@ const ActivityStackScreen = ({navigation}) => {
   );
 };
 
-// const CommunityStackScreen = ({navigation}) => {
-//   return (
-//     <CommunityStack.Navigator
-//       screenOptions={{
-//         headerStyle: {
-//           backgroundColor: COLORS.pinkPastel,
-//         },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: {
-//           fontWeight: 'bold',
-//           alignSelf: 'center',
-//         },
-//         animationEnabled: false,
-//         title: '',
-//       }}>
-//       <CommunityStack.Screen
-//         name="SelectActivity"
-//         component={SelectActivityScreen}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//       <CommunityStack.Screen
-//         name="Community"
-//         component={CommunityScreen}
-//         options={{
-//           headerShown: false,
-//           headerLeft: () => {
-//             return (
-//               <View style={{paddingLeft: 10}}>
-//                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-//                   <Ionicons
-//                     name="ios-menu"
-//                     size={25}
-//                     borderRadius={50}
-//                     backgroundColor={COLORS.pinkPastel}
-//                     color="#fff"
-//                   />
-//                 </TouchableOpacity>
-//               </View>
-//             );
-//           },
-//           headerRight: () => {
-//             return (
-//               <View style={{paddingRight: 10}}>
-//                 <TouchableOpacity
-//                   onPress={() => navigation.navigate('CommunityFilter')}>
-//                   <Ionicons
-//                     name="ios-options-sharp"
-//                     size={25}
-//                     borderRadius={50}
-//                     backgroundColor={COLORS.pinkPastel}
-//                     color="#fff"
-//                   />
-//                 </TouchableOpacity>
-//               </View>
-//             );
-//           },
-//         }}
-//       />
-//       <CommunityStack.Screen
-//         name="CommunityFilter"
-//         component={CommunityFilterScreen}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//       <CommunityStack.Screen
-//         name="FilteredCommunity"
-//         component={FilteredCommunityScreen}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//     </CommunityStack.Navigator>
-//   );
-// };
-
 const CommunityStackScreen = ({navigation}) => {
   return (
     <CommunityStack.Navigator
@@ -576,6 +509,107 @@ const CommunityStackScreen = ({navigation}) => {
       <CommunityStack.Screen
         name="Community"
         component={CommunityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="Blogs"
+        component={BlogsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="BlogContent"
+        component={BlogContentScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      {/* <CommunityStack.Screen
+        name="SocialCommunity"
+        component={SocialCommunityScreen}
+        options={{
+          headerShown: false,
+        }}
+      /> */}
+      <CommunityStack.Screen
+        name="SelectActivity"
+        component={SelectActivityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="CommunityOld"
+        component={CommunityScreenOld}
+        options={{
+          headerShown: false,
+          headerLeft: () => {
+            return (
+              <View style={{paddingLeft: 10}}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                  <Ionicons
+                    name="ios-menu"
+                    size={25}
+                    borderRadius={50}
+                    backgroundColor={COLORS.pinkPastel}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          },
+          headerRight: () => {
+            return (
+              <View style={{paddingRight: 10}}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('CommunityFilter')}>
+                  <Ionicons
+                    name="ios-options-sharp"
+                    size={25}
+                    borderRadius={50}
+                    backgroundColor={COLORS.pinkPastel}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+            );
+          },
+        }}
+      />
+      <CommunityStack.Screen
+        name="CommunityFilter"
+        component={CommunityFilterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="FilteredCommunity"
+        component={FilteredCommunityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="SocialActivity"
+        component={SocialActivityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="SocialCategory"
+        component={SocialCategoryScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <CommunityStack.Screen
+        name="WebView"
+        component={WebViewScreen}
         options={{
           headerShown: false,
         }}

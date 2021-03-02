@@ -49,14 +49,17 @@ export default function App() {
   return (
     <LocalizationContext.Provider value={localizationContext}>
       <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0,0,0,0.6)"
+        // barStyle={Platform.OS === 'android' ? 'light-content' : 'dark-content'}
+        // translucent
+        // backgroundColor="rgba(0,0,0,0.0)"
+        hidden
       />
       <NavigationContainer>
         {isSignedIn ? (
           <Drawer.Navigator
-            drawerContent={(props) => <DrawerContent {...props} />}
+            drawerContent={(props) => {
+              return <DrawerContent {...props} />;
+            }}
             drawerStyle={{backgroundColor: 'transparent'}}>
             <Drawer.Screen name="Home" component={MainTabScreen} />
           </Drawer.Navigator>

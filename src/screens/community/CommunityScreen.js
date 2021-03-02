@@ -6,43 +6,77 @@ import io from 'socket.io-client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {socialurl} from '../../redux/actions/request';
 import axios from 'axios';
+import MainContainer from '../../components/blog/MainContainer';
+import {ScrollView} from 'react-native';
+import {COLORS, SIZES} from '../../constants';
+import MenuButton from '../../components/layout/MenuButton';
+import SocialContainer from '../../components/social/SocialContainer';
+import MainAdvertise from '../../components/advertise/MainAdvertise';
+import MinorAdvertise from '../../components/advertise/MinorAdvertise';
+import SocialCommunityScreen from './SocialCommunityScreen';
 
 const CommunityScreen = ({navigation}) => {
   const [socket, setSocket] = useState(null);
   const dispatch = useDispatch();
-  const setupSocket = async () => {
-    const token = await AsyncStorage.getItem('accessToken');
-    if (token && !socket) {
-      const newSocket = io(socialurl, {
-        query: {
-          token: token,
-        },
-      });
+  // const setupSocket = async () => {
+  //   const token = await AsyncStorage.getItem('accessToken');
+  //   if (token && !socket) {
+  //     const newSocket = io(socialurl, {
+  //       query: {
+  //         token: token,
+  //       },
+  //     });
 
-      newSocket.on('disconnect', () => {
-        setSocket(null);
-        setTimeout(setupSocket, 3000);
-      });
+  //     newSocket.on('disconnect', () => {
+  //       setSocket(null);
+  //       setTimeout(setupSocket, 3000);
+  //     });
 
-      newSocket.on('connect', () => {
-        console.log('successed');
-      });
+  //     newSocket.on('connect', () => {
+  //       console.log('successed');
+  //     });
 
-      setSocket(newSocket);
-    }
-  };
+  //     setSocket(newSocket);
+  //   }
+  // };
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setupSocket();
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     setupSocket();
+  //   });
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
 
   return (
-    <View>
-      <Text>Community</Text>
+    <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
+      <MenuButton />
+      <ScrollView
+        style={{backgroundColor: COLORS.backgroundColor}}
+        showsVerticalScrollIndicator={false}>
+        <MainContainer />
+        <View
+          style={{
+            height: 10,
+            backgroundColor: COLORS.lightGrey,
+            width: SIZES.width,
+            marginTop: 10,
+          }}
+        />
+        <SocialContainer />
+
+        <View
+          style={{
+            height: 10,
+            backgroundColor: COLORS.lightGrey,
+            width: SIZES.width,
+            marginTop: 10,
+          }}
+        />
+        <MainAdvertise />
+
+        {/* <MinorAdvertise /> */}
+      </ScrollView>
     </View>
   );
 };

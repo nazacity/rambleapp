@@ -99,9 +99,7 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
               }}>
               <Text style={[FONTS.h5]}>{item.title}</Text>
               <Text style={[FONTS.body5]}>
-                {checkTimeFromPast(item.createdAt)
-                  ? dayjs(item.createdAt).locale(lang).format('DD MMM YY')
-                  : dayjs(item.createdAt).locale(lang).fromNow()}
+                {checkTimeFromPast(item.createdAt)}
               </Text>
             </View>
             <Text style={[FONTS.body5, {width: SIZES.width - 180}]}>

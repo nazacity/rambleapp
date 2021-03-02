@@ -33,7 +33,7 @@ const LastNameDisplay = ({user}) => {
           type: 'last_name',
           last_name: data.last_name,
         },
-        `${t('signup.last_name')} ${t('editprofile.sucessed')}`,
+        `${t('editprofile.last_name')} ${t('editprofile.sucessed')}`,
       ),
     );
     handleClose();
