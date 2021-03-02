@@ -54,7 +54,7 @@ const CommentCard = ({item, index}) => {
                 : profile
             }
             containerStyle={{backgroundColor: '#fff', marginRight: 5}}
-            size={60}
+            size={30}
           />
         </View>
         <View style={{flex: 1}}>

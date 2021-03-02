@@ -162,7 +162,7 @@ const SocialPostCard = ({item, index}) => {
             handleLike={handleLike}
             handleUnlike={handleUnlike}
           />
-          <Text style={[FONTS.body3, {marginLeft: 5}]}>{item.likeCount}</Text>
+          <Text style={[FONTS.body3, {marginLeft: 5}]}>{likeCount}</Text>
         </View>
         <View
           style={{
@@ -197,9 +197,7 @@ const SocialPostCard = ({item, index}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {open && (
-        <CommentModal open={open} handleClose={handleClose} item={item} />
-      )}
+      <CommentModal open={open} handleClose={handleClose} item={item} />
     </View>
   );
 };

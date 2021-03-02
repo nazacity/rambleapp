@@ -41,17 +41,17 @@ const CommentModal = ({open, handleClose, item}) => {
 
   const fetchPost = async () => {
     try {
-      dispatch(setLoading(true));
+      // dispatch(setLoading(true));
       const res = await getSocial(
         `/api/users/getsocialactivitypost/${item._id}`,
       );
       if (res.status === 200) {
         setData(res.data);
       }
-      dispatch(setLoading(false));
+      // dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
+      // dispatch(setLoading(false));
     }
   };
 
@@ -107,7 +107,12 @@ const CommentModal = ({open, handleClose, item}) => {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                 }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 10,
+                  }}>
                   <Avatar
                     rounded
                     source={{uri: item.user.user_picture_url}}
