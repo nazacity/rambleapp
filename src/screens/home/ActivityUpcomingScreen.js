@@ -31,6 +31,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [userActivity, setUserActivity] = useState({
     announcement: [],
     state: 'unregister',
+    transaction: [],
   });
 
   const FirstRoute = () => (

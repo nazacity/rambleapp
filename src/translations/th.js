@@ -237,6 +237,11 @@ const th = {
     pleaseaddemergency: 'กรุณาเพิ่มการติดต่อฉุกเฉิน',
     noemergency: 'ไม่มีข้อมูลการติดต่อฉุกเฉิน',
     registersuccessed: 'การลงทะเบียนเรียบร้อย กรุณาดำเนินการชำระ',
+    transaction: 'การชำระ',
+    date: 'วันที่',
+    time: 'เวลา',
+    amount: 'จำนวนเงิน',
+    notransfer: 'ยังไม่มีการชำระ',
   },
   payment: {
     activity: 'กิจกรรม',

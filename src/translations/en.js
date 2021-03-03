@@ -238,6 +238,11 @@ const en = {
     pleaseaddemergency: 'No emergency contact information',
     noemergency: 'Please add emergency contact',
     registersuccessed: 'Register Successfully Please Process payment',
+    transaction: 'Payment',
+    date: 'Date',
+    time: 'Time',
+    amount: 'Amount',
+    notransfer: 'No payment',
   },
   payment: {
     activity: 'Activity',
