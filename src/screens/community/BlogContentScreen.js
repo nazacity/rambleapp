@@ -113,9 +113,7 @@ const BlogContentScreen = ({navigation, route}) => {
   }
 
   return (
-    <View
-      style={{backgroundColor: COLORS.white, flex: 1}}
-      showsVerticalScrollIndicator={false}>
+    <View style={{backgroundColor: COLORS.white, flex: 1}}>
       <BackButton />
       <LoveButton
         top={40}
