@@ -4,10 +4,9 @@ import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import LocalizationContext from '../../../screens/LocalizationContext';
-import CommentTab from './CommentTab';
+import CommentTab from './CommentTab2';
 import ModalCloseButton from '../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
-import {comments} from '../data';
 
 const CommentModal = ({open, handleClose, data, setData}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -20,7 +19,6 @@ const CommentModal = ({open, handleClose, data, setData}) => {
       onBackButtonPress={handleClose}>
       <View
         style={{
-          height: SIZES.height / 2,
           backgroundColor: COLORS.white,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
