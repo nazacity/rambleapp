@@ -61,6 +61,57 @@ const BlogContentScreen = ({navigation, route}) => {
     return unsubscribe;
   }, []);
 
+  if (Platform.OS === 'ios') {
+    return (
+      <ScrollView
+        style={{backgroundColor: COLORS.white}}
+        showsVerticalScrollIndicator={false}>
+        <BackButton />
+        <LoveButton
+          top={40}
+          size={30}
+          likers={item.likers}
+          handleLike={handleLike}
+          handleUnlike={handleUnlike}
+        />
+        <View
+          style={{
+            height: SIZES.height - 80,
+          }}>
+          <WebView
+            source={{uri: item.url}}
+            showsVerticalScrollIndicator={false}
+            startInLoadingState={true}
+            renderLoading={() => (
+              <Spinner
+                visible={true}
+                textContent={'Loading...'}
+                textStyle={{
+                  color: '#FFF',
+                }}
+                color={COLORS.primary}
+              />
+            )}
+          />
+
+          <CommentTab
+            setOpen={setOpen}
+            bottom={100}
+            id={data._id}
+            setData={setData}
+          />
+        </View>
+
+        <CommentModal
+          open={open}
+          handleClose={handleClose}
+          data={data}
+          setData={setData}
+        />
+      </ScrollView>
+    );
+  }
+
   return (
     <View
       style={{backgroundColor: COLORS.white, flex: 1}}

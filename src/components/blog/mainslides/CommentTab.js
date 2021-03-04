@@ -42,7 +42,7 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
         position: 'absolute',
         left: 20,
         right: 20,
-        bottom: bottom ? bottom : 0,
+        bottom: 20,
         zIndex: 100,
       }}>
       <View
@@ -112,18 +112,18 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
             <MaterialIcons name="more-vert" size={24} color={COLORS.primary} />
           </TouchableOpacity>
         )}
+        <Snackbar
+          visible={error}
+          onDismiss={() => {
+            setError(false);
+          }}
+          style={{
+            backgroundColor: '#5cb85c',
+          }}
+          duration={1500}>
+          {message}
+        </Snackbar>
       </View>
-      <Snackbar
-        visible={error}
-        onDismiss={() => {
-          setError(false);
-        }}
-        style={{
-          backgroundColor: '#5cb85c',
-        }}
-        duration={1500}>
-        {message}
-      </Snackbar>
     </KeyboardAvoidingView>
   );
 };
