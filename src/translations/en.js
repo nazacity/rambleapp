@@ -112,6 +112,7 @@ const en = {
     sure: 'Are you sure to exit the app?',
     yes: 'Yes',
     no: 'No',
+    noactivity: 'No new activities',
   },
   userrecode: {
     activitiesinthisyear: 'Activities in this year',

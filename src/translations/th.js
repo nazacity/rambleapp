@@ -113,6 +113,7 @@ const th = {
     sure: 'คุณแน่ใจที่จะออกจากแอพ ใช่หรือไม่',
     yes: 'ใช่',
     no: 'ไม่',
+    noactivity: 'ยังไม่มีกิจกรรมใหม่',
   },
   userrecode: {
     activitiesinthisyear: 'กิจกรรมในปีนี้',
