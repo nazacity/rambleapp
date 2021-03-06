@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, Platform, Text, ScrollView} from 'react-native';
+import {
+  View,
+  FlatList,
+  Platform,
+  Text,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../../constants';
@@ -83,7 +90,7 @@ const CommentModal = ({open, handleClose, item}) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
       avoidKeyboard>
-      <View
+      <SafeAreaView
         style={{
           flex: 1,
           backgroundColor: COLORS.white,
@@ -234,7 +241,7 @@ const CommentModal = ({open, handleClose, item}) => {
           }}
           ListFooterComponent={<View style={{margin: 60}} />}
         />
-      </View>
+      </SafeAreaView>
       <CommentTab
         bottom={Platform.OS === 'ios' ? 40 : 20}
         onSubmit={onSubmit}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, Platform} from 'react-native';
+import {View, FlatList, Platform, SafeAreaView} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../constants';
@@ -18,63 +18,32 @@ const CommentModal = ({open, handleClose, data, setData}) => {
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
-      {Platform.OS === 'ios' ? (
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
-          <View
-            style={{
-              backgroundColor: COLORS.white,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-            }}>
-            <ModalCloseButton onPress={handleClose} />
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={data.blog_comments}
-              style={{marginTop: 40}}
-              contentContainerStyle={{padding: 10}}
-              keyExtractor={(item) => item._id}
-              renderItem={({item, index}) => {
-                return <CommentCard item={item} index={index} />;
-              }}
-              ListFooterComponent={<View style={{margin: 60}} />}
-            />
-          </View>
-          <CommentTab
-            bottom={Platform.OS === 'ios' ? 40 : 20}
-            id={data._id}
-            setData={setData}
-          />
-        </KeyboardAvoidingView>
-      ) : (
-        <Fragment>
-          <View
-            style={{
-              backgroundColor: COLORS.white,
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-            }}>
-            <ModalCloseButton onPress={handleClose} />
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={data.blog_comments}
-              style={{marginTop: 40}}
-              contentContainerStyle={{padding: 10}}
-              keyExtractor={(item) => item._id}
-              renderItem={({item, index}) => {
-                return <CommentCard item={item} index={index} />;
-              }}
-              ListFooterComponent={<View style={{margin: 60}} />}
-            />
-          </View>
-          <CommentTab
-            bottom={Platform.OS === 'ios' ? 40 : 20}
-            id={data._id}
-            setData={setData}
-          />
-        </Fragment>
-      )}
+      onBackButtonPress={handleClose}
+      avoidKeyboard>
+      <SafeAreaView
+        style={{
+          backgroundColor: COLORS.white,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}>
+        <ModalCloseButton onPress={handleClose} />
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={data.blog_comments}
+          style={{marginTop: 40}}
+          contentContainerStyle={{padding: 10}}
+          keyExtractor={(item) => item._id}
+          renderItem={({item, index}) => {
+            return <CommentCard item={item} index={index} />;
+          }}
+          ListFooterComponent={<View style={{margin: 60}} />}
+        />
+      </SafeAreaView>
+      <CommentTab
+        bottom={Platform.OS === 'ios' ? 40 : 20}
+        id={data._id}
+        setData={setData}
+      />
     </Modal>
   );
 };
