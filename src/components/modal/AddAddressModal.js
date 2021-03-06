@@ -43,7 +43,10 @@ const AddAddressModal = ({}) => {
       style={{margin: 0, justifyContent: 'flex-end', zIndex: 1}}
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
-      avoidKeyboard>
+      avoidKeyboard
+      onSwipeComplete={handleClose}
+      useNativeDriverForBackdrop
+      swipeDirection={['down']}>
       <View
         style={{
           borderTopLeftRadius: 20,
