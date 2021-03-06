@@ -30,6 +30,7 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
   const [data, setData] = useState({
     title: '',
     description: '',
@@ -38,18 +39,26 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
 
   const updateReadState = async (id, state) => {
     if (state === 'not_read') {
-      const res = await get(
-        `/api/users/updatereadstate/${userActivity._id}/${id}`,
-      );
-      if (res.status === 200) {
-        dispatch(refresh());
-        setUserActivity(res.data);
+      try {
+        const res = await get(
+          `/api/users/updatereadstate/${userActivity._id}/${id}`,
+        );
+        if (res.status === 200) {
+          dispatch(refresh());
+          setUserActivity(res.data);
+        }
+        setOpen(false);
+      } catch (error) {
+        console.log(error);
+        setOpen(false);
       }
+    } else {
+      setOpen(false);
     }
   };
 
-  const handleModalClose = () => {
-    setOpen(false);
+  const handleModalClose = async () => {
+    await updateReadState(data._id, data.state);
   };
 
   const handleModalOpen = (item) => {
@@ -63,9 +72,10 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            updateReadState(item._id, item.state);
             if (item.description.length > 100) {
               handleModalOpen(item);
+            } else {
+              updateReadState(item._id, item.state);
             }
           }}
           style={[

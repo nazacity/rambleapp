@@ -119,7 +119,11 @@ const NewUserRegisterModal = ({open, handleClose}) => {
       isVisible={open}
       style={{margin: 0}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
+      onBackButtonPress={handleClose}
+      avoidKeyboard
+      onSwipeComplete={handleClose}
+      useNativeDriverForBackdrop
+      swipeDirection={['down']}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{

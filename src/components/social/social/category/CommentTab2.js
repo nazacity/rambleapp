@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, KeyboardAvoidingView, Platform, Alert} from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
 import {Input} from 'react-native-elements';
-import LocalizationContext from '../../../screens/LocalizationContext';
-import {postSocial} from '../../../redux/actions/request';
+import LocalizationContext from '../../../../screens/LocalizationContext';
+import {postSocial} from '../../../../redux/actions/request';
 import {Snackbar} from 'react-native-paper';
+import {COLORS, FONTS} from '../../../../constants';
 import LinearGradient from 'react-native-linear-gradient';
 
-const CommentTab = ({setOpen, bottom, id, setData}) => {
+const CommentTab = ({onSubmit, bottom}) => {
   const [value, setValue] = useState('');
   const {t} = React.useContext(LocalizationContext);
   const [error, setError] = useState(false);
@@ -18,22 +19,6 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
   const setErrorMessage = (msg) => {
     setError(true);
     setMessage(msg);
-  };
-
-  const handleComment = async () => {
-    try {
-      const res = await postSocial(`/api/users/createblogcomment/${id}`, {
-        text: value,
-      });
-
-      if (res.status === 200) {
-        setData(res.data);
-        setValue('');
-      }
-      setErrorMessage(t('community.comment.commented'));
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -103,26 +88,14 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
           disabled={!value}
           activeOpacity={0.8}
           style={{width: 30, height: 30, marginLeft: 10}}
-          onPress={handleComment}>
+          onPress={() => onSubmit(value, setValue)}>
           <MaterialIcons
             name="add-circle-outline"
             size={24}
             color={!value ? COLORS.inputPlaceholderColor : COLORS.primary}
           />
         </TouchableOpacity>
-
-        {setOpen && (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{width: 30, height: 30}}
-            onPress={() => {
-              setOpen(true);
-            }}>
-            <MaterialIcons name="more-vert" size={24} color={COLORS.primary} />
-          </TouchableOpacity>
-        )}
       </View>
-
       <Snackbar
         visible={error}
         onDismiss={() => {

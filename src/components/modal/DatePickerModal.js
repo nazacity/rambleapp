@@ -19,7 +19,11 @@ const DatePickerModal = ({
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
+      onBackButtonPress={handleClose}
+      avoidKeyboard
+      onSwipeComplete={handleClose}
+      useNativeDriverForBackdrop
+      swipeDirection={['down']}>
       <View
         style={{
           borderTopLeftRadius: 20,

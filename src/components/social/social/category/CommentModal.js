@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../../constants';
 import LocalizationContext from '../../../../screens/LocalizationContext';
-import CommentTab from './CommentTab';
+import CommentTab from './CommentTab2';
 import ModalCloseButton from '../../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
 import {Avatar} from 'react-native-elements';
@@ -81,7 +81,8 @@ const CommentModal = ({open, handleClose, item}) => {
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
+      onBackButtonPress={handleClose}
+      avoidKeyboard>
       <View
         style={{
           flex: 1,
