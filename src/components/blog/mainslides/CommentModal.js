@@ -20,30 +20,32 @@ const CommentModal = ({open, handleClose, data, setData}) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
       avoidKeyboard>
-      <SafeAreaView
-        style={{
-          backgroundColor: COLORS.white,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}>
-        <ModalCloseButton onPress={handleClose} />
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={data.blog_comments}
-          style={{marginTop: 40}}
-          contentContainerStyle={{padding: 10}}
-          keyExtractor={(item) => item._id}
-          renderItem={({item, index}) => {
-            return <CommentCard item={item} index={index} />;
-          }}
-          ListFooterComponent={<View style={{margin: 60}} />}
+      <SafeAreaView>
+        <View
+          style={{
+            backgroundColor: COLORS.white,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}>
+          <ModalCloseButton onPress={handleClose} />
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={data.blog_comments}
+            style={{marginTop: 40}}
+            contentContainerStyle={{padding: 10}}
+            keyExtractor={(item) => item._id}
+            renderItem={({item, index}) => {
+              return <CommentCard item={item} index={index} />;
+            }}
+            ListFooterComponent={<View style={{margin: 60}} />}
+          />
+        </View>
+        <CommentTab
+          bottom={Platform.OS === 'ios' ? 40 : 20}
+          id={data._id}
+          setData={setData}
         />
       </SafeAreaView>
-      <CommentTab
-        bottom={Platform.OS === 'ios' ? 40 : 20}
-        id={data._id}
-        setData={setData}
-      />
     </Modal>
   );
 };

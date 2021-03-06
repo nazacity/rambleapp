@@ -90,10 +90,13 @@ const CommentModal = ({open, handleClose, item}) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
       avoidKeyboard>
-      <SafeAreaView
+      <SafeAreaView></SafeAreaView>
+      <View
         style={{
           flex: 1,
           backgroundColor: COLORS.white,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         }}>
         <ModalCloseButton onPress={handleClose} />
         <FlatList
@@ -241,7 +244,7 @@ const CommentModal = ({open, handleClose, item}) => {
           }}
           ListFooterComponent={<View style={{margin: 60}} />}
         />
-      </SafeAreaView>
+      </View>
       <CommentTab
         bottom={Platform.OS === 'ios' ? 40 : 20}
         onSubmit={onSubmit}
