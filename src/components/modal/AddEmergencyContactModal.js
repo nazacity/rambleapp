@@ -42,147 +42,79 @@ const AddEmergencyContactModal = ({}) => {
       isVisible={addEmergencyContactModalOpen}
       style={{margin: 0, justifyContent: 'flex-end'}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
-      {Platform.OS === 'ios' ? (
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <View
-            style={{
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              backgroundColor: '#fff',
-              padding: 20,
-            }}>
-            <View style={{marginBottom: 20}}>
-              <Text style={[FONTS.h2, {textAlign: 'center'}]}>
-                {t('addemergencycontact.title')}
-              </Text>
-            </View>
-            <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <FloatingLabelInput
-                  floatingLabel={t('addemergencycontact.name')}
-                  inputContainerStyle={{borderBottomWidth: 0}}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                />
-              )}
-              name="name"
-              // rules={{required: true}}
-              defaultValue=""
+      onBackButtonPress={handleClose}
+      avoidKeyboard
+      onSwipeComplete={handleClose}
+      useNativeDriverForBackdrop
+      swipeDirection={['down']}>
+      <View
+        style={{
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          backgroundColor: '#fff',
+          padding: 20,
+        }}>
+        <View style={{marginBottom: 20}}>
+          <Text style={[FONTS.h2, {textAlign: 'center'}]}>
+            {t('addemergencycontact.title')}
+          </Text>
+        </View>
+        <Controller
+          control={control}
+          render={({onChange, onBlur, value}) => (
+            <FloatingLabelInput
+              floatingLabel={t('addemergencycontact.name')}
+              inputContainerStyle={{borderBottomWidth: 0}}
+              onChangeText={(value) => onChange(value)}
+              value={value}
             />
-            <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <FloatingLabelInput
-                  floatingLabel={t('addemergencycontact.relationship')}
-                  inputContainerStyle={{borderBottomWidth: 0}}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                />
-              )}
-              name="relationship"
-              // rules={{required: true}}
-              defaultValue=""
+          )}
+          name="name"
+          // rules={{required: true}}
+          defaultValue=""
+        />
+        <Controller
+          control={control}
+          render={({onChange, onBlur, value}) => (
+            <FloatingLabelInput
+              floatingLabel={t('addemergencycontact.relationship')}
+              inputContainerStyle={{borderBottomWidth: 0}}
+              onChangeText={(value) => onChange(value)}
+              value={value}
             />
-            <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <FloatingLabelInput
-                  floatingLabel={t('addemergencycontact.phone')}
-                  inputContainerStyle={{borderBottomWidth: 0}}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  keyboardType="phone-pad"
-                />
-              )}
-              name="phone_number"
-              // rules={{required: true}}
-              defaultValue=""
+          )}
+          name="relationship"
+          // rules={{required: true}}
+          defaultValue=""
+        />
+        <Controller
+          control={control}
+          render={({onChange, onBlur, value}) => (
+            <FloatingLabelInput
+              floatingLabel={t('addemergencycontact.phone')}
+              inputContainerStyle={{borderBottomWidth: 0}}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+              keyboardType="phone-pad"
             />
+          )}
+          name="phone_number"
+          // rules={{required: true}}
+          defaultValue=""
+        />
 
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
-              <Button
-                label={t('addemergencycontact.add')}
-                color={COLORS.pinkPastel}
-                onPress={handleSubmit(onSubmit)}
-              />
-            </View>
-          </View>
-        </KeyboardAvoidingView>
-      ) : (
         <View
           style={{
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            backgroundColor: '#fff',
-            padding: 20,
+            alignItems: 'center',
           }}>
-          <View style={{marginBottom: 20}}>
-            <Text style={[FONTS.h2, {textAlign: 'center'}]}>
-              {t('addemergencycontact.title')}
-            </Text>
-          </View>
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('addemergencycontact.name')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-              />
-            )}
-            name="name"
-            // rules={{required: true}}
-            defaultValue=""
+          <Button
+            label={t('addemergencycontact.add')}
+            color={COLORS.pinkPastel}
+            onPress={handleSubmit(onSubmit)}
           />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('addemergencycontact.relationship')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-              />
-            )}
-            name="relationship"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <FloatingLabelInput
-                floatingLabel={t('addemergencycontact.phone')}
-                inputContainerStyle={{borderBottomWidth: 0}}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                keyboardType="phone-pad"
-              />
-            )}
-            name="phone_number"
-            // rules={{required: true}}
-            defaultValue=""
-          />
-
-          <View
-            style={{
-              alignItems: 'center',
-            }}>
-            <Button
-              label={t('addemergencycontact.add')}
-              color={COLORS.pinkPastel}
-              onPress={handleSubmit(onSubmit)}
-            />
-          </View>
         </View>
-      )}
+      </View>
+
       <Snackbar
         visible={error}
         onDismiss={() => {
