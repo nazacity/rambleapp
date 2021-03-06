@@ -94,7 +94,8 @@ const CommentModal = ({open, handleClose, item}) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
       avoidKeyboard>
-      <SafeAreaView></SafeAreaView>
+      <SafeAreaView
+        style={{height: Platform.OS === 'android' ? 40 : 0}}></SafeAreaView>
       <View
         style={{
           flex: 1,
