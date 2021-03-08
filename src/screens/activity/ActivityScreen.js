@@ -118,25 +118,6 @@ const ActivityScreen = ({navigation}) => {
     return unsubscribe;
   }, []);
 
-  if (activities.length === 0 && !isLoading) {
-    return (
-      <View
-        style={{
-          alignItems: 'center',
-          backgroundColor: COLORS.backgroundColor,
-          flex: 1,
-          justifyContent: 'center',
-        }}>
-        <Text style={[FONTS.h2]}>{t('activityfilter.noactivity')}</Text>
-        {/* <Button
-          label={t('activityfilter.clickhere')}
-          color={COLORS.pinkPastel}
-          onPress={onLoadMore}
-        /> */}
-      </View>
-    );
-  }
-
   return (
     <View
       style={{
@@ -146,28 +127,42 @@ const ActivityScreen = ({navigation}) => {
       }}>
       <MenuButton />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
-      <Animated.FlatList
-        showsVerticalScrollIndicator={false}
-        data={activities}
-        keyExtractor={(item) => `${item._id}`}
-        renderItem={({item, index}) => {
-          return <ActivityCardDetail item={item} index={index} />;
-        }}
-        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-        style={{padding: 20, paddingTop: 60}}
-        contentContainerStyle={{paddingHorizontal: 5}}
-        ListFooterComponent={() => (
-          <View
-            style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
-          />
-        )}
-        onEndReached={onLoadMore}
-        onEndReachedThreshold={0}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: true},
-        )}
-      />
+      {activities.length === 0 && !isLoading ? (
+        <View
+          style={{
+            alignItems: 'center',
+            backgroundColor: COLORS.backgroundColor,
+            flex: 1,
+            justifyContent: 'center',
+          }}>
+          <Text style={[FONTS.h2, {color: COLORS.primary}]}>
+            {t('activity.noactivity')}
+          </Text>
+        </View>
+      ) : (
+        <Animated.FlatList
+          showsVerticalScrollIndicator={false}
+          data={activities}
+          keyExtractor={(item) => `${item._id}`}
+          renderItem={({item, index}) => {
+            return <ActivityCardDetail item={item} index={index} />;
+          }}
+          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          style={{padding: 20, paddingTop: 60}}
+          contentContainerStyle={{paddingHorizontal: 5}}
+          ListFooterComponent={() => (
+            <View
+              style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
+            />
+          )}
+          onEndReached={onLoadMore}
+          onEndReachedThreshold={0}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: true},
+          )}
+        />
+      )}
     </View>
   );
 };

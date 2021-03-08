@@ -645,12 +645,11 @@ const SignupForm = () => {
                   }}>
                   <Text
                     style={[
-                      FONTS.body4,
+                      FONTS.h4,
                       {
                         fontSize: 14,
                         textAlign: 'center',
                         color: COLORS.buttonBlue,
-                        fontWeight: 'bold',
                       },
                     ]}>
                     {t('signup.useragreement')}
@@ -666,12 +665,11 @@ const SignupForm = () => {
                   }}>
                   <Text
                     style={[
-                      FONTS.body4,
+                      FONTS.h4,
                       {
                         fontSize: 14,
                         textAlign: 'center',
                         color: COLORS.buttonBlue,
-                        fontWeight: 'bold',
                       },
                     ]}>
                     {t('signup.policy')}

@@ -141,7 +141,7 @@ const th = {
     revealinfoterm: 'ฉันยืนยอมที่จะเปิดเผยข้อมูลการติดต่อ',
     createpost: 'สร้างโพสต์',
     selectprovince: 'เลือกจังหวัด',
-    pleaseacceptterms: 'กรุณายอมรับข้อตกลง',
+    pleaseacceptterms: 'กรุณายอมรับเงื่อนไข และข้อตกลง',
     searchprovince: 'ค้นหาจังหวัด',
     description: 'รายละเอียด',
     editpost: 'แก้ไขโพสต์',
@@ -149,6 +149,8 @@ const th = {
     closepost: 'ปิดโพสต์',
     openpost: 'เปิดโพสต์',
     postdate: 'โพสต์เมื่อ',
+    term: 'เงื่อนไขและข้อตกลง',
+    iagree: 'ฉันยอมรับ ',
   },
   communityfilter: {
     activity: 'กิจกรรม',
@@ -243,6 +245,9 @@ const th = {
     time: 'เวลา',
     amount: 'จำนวนเงิน',
     notransfer: 'ยังไม่มีการชำระ',
+    noactivity: 'ยังไม่มีกิจกรรมใหม่',
+    noverified: 'คุณยังไม่ได้ยืนยันตัวตน',
+    pleaseverify: 'กรุณายืนยันตัวตน',
   },
   payment: {
     activity: 'กิจกรรม',

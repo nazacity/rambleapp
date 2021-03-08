@@ -141,7 +141,7 @@ const en = {
     nodescription: 'No description was filled',
     pleasefill: 'Please fill description',
     selectprovince: 'Select Province',
-    pleaseacceptterms: 'Please accept the terms',
+    pleaseacceptterms: 'Please accept the terms and condition',
     searchprovince: 'Search province',
     description: 'Description',
     editpost: 'Edit post',
@@ -149,6 +149,8 @@ const en = {
     closepost: 'Closed post',
     openpost: 'Opened post',
     postdate: 'Posted on',
+    term: 'Terms and Condition',
+    iagree: 'I agree with ',
   },
   communityfilter: {
     activity: 'Activity',
@@ -244,6 +246,9 @@ const en = {
     time: 'Time',
     amount: 'Amount',
     notransfer: 'No payment',
+    noactivity: 'No new activities',
+    noverified: 'You have not verified identity',
+    pleaseverify: 'Please verify your identity',
   },
   payment: {
     activity: 'Activity',
