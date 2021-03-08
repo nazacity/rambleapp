@@ -147,7 +147,10 @@ const VerifyVaccineModal = ({handleClose, open}) => {
       isVisible={open}
       style={{margin: 0}}
       onBackdropPress={handleResetClose}
-      onBackButtonPress={handleResetClose}>
+      onBackButtonPress={handleResetClose}
+      onSwipeComplete={handleResetClose}
+      useNativeDriverForBackdrop
+      swipeDirection={['down']}>
       <SafeAreaView
         style={{
           backgroundColor: COLORS.backgroundColor,

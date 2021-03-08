@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, Platform, Text, ScrollView} from 'react-native';
+import {
+  View,
+  FlatList,
+  Platform,
+  Text,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../../constants';
 import LocalizationContext from '../../../../screens/LocalizationContext';
-import CommentTab from './CommentTab';
+import CommentTab from './CommentTab2';
 import ModalCloseButton from '../../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
 import {Avatar} from 'react-native-elements';
@@ -41,17 +48,17 @@ const CommentModal = ({open, handleClose, item}) => {
 
   const fetchPost = async () => {
     try {
-      dispatch(setLoading(true));
+      // dispatch(setLoading(true));
       const res = await getSocial(
         `/api/users/getsocialactivitypost/${item._id}`,
       );
       if (res.status === 200) {
         setData(res.data);
       }
-      dispatch(setLoading(false));
+      // dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
+      // dispatch(setLoading(false));
     }
   };
 
@@ -85,11 +92,16 @@ const CommentModal = ({open, handleClose, item}) => {
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
+      onBackButtonPress={handleClose}
+      avoidKeyboard>
+      <SafeAreaView
+        style={{height: Platform.OS === 'android' ? 40 : 0}}></SafeAreaView>
       <View
         style={{
           flex: 1,
           backgroundColor: COLORS.white,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         }}>
         <ModalCloseButton onPress={handleClose} />
         <FlatList
@@ -107,7 +119,12 @@ const CommentModal = ({open, handleClose, item}) => {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                 }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginBottom: 10,
+                  }}>
                   <Avatar
                     rounded
                     source={{uri: item.user.user_picture_url}}

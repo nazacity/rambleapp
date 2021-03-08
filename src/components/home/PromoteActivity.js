@@ -24,10 +24,19 @@ const PromoteActivity = () => {
   dayjs.locale(lang);
   const navigation = useNavigation();
   const [promote_activities, setPromote_activities] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchPromoteActivity = async () => {
-    const res = await get('/api/users/getpromoteactivities');
-    if (res.status === 200) {
-      setPromote_activities(res.data);
+    try {
+      const res = await get('/api/users/getpromoteactivities');
+      if (res.status === 200) {
+        setPromote_activities(res.data);
+      }
+      console.log(error);
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -106,7 +115,7 @@ const PromoteActivity = () => {
     );
   };
 
-  if (promote_activities.length === 0) {
+  if (loading) {
     return (
       <View
         style={{
@@ -116,6 +125,22 @@ const PromoteActivity = () => {
           backgroundColor: COLORS.primary,
         }}>
         <ActivityIndicator color="#fff" size="large" />
+      </View>
+    );
+  }
+
+  if (promote_activities.length === 0) {
+    return (
+      <View
+        style={{
+          height: (SIZES.width * 2) / 3,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: COLORS.primary,
+        }}>
+        <Text style={[FONTS.h2, {color: COLORS.white}]}>
+          {t('home.noactivity')}
+        </Text>
       </View>
     );
   }

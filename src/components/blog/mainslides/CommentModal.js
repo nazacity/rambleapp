@@ -1,13 +1,14 @@
 import React from 'react';
-import {View, FlatList, Platform} from 'react-native';
+import {View, FlatList, Platform, SafeAreaView} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {COLORS, FONTS, SIZES} from '../../../constants';
 import LocalizationContext from '../../../screens/LocalizationContext';
-import CommentTab from './CommentTab';
+import CommentTab from './CommentTab2';
 import ModalCloseButton from '../../layout/ModalCloseButton';
 import CommentCard from './CommentCard';
-import {comments} from '../data';
+import {KeyboardAvoidingView} from 'react-native';
+import {Fragment} from 'react';
 
 const CommentModal = ({open, handleClose, data, setData}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -17,10 +18,13 @@ const CommentModal = ({open, handleClose, data, setData}) => {
       isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end'}}
       onBackdropPress={handleClose}
-      onBackButtonPress={handleClose}>
+      onBackButtonPress={handleClose}
+      avoidKeyboard>
+      <SafeAreaView
+        style={{height: Platform.OS === 'android' ? 40 : 0}}></SafeAreaView>
       <View
         style={{
-          height: SIZES.height / 2,
+          flex: 1,
           backgroundColor: COLORS.white,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,

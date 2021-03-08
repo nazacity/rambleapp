@@ -347,7 +347,9 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
           />
         </View>
-        <Text style={{textAlign: 'center'}}>{t('activity.accepted')}</Text>
+        <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+          {t('activity.accepted')}
+        </Text>
       </TouchableOpacity>
       <View style={{alignItems: 'center'}}>
         <Button

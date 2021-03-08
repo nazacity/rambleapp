@@ -6,6 +6,7 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import NewUserRegisterModal from '../modal/NewUserRegisterModal';
+import {Alert} from 'react-native';
 
 const ButtonSection = ({userActivity, activity}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -62,14 +63,31 @@ const ButtonSection = ({userActivity, activity}) => {
           label={t('activity.findfriend')}
           color={COLORS.pinkPastel}
           onPress={() => {
-            navigation.navigate('CreatePost', {
-              activity: {
-                _id: activity._id,
-                title: activity.title,
-                activity_picture_url: activity.activity_picture_url,
-              },
-              userActivityId: userActivity._id,
-            });
+            if (user.vefiry_information.state === 'verified') {
+              navigation.navigate('CreatePost', {
+                activity: {
+                  _id: activity._id,
+                  title: activity.title,
+                  activity_picture_url: activity.activity_picture_url,
+                },
+                userActivityId: userActivity._id,
+              });
+            } else {
+              Alert.alert(
+                t('activity.noverified'),
+                t('activity.pleaseverify'),
+                [
+                  {
+                    text: t('community.comment.okay'),
+                    onPress: () => {
+                      navigation.navigate('Setting', {
+                        verfiyIdentifyModalOpen: true,
+                      });
+                    },
+                  },
+                ],
+              );
+            }
           }}
         />
       )}

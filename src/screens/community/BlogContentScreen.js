@@ -76,7 +76,7 @@ const BlogContentScreen = ({navigation, route}) => {
         />
         <View
           style={{
-            height: SIZES.height,
+            height: SIZES.height - 80,
           }}>
           <WebView
             source={{uri: item.url}}
@@ -113,9 +113,7 @@ const BlogContentScreen = ({navigation, route}) => {
   }
 
   return (
-    <View
-      style={{backgroundColor: COLORS.white, flex: 1}}
-      showsVerticalScrollIndicator={false}>
+    <View style={{backgroundColor: COLORS.white, flex: 1}}>
       <BackButton />
       <LoveButton
         top={40}

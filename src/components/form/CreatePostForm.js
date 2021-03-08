@@ -12,11 +12,18 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
 import {useDispatch} from 'react-redux';
 import {createUserPost} from '../../redux/actions/UserAction';
+import SharingPostTermsAndConditionsModal from '../modal/SharingPostTermsAndConditionModal';
 
 const CreatePostForm = ({activityId, userActivityId}) => {
   const {t} = React.useContext(LocalizationContext);
   const {control, handleSubmit, errors, reset} = useForm();
   const [focus, setFocus] = useState({});
+  const [acceptTerm, setAcceptTerm] = useState(false);
+  const [termModalOpen, setTermModalOpen] = useState(false);
+
+  const handleTermModalClose = () => {
+    setTermModalOpen(false);
+  };
   const [option, setOption] = useState({
     form_team: false,
     share_accommodation: false,
@@ -24,7 +31,6 @@ const CreatePostForm = ({activityId, userActivityId}) => {
     share_trip: false,
     male: false,
     female: false,
-    acceptTerm: false,
   });
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -44,7 +50,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
   };
 
   const onSubmit = async (data) => {
-    if (!option.acceptTerm) {
+    if (!acceptTerm) {
       Alert.alert(t('createpost.pleaseacceptterms'), '', [
         {
           text: 'Cancel',
@@ -293,32 +299,40 @@ const CreatePostForm = ({activityId, userActivityId}) => {
           />
         </View>
 
-        <TouchableOpacity
+        <View
           activeOpacity={0.6}
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: 20,
-          }}
-          onPress={() => {
-            setOption({...option, acceptTerm: !option.acceptTerm});
           }}>
           <View>
             <CheckBox
-              checked={option.acceptTerm}
-              onPress={() =>
-                setOption({...option, acceptTerm: !option.acceptTerm})
-              }
+              checked={acceptTerm}
+              onPress={() => setAcceptTerm(!acceptTerm)}
               containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
               checkedColor={COLORS.pinkPastel}
-              textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
+              textStyle={[FONTS.h3, {color: COLORS.primary}]}
             />
           </View>
-          <Text style={{textAlign: 'center'}}>
-            {t('createpost.revealinfoterm')}
-          </Text>
-        </TouchableOpacity>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={[FONTS.body4]}> {t('createpost.iagree')}</Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                setTermModalOpen(true);
+              }}>
+              <Text
+                style={[
+                  FONTS.h4,
+                  {textAlign: 'center', color: COLORS.buttonBlue},
+                ]}>
+                {t('createpost.term')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.createpost')}
@@ -327,6 +341,11 @@ const CreatePostForm = ({activityId, userActivityId}) => {
           />
         </View>
       </View>
+      <SharingPostTermsAndConditionsModal
+        open={termModalOpen}
+        handleClose={handleTermModalClose}
+        setAcceptTerm={setAcceptTerm}
+      />
     </View>
   );
 };

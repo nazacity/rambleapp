@@ -24,7 +24,6 @@ const EditPostForm = ({item}) => {
     share_trip: false,
     male: false,
     female: false,
-    acceptTerm: false,
   });
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -58,18 +57,6 @@ const EditPostForm = ({item}) => {
   }, [item]);
 
   const onSubmit = async (data) => {
-    if (!option.acceptTerm) {
-      Alert.alert(t('createpost.pleaseacceptterms'), '', [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
-
-      return;
-    }
     if (!data.description) {
       Alert.alert(t('createpost.nodescription'), t('createpost.pleasefill'), [
         {
@@ -304,7 +291,7 @@ const EditPostForm = ({item}) => {
             defaultValue=""
           />
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           activeOpacity={0.6}
           style={{
             flexDirection: 'row',
@@ -329,7 +316,7 @@ const EditPostForm = ({item}) => {
           <Text style={{textAlign: 'center'}}>
             {t('createpost.revealinfoterm')}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.editpost')}

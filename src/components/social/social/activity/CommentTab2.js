@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, KeyboardAvoidingView, Platform, Alert} from 'react-native';
-import {COLORS, FONTS, SHADOW, SIZES} from '../../../constants';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableOpacity} from 'react-native';
 import {Input} from 'react-native-elements';
-import LocalizationContext from '../../../screens/LocalizationContext';
-import {postSocial} from '../../../redux/actions/request';
+import LocalizationContext from '../../../../screens/LocalizationContext';
+import {postSocial} from '../../../../redux/actions/request';
 import {Snackbar} from 'react-native-paper';
+import {COLORS, FONTS} from '../../../../constants';
+import LinearGradient from 'react-native-linear-gradient';
 
-const CommentTab = ({setOpen, bottom, id, setData}) => {
+const CommentTab = ({onSubmit, bottom}) => {
   const [value, setValue] = useState('');
   const {t} = React.useContext(LocalizationContext);
   const [error, setError] = useState(false);
@@ -19,43 +21,34 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
     setMessage(msg);
   };
 
-  const handleComment = async () => {
-    try {
-      const res = await postSocial(`/api/users/createblogcomment/${id}`, {
-        text: value,
-      });
-
-      if (res.status === 200) {
-        setData(res.data);
-        setValue('');
-      }
-      setErrorMessage(t('community.comment.commented'));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-      style={{
-        position: 'absolute',
-        left: 20,
-        right: 20,
-        bottom: 20,
-        zIndex: 100,
-      }}>
+    <View
+      style={[
+        {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+        },
+      ]}>
+      <LinearGradient
+        colors={['rgba(255,255,255,0.0)', 'rgba(255,255,255,1)']}
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 1}}
+        useAngle
+        angle={180}
+        style={{
+          height: 20,
+        }}
+      />
       <View
-        style={[
-          {
-            backgroundColor: COLORS.white,
-            borderRadius: 5,
-            padding: 10,
-            flexDirection: 'row',
-            alignItems: 'center',
-          },
-          SHADOW.default,
-        ]}>
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: COLORS.white,
+          padding: 10,
+          paddingHorizontal: 20,
+        }}>
         <View style={{flex: 1}}>
           <Input
             placeholder={t('community.comment.commentblog')}
@@ -95,36 +88,27 @@ const CommentTab = ({setOpen, bottom, id, setData}) => {
           disabled={!value}
           activeOpacity={0.8}
           style={{width: 30, height: 30, marginLeft: 10}}
-          onPress={handleComment}>
+          onPress={() => onSubmit(value, setValue)}>
           <MaterialIcons
             name="add-circle-outline"
             size={24}
             color={!value ? COLORS.inputPlaceholderColor : COLORS.primary}
           />
         </TouchableOpacity>
-        {setOpen && (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{width: 30, height: 30}}
-            onPress={() => {
-              setOpen(true);
-            }}>
-            <MaterialIcons name="more-vert" size={24} color={COLORS.primary} />
-          </TouchableOpacity>
-        )}
-        <Snackbar
-          visible={error}
-          onDismiss={() => {
-            setError(false);
-          }}
-          style={{
-            backgroundColor: '#5cb85c',
-          }}
-          duration={1500}>
-          {message}
-        </Snackbar>
       </View>
-    </KeyboardAvoidingView>
+
+      <Snackbar
+        visible={error}
+        onDismiss={() => {
+          setError(false);
+        }}
+        style={{
+          backgroundColor: '#5cb85c',
+        }}
+        duration={1500}>
+        {message}
+      </Snackbar>
+    </View>
   );
 };
 
