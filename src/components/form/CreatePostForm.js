@@ -269,7 +269,6 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                     borderRadius: 10,
                     paddingHorizontal: 10,
                     backgroundColor: 'white',
-                    fontFamily: 'SF-Pro-Text-Regular',
                   },
                   {
                     borderColor: focus.description
@@ -277,10 +276,13 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                       : COLORS.inputPlaceholderColor,
                   },
                 ]}
-                inputStyle={{
-                  fontFamily: 'SF-Pro-Text-Regular',
-                  textAlignVertical: 'top',
-                }}
+                inputStyle={[
+                  FONTS.h4,
+                  {
+                    textAlignVertical: 'top',
+                    height: 100,
+                  },
+                ]}
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 onFocus={() => {
