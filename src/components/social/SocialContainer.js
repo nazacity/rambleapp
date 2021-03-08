@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {ImageBackground, TouchableOpacity} from 'react-native';
+import {Alert, ImageBackground, TouchableOpacity} from 'react-native';
 import {Image} from 'react-native';
 import {View, Text} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -13,7 +13,7 @@ import SocialActivityContainer from './SocialActivityContainer';
 const SocialContainer = () => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
-  const user_activities = useSelector((state) => state.user.user_activities);
+  const user = useSelector((state) => state.user);
 
   return (
     <View>
@@ -59,7 +59,24 @@ const SocialContainer = () => {
           activeOpacity={0.8}
           style={{width: SIZES.width}}
           onPress={() => {
-            navigation.navigate('SelectActivity');
+            if (user.vefiry_information.state === 'verified') {
+              navigation.navigate('SelectActivity');
+            } else {
+              Alert.alert(
+                t('activity.noverified'),
+                t('activity.pleaseverify'),
+                [
+                  {
+                    text: t('community.comment.okay'),
+                    onPress: () => {
+                      navigation.navigate('Setting', {
+                        verfiyIdentifyModalOpen: true,
+                      });
+                    },
+                  },
+                ],
+              );
+            }
           }}>
           <ImageBackground
             source={{
