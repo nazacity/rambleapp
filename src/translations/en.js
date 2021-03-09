@@ -364,6 +364,9 @@ const en = {
     lineisused: 'Line account is connected',
     lineisconnected: 'You have connected to this Line account',
   },
+  share: {
+    interest: "I'm intereted in",
+  },
 };
 
 export default en;

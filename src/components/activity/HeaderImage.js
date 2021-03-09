@@ -25,6 +25,8 @@ import {useNavigation} from '@react-navigation/native';
 import BackButton from '../layout/BackButton';
 import ButtonSection from './ButtonSection';
 import {useSelector} from 'react-redux';
+import ShareButton from '../layout/ShareButton';
+import Share from 'react-native-share';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
 const MAX_HEIGHT = 300;
@@ -38,6 +40,24 @@ const HeaderImage = ({
 }) => {
   const {t} = React.useContext(LocalizationContext);
   const navTitleView = useRef(null);
+
+  const handleShare = async () => {
+    const shareOptions = {
+      title: `${
+        t('share.interest') + activity.title
+      } \n https://liff.line.me/1655591354-8d5Zzbm5?activity=${activity._id}`,
+      message: `${
+        t('share.interest') + activity.title
+      } \n https://liff.line.me/1655591354-8d5Zzbm5?activity=${activity._id}`,
+      url: `https://liff.line.me/1655591354-8d5Zzbm5?activity=${activity._id} `,
+    };
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Fragment>
@@ -67,6 +87,7 @@ const HeaderImage = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+            <ShareButton onPress={handleShare} />
             <Text
               style={{
                 color: 'white',

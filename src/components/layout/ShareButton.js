@@ -1,31 +1,28 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StatusBar, Platform} from 'react-native';
-import {COLORS} from '../../constants';
+import {View, TouchableOpacity, StatusBar} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
-import {FilterIcon} from '../Icon';
+import {COLORS} from '../../constants';
 
-const FilterButton = ({onPress, top}) => {
-  const navigation = useNavigation();
+const ShareButton = ({onPress, top, right}) => {
   return (
     <View
       style={{
         position: 'absolute',
         top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
-        right: 10,
+        right: right ? right : 10,
         zIndex: 100,
-        backgroundColor: '#fff',
         borderRadius: 50,
         width: 30,
         height: 30,
+        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
       }}>
       <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-        <FilterIcon size={18} borderRadius={50} color={COLORS.pinkPastel} />
+        <Ionicons name="share-social" size={20} color={COLORS.primary} />
       </TouchableOpacity>
     </View>
   );
 };
 
-export default FilterButton;
+export default ShareButton;

@@ -363,6 +363,9 @@ const th = {
     lineisused: 'Line account นี้ได้ถูกเชื่อมต่อแล้ว',
     lineisconnected: 'คุณได้เชื่อมต่อ Line account นี้แล้ว',
   },
+  share: {
+    interest: 'ฉันสนใจที่จะเข้าร่วมกิจกรรม',
+  },
 };
 
 export default th;
