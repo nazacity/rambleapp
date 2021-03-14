@@ -265,12 +265,16 @@ const en = {
   },
   addaddress: {
     title: 'New Address',
+    edittitle: 'Edit Address',
     add: 'Add',
     address: 'Address',
     province: 'Province',
     zip: 'Zip Code',
     phone: 'Phone Number',
     error: 'Please provide all infomation',
+    edit: 'Edit',
+    success: 'Added New Address',
+    editsuccess: 'Edited Address',
   },
   addemergencycontact: {
     title: 'New Emergency Contact',
@@ -279,6 +283,8 @@ const en = {
     phone: 'Phone Number',
     relationship: 'Relationship',
     error: 'Please provide all infomation',
+    success: 'Added New Emergency Contact',
+    editsuccess: 'Edited Emergency Contact',
   },
   emergencycontact: {
     name: 'Name',

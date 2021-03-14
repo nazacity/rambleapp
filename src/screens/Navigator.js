@@ -379,20 +379,22 @@ const HomeStackScreen = ({navigation}) => {
               </View>
             );
           },
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(setAddAddressModal(true));
-              }}
-              style={{marginRight: 10}}>
-              <Ionicons
-                name="add"
-                size={25}
-                backgroundColor="transparent"
-                color="#fff"
-              />
-            </TouchableOpacity>
-          ),
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(setAddAddressModal(true));
+                }}
+                style={{marginRight: 10}}>
+                <Ionicons
+                  name="add"
+                  size={25}
+                  backgroundColor="transparent"
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            );
+          },
         }}
       />
       <HomeStack.Screen
