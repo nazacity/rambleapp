@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import Modal from 'react-native-modal';
 import {SIZES, FONTS, COLORS} from '../../constants';
 import {useSelector, useDispatch} from 'react-redux';
 import {setAddAddressModal} from '../../redux/actions/AppStateAction';
-import {addNewAddress} from '../../redux/actions/UserAction';
+import {editAddress} from '../../redux/actions/UserAction';
 
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
@@ -19,28 +19,31 @@ import {useForm, Controller} from 'react-hook-form';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {Snackbar} from 'react-native-paper';
 
-const AddAddressModal = ({}) => {
-  const addAddressModalOpen = useSelector(
-    (state) => state.appState.addAddressModal,
-  );
-  const dispatch = useDispatch();
-  const handleClose = () => {
-    dispatch(setAddAddressModal(false));
-  };
-  const isLoading = useSelector((state) => state.appState.isLoading);
+const EditAddressModal = ({address, open, handleClose}) => {
   const {t} = React.useContext(LocalizationContext);
-  const {control, handleSubmit} = useForm();
+  const {control, handleSubmit, reset} = useForm();
   const [error, setError] = useState(false);
+  const isLoading = useSelector((state) => state.appState.isLoading);
+
+  const dispatch = useDispatch();
   const onSubmit = async (data) => {
     if (!data.address || !data.phone_number || !data.zip || !data.province) {
       setError(true);
     } else {
-      dispatch(addNewAddress(data, t));
+      dispatch(editAddress(address._id, data, handleClose, t));
     }
   };
+  useEffect(() => {
+    reset({
+      address: address.address,
+      phone_number: address.phone_number,
+      zip: address.zip,
+      province: address.province,
+    });
+  }, [address]);
   return (
     <Modal
-      isVisible={addAddressModalOpen}
+      isVisible={open}
       style={{margin: 0, justifyContent: 'flex-end', zIndex: 1}}
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
@@ -57,7 +60,7 @@ const AddAddressModal = ({}) => {
         }}>
         <View style={{marginBottom: 20}}>
           <Text style={[FONTS.h2, {textAlign: 'center'}]}>
-            {t('addaddress.title')}
+            {t('addaddress.edittitle')}
           </Text>
         </View>
         <Controller
@@ -119,7 +122,7 @@ const AddAddressModal = ({}) => {
             alignItems: 'center',
           }}>
           <Button
-            label={t('addaddress.add')}
+            label={t('addaddress.edit')}
             color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
             disabled={isLoading ? true : false}
             onPress={handleSubmit(onSubmit)}
@@ -142,6 +145,6 @@ const AddAddressModal = ({}) => {
   );
 };
 
-export default AddAddressModal;
+export default EditAddressModal;
 
 const styles = StyleSheet.create({});

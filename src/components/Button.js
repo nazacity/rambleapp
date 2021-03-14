@@ -4,7 +4,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import {COLORS, FONTS, SHADOW} from '../constants';
 
-const Button = ({label, onPress, color, width, leftIcon}) => {
+const Button = ({label, onPress, color, width, leftIcon, disabled}) => {
   return (
     <View
       style={[
@@ -17,6 +17,7 @@ const Button = ({label, onPress, color, width, leftIcon}) => {
         },
       ]}>
       <TouchableOpacity
+        disabled={disabled}
         activeOpacity={0.95}
         style={[
           {

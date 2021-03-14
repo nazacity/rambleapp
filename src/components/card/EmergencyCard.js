@@ -13,9 +13,16 @@ import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import {deleteEmergencyContact} from '../../redux/actions/UserAction';
 import {useDispatch} from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LocalizationContext from '../../screens/LocalizationContext';
 
-const EmergencyCard = ({deletable, item}) => {
+const EmergencyCard = ({
+  deletable,
+  item,
+  editable,
+  setEmergency,
+  setEditModalOpen,
+}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
   return (
@@ -78,8 +85,18 @@ const EmergencyCard = ({deletable, item}) => {
               name="delete-outline"
               size={24}
               color="grey"
-              style={{marginRight: 10}}
             />
+          </TouchableOpacity>
+        )}
+        {editable && (
+          <TouchableOpacity
+            style={{marginRight: 15}}
+            activeOpacity={0.8}
+            onPress={() => {
+              setEmergency(item);
+              setEditModalOpen(true);
+            }}>
+            <MaterialIcons name="edit" size={24} color="grey" />
           </TouchableOpacity>
         )}
       </View>

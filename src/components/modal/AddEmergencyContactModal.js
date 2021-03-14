@@ -34,7 +34,7 @@ const AddEmergencyContactModal = ({}) => {
     if (!data.name || !data.relationship || !data.phone_number) {
       setError(true);
     } else {
-      dispatch(addNewEmergencyContact(data));
+      dispatch(addNewEmergencyContact(data, t));
     }
   };
   return (
