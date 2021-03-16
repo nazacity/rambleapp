@@ -175,6 +175,9 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen
         name="ActivityRegister"
         component={ActivityRegisterScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       <HomeStack.Screen
         name="ActivityHistory"

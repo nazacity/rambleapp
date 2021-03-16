@@ -22,6 +22,7 @@ import {registerActivity} from '../../redux/actions/UserAction';
 import LocalizationContext from '../LocalizationContext';
 import TitleHeader from '../../components/layout/TitleHeader';
 import {setSnackbarDisplay} from '../../redux/actions/AppStateAction';
+import BackButton from '../../components/layout/BackButton';
 
 const ActivityRegisterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -46,8 +47,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
     setTermModalOpen(false);
   };
 
-  // FOCUSES
-  const [focus, setFocus] = useState({});
+  console.log(address);
 
   const navigateUser = (userActivityId) => {
     navigation.replace('Payment', {
@@ -121,253 +121,252 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   }, []);
 
   return (
-    <ScrollView
-      style={{backgroundColor: COLORS.backgroundColor, padding: 20, flex: 1}}
-      showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          width: 300,
-          height: 200,
-          borderRadius: 10,
-          alignSelf: 'center',
-          marginBottom: 20,
-        }}>
-        <ImageModal
-          resizeMode="contain"
-          imageBackgroundColor={COLORS.background}
-          overlayBackgroundColor="rgba(0,0,0,0.3)"
+    <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
+      <BackButton />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
           style={{
-            width: 300,
-            height: 200,
+            width: SIZES.width,
+            height: 300,
             borderRadius: 10,
-          }}
-          source={{uri: activity.activity_picture_url}}
-        />
-      </View>
-      <View style={{marginBottom: 20}}>
-        <TitleHeader title={t('activity.course')} />
-        <View>
-          {activity.courses.map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View
-                  style={{
-                    borderRadius: 5,
-                    overflow: 'hidden',
-                  }}>
-                  <CheckBox
-                    title={`${item.title} ค่าสมัคร ${item.price} บาท`}
-                    checked={course._id === item._id ? true : false}
-                    onPress={() => setCourse(item)}
-                    containerStyle={{
-                      borderWidth: 0,
-                      backgroundColor: COLORS.backgroundColor,
-                    }}
-                    checkedColor={COLORS.pinkPastel}
-                    textStyle={[FONTS.h3]}
-                  />
-                </View>
-              </View>
-            );
-          })}
-        </View>
-      </View>
-
-      <View style={{marginBottom: 20}}>
-        <TitleHeader title={t('activity.size')} />
-        <View style={{paddingTop: 20}}>
-          {activity.size.map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View
-                  style={{
-                    borderRadius: 5,
-                    overflow: 'hidden',
-                  }}>
-                  <CheckBox
-                    title={`${item.size.toUpperCase()} ${item.description}`}
-                    checked={size._id === item._id ? true : false}
-                    onPress={() => setSize(item)}
-                    containerStyle={{
-                      borderWidth: 0,
-                      backgroundColor: COLORS.backgroundColor,
-                    }}
-                    checkedColor={COLORS.pinkPastel}
-                    textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
-                  />
-                </View>
-              </View>
-            );
-          })}
-        </View>
-      </View>
-
-      <View style={{marginBottom: 20}}>
-        <TitleHeader title={t('activity.address')} />
-        <View>
-          {user.addresses.length > 0 ? (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={[
-                  {
-                    _id: '5ff6600d20ed83388ab4ccbd',
-                    address: t('activity.atevent'),
-                  },
-                  ...user.addresses,
-                ]}
-                keyExtractor={(item) => `${item._id}`}
-                renderItem={({item, index}) => {
-                  return (
-                    <View
-                      style={[
-                        {
-                          backgroundColor: '#fff',
-                          borderRadius: 10,
-                          borderWidth: item._id === address._id ? 1 : 0,
-                          borderColor: COLORS.primary,
-                          width: SIZES.width - 80,
-                        },
-                      ]}>
-                      <TouchableOpacity
-                        activeOpacity={0.9}
-                        onPress={() => {
-                          setAddress(item);
-                        }}>
-                        <AddressCard item={item} deletable={false} />
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-                ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-                contentContainerStyle={{paddingHorizontal: 20}}
-                ListFooterComponent={() => <View style={{margin: 5}} />}
-                ListHeaderComponent={() => <View style={{margin: 5}} />}
-              />
-            </ScrollView>
-          ) : (
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => {
-                navigation.navigate('home', {screen: 'Address'});
-              }}>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.addaddress')}
-              </Text>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.clickhere')}
-              </Text>
-            </TouchableOpacity>
-          )}
-        </View>
-      </View>
-
-      <View style={{marginBottom: 20}}>
-        <TitleHeader title={t('activity.emergency')} />
-        <View>
-          {user.emergency_contacts.length > 0 ? (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={user.emergency_contacts}
-                keyExtractor={(item, index) => `${index}`}
-                renderItem={({item, index}) => {
-                  return (
-                    <View
-                      style={[
-                        SHADOW.default,
-                        {
-                          backgroundColor: '#fff',
-                          borderRadius: 10,
-                          borderWidth: item._id === emergency._id ? 1 : 0,
-                          borderColor: COLORS.primary,
-                          width: SIZES.width - 80,
-                        },
-                      ]}>
-                      <TouchableOpacity
-                        activeOpacity={0.9}
-                        onPress={() => {
-                          setEmergency(item);
-                        }}>
-                        <EmergencyCard item={item} deletable={false} />
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-                ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-                contentContainerStyle={{paddingHorizontal: 20}}
-                ListFooterComponent={() => <View style={{margin: 5}} />}
-                ListHeaderComponent={() => <View style={{margin: 5}} />}
-              />
-            </ScrollView>
-          ) : (
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => {
-                navigation.navigate('home', {screen: 'EmergencyContact'});
-              }}>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.addemergency')}
-              </Text>
-              <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                {t('activity.clickhere')}
-              </Text>
-            </TouchableOpacity>
-          )}
-        </View>
-      </View>
-
-      <TouchableOpacity
-        activeOpacity={0.6}
-        style={{margin: 20}}
-        onPress={() => setTermModalOpen(!termModalOpen)}>
-        <Text style={[FONTS.h5, {textAlign: 'center', color: COLORS.link}]}>
-          {t('activity.conditionandterms')}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={() => setAcceptTerm(!acceptTerm)}
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 20,
-        }}>
-        <View>
-          <CheckBox
-            checked={acceptTerm}
-            onPress={() => setAcceptTerm(!acceptTerm)}
-            containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
-            checkedColor={COLORS.pinkPastel}
-            textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
+            alignSelf: 'center',
+          }}>
+          <ImageModal
+            resizeMode="contain"
+            imageBackgroundColor={COLORS.background}
+            overlayBackgroundColor="rgba(0,0,0,0.3)"
+            style={{
+              width: SIZES.width,
+              height: 300,
+            }}
+            source={{uri: activity.activity_picture_url}}
           />
         </View>
-        <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-          {t('activity.accepted')}
-        </Text>
-      </TouchableOpacity>
-      <View style={{alignItems: 'center'}}>
-        <Button
-          label={t('activity.register')}
-          color={COLORS.pinkPastel}
-          onPress={() => {
-            onSubmit();
-          }}
+        <View style={{marginBottom: 20, paddingHorizontal: 20}}>
+          <TitleHeader title={t('activity.course')} />
+          <View>
+            {activity.courses.map((item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      borderRadius: 5,
+                      overflow: 'hidden',
+                    }}>
+                    <CheckBox
+                      title={`${item.title} ค่าสมัคร ${item.price} บาท`}
+                      checked={course._id === item._id ? true : false}
+                      onPress={() => setCourse(item)}
+                      containerStyle={{
+                        borderWidth: 0,
+                        backgroundColor: COLORS.backgroundColor,
+                      }}
+                      checkedColor={COLORS.pinkPastel}
+                      textStyle={[FONTS.h3]}
+                    />
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        <View style={{marginBottom: 20, paddingHorizontal: 20}}>
+          <TitleHeader title={t('activity.size')} />
+          <View style={{paddingTop: 20}}>
+            {activity.size.map((item, index) => {
+              return (
+                <View
+                  key={index}
+                  style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      borderRadius: 5,
+                      overflow: 'hidden',
+                    }}>
+                    <CheckBox
+                      title={`${item.size.toUpperCase()} ${item.description}`}
+                      checked={size._id === item._id ? true : false}
+                      onPress={() => setSize(item)}
+                      containerStyle={{
+                        borderWidth: 0,
+                        backgroundColor: COLORS.backgroundColor,
+                      }}
+                      checkedColor={COLORS.pinkPastel}
+                      textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
+                    />
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        <View style={{marginBottom: 20, paddingHorizontal: 20}}>
+          <TitleHeader title={t('activity.address')} />
+          <View>
+            {user.addresses.length > 0 ? (
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  data={[
+                    {
+                      _id: '5ff6600d20ed83388ab4ccbd',
+                      address: t('activity.atevent'),
+                    },
+                    ...user.addresses,
+                  ]}
+                  keyExtractor={(item) => `${item._id}`}
+                  renderItem={({item, index}) => {
+                    return (
+                      <View
+                        style={[
+                          {
+                            backgroundColor: '#fff',
+                            borderRadius: 10,
+                            borderWidth: item._id === address._id ? 1 : 0,
+                            borderColor: COLORS.primary,
+                            width: SIZES.width - 80,
+                          },
+                        ]}>
+                        <TouchableOpacity
+                          activeOpacity={0.9}
+                          onPress={() => {
+                            setAddress(item);
+                          }}>
+                          <AddressCard item={item} deletable={false} />
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }}
+                  ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+                  contentContainerStyle={{paddingHorizontal: 20}}
+                  ListFooterComponent={() => <View style={{margin: 5}} />}
+                  ListHeaderComponent={() => <View style={{margin: 5}} />}
+                />
+              </ScrollView>
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => {
+                  navigation.navigate('home', {screen: 'Address'});
+                }}>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.addaddress')}
+                </Text>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.clickhere')}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+
+        <View style={{marginBottom: 20, paddingHorizontal: 20}}>
+          <TitleHeader title={t('activity.emergency')} />
+          <View>
+            {user.emergency_contacts.length > 0 ? (
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  data={user.emergency_contacts}
+                  keyExtractor={(item, index) => `${index}`}
+                  renderItem={({item, index}) => {
+                    return (
+                      <View
+                        style={[
+                          SHADOW.default,
+                          {
+                            backgroundColor: '#fff',
+                            borderRadius: 10,
+                            borderWidth: item._id === emergency._id ? 1 : 0,
+                            borderColor: COLORS.primary,
+                            width: SIZES.width - 80,
+                          },
+                        ]}>
+                        <TouchableOpacity
+                          activeOpacity={0.9}
+                          onPress={() => {
+                            setEmergency(item);
+                          }}>
+                          <EmergencyCard item={item} deletable={false} />
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }}
+                  ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+                  contentContainerStyle={{paddingHorizontal: 20}}
+                  ListFooterComponent={() => <View style={{margin: 5}} />}
+                  ListHeaderComponent={() => <View style={{margin: 5}} />}
+                />
+              </ScrollView>
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => {
+                  navigation.navigate('home', {screen: 'EmergencyContact'});
+                }}>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.addemergency')}
+                </Text>
+                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+                  {t('activity.clickhere')}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={{margin: 20}}
+          onPress={() => setTermModalOpen(!termModalOpen)}>
+          <Text style={[FONTS.h5, {textAlign: 'center', color: COLORS.link}]}>
+            {t('activity.conditionandterms')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => setAcceptTerm(!acceptTerm)}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 20,
+          }}>
+          <View>
+            <CheckBox
+              checked={acceptTerm}
+              onPress={() => setAcceptTerm(!acceptTerm)}
+              containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
+              checkedColor={COLORS.pinkPastel}
+              textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
+            />
+          </View>
+          <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+            {t('activity.accepted')}
+          </Text>
+        </TouchableOpacity>
+        <View style={{alignItems: 'center'}}>
+          <Button
+            label={t('activity.register')}
+            color={COLORS.pinkPastel}
+            onPress={() => {
+              onSubmit();
+            }}
+          />
+        </View>
+        <View style={{marginBottom: 50}}></View>
+        <TermsAndConditionsModal
+          open={termModalOpen}
+          handleClose={handleTermModalClose}
+          data={activity.condition}
+          setAcceptTerm={setAcceptTerm}
         />
-      </View>
-      <View style={{marginBottom: 50}}></View>
-      <TermsAndConditionsModal
-        open={termModalOpen}
-        handleClose={handleTermModalClose}
-        data={activity.condition}
-        setAcceptTerm={setAcceptTerm}
-      />
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
