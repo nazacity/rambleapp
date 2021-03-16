@@ -6,6 +6,8 @@ import {
   Image,
   ScrollView,
   BackHandler,
+  Linking,
+  TouchableOpacity,
 } from 'react-native';
 import Button from '../../components/Button';
 import {FONTS, COLORS} from '../../constants';
@@ -136,6 +138,11 @@ const PaymentScreen = ({navigation, route}) => {
           {t('payment.baht')}
         </Text>
       </View>
+      <View style={{marginVertical: 20}}>
+        <Text style={[FONTS.body3, {textAlign: 'center'}]}>
+          {t('payment.warning1')}
+        </Text>
+      </View>
       <View
         style={{
           width: 200,
@@ -153,11 +160,21 @@ const PaymentScreen = ({navigation, route}) => {
       </View>
       <View style={{marginVertical: 20}}>
         <Text style={[FONTS.body3, {textAlign: 'center'}]}>
-          {t('payment.warning1')}
-        </Text>
-        <Text style={[FONTS.body3, {textAlign: 'center'}]}>
           {t('payment.warning2')}
         </Text>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            Linking.openURL(`http://line.me/ti/p/~@833qbcov`);
+          }}>
+          <Text
+            style={[
+              FONTS.body3,
+              {textAlign: 'center', color: COLORS.buttonBlue},
+            ]}>
+            {t('payment.warning3')}
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={{alignItems: 'center'}}>
         <Button

@@ -259,9 +259,11 @@ const en = {
     total: 'Total',
     baht: 'baht',
     confirm: 'Register Confirmation',
-    warning1: 'Please pay via this qrcode',
-    warning2: 'after payment system will update automatically',
+    warning1: 'You can pay via every promtpay systems',
+    warning2:
+      'in case you would like to pay via other option pleas contact our admin via',
     back: 'Back to home screen',
+    warning3: 'Ramble Line OA Click here',
   },
   addaddress: {
     title: 'New Address',
