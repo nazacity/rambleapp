@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* RambleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RambleTests.m */; };
 		09A459244B4D47B78DF3EE35 /* SFProText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6DA9F95E605B42A489E7AC6E /* SFProText-Regular.otf */; };
-		1057E3886C9D6EDA696766BD /* libPods-Ramble-RambleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E825A682B69A2BEA2799BDF2 /* libPods-Ramble-RambleTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -17,14 +16,15 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* RambleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RambleTests.m */; };
-		3EFE73D02BEB6CBC93B5AC40 /* libPods-Ramble-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 447C2DBA255C306F7D2CB8AE /* libPods-Ramble-tvOSTests.a */; };
-		4C5412BD142FFB77EE40EAF8 /* libPods-Ramble-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9355FD641EADD69BEAD6C8B3 /* libPods-Ramble-tvOS.a */; };
 		5D58C9F025B48DD60071D276 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D58C9EF25B48DD60071D276 /* Launch Screen.storyboard */; };
 		5D58C9F125B48DD60071D276 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D58C9EF25B48DD60071D276 /* Launch Screen.storyboard */; };
 		832817C35BF342FFBED39432 /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 823E7BD0373E4AA7BCBAEFF5 /* SFProText-Medium.ttf */; };
 		83652912537F4C8F8EB6ADBB /* SFProText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A0B35F7B46D441F995A6F41D /* SFProText-Bold.otf */; };
 		88ED28B7F6F546DBAA9B0754 /* SFProText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 81068E677896474F9EDF5111 /* SFProText-Semibold.otf */; };
-		A174FE11961F03EDC8C6CE6E /* libPods-Ramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A3CAE645F76279E8F854423 /* libPods-Ramble.a */; };
+		9C980A7AB4432BB69733B334 /* libPods-Ramble-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27220E74FFEB61C84AB1CFAF /* libPods-Ramble-tvOS.a */; };
+		9CB2CF6A4F31D020943F58A5 /* libPods-Ramble-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A12183B0D187787D524F8C5E /* libPods-Ramble-tvOSTests.a */; };
+		B01691BB3D202513C5A05404 /* libPods-Ramble-RambleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB5859856BFA08371CFE2CE /* libPods-Ramble-RambleTests.a */; };
+		C09139A4ECF8D4BF75ED7705 /* libPods-Ramble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0439F1F8F809DB41D8B9323D /* libPods-Ramble.a */; };
 		DF168E2190594162AB4582D5 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D12F25B57014132942AEE31 /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +50,8 @@
 		00E356EE1AD99517003FC87E /* RambleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RambleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RambleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RambleTests.m; sourceTree = "<group>"; };
+		0439F1F8F809DB41D8B9323D /* libPods-Ramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		050048CB3A1EFF8F6A6B58C3 /* Pods-Ramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble.release.xcconfig"; path = "Target Support Files/Pods-Ramble/Pods-Ramble.release.xcconfig"; sourceTree = "<group>"; };
 		06F645BA718141E690E1BAF4 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		11649581B88E481B8EC2E7A7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Ramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ramble.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,19 +61,21 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Ramble/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Ramble/main.m; sourceTree = "<group>"; };
 		1DECBCA225F043308C5C4392 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		209522FDFBFE6AA13FA448F7 /* Pods-Ramble-RambleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-RambleTests.release.xcconfig"; path = "Target Support Files/Pods-Ramble-RambleTests/Pods-Ramble-RambleTests.release.xcconfig"; sourceTree = "<group>"; };
+		1FEFFDF04E976FD92D579165 /* Pods-Ramble-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOS/Pods-Ramble-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		23B04B4AC6914F2894526449 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		27220E74FFEB61C84AB1CFAF /* libPods-Ramble-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD24563ADB04527B5D55B5C /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Ramble-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ramble-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Ramble-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Ramble-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC6BE59DACF4E8DB204E1B4 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		3B743FD2052322D53A725303 /* Pods-Ramble-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOS/Pods-Ramble-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		33E248967A30F1797A0F6586 /* Pods-Ramble-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOSTests/Pods-Ramble-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		35C4681C4A9601B2B6829A4F /* Pods-Ramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble.debug.xcconfig"; path = "Target Support Files/Pods-Ramble/Pods-Ramble.debug.xcconfig"; sourceTree = "<group>"; };
+		360C936F6640B4B4A87276E7 /* Pods-Ramble-RambleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-RambleTests.debug.xcconfig"; path = "Target Support Files/Pods-Ramble-RambleTests/Pods-Ramble-RambleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3FEA8C4701D04374B6342CF6 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		447C2DBA255C306F7D2CB8AE /* libPods-Ramble-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BB26D6756E9B7CFEFEB01ED /* Pods-Ramble-RambleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-RambleTests.release.xcconfig"; path = "Target Support Files/Pods-Ramble-RambleTests/Pods-Ramble-RambleTests.release.xcconfig"; sourceTree = "<group>"; };
 		4C545C630E684094AB229D96 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		4FF93E8C7E124A8AA755B366 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5047AE5482C541BABAC396E9 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		530AE445AD4BE34703710654 /* Pods-Ramble-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOS/Pods-Ramble-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5D4D5ED125C29F610077EFD2 /* Ramble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Ramble.entitlements; path = Ramble/Ramble.entitlements; sourceTree = "<group>"; };
 		5D58C9EF25B48DD60071D276 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5D599DAB25D2141C00BD772E /* LineSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LineSDK.framework; path = Pods/LineSDK/LineSDK/LineSDK.framework; sourceTree = "<group>"; };
@@ -81,24 +85,20 @@
 		5DE0374425CFE1D3004C5C75 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		5DE0374625CFE1DC004C5C75 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5DE0374825CFE1E5004C5C75 /* libLineSDKSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libLineSDKSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		63D81B714DACD9AE51124845 /* Pods-Ramble-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOSTests/Pods-Ramble-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		64B131F9FB9A4B9EBB0B4E57 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		6A00971C26FF457AAA842F01 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		6A3CAE645F76279E8F854423 /* libPods-Ramble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C577A683D1B4CD9BBF8F298 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		6DA9F95E605B42A489E7AC6E /* SFProText-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Regular.otf"; path = "../assets/fonts/SFProText-Regular.otf"; sourceTree = "<group>"; };
 		81068E677896474F9EDF5111 /* SFProText-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Semibold.otf"; path = "../assets/fonts/SFProText-Semibold.otf"; sourceTree = "<group>"; };
 		823E7BD0373E4AA7BCBAEFF5 /* SFProText-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Medium.ttf"; path = "../assets/fonts/SFProText-Medium.ttf"; sourceTree = "<group>"; };
 		8D12F25B57014132942AEE31 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
-		8D9375E86BB41A79021CB43F /* Pods-Ramble-RambleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-RambleTests.debug.xcconfig"; path = "Target Support Files/Pods-Ramble-RambleTests/Pods-Ramble-RambleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9355FD641EADD69BEAD6C8B3 /* libPods-Ramble-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0B35F7B46D441F995A6F41D /* SFProText-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.otf"; path = "../assets/fonts/SFProText-Bold.otf"; sourceTree = "<group>"; };
-		B6983554292B03CE5822E001 /* Pods-Ramble-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOSTests/Pods-Ramble-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		A12183B0D187787D524F8C5E /* libPods-Ramble-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB579478057A41C390174B2B /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		C183EEB4375BB372F92148C5 /* Pods-Ramble-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOSTests/Pods-Ramble-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C73D8100C2A579525A25BE79 /* Pods-Ramble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble.debug.xcconfig"; path = "Target Support Files/Pods-Ramble/Pods-Ramble.debug.xcconfig"; sourceTree = "<group>"; };
+		BCBE3D8BFCE19D5CFBE0776D /* Pods-Ramble-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Ramble-tvOS/Pods-Ramble-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		BFB5859856BFA08371CFE2CE /* libPods-Ramble-RambleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble-RambleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA478398A8B4D30857D5EF8 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		E825A682B69A2BEA2799BDF2 /* libPods-Ramble-RambleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Ramble-RambleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8A7FA5877131A1A7FE04013 /* Pods-Ramble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ramble.release.xcconfig"; path = "Target Support Files/Pods-Ramble/Pods-Ramble.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F3E7875F06E04284884C7DF1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1057E3886C9D6EDA696766BD /* libPods-Ramble-RambleTests.a in Frameworks */,
+				B01691BB3D202513C5A05404 /* libPods-Ramble-RambleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A174FE11961F03EDC8C6CE6E /* libPods-Ramble.a in Frameworks */,
+				C09139A4ECF8D4BF75ED7705 /* libPods-Ramble.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C5412BD142FFB77EE40EAF8 /* libPods-Ramble-tvOS.a in Frameworks */,
+				9C980A7AB4432BB69733B334 /* libPods-Ramble-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EFE73D02BEB6CBC93B5AC40 /* libPods-Ramble-tvOSTests.a in Frameworks */,
+				9CB2CF6A4F31D020943F58A5 /* libPods-Ramble-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,14 +160,14 @@
 		0734F249DC1C2556A2A8529C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C73D8100C2A579525A25BE79 /* Pods-Ramble.debug.xcconfig */,
-				E8A7FA5877131A1A7FE04013 /* Pods-Ramble.release.xcconfig */,
-				8D9375E86BB41A79021CB43F /* Pods-Ramble-RambleTests.debug.xcconfig */,
-				209522FDFBFE6AA13FA448F7 /* Pods-Ramble-RambleTests.release.xcconfig */,
-				530AE445AD4BE34703710654 /* Pods-Ramble-tvOS.debug.xcconfig */,
-				3B743FD2052322D53A725303 /* Pods-Ramble-tvOS.release.xcconfig */,
-				C183EEB4375BB372F92148C5 /* Pods-Ramble-tvOSTests.debug.xcconfig */,
-				B6983554292B03CE5822E001 /* Pods-Ramble-tvOSTests.release.xcconfig */,
+				35C4681C4A9601B2B6829A4F /* Pods-Ramble.debug.xcconfig */,
+				050048CB3A1EFF8F6A6B58C3 /* Pods-Ramble.release.xcconfig */,
+				360C936F6640B4B4A87276E7 /* Pods-Ramble-RambleTests.debug.xcconfig */,
+				4BB26D6756E9B7CFEFEB01ED /* Pods-Ramble-RambleTests.release.xcconfig */,
+				BCBE3D8BFCE19D5CFBE0776D /* Pods-Ramble-tvOS.debug.xcconfig */,
+				1FEFFDF04E976FD92D579165 /* Pods-Ramble-tvOS.release.xcconfig */,
+				63D81B714DACD9AE51124845 /* Pods-Ramble-tvOSTests.debug.xcconfig */,
+				33E248967A30F1797A0F6586 /* Pods-Ramble-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -198,10 +198,10 @@
 				5DE0374425CFE1D3004C5C75 /* CoreTelephony.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				6A3CAE645F76279E8F854423 /* libPods-Ramble.a */,
-				E825A682B69A2BEA2799BDF2 /* libPods-Ramble-RambleTests.a */,
-				9355FD641EADD69BEAD6C8B3 /* libPods-Ramble-tvOS.a */,
-				447C2DBA255C306F7D2CB8AE /* libPods-Ramble-tvOSTests.a */,
+				0439F1F8F809DB41D8B9323D /* libPods-Ramble.a */,
+				BFB5859856BFA08371CFE2CE /* libPods-Ramble-RambleTests.a */,
+				27220E74FFEB61C84AB1CFAF /* libPods-Ramble-tvOS.a */,
+				A12183B0D187787D524F8C5E /* libPods-Ramble-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -276,11 +276,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RambleTests" */;
 			buildPhases = (
-				43AFE9F33E5D9ACE0FA04684 /* [CP] Check Pods Manifest.lock */,
+				B2DB0FE0604F916D7E439BA1 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				6C7D61CEE8164C8CF8606422 /* [CP] Copy Pods Resources */,
+				4FAB869E6FFB2986F434116A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -296,13 +296,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Ramble" */;
 			buildPhases = (
-				738A63A12FC3115736B6A85C /* [CP] Check Pods Manifest.lock */,
+				07B7C79D9914785077F6E562 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				0199527F53B80335B143B2A4 /* [CP] Copy Pods Resources */,
+				4F8F0DAB28E8E66694D9F2A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -317,7 +317,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Ramble-tvOS" */;
 			buildPhases = (
-				19BD498D6E6FA5CBC83584B6 /* [CP] Check Pods Manifest.lock */,
+				086FA89D7B26532327A01A50 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -337,7 +337,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Ramble-tvOSTests" */;
 			buildPhases = (
-				D982C94A074FB003A7FA8411 /* [CP] Check Pods Manifest.lock */,
+				2A8F7A364F9CD6310445B00F /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -455,7 +455,87 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0199527F53B80335B143B2A4 /* [CP] Copy Pods Resources */ = {
+		07B7C79D9914785077F6E562 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ramble-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		086FA89D7B26532327A01A50 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ramble-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A8F7A364F9CD6310445B00F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ramble-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		4F8F0DAB28E8E66694D9F2A3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -511,65 +591,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ramble/Pods-Ramble-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		19BD498D6E6FA5CBC83584B6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Ramble-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		43AFE9F33E5D9ACE0FA04684 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Ramble-RambleTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6C7D61CEE8164C8CF8606422 /* [CP] Copy Pods Resources */ = {
+		4FAB869E6FFB2986F434116A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -625,7 +647,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ramble-RambleTests/Pods-Ramble-RambleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		738A63A12FC3115736B6A85C /* [CP] Check Pods Manifest.lock */ = {
+		B2DB0FE0604F916D7E439BA1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -640,29 +662,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Ramble-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D982C94A074FB003A7FA8411 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Ramble-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Ramble-RambleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -762,7 +762,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D9375E86BB41A79021CB43F /* Pods-Ramble-RambleTests.debug.xcconfig */;
+			baseConfigurationReference = 360C936F6640B4B4A87276E7 /* Pods-Ramble-RambleTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -786,7 +786,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 209522FDFBFE6AA13FA448F7 /* Pods-Ramble-RambleTests.release.xcconfig */;
+			baseConfigurationReference = 4BB26D6756E9B7CFEFEB01ED /* Pods-Ramble-RambleTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -807,12 +807,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C73D8100C2A579525A25BE79 /* Pods-Ramble.debug.xcconfig */;
+			baseConfigurationReference = 35C4681C4A9601B2B6829A4F /* Pods-Ramble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Ramble/Ramble.entitlements;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 3YZ3F2R47K;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -837,12 +837,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8A7FA5877131A1A7FE04013 /* Pods-Ramble.release.xcconfig */;
+			baseConfigurationReference = 050048CB3A1EFF8F6A6B58C3 /* Pods-Ramble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Ramble/Ramble.entitlements;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 38;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 3YZ3F2R47K;
 				ENABLE_BITCODE = YES;
@@ -867,7 +867,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 530AE445AD4BE34703710654 /* Pods-Ramble-tvOS.debug.xcconfig */;
+			baseConfigurationReference = BCBE3D8BFCE19D5CFBE0776D /* Pods-Ramble-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -895,7 +895,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B743FD2052322D53A725303 /* Pods-Ramble-tvOS.release.xcconfig */;
+			baseConfigurationReference = 1FEFFDF04E976FD92D579165 /* Pods-Ramble-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -923,7 +923,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C183EEB4375BB372F92148C5 /* Pods-Ramble-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 63D81B714DACD9AE51124845 /* Pods-Ramble-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -950,7 +950,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6983554292B03CE5822E001 /* Pods-Ramble-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 33E248967A30F1797A0F6586 /* Pods-Ramble-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
