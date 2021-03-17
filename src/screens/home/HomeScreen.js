@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ScrollView,
@@ -21,6 +21,7 @@ import {post} from '../../redux/actions/request';
 import MenuButton from '../../components/layout/MenuButton';
 import {refresh} from '../../redux/actions/UserAction';
 import LocalizationContext from '../LocalizationContext';
+// import RatingBar from '../../components/layout/RatingBar';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -70,6 +71,8 @@ const HomeScreen = ({navigation}) => {
     return unsubscribe;
   }, []);
 
+  // const [rate, setRate] = useState(3);
+
   return (
     <View>
       <MenuButton />
@@ -77,12 +80,11 @@ const HomeScreen = ({navigation}) => {
         style={{backgroundColor: COLORS.backgroundColor}}
         showsVerticalScrollIndicator={false}>
         <PromoteActivity />
+        {/* <RatingBar size={20} value={rate} onPress={(item) => setRate(item)} /> */}
         <UserDetail marginTop={30} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />
         <View style={{margin: 20}} />
-        {/* <MainAdvertise /> */}
-        {/* <MinorAdvertise /> */}
       </ScrollView>
     </View>
   );
