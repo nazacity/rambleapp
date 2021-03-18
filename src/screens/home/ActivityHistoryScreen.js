@@ -17,7 +17,7 @@ const HistoryActivityScreen = ({navigation, route}) => {
         <View
           style={{
             backgroundColor: COLORS.primary,
-            height: 200,
+            height: 100,
           }}></View>
         <RecordCard item={userActivity} />
       </ScrollView>

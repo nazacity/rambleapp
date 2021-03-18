@@ -375,6 +375,13 @@ const en = {
   share: {
     interest: "I'm intereted in",
   },
+  userrecord: {
+    year: 'Year',
+    activity: 'Activities',
+    work: 'works',
+    distance: 'Distance',
+    km: 'Km',
+  },
 };
 
 export default en;

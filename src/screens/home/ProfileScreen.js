@@ -15,9 +15,9 @@ const ProfileScreen = () => {
         <View
           style={{
             backgroundColor: COLORS.primary,
-            height: 200,
+            height: 100,
           }}></View>
-        <UserDetail marginTop={-90} editable={true} />
+        <UserDetail marginTop={-30} editable={true} />
       </ScrollView>
     </View>
   );

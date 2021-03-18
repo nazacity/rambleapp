@@ -1,12 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Text, View, FlatList, Animated} from 'react-native';
+import {Text, View, FlatList, Animated, ActivityIndicator} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import {useSelector} from 'react-redux';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
-import {useNavigation} from '@react-navigation/native';
-import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
 import {get} from '../../redux/actions/request';
@@ -43,9 +41,11 @@ const HistoryActivityScreen = () => {
       <MenuButton />
       {data.length === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-            {t('history.noactivity')}
-          </Text>
+          <ActivityIndicator
+            style={{padding: 10}}
+            size={40}
+            color={COLORS.primary}
+          />
         </View>
       ) : (
         <Animated.FlatList
@@ -53,15 +53,15 @@ const HistoryActivityScreen = () => {
           data={data}
           keyExtractor={(item, index) => `${item._id} ${index}`}
           renderItem={({item, index}) => {
-            return <UserYearRecordCard item={item} />;
+            return <UserYearRecordCard data={item} />;
           }}
-          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          ItemSeparatorComponent={() => <View style={{margin: 5}} />}
           style={{paddingTop: 60}}
           contentContainerStyle={{
             padding: 5,
             justifyContent: 'center',
           }}
-          ListFooterComponent={() => <View style={{marginBottom: 50}} />}
+          ListFooterComponent={() => <View style={{marginBottom: 100}} />}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {y: scrollY}}}],
             {useNativeDriver: true},

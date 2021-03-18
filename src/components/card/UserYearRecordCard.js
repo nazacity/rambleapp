@@ -15,10 +15,11 @@ import {useSelector} from 'react-redux';
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import Distance from './recordcard/Distance1';
 import {useNavigation} from '@react-navigation/native';
+
 // import Average from './recordcard/Average';
 // import Time from './recordcard/Time';
 
-const UserYearRecordCard = ({item}) => {
+const UserYearRecordCard = ({data}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
 
@@ -27,68 +28,71 @@ const UserYearRecordCard = ({item}) => {
       style={[
         {
           backgroundColor: COLORS.white,
-          marginBottom: 10,
-          borderRadius: 15,
+          borderRadius: 10,
           width: SIZES.width - 40,
         },
         SHADOW.default,
       ]}>
-      <View style={{paddingTop: 20, paddingHorizontal: 20}}>
+      <View style={{paddingTop: 10}}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
+            paddingHorizontal: 5,
           }}>
           <View
             style={[
               {
-                marginHorizontal: 10,
+                marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
                 borderRadius: 5,
+                height: '100%',
+                flex: 1,
+                alignItems: 'center',
               },
               SHADOW.default,
             ]}>
-            <Text style={[FONTS.h3]}>ปี {item.year}</Text>
+            <Caption style={[FONTS.h4]}> {t('userrecord.year')}</Caption>
+            <Text style={[FONTS.h3]}>{data.year}</Text>
           </View>
           <View
             style={[
               {
-                marginHorizontal: 10,
+                marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
                 borderRadius: 5,
+                alignItems: 'center',
+                flex: 1,
               },
               SHADOW.default,
             ]}>
-            <Text style={[FONTS.body4]}>
-              กิจกรรม {item.activity_number} งาน
-            </Text>
+            <Caption style={[FONTS.h4]}> {t('userrecord.activity')}</Caption>
+            <Text style={[FONTS.h3]}> {data.activity_number}</Text>
+            <Caption style={[FONTS.h4]}> {t('userrecord.work')}</Caption>
           </View>
           <View
             style={[
               {
-                marginHorizontal: 10,
+                marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
                 borderRadius: 5,
+                alignItems: 'center',
+                flex: 1,
               },
               SHADOW.default,
             ]}>
-            <Text style={[FONTS.body4]}>ระยะทาง {item.distance} กม</Text>
+            <Caption style={[FONTS.h4]}>{t('userrecord.distance')}</Caption>
+            <Text style={[FONTS.h3]}>{data.distance}</Text>
+            <Caption style={[FONTS.h4]}>{t('userrecord.km')}</Caption>
           </View>
         </View>
-        <View
-          style={{
-            borderBottomWidth: 0.5,
-            borderBottomColor: 'rgba(0,0,0,0.2)',
-            marginTop: 20,
-          }}
-        />
       </View>
       <View>
-        {item.user_activities.length === 0 ? (
+        {data.user_activities.length === 0 ? (
           <View
             style={{
               flex: 1,
@@ -106,7 +110,7 @@ const UserYearRecordCard = ({item}) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             data={[
-              ...item.user_activities,
+              ...data.user_activities,
               // ...item.user_activities,
               // ...item.user_activities,
             ]}
@@ -120,6 +124,8 @@ const UserYearRecordCard = ({item}) => {
                       height: 100,
                       borderRadius: 100,
                       backgroundColor: COLORS.white,
+                      marginRight:
+                        index === data.user_activities.length - 1 ? 0 : 10,
                     },
                     SHADOW.image,
                   ]}>
@@ -152,8 +158,7 @@ const UserYearRecordCard = ({item}) => {
                 </View>
               );
             }}
-            ItemSeparatorComponent={() => <View style={{margin: 5}} />}
-            style={{padding: 20}}
+            contentContainerStyle={{padding: 10}}
           />
         )}
       </View>

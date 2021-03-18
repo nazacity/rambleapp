@@ -373,6 +373,13 @@ const th = {
   share: {
     interest: 'ฉันสนใจที่จะเข้าร่วมกิจกรรม',
   },
+  userrecord: {
+    year: 'ปี',
+    activity: 'กิจกรรม',
+    work: 'งาน',
+    distance: 'ระยะทาง',
+    km: 'กม.',
+  },
 };
 
 export default th;
