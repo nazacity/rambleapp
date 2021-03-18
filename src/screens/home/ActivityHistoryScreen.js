@@ -11,15 +11,17 @@ const HistoryActivityScreen = ({navigation, route}) => {
   const {userActivity} = route.params;
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <View
-        style={{
-          backgroundColor: COLORS.primary,
-          height: 200,
-        }}></View>
-      <RecordCard item={userActivity} />
-    </ScrollView>
+    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <BackButton />
+        <View
+          style={{
+            backgroundColor: COLORS.primary,
+            height: 200,
+          }}></View>
+        <RecordCard item={userActivity} />
+      </ScrollView>
+    </View>
   );
 };
 

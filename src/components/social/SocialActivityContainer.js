@@ -46,7 +46,6 @@ const SocialActivityContainer = () => {
             height: 100,
             borderRadius: 100,
             marginRight: 10,
-
             backgroundColor: COLORS.white,
           },
           SHADOW.image,

@@ -62,7 +62,6 @@ const QrcodeScannerScreen = ({navigation, route}) => {
   };
 
   const checkoutFunction = async (data) => {
-    console.log(data);
     if (courseId === data) {
       dispatch(checkoutActivity(navigation, userActivityId, refreshCheckOut));
     } else {

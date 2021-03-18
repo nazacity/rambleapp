@@ -18,6 +18,8 @@ const ButtonSection = ({userActivity, activity}) => {
     setOpen(false);
   };
 
+  console.log('activityId', activity._id);
+
   return (
     <View style={{alignItems: 'center'}}>
       {userActivity.state === 'unregister' && activity.state === 'registering' && (

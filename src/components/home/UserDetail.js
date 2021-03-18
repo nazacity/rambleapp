@@ -15,24 +15,34 @@ import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import Distance from './userdetail/Distance2';
 import Activity from './userdetail/Activity';
 import {useNavigation} from '@react-navigation/native';
+import {post} from '../../redux/actions/request';
 
 const UserDetail = ({marginTop, editable}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
-  const userRecords = useSelector((state) => state.user.user_records);
+  // const userRecords = useSelector((state) => state.user.user_records);
   const [data, setData] = useState({});
   const navigation = useNavigation();
 
-  const getThisYearRecord = () => {
-    const thisYearRecord = userRecords.find(
-      (item) => item.year === new Date().getFullYear().toString(),
-    );
-
-    setData(thisYearRecord);
+  const getThisYearRecord = async () => {
+    try {
+      const res = await post('/api/users/getuseryearrecord', {
+        year: new Date().getFullYear().toString(),
+      });
+      if (res.status === 200) {
+        setData(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    getThisYearRecord();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getThisYearRecord();
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
