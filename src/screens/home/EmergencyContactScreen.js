@@ -58,7 +58,8 @@ const EmergencyContactScreen = () => {
               <EmergencyCard
                 key={index}
                 item={item}
-                editable={true}
+                // editable={true}
+                deletable={true}
                 setEmergency={setEmergency}
                 setEditModalOpen={setEditModalOpen}
               />

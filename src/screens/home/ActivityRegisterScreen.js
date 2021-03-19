@@ -21,12 +21,20 @@ import EmergencyCard from '../../components/card/EmergencyCard';
 import {registerActivity} from '../../redux/actions/UserAction';
 import LocalizationContext from '../LocalizationContext';
 import TitleHeader from '../../components/layout/TitleHeader';
-import {setSnackbarDisplay} from '../../redux/actions/AppStateAction';
+import {
+  setAddAddressModal,
+  setEmergencyModal,
+  setSnackbarDisplay,
+} from '../../redux/actions/AppStateAction';
 import BackButton from '../../components/layout/BackButton';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import AddAddressModal from '../../components/modal/AddAddressModal';
+import AddEmergencyContactModal from '../../components/modal/AddEmergencyContactModal';
 
 const ActivityRegisterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const {activity} = route.params;
   const [course, setCourse] = useState(
@@ -47,8 +55,6 @@ const ActivityRegisterScreen = ({navigation, route}) => {
     setTermModalOpen(false);
   };
 
-  console.log(address);
-
   const navigateUser = (userActivityId) => {
     navigation.replace('Payment', {
       course: course,
@@ -60,7 +66,39 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   };
 
   const onSubmit = () => {
-    if (!acceptTerm) {
+    if (!address._id) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.selectaddress'),
+        }),
+      );
+      return;
+    } else if (!emergency._id) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.selectemergency'),
+        }),
+      );
+      return;
+    } else if (!course._id) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.selectcourse'),
+        }),
+      );
+      return;
+    } else if (!size.id) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.selectsize'),
+        }),
+      );
+      return;
+    } else if (!acceptTerm) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -99,25 +137,25 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    if (user.addresses.length === 0) {
-      Alert.alert(t('activity.noaddresses'), t('activity.pleaseaddaddresses'), [
-        {
-          text: t('activity.okay'),
-          onPress: () => {
-            navigation.navigate('Address');
-          },
-        },
-      ]);
-    } else if (user.emergency_contacts.length === 0) {
-      Alert.alert(t('activity.noemergency'), t('activity.pleaseaddemergency'), [
-        {
-          text: t('activity.okay'),
-          onPress: () => {
-            navigation.navigate('EmergencyContact');
-          },
-        },
-      ]);
-    }
+    // if (user.addresses.length === 0) {
+    //   Alert.alert(t('activity.noaddresses'), t('activity.pleaseaddaddresses'), [
+    //     {
+    //       text: t('activity.okay'),
+    //       onPress: () => {
+    //         navigation.navigate('Address');
+    //       },
+    //     },
+    //   ]);
+    // } else if (user.emergency_contacts.length === 0) {
+    //   Alert.alert(t('activity.noemergency'), t('activity.pleaseaddemergency'), [
+    //     {
+    //       text: t('activity.okay'),
+    //       onPress: () => {
+    //         navigation.navigate('EmergencyContact');
+    //       },
+    //     },
+    //   ]);
+    // }
   }, []);
 
   return (
@@ -205,49 +243,67 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         </View>
 
         <View style={{marginBottom: 20, paddingHorizontal: 20}}>
-          <TitleHeader title={t('activity.address')} />
-          <View>
-            {user.addresses.length > 0 ? (
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={[
-                    {
-                      _id: '5ff6600d20ed83388ab4ccbd',
-                      address: t('activity.atevent'),
-                    },
-                    ...user.addresses,
-                  ]}
-                  keyExtractor={(item) => `${item._id}`}
-                  renderItem={({item, index}) => {
-                    return (
-                      <View
-                        style={[
-                          {
-                            backgroundColor: '#fff',
-                            borderRadius: 10,
-                            borderWidth: item._id === address._id ? 1 : 0,
-                            borderColor: COLORS.primary,
-                            width: SIZES.width - 80,
-                          },
-                        ]}>
-                        <TouchableOpacity
-                          activeOpacity={0.9}
-                          onPress={() => {
-                            setAddress(item);
-                          }}>
-                          <AddressCard item={item} deletable={false} />
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  }}
-                  ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-                  contentContainerStyle={{paddingHorizontal: 20}}
-                  ListFooterComponent={() => <View style={{margin: 5}} />}
-                  ListHeaderComponent={() => <View style={{margin: 5}} />}
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TitleHeader title={t('activity.address')} />
+            {user.addresses.length < 3 && (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{marginLeft: 5}}
+                onPress={() => {
+                  dispatch(setAddAddressModal(true));
+                }}>
+                <Ionicons
+                  name="add"
+                  size={20}
+                  backgroundColor="transparent"
+                  color={COLORS.buttonBlue}
                 />
-              </ScrollView>
-            ) : (
+              </TouchableOpacity>
+            )}
+          </View>
+          <View>
+            {/* {user.addresses.length > 0 ? ( */}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={[
+                  {
+                    _id: '5ff6600d20ed83388ab4ccbd',
+                    address: t('activity.atevent'),
+                  },
+                  ...user.addresses,
+                ]}
+                keyExtractor={(item) => `${item._id}`}
+                renderItem={({item, index}) => {
+                  return (
+                    <View
+                      style={[
+                        {
+                          backgroundColor: '#fff',
+                          borderRadius: 10,
+                          borderWidth: item._id === address._id ? 1 : 0,
+                          borderColor: COLORS.primary,
+                          width: SIZES.width - 80,
+                          paddingBottom: 1,
+                        },
+                      ]}>
+                      <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => {
+                          setAddress(item);
+                        }}>
+                        <AddressCard item={item} deletable={false} />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                }}
+                ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+                contentContainerStyle={{paddingHorizontal: 20}}
+                ListFooterComponent={() => <View style={{margin: 5}} />}
+                ListHeaderComponent={() => <View style={{margin: 5}} />}
+              />
+            </ScrollView>
+            {/* ) : (
               <TouchableOpacity
                 activeOpacity={0.6}
                 onPress={() => {
@@ -260,12 +316,29 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                   {t('activity.clickhere')}
                 </Text>
               </TouchableOpacity>
-            )}
+            )} */}
           </View>
         </View>
 
         <View style={{marginBottom: 20, paddingHorizontal: 20}}>
-          <TitleHeader title={t('activity.emergency')} />
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TitleHeader title={t('activity.emergency')} />
+            {user.emergency_contacts.length < 3 && (
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{marginLeft: 5}}
+                onPress={() => {
+                  dispatch(setEmergencyModal(true));
+                }}>
+                <Ionicons
+                  name="add"
+                  size={20}
+                  backgroundColor="transparent"
+                  color={COLORS.buttonBlue}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
           <View>
             {user.emergency_contacts.length > 0 ? (
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -284,6 +357,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                             borderWidth: item._id === emergency._id ? 1 : 0,
                             borderColor: COLORS.primary,
                             width: SIZES.width - 80,
+                            paddingBottom: 1,
                           },
                         ]}>
                         <TouchableOpacity
@@ -304,9 +378,9 @@ const ActivityRegisterScreen = ({navigation, route}) => {
               </ScrollView>
             ) : (
               <TouchableOpacity
-                activeOpacity={0.6}
+                activeOpacity={0.8}
                 onPress={() => {
-                  navigation.navigate('home', {screen: 'EmergencyContact'});
+                  dispatch(setEmergencyModal(true));
                 }}>
                 <Text style={[FONTS.h5, {textAlign: 'center'}]}>
                   {t('activity.addemergency')}
@@ -352,7 +426,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('activity.register')}
-            color={COLORS.pinkPastel}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
             onPress={() => {
               onSubmit();
             }}
@@ -366,6 +440,8 @@ const ActivityRegisterScreen = ({navigation, route}) => {
           setAcceptTerm={setAcceptTerm}
         />
       </ScrollView>
+      <AddAddressModal />
+      <AddEmergencyContactModal />
     </View>
   );
 };

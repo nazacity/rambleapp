@@ -25,7 +25,12 @@ const MenuButton = ({top}) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => navigation.openDrawer()}>
-        <MenuIcon size={14} borderRadius={50} color={COLORS.pinkPastel} />
+        <Ionicons
+          name="menu-sharp"
+          size={24}
+          borderRadius={50}
+          color={COLORS.pinkPastel}
+        />
       </TouchableOpacity>
     </View>
   );

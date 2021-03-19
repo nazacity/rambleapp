@@ -35,6 +35,7 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const lineInfo = route.params.lineInfo;
   const [image, setImage] = useState('');
@@ -83,14 +84,15 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (data) => {
-    if (!image) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.noimage'),
-        }),
-      );
-    } else if (data.username.length < 6) {
+    // if (!image) {
+    //   dispatch(
+    //     setSnackbarDisplay({
+    //       state: 'error',
+    //       message: t('signup.noimage'),
+    //     }),
+    //   );
+    // } else
+    if (data.username.length < 6) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -111,14 +113,16 @@ const SignupForm = () => {
           message: t('signup.password8'),
         }),
       );
-    } else if (!data.display_name) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.displaynameerror'),
-        }),
-      );
-    } else if (!data.first_name) {
+    }
+    // else if (!data.display_name) {
+    //   dispatch(
+    //     setSnackbarDisplay({
+    //       state: 'error',
+    //       message: t('signup.displaynameerror'),
+    //     }),
+    //   );
+    // }
+    else if (!data.first_name) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -152,7 +156,7 @@ const SignupForm = () => {
         const userinfo = {
           username: data.username,
           password: data.password,
-          display_name: data.display_name,
+          display_name: data.first_name,
           idcard: 'not provided yet',
           first_name: data.first_name,
           last_name: data.last_name,
@@ -352,7 +356,7 @@ const SignupForm = () => {
               // rules={{required: true}}
               defaultValue=""
             />
-            <Controller
+            {/* <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
@@ -364,7 +368,7 @@ const SignupForm = () => {
               )}
               name="display_name"
               defaultValue=""
-            />
+            /> */}
 
             <View style={{marginHorizontal: 10, marginVertical: 10}}>
               <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
@@ -428,7 +432,7 @@ const SignupForm = () => {
                   borderWidth: 1,
                   borderColor: COLORS.inputPlaceholderColor,
                   height: 50,
-                  borderRadius: 10,
+                  borderRadius: 5,
                   alignItems: 'center',
                   paddingLeft: 20,
                 }}>
@@ -682,7 +686,7 @@ const SignupForm = () => {
             <View style={{alignItems: 'center'}}>
               <Button
                 label={t('signup.signup')}
-                color={COLORS.pinkPastel}
+                color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
                 onPress={handleSubmit(onSubmit)}
               />
             </View>

@@ -54,8 +54,8 @@ const AddressScreen = () => {
             return (
               <AddressCard
                 item={item}
-                editable={true}
-                // deletable={true}
+                // editable={true}
+                deletable={true}
                 index={index}
                 setAddress={setAddress}
                 setEditModalOpen={setEditModalOpen}

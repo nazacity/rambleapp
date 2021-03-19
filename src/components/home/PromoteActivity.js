@@ -31,7 +31,6 @@ const PromoteActivity = () => {
       if (res.status === 200) {
         setPromote_activities(res.data);
       }
-      console.log(error);
 
       setLoading(false);
     } catch (error) {
@@ -79,37 +78,48 @@ const PromoteActivity = () => {
               {dayjs(item.actual_date).format('DD MMMM YY')}
             </Text>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
+          <View
             style={[
+              SHADOW.default,
               {
-                borderRadius: 10,
+                borderRadius: 5,
                 height: 50,
                 width: 130,
-                justifyContent: 'center',
-                alignItems: 'center',
                 backgroundColor: COLORS.primary,
                 marginRight: 30,
               },
-              SHADOW.default,
-            ]}
-            onPress={() => {
-              navigation.navigate('ActivityDetail', {
-                activityId: item._id,
-                from: 'HomeScreen',
-              });
-            }}>
-            <Text
+            ]}>
+            <TouchableOpacity
+              activeOpacity={0.6}
               style={[
                 {
-                  color: '#fff',
-                  textAlign: 'center',
+                  borderRadius: 5,
+                  height: 50,
+                  width: 130,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: COLORS.primary,
                 },
-                FONTS.h3,
-              ]}>
-              {t('promoteactivity.detail')}
-            </Text>
-          </TouchableOpacity>
+                SHADOW.default,
+              ]}
+              onPress={() => {
+                navigation.navigate('ActivityDetail', {
+                  activityId: item._id,
+                  from: 'HomeScreen',
+                });
+              }}>
+              <Text
+                style={[
+                  {
+                    color: '#fff',
+                    textAlign: 'center',
+                  },
+                  FONTS.h3,
+                ]}>
+                {t('promoteactivity.detail')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
     );

@@ -28,11 +28,13 @@ const en = {
     username: 'Username',
     reset: 'Reset password',
     phone_number: 'Phone number',
-    nouser: 'Id card no or phone number is incorrect',
+    nouser: 'Username or phone number is incorrect',
     fillallform: 'Please fill username and phone number',
     check: 'Check Information',
     success: 'Changed password successfully',
     error: 'Something went wrong. Please try again',
+    warning1:
+      'in case you can not remember Username please contact our admin via',
   },
   newregister: {
     first_name: 'First Name',
@@ -249,6 +251,10 @@ const en = {
     noactivity: 'No new activities',
     noverified: 'You have not verified identity',
     pleaseverify: 'Please verify your identity',
+    selectaddress: 'Please select sending address',
+    selectemergency: 'Please select emergency contact',
+    selectcourse: 'Please select running course',
+    selectsize: 'Please select shirt size',
   },
   payment: {
     activity: 'Activity',
@@ -261,7 +267,7 @@ const en = {
     confirm: 'Register Confirmation',
     warning1: 'You can pay via every promtpay systems',
     warning2:
-      'in case you would like to pay via other option pleas contact our admin via',
+      'in case you would like to pay via other option please contact our admin via',
     back: 'Back to home screen',
     warning3: 'Ramble Line OA Click here',
   },
@@ -277,6 +283,9 @@ const en = {
     edit: 'Edit',
     success: 'Added New Address',
     editsuccess: 'Edited Address',
+    addressno: 'No.',
+    district: 'District',
+    subdistrict: 'Subdistrict',
   },
   addemergencycontact: {
     title: 'New Emergency Contact',

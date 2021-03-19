@@ -121,7 +121,7 @@ const ForgotPasswordForm = () => {
               style={{marginLeft: 5}}
               activeOpacity={0.8}
               onPress={() => {
-                navigation.navigate('Signup');
+                navigation.navigate('Signin');
               }}>
               <Text
                 style={[
@@ -131,6 +131,24 @@ const ForgotPasswordForm = () => {
                   FONTS.h4,
                 ]}>
                 {t('signup.signin')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{marginVertical: 20}}>
+            <Text style={[FONTS.body3, {textAlign: 'center'}]}>
+              {t('forgotpassword.warning1')}
+            </Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                Linking.openURL(`http://line.me/ti/p/~@833qbcov`);
+              }}>
+              <Text
+                style={[
+                  FONTS.body3,
+                  {textAlign: 'center', color: COLORS.buttonBlue},
+                ]}>
+                {t('payment.warning3')}
               </Text>
             </TouchableOpacity>
           </View>

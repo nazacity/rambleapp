@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {SIZES, FONTS, COLORS} from '../../constants';
@@ -18,6 +12,8 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {useForm, Controller} from 'react-hook-form';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 import {Snackbar} from 'react-native-paper';
+import DropDownPicker from 'react-native-dropdown-picker';
+import {provinceDict} from '../../constants/provinces';
 
 const EditAddressModal = ({address, open, handleClose}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -41,6 +37,8 @@ const EditAddressModal = ({address, open, handleClose}) => {
       province: address.province,
     });
   }, [address]);
+
+  const [focus, setFocus] = useState({});
   return (
     <Modal
       isVisible={open}
@@ -51,12 +49,13 @@ const EditAddressModal = ({address, open, handleClose}) => {
       onSwipeComplete={handleClose}
       useNativeDriverForBackdrop
       swipeDirection={['down']}>
-      <View
+      <ScrollView
         style={{
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           backgroundColor: '#fff',
           padding: 20,
+          marginTop: 40,
         }}>
         <View style={{marginBottom: 20}}>
           <Text style={[FONTS.h2, {textAlign: 'center'}]}>
@@ -79,11 +78,46 @@ const EditAddressModal = ({address, open, handleClose}) => {
         <Controller
           control={control}
           render={({onChange, onBlur, value}) => (
-            <FloatingLabelInput
-              floatingLabel={t('addaddress.province')}
-              inputContainerStyle={{borderBottomWidth: 0}}
-              onChangeText={(value) => onChange(value)}
-              value={value}
+            <DropDownPicker
+              items={provinceDict}
+              placeholder={t('createpost.selectprovince')}
+              searchable={true}
+              defaultValue={value}
+              searchablePlaceholder={t('createpost.searchprovince')}
+              style={[
+                {
+                  borderWidth: 1,
+                  borderRadius: 3,
+                  paddingHorizontal: 10,
+                  backgroundColor: 'white',
+                  borderColor: focus.region
+                    ? COLORS.pinkPastel
+                    : COLORS.inputPlaceholderColor,
+                },
+              ]}
+              containerStyle={{
+                height: 50,
+                marginVertical: 10,
+              }}
+              itemStyle={{
+                justifyContent: 'flex-start',
+              }}
+              dropDownStyle={{
+                backgroundColor: COLORS.backgroundColor,
+                borderBottomLeftRadius: 3,
+                borderBottomRightRadius: 3,
+                borderColor: COLORS.pinkPastel,
+                zIndex: 400,
+              }}
+              onChangeItem={(item) => {
+                onChange(item.value);
+              }}
+              onOpen={() => {
+                setFocus({...focus, region: true});
+              }}
+              onClose={() => {
+                setFocus({...focus, region: false});
+              }}
             />
           )}
           name="province"
@@ -120,6 +154,7 @@ const EditAddressModal = ({address, open, handleClose}) => {
         <View
           style={{
             alignItems: 'center',
+            marginTop: 30,
           }}>
           <Button
             label={t('addaddress.edit')}
@@ -128,7 +163,7 @@ const EditAddressModal = ({address, open, handleClose}) => {
             onPress={handleSubmit(onSubmit)}
           />
         </View>
-      </View>
+      </ScrollView>
 
       <Snackbar
         visible={error}

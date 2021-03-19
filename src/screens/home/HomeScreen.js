@@ -79,8 +79,8 @@ const HomeScreen = ({navigation}) => {
       <ScrollView
         style={{backgroundColor: COLORS.backgroundColor}}
         showsVerticalScrollIndicator={false}>
-        <PromoteActivity />
         {/* <RatingBar size={20} value={rate} onPress={(item) => setRate(item)} /> */}
+        <PromoteActivity />
         <UserDetail marginTop={30} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />

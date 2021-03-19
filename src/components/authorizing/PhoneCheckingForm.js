@@ -100,9 +100,7 @@ const PhoneCheckingForm = () => {
             <TouchableOpacity
               style={{marginLeft: 5}}
               activeOpacity={0.8}
-              onPress={() => {
-                console.log('resend');
-              }}>
+              onPress={() => {}}>
               <Text
                 style={[
                   {

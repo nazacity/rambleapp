@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {View, Dimensions, Text} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
-import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 import {COLORS, FONTS} from '../../constants';
 import LocalizationContext from '../LocalizationContext';
 import {getActivityById} from '../../redux/actions/ActivityAction';
@@ -19,6 +18,7 @@ import MoreInfomation from '../../components/activity/MoreInfomation';
 import Rules from '../../components/activity/Rules';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import ActualDate from '../../components/activity/ActualDate';
+import ButtonSection from '../../components/activity/ButtonSection';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -41,12 +41,14 @@ const ActivityDetailScreen = ({navigation, route}) => {
       <Courses activity={activity} />
       <Gift activity={activity} />
       <ShirtStyle activity={activity} />
+      <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 
   const SecondRoute = () => (
     <View style={{padding: 20}}>
       <TimelineDisplay activity={activity} />
+      <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 
@@ -54,12 +56,14 @@ const ActivityDetailScreen = ({navigation, route}) => {
     <View style={{padding: 20}}>
       <Reward activity={activity} />
       <Rules activity={activity} />
+      <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 
   const FourthRoute = () => (
     <View style={{padding: 20}}>
       <MoreInfomation activity={activity} />
+      <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 
@@ -132,7 +136,6 @@ const ActivityDetailScreen = ({navigation, route}) => {
           onIndexChange={setIndex}
           initialLayout={initialLayout}
         />
-
         <View style={{margin: 10}} />
       </HeaderImage>
     </View>

@@ -19,6 +19,7 @@ import ContestNo from '../../components/activity/ContestNo';
 import Announcement from '../../components/activity/Announcement';
 import ActualDate from '../../components/activity/ActualDate';
 import Transaction from '../../components/activity/Transaction';
+import ButtonSection from '../../components/activity/ButtonSection';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -40,6 +41,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
       <ActualDate activity={activity} />
       <ContestNo contest_no={userActivity.contest_no} />
       <MoreInfomation activity={activity} />
+      <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 

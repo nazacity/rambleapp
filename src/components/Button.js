@@ -18,7 +18,7 @@ const Button = ({label, onPress, color, width, leftIcon, disabled}) => {
       ]}>
       <TouchableOpacity
         disabled={disabled}
-        activeOpacity={0.95}
+        activeOpacity={0.9}
         style={[
           {
             borderRadius: 5,
