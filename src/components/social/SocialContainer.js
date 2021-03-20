@@ -69,7 +69,7 @@ const SocialContainer = () => {
                   {
                     text: t('community.comment.okay'),
                     onPress: () => {
-                      navigation.navigate('Setting', {
+                      navigation.navigate('Profile', {
                         verfiyIdentifyModalOpen: true,
                       });
                     },

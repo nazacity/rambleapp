@@ -163,7 +163,7 @@ const th = {
     clickhere: 'กลับไปเซตติ้ง Filter',
   },
   community: {
-    nopost: 'ยังไม่มีโพส์ต',
+    nopost: 'ยังไม่มีโพสต์',
     noactivity: 'คุณยังไม่ได้สมัครงานอีเว้นท์ใหม่',
     recently: 'Recenet Contents',
     social: 'Sharing Community',
@@ -342,7 +342,7 @@ const th = {
     cancel: 'ยกเลิก',
   },
   userpost: {
-    nopost: 'ไม่เจอโพส์ตใหม่',
+    nopost: 'ไม่เจอโพสต์ใหม่',
   },
   editprofile: {
     changepassword: 'เปลี่ยนรหัสผ่าน',

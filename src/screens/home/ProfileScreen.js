@@ -14,6 +14,9 @@ import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
 import {EmergencyIcon, LocationIcon} from '../../components/Icon';
 import {useNavigation} from '@react-navigation/native';
+import LineConnectDisplay from '../../components/editprofile/LineConnectDisplay';
+import VerifyIdentifyDisplay from '../../components/editprofile/VerifyIdentifyDisplay';
+import VerifyVaccineDisplay from '../../components/editprofile/VerifyVaccineDisplay';
 // import TopBackground from '../../components/layout/TopBackground';
 const ProfileScreen = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -33,7 +36,7 @@ const ProfileScreen = () => {
           style={{
             flexDirection: 'row',
             paddingHorizontal: 20,
-            marginBottom: 20,
+            marginBottom: 10,
           }}>
           <View
             style={[
@@ -63,7 +66,7 @@ const ProfileScreen = () => {
               <Text
                 style={[
                   FONTS.h4,
-                  {color: COLORS.opcaityBlack, marginLeft: 20},
+                  {color: COLORS.opcaityBlack, marginLeft: 10},
                 ]}>
                 {t('drawer.address')}
               </Text>
@@ -98,12 +101,42 @@ const ProfileScreen = () => {
               <Text
                 style={[
                   FONTS.h4,
-                  {color: COLORS.opcaityBlack, marginLeft: 20},
+                  {color: COLORS.opcaityBlack, marginLeft: 10},
                 ]}>
                 {t('drawer.emergencycontact')}
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
+        <View
+          style={[
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginHorizontal: 20,
+              backgroundColor: COLORS.white,
+              borderRadius: 10,
+              marginBottom: 10,
+            },
+            SHADOW.default,
+          ]}>
+          <LineConnectDisplay />
+          <View
+            style={{
+              height: 50,
+              borderColor: COLORS.opcaityBlack,
+              borderWidth: 0.2,
+            }}
+          />
+          <VerifyIdentifyDisplay />
+          <View
+            style={{
+              height: 50,
+              borderColor: COLORS.opcaityBlack,
+              borderWidth: 0.2,
+            }}
+          />
+          <VerifyVaccineDisplay />
         </View>
       </ScrollView>
     </View>

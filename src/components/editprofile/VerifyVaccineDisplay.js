@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from 'react';
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
-import {FONTS, COLORS, theme} from '../../constants';
+import {FONTS, COLORS, theme, SHADOW} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useSelector} from 'react-redux';
@@ -16,16 +16,22 @@ const VerifyVaccineDisplay = ({user}) => {
 
   return (
     <Fragment>
-      <View>
+      <View
+        style={[
+          {
+            borderRadius: 5,
+            flex: 1,
+          },
+        ]}>
         <TouchableOpacity
           activeOpacity={0.6}
           style={{
-            borderRadius: 20,
+            borderRadius: 5,
             marginLeft: 5,
-            paddingHorizontal: 20,
-            flexDirection: 'row',
             alignItems: 'center',
-            height: 60,
+            padding: 20,
+            height: 100,
+            paddingBottom: 5,
           }}
           disabled={verifyState === 'verifying' || verifyState === 'verified'}
           onPress={() => {
@@ -38,10 +44,10 @@ const VerifyVaccineDisplay = ({user}) => {
             color={
               verifyState === 'verified' ? COLORS.primary : COLORS.inactiveColor
             }
-            size={20}
-            style={{marginRight: 20}}
+            size={30}
           />
-          <Text style={[FONTS.h3]}>
+          <View style={{flex: 1}} />
+          <Text style={[FONTS.h5, {textAlign: 'center'}]}>
             {verifyState === 'verifying' && t('editprofile.verifying')}
             {verifyState === 'verified' && t('editprofile.verifiedvaccine')}
             {verifyState === 'rejected' && t('editprofile.rejectedvaccine')}

@@ -99,7 +99,7 @@ const en = {
   drawer: {
     signout: 'Sign Out',
     upcoming: 'Upcoming',
-    history: 'History Activities',
+    history: 'History Events',
     userposts: 'My Posts',
     profile: 'Profile',
     emergencycontact: 'Emergency Contact',
@@ -362,7 +362,7 @@ const en = {
     phone_number: 'Phone number',
     lineconnect: 'Line Connect',
     changelineconnect: 'Change Line Account',
-    notverified: 'Verify Identity',
+    notverifiedidentity: 'Verify Identity',
     verifiedidentity: 'Verified Identity',
     notverifiedvaccine: 'Verify covid vaccine',
     verifiedvaccine: 'Verified covid vaccine',
