@@ -1,12 +1,5 @@
 import React, {Fragment, useState, useEffect, useRef} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Animated,
-  StatusBar,
-} from 'react-native';
+import {Text, View, FlatList, Animated, ActivityIndicator} from 'react-native';
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
@@ -29,7 +22,7 @@ const CardHeight = ((SIZES.width - 80) * 2) / 3;
 const ActivityScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
   const scrollY = useRef(new Animated.Value(0)).current;
-  // const [loading, setLoading] = useState(true);
+  const [loading1, setLoading1] = useState(false);
   const [page, setPage] = useState(0);
   const [noMore, setNoMore] = useState(false);
   const dispatch = useDispatch();
@@ -39,9 +32,9 @@ const ActivityScreen = ({navigation}) => {
   dayjs.locale(lang);
   const onLoadMore = async () => {
     if (!noMore) {
-      dispatch(setLoading(true));
+      // dispatch(setLoading(true));
+      setLoading1(true);
 
-      console.log(page);
       try {
         const res = await get(
           `/api/users/getactivities?skip=${5 * page}&limit=5`,
@@ -51,21 +44,19 @@ const ActivityScreen = ({navigation}) => {
             setNoMore(true);
           } else {
             if (page === 0) {
-              console.log('test1');
-
               dispatch(setActivities([...res.data]));
             } else {
-              console.log('test2');
-
               dispatch(setActivities([...activities, ...res.data]));
             }
           }
           setPage(page + 1);
         }
-        dispatch(setLoading(false));
+        setLoading1(false);
+        // dispatch(setLoading(false));
       } catch (error) {
         console.log(error);
-        dispatch(setLoading(false));
+        // dispatch(setLoading(false));
+        setLoading1(false);
       }
     }
   };
@@ -344,8 +335,17 @@ const ActivityScreen = ({navigation}) => {
           // contentContainerStyle={{paddingHorizontal: 5}}
           ListFooterComponent={() => (
             <View
-              style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
-            />
+              style={{
+                marginBottom: activities.length > 2 ? CardHeight * 2 : 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {loading1 && (
+                <View style={{marginVertical: 20}}>
+                  <ActivityIndicator color={COLORS.primary} size={30} />
+                </View>
+              )}
+            </View>
           )}
           onEndReached={onLoadMore}
           onEndReachedThreshold={1}
