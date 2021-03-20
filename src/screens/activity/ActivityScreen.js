@@ -40,22 +40,27 @@ const ActivityScreen = ({navigation}) => {
   const onLoadMore = async () => {
     if (!noMore) {
       dispatch(setLoading(true));
-      setPage(page + 1);
+
+      console.log(page);
       try {
         const res = await get(
           `/api/users/getactivities?skip=${5 * page}&limit=5`,
         );
-
         if (res.status === 200) {
           if (res.data.length === 0) {
             setNoMore(true);
           } else {
             if (page === 0) {
+              console.log('test1');
+
               dispatch(setActivities([...res.data]));
             } else {
+              console.log('test2');
+
               dispatch(setActivities([...activities, ...res.data]));
             }
           }
+          setPage(page + 1);
         }
         dispatch(setLoading(false));
       } catch (error) {
@@ -73,7 +78,7 @@ const ActivityScreen = ({navigation}) => {
         (CardHeight / 0.8) * index,
         (CardHeight / 0.8) * (index + 1),
       ],
-      outputRange: [1, 1, 1, 0.5],
+      outputRange: [1, 1, 1, 0.7],
     });
     return (
       <View style={{alignItems: 'center'}}>
@@ -112,8 +117,8 @@ const ActivityScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    onLoadMore();
     const unsubscribe = navigation.addListener('focus', () => {
+      onLoadMore();
       setNoMore(false);
       setPage(0);
     });
@@ -129,18 +134,10 @@ const ActivityScreen = ({navigation}) => {
         setPage(1);
         setNoMore(false);
         try {
-          const res = await get(`/api/users/getactivities?skip=${5}&limit=5`);
+          const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
           if (res.status === 200) {
-            if (res.data.length === 0) {
-              setNoMore(true);
-            } else {
-              if (page === 0) {
-                dispatch(setActivities([...res.data]));
-              } else {
-                dispatch(setActivities([...activities, ...res.data]));
-              }
-            }
+            dispatch(setActivities([...res.data]));
           }
           dispatch(setLoading(false));
         } catch (error) {
@@ -351,7 +348,7 @@ const ActivityScreen = ({navigation}) => {
             />
           )}
           onEndReached={onLoadMore}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={1}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {y: scrollY}}}],
             {useNativeDriver: true},
