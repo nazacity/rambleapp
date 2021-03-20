@@ -166,4 +166,4 @@ const PromoteActivity = () => {
   );
 };
 
-export default PromoteActivity;
+export default React.memo(PromoteActivity);

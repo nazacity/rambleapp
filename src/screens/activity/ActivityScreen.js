@@ -25,6 +25,7 @@ const ActivityScreen = ({navigation}) => {
   const [loading1, setLoading1] = useState(false);
   const [page, setPage] = useState(0);
   const [noMore, setNoMore] = useState(false);
+  const [state, setState] = useState('0');
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activity.activities);
   const isLoading = useSelector((state) => state.appState.isLoading);
@@ -219,6 +220,54 @@ const ActivityScreen = ({navigation}) => {
     },
   ];
 
+  const renderHeader = () => {
+    return (
+      <View>
+        <PromoteActivity />
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={filterOption}
+          keyExtractor={(item) => `${item.id}`}
+          contentContainerStyle={{padding: 20}}
+          ItemSeparatorComponent={() => <View style={{margin: 5}} />}
+          renderItem={({item, index}) => {
+            return (
+              <View
+                style={[
+                  SHADOW.default,
+                  {
+                    backgroundColor: COLORS.backgroundColor,
+                    borderRadius: 5,
+                  },
+                ]}>
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={{
+                    height: 50,
+                    width: 120,
+                    backgroundColor: COLORS.backgroundColor,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingHorizontal: 5,
+                    borderRadius: 5,
+                    borderWidth: state === item.id ? 1 : 0,
+                    borderColor: COLORS.primary,
+                  }}
+                  onPress={() => {
+                    item.function();
+                    setState(item.id);
+                  }}>
+                  <Text style={[FONTS.h4]}>{item.item}</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        />
+      </View>
+    );
+  };
+
   return (
     <View
       style={{
@@ -247,12 +296,12 @@ const ActivityScreen = ({navigation}) => {
                     SHADOW.default,
                     {
                       backgroundColor: COLORS.backgroundColor,
-                      borderRadius: 10,
+                      borderRadius: 5,
                       height: 50,
                     },
                   ]}>
                   <TouchableOpacity
-                    activeOpacity={0.8}
+                    activeOpacity={0.6}
                     style={{
                       height: 50,
                       width: 120,
@@ -260,9 +309,14 @@ const ActivityScreen = ({navigation}) => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       paddingHorizontal: 10,
-                      borderRadius: 10,
+                      borderRadius: 5,
+                      borderWidth: state === item.id ? 1 : 0,
+                      borderColor: COLORS.primary,
                     }}
-                    onPress={item.function}>
+                    onPress={() => {
+                      item.function();
+                      setState(item.id);
+                    }}>
                     <Text style={[FONTS.h4]}>{item.item}</Text>
                   </TouchableOpacity>
                 </View>
@@ -282,48 +336,7 @@ const ActivityScreen = ({navigation}) => {
         </Fragment>
       ) : (
         <Animated.FlatList
-          ListHeaderComponent={() => {
-            return (
-              <View>
-                <PromoteActivity />
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={filterOption}
-                  keyExtractor={(item) => `${item.id}`}
-                  contentContainerStyle={{padding: 20}}
-                  ItemSeparatorComponent={() => <View style={{margin: 5}} />}
-                  renderItem={({item, index}) => {
-                    return (
-                      <View
-                        style={[
-                          SHADOW.default,
-                          {
-                            backgroundColor: COLORS.backgroundColor,
-                            borderRadius: 10,
-                          },
-                        ]}>
-                        <TouchableOpacity
-                          activeOpacity={0.8}
-                          style={{
-                            height: 50,
-                            width: 120,
-                            backgroundColor: COLORS.backgroundColor,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            paddingHorizontal: 5,
-                            borderRadius: 10,
-                          }}
-                          onPress={item.function}>
-                          <Text style={[FONTS.h4]}>{item.item}</Text>
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  }}
-                />
-              </View>
-            );
-          }}
+          ListHeaderComponent={renderHeader()}
           showsVerticalScrollIndicator={false}
           data={activities}
           keyExtractor={(item) => `${item._id}`}
