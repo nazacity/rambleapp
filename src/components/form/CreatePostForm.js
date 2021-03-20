@@ -10,7 +10,7 @@ import TitleHeader from '../layout/TitleHeader';
 import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createUserPost} from '../../redux/actions/UserAction';
 import SharingPostTermsAndConditionsModal from '../modal/SharingPostTermsAndConditionModal';
 
@@ -20,6 +20,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
   const [focus, setFocus] = useState({});
   const [acceptTerm, setAcceptTerm] = useState(false);
   const [termModalOpen, setTermModalOpen] = useState(false);
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const handleTermModalClose = () => {
     setTermModalOpen(false);
@@ -338,7 +339,8 @@ const CreatePostForm = ({activityId, userActivityId}) => {
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.createpost')}
-            color={COLORS.pinkPastel}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+            disabled={isLoading ? true : false}
             onPress={handleSubmit(onSubmit)}
           />
         </View>

@@ -10,7 +10,7 @@ import TitleHeader from '../layout/TitleHeader';
 import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {editUserPost} from '../../redux/actions/UserAction';
 
 const EditPostForm = ({item}) => {
@@ -27,6 +27,7 @@ const EditPostForm = ({item}) => {
   });
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const navigationUser = () => {
     setOption({
@@ -322,7 +323,8 @@ const EditPostForm = ({item}) => {
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.editpost')}
-            color={COLORS.pinkPastel}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+            disabled={isLoading ? true : false}
             onPress={handleSubmit(onSubmit)}
           />
         </View>

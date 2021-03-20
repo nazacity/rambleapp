@@ -686,6 +686,7 @@ const SignupForm = () => {
             <View style={{alignItems: 'center'}}>
               <Button
                 label={t('signup.signup')}
+                disabled={isLoading ? true : false}
                 color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
                 onPress={handleSubmit(onSubmit)}
               />

@@ -142,6 +142,8 @@ const th = {
     moredetailcontact: 'กรุณาให้รายละเอียด และการติดต่อ',
     revealinfoterm: 'ฉันยืนยอมที่จะเปิดเผยข้อมูลการติดต่อ',
     createpost: 'สร้างโพสต์',
+    nodescription: 'คุณยังไม่ได้ใส่รายละเอียด',
+    pleasefill: 'กรุณาใส่รายละเอียด และการติดต่อ',
     selectprovince: 'เลือกจังหวัด',
     pleaseacceptterms: 'กรุณายอมรับเงื่อนไข และข้อตกลง',
     searchprovince: 'ค้นหาจังหวัด',
