@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, Alert} from 'react-native';
+import {View, Alert} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
 import Button from '../Button';
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
-import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
 import {useDispatch, useSelector} from 'react-redux';
@@ -290,36 +289,9 @@ const EditPostForm = ({item}) => {
               />
             )}
             name="description"
-            // rules={{required: true}}
             defaultValue=""
           />
         </View>
-        {/* <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 20,
-          }}
-          onPress={() => {
-            setOption({...option, acceptTerm: !option.acceptTerm});
-          }}>
-          <View>
-            <CheckBox
-              checked={option.acceptTerm}
-              onPress={() =>
-                setOption({...option, acceptTerm: !option.acceptTerm})
-              }
-              containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
-              checkedColor={COLORS.pinkPastel}
-              textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
-            />
-          </View>
-          <Text style={{textAlign: 'center'}}>
-            {t('createpost.revealinfoterm')}
-          </Text>
-        </TouchableOpacity> */}
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.editpost')}

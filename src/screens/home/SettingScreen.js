@@ -19,13 +19,6 @@ const SettingScreen = ({navigation}) => {
       <View style={styles.line} />
       <AboutRamble />
       <View style={styles.line} />
-
-      {/* <LineConnectDisplay />
-      <View style={styles.line} />
-      <VerifyIdentifyDisplay />
-      <View style={styles.line} />
-      <VerifyVaccineDisplay />
-      <View style={styles.line} /> */}
     </SafeAreaView>
   );
 };

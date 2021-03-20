@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {SIZES, FONTS, COLORS} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
-import Markdown from 'react-native-markdown-display';
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
 

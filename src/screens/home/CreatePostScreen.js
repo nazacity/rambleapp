@@ -1,7 +1,4 @@
 import React from 'react';
-// import {useSelector} from 'react-redux';
-
-// import LocalizationContext from '../LocalizationContext';
 import CreatePostForm from '../../components/form/CreatePostForm';
 import HeaderImage from '../../components/activity/HeaderImage';
 

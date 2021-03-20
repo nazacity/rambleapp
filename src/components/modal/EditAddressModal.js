@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 
-import {SIZES, FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useSelector, useDispatch} from 'react-redux';
-import {setAddAddressModal} from '../../redux/actions/AppStateAction';
 import {editAddress} from '../../redux/actions/UserAction';
 
 import Button from '../Button';

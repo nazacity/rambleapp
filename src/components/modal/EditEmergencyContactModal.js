@@ -1,14 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
-import {SIZES, FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useSelector, useDispatch} from 'react-redux';
 import {editEmergencyContact} from '../../redux/actions/UserAction';
 

@@ -1,15 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {Text, View, TouchableOpacity, Image, Platform} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
-import {everyGet, get, post} from '../../redux/actions/request';
+import {post} from '../../redux/actions/request';
 import {
   setLoading,
   setPDPAModal,
@@ -29,10 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LineLogin from '@xmartlabs/react-native-line';
 import lineLogo from '../../../assets/line/linebutton.png';
 import rambleLogo from '../../../assets/logo/ramble-white512.png';
-import {
-  AppleButton,
-  appleAuth,
-} from '@invertase/react-native-apple-authentication';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
 
 import {everyPost} from '../../redux/actions/request';
 import ButtonOutline from '../ButtonOutline';
@@ -223,27 +213,6 @@ const SigninForm = () => {
       );
     }
   };
-
-  // const test = {
-  //   user: '000891.5f9c56eb01ac455e9aca9eecf8534d87.0744',
-  //   email: null,
-  //   authorizedScopes: [],
-  //   fullName: {
-  //     namePrefix: null,
-  //     givenName: null,
-  //     familyName: null,
-  //     nickname: null,
-  //     middleName: null,
-  //     nameSuffix: null,
-  //   },
-  //   identityToken:
-  //     'eyJraWQiOiJlWGF1bm1MIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiY29tLnJhbWJsZWNsdWIucmFtYmxlaW9zIiwiZXhwIjoxNjEzMjAyNzEzLCJpYXQiOjE2MTMxMTYzMTMsInN1YiI6IjAwMDg5MS41ZjljNTZlYjAxYWM0NTVlOWFjYTllZWNmODUzNGQ4Ny4wNzQ0Iiwibm9uY2UiOiIwNWU4NGQ2Zjc0YTRjMjJhYzNiZGNiZWY3MTQ2ZDkzODQ4MTRkODg2NWU1YTQwZWNmMDE4YWEyY2M3OTJkNWU2IiwiY19oYXNoIjoiTHB0UmFsVFRvd1N5UGdqbGFwMmN6dyIsImF1dGhfdGltZSI6MTYxMzExNjMxMywibm9uY2Vfc3VwcG9ydGVkIjp0cnVlfQ.ofKcalJKA92zwyB1R09XeNitbxGM3OFyv7cN7Y4MxTjLHLid3K0VnIPrFUsestA5RWxZ6GLksqZDboolagj4MiccKL9R4KK05XbsTkdoLJUxWhLFKPm3JZ-QlEs5cpAs9_W_jsWLQMGfzPkD1elEEaapbi_b2mqnxXv8Otd_rQ19dMAXVVtB_0Gsgw4JDRF6xVveEQce19c2HTib_Ps7ZeI4Eir-Uyylwbrh2yVm8ITr5iHBgEdzFIpcpL8dH1ri11gEIHWuoXdyItVL5LoADU-QSaqL3wUJ8e8e1VsPn3G4N6d6CAWKirXQAWIiuth0GD3iRqYuEAhbT-TiYxJn3w',
-  //   authorizationCode:
-  //     'caccf9f4e47a14d4ca3be16ff491f3d9d.0.ryzr.fycbcgYk9py5GiNAYoktxw',
-  //   realUserStatus: 1,
-  //   state: null,
-  //   nonce: 'fHzkzcgehppX.sgArlU2GKO-r7yXYewU',
-  // };
 
   return (
     <View

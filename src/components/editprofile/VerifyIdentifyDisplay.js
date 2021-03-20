@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
-import {FONTS, COLORS, theme, SHADOW} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useSelector} from 'react-redux';

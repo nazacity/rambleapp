@@ -17,7 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import LineConnectDisplay from '../../components/editprofile/LineConnectDisplay';
 import VerifyIdentifyDisplay from '../../components/editprofile/VerifyIdentifyDisplay';
 import VerifyVaccineDisplay from '../../components/editprofile/VerifyVaccineDisplay';
-// import TopBackground from '../../components/layout/TopBackground';
+
 const ProfileScreen = () => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();

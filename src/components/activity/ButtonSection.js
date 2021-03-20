@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import Button from '../Button';
 import {COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';

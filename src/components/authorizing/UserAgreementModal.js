@@ -4,7 +4,7 @@ import {WebView} from 'react-native-webview';
 import Modal from 'react-native-modal';
 import {TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {COLORS, FONTS, theme} from '../../constants';
+import {COLORS, FONTS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 
 const UserAgreementModal = ({open, handleClose, nobutton}) => {

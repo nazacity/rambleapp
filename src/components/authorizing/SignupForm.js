@@ -24,7 +24,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
-import {post, get} from '../../redux/actions/request';
+import {post} from '../../redux/actions/request';
 import PolicyModal from './PolicyModal';
 import UserAgreementModal from './UserAgreementModal';
 

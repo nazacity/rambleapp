@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, Alert} from 'react-native';
+import {Text, View, TouchableOpacity, Alert} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
 import Button from '../../components/Button';
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
-import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
 import {useDispatch, useSelector} from 'react-redux';

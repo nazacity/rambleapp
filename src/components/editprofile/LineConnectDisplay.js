@@ -1,13 +1,10 @@
 import React, {Fragment, useState} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
-import {FONTS, COLORS, theme, SHADOW} from '../../constants';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  setLoading,
-  setSnackbarDisplay,
-} from '../../redux/actions/AppStateAction';
+import {setSnackbarDisplay} from '../../redux/actions/AppStateAction';
 import LineLogin from '@xmartlabs/react-native-line';
 import {post} from '../../redux/actions/request';
 import {setUser} from '../../redux/actions/UserAction';
@@ -17,15 +14,10 @@ const LineConnectDisplay = ({user}) => {
   const lineId = useSelector((state) => state.user.lineId);
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
-  // const [open, setOpen] = useState(false);
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
 
   const handleLineConnect = async () => {
     setClick(true);
     try {
-      // dispatch(setLoading(true));
       const line = await LineLogin.login();
 
       if (lineId === line.userProfile.userID) {
