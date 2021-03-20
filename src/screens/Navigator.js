@@ -408,7 +408,7 @@ const HomeStackScreen = ({navigation}) => {
             return (
               <View style={{paddingLeft: 15}}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                  <MenuIcon size={14} color="#fff" />
+                  <Ionicons name="menu-sharp" size={24} color={COLORS.white} />
                 </TouchableOpacity>
               </View>
             );
