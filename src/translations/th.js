@@ -108,8 +108,8 @@ const th = {
     setting: 'ตั้งค่า',
   },
   home: {
-    upcomingactivity: 'Upcoming Activity',
-    historyactivity: 'History Activity',
+    upcomingactivity: 'Upcoming Events',
+    historyactivity: 'History Events',
     seeall: 'ดูทั้งหมด',
     exit: 'ออกจากแอพ',
     sure: 'คุณแน่ใจที่จะออกจากแอพ ใช่หรือไม่',

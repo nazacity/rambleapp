@@ -103,11 +103,15 @@ const LineConnectDisplay = ({user}) => {
           onPress={handleLineConnect}>
           <Fontisto
             name="line"
-            color={lineId ? COLORS.primary : COLORS.inactiveColor}
+            color={lineId ? COLORS.primary : COLORS.opcaityBlack}
             size={30}
           />
           <View style={{flex: 1}} />
-          <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+          <Text
+            style={[
+              FONTS.h5,
+              {textAlign: 'center', color: COLORS.opcaityBlack},
+            ]}>
             {lineId
               ? t('editprofile.changelineconnect')
               : t('editprofile.lineconnect')}

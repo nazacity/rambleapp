@@ -57,12 +57,16 @@ const VerifyIdentifyAndCovidDisplay = ({user}) => {
           <MaterialIcons
             name="verified-user"
             color={
-              verifyState === 'verified' ? COLORS.primary : COLORS.inactiveColor
+              verifyState === 'verified' ? COLORS.primary : COLORS.opcaityBlack
             }
             size={30}
           />
           <View style={{flex: 1}} />
-          <Text style={[FONTS.h5, {textAlign: 'center'}]}>
+          <Text
+            style={[
+              FONTS.h5,
+              {textAlign: 'center', color: COLORS.opcaityBlack},
+            ]}>
             {verifyState === 'verifying' && t('editprofile.verifying')}
             {verifyState === 'verified' && t('editprofile.verifiedidentity')}
             {verifyState === 'rejected' && t('editprofile.rejected')}

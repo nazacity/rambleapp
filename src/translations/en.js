@@ -108,8 +108,8 @@ const en = {
     setting: 'Setting',
   },
   home: {
-    upcomingactivity: 'Upcoming Activity',
-    historyactivity: 'History Activity',
+    upcomingactivity: 'Upcoming Events',
+    historyactivity: 'History Events',
     seeall: 'See All',
     exit: 'Exit the app',
     sure: 'Are you sure to exit the app?',
