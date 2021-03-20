@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 // import {useSelector} from 'react-redux';
 
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SIZES} from '../../constants';
 // import LocalizationContext from '../LocalizationContext';
 import SigninForm from '../../components/authorizing/SigninForm';
 import {useDispatch} from 'react-redux';
@@ -23,7 +23,10 @@ const SigninScreen = ({navigation}) => {
 
   return (
     <ScrollView
-      style={{flex: 1, backgroundColor: 'white'}}
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.backgroundColor,
+      }}
       showsVerticalScrollIndicator={false}>
       <View
         style={[
@@ -33,7 +36,7 @@ const SigninScreen = ({navigation}) => {
             backgroundColor: COLORS.pinkPastel,
           },
         ]}></View>
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, height: SIZES.height - 100}}>
         <View
           style={{
             ...StyleSheet.absoluteFillObject,

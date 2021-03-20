@@ -24,6 +24,7 @@ import AddressScreen from './home/AddressScreen';
 import QrcodeScannerScreen from './home/QrcodeScannerScreen';
 import WebViewScreen from './home/WebViewScreen';
 import SettingScreen from './home/SettingScreen';
+import AboutRambleScreen from './home/AboutRambleScreen';
 
 import ActivityScreen from './activity/ActivityScreen';
 import FilteredActivityScreen from './activity/FilteredActivityScreen';
@@ -414,6 +415,22 @@ const HomeStackScreen = ({navigation}) => {
             );
           },
         }}
+      />
+
+      <HomeStack.Screen
+        name="AboutRamble"
+        component={AboutRambleScreen}
+        // options={{
+        //   headerLeft: () => {
+        //     return (
+        //       <View style={{paddingLeft: 15}}>
+        //         <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        //           <Ionicons name="menu-sharp" size={24} color={COLORS.white} />
+        //         </TouchableOpacity>
+        //       </View>
+        //     );
+        //   },
+        // }}
       />
     </HomeStack.Navigator>
   );

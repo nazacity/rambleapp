@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, SafeAreaView} from 'react-native';
 import ChangePasswordDisplay from '../../components/editprofile/ChangePasswordDisplay';
+import AboutRamble from '../../components/setting/AboutRamble';
 // import LineConnectDisplay from '../../components/editprofile/LineConnectDisplay';
 // import VerifyIdentifyDisplay from '../../components/editprofile/VerifyIdentifyDisplay';
 // import VerifyVaccineDisplay from '../../components/editprofile/VerifyVaccineDisplay';
@@ -16,6 +17,9 @@ const SettingScreen = ({navigation}) => {
       }}>
       <ChangePasswordDisplay />
       <View style={styles.line} />
+      <AboutRamble />
+      <View style={styles.line} />
+
       {/* <LineConnectDisplay />
       <View style={styles.line} />
       <VerifyIdentifyDisplay />

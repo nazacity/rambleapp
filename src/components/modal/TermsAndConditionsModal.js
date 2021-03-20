@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {SIZES, FONTS, COLORS} from '../../constants';
-import {ScrollView} from 'react-native-gesture-handler';
 import Markdown from 'react-native-markdown-display';
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
@@ -31,17 +30,21 @@ const TermsAndConditionsModal = ({open, handleClose, data, setAcceptTerm}) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
       avoidKeyboard
-      onSwipeComplete={handleClose}
-      useNativeDriverForBackdrop
-      swipeDirection={['down']}>
+      // onSwipeComplete={handleClose}
+      // useNativeDriverForBackdrop
+      // swipeDirection={['down']}
+    >
       <View
         style={{
           height: SIZES.height / 1.5,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
-          backgroundColor: '#fff',
+          backgroundColor: COLORS.backgroundColor,
         }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentInsetAdjustmentBehavior="automatic"
+          style={{height: '100%'}}>
           <View style={{padding: 20}}>
             <View style={{marginBottom: 20}}>
               <Text style={[FONTS.h2, {textAlign: 'center'}]}>

@@ -106,6 +106,7 @@ const AddEmergencyContactModal = ({}) => {
         <View
           style={{
             alignItems: 'center',
+            marginVertical: 30,
           }}>
           <Button
             label={t('addemergencycontact.add')}

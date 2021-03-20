@@ -52,13 +52,13 @@ const th = {
     confirm_password: 'ยืนยันรหัสผ่าน',
     signin: 'เข้าสู่คอมมิวนิตี้',
     selfinfo: 'ข้อมูลส่วนตัว',
-    first_name: 'ชื่อ*',
-    last_name: 'นามสกุล*',
+    first_name: 'ชื่อ',
+    last_name: 'นามสกุล',
     haveaccount: 'มีบัญชีอยู่แล้ว',
     signup: 'ลงทะเบียน',
-    gender: 'เพศ*',
-    bloodtype: 'กรุ๊ปเลือด*',
-    displayname: 'Display Name*',
+    gender: 'เพศ',
+    bloodtype: 'กรุ๊ปเลือด',
+    displayname: 'Display Name',
     passwordnotmatch: 'คอมเฟิร์มรหัสผ่านไม่ตรงกัน',
     okay: 'ตกลง',
     phone_number: 'เบอร์โทรศัพท์ (ไม่จำเป็น)',
@@ -391,6 +391,9 @@ const th = {
     work: 'งาน',
     distance: 'ระยะทาง',
     km: 'กม.',
+  },
+  setting: {
+    aboutramble: 'เกี่ยวกับ Ramble',
   },
 };
 

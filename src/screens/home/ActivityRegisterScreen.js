@@ -191,8 +191,9 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                         borderWidth: 0,
                         backgroundColor: COLORS.backgroundColor,
                       }}
-                      checkedColor={COLORS.pinkPastel}
-                      textStyle={[FONTS.h3]}
+                      checkedColor={COLORS.primary}
+                      textStyle={[FONTS.h3, {color: COLORS.opcaityBlack}]}
+                      size={18}
                     />
                   </View>
                 </View>
@@ -203,7 +204,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
 
         <View style={{marginBottom: 20, paddingHorizontal: 20}}>
           <TitleHeader title={t('activity.size')} />
-          <View style={{paddingTop: 20}}>
+          <View>
             {activity.size.map((item, index) => {
               return (
                 <View
@@ -222,8 +223,9 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                         borderWidth: 0,
                         backgroundColor: COLORS.backgroundColor,
                       }}
-                      checkedColor={COLORS.pinkPastel}
-                      textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
+                      checkedColor={COLORS.primary}
+                      textStyle={[FONTS.h3, {color: COLORS.opcaityBlack}]}
+                      size={18}
                     />
                   </View>
                 </View>
@@ -268,16 +270,21 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                   return (
                     <View
                       style={[
+                        SHADOW.default,
                         {
-                          backgroundColor: '#fff',
+                          backgroundColor: COLORS.white,
                           borderRadius: 10,
-                          borderWidth: item._id === address._id ? 1 : 0,
-                          borderColor: COLORS.primary,
                           width: SIZES.width - 80,
-                          paddingBottom: 1,
                         },
                       ]}>
                       <TouchableOpacity
+                        style={{
+                          backgroundColor: COLORS.white,
+                          borderRadius: 10,
+                          borderWidth: item._id === address._id ? 1 : 0,
+                          borderColor: COLORS.primary,
+                          paddingBottom: 1,
+                        }}
                         activeOpacity={0.9}
                         onPress={() => {
                           setAddress(item);
@@ -347,15 +354,19 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                         style={[
                           SHADOW.default,
                           {
-                            backgroundColor: '#fff',
+                            backgroundColor: COLORS.white,
                             borderRadius: 10,
-                            borderWidth: item._id === emergency._id ? 1 : 0,
-                            borderColor: COLORS.primary,
                             width: SIZES.width - 80,
-                            paddingBottom: 1,
                           },
                         ]}>
                         <TouchableOpacity
+                          style={{
+                            backgroundColor: COLORS.white,
+                            borderRadius: 10,
+                            borderWidth: item._id === emergency._id ? 1 : 0,
+                            borderColor: COLORS.primary,
+                            paddingBottom: 1,
+                          }}
                           activeOpacity={0.9}
                           onPress={() => {
                             setEmergency(item);

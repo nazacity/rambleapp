@@ -229,7 +229,7 @@ const AddAddressModal = ({}) => {
         <View
           style={{
             alignItems: 'center',
-            marginTop: 30,
+            marginVertical: 30,
           }}>
           <Button
             label={t('addaddress.add')}
