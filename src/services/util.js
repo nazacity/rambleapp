@@ -5,7 +5,7 @@ dayjs.extend(relativeTime);
 
 export const checkTimeFromPast = (time) => {
   if (new Date() - new Date(time) > 5 * 24 * 60 * 60 * 1000)
-    return dayjs(time).format('DD MMMM YYYY');
+    return dayjs(time).format('D MMMM YYYY');
   return dayjs(time).fromNow();
 };
 

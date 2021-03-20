@@ -14,12 +14,10 @@ import {post} from '../../redux/actions/request';
 import {changeUserPostState} from '../../redux/actions/UserAction';
 
 const OwnerUserPostCard = ({item, editState}) => {
-  const lang = useSelector((state) => state.appState.lang);
-  const user = useSelector((state) => state.user);
-  dayjs.locale(lang);
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
   return (
     <Fragment>
       <View
@@ -56,22 +54,22 @@ const OwnerUserPostCard = ({item, editState}) => {
                   }}>
                   <Avatar
                     rounded
-                    source={
-                      user.user_picture_url
-                        ? {
-                            uri: user.user_picture_url,
-                          }
-                        : profile
-                    }
+                    source={{uri: item.activity.activity_picture_url}}
                     size={60}
                   />
                 </View>
                 <View>
-                  <Text style={[FONTS.h2]}>{user.display_name}</Text>
+                  <Text style={[FONTS.h2]}>{item.activity.title}</Text>
+                  <View style={{width: 200}}>
+                    <Text style={[FONTS.body4]}>
+                      {t('createpost.actualdate') + ' '}
+                      {dayjs(item.activity.actual_date).format('D MMMM YYYY')}
+                    </Text>
+                  </View>
                   <View style={{width: 200}}>
                     <Text style={[FONTS.body4]}>
                       {t('createpost.postdate') + ' '}
-                      {dayjs(item.createdAt).format('DD MMMM YYYY')}
+                      {dayjs(item.createdAt).format('D MMMM YYYY')}
                     </Text>
                   </View>
                 </View>

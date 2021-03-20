@@ -147,7 +147,7 @@ const BlogsScreen = ({navigation, route}) => {
               flex: 1,
             }}>
             <Text style={[FONTS.body4]}>
-              {dayjs(item.createdAt).format('DD MMMM YYYY')}
+              {dayjs(item.createdAt).format('D MMMM YYYY')}
             </Text>
             <Text style={[FONTS.body4]}>{shortText(item.description, 40)}</Text>
           </View>

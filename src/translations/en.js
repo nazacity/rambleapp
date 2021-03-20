@@ -1,7 +1,7 @@
 const en = {
   tab: {
     home: 'Home',
-    activity: 'Activity',
+    activity: 'Event',
     community: 'Community',
   },
   onboarding: {
@@ -23,6 +23,7 @@ const en = {
     pdpa: 'PDPA Term',
     error: 'Please try again',
     appleloginerror: 'Apple sign in was error',
+    rememberusername: 'Remember Username',
   },
   forgotpassword: {
     username: 'Username',
@@ -114,7 +115,7 @@ const en = {
     sure: 'Are you sure to exit the app?',
     yes: 'Yes',
     no: 'No',
-    noactivity: 'No new activities',
+    noactivity: 'No new events',
   },
   userrecode: {
     activitiesinthisyear: 'Activities in this year',
@@ -153,17 +154,18 @@ const en = {
     postdate: 'Posted on',
     term: 'Terms and Condition',
     iagree: 'I agree with ',
+    actualdate: 'Actual date',
   },
   communityfilter: {
-    activity: 'Activity',
+    activity: 'Event',
     find: 'Search',
-    selectone: 'Select activity',
+    selectone: 'Select event',
     nouserpost: 'No user post could be found',
     clickhere: 'Go back to filter setting',
   },
   community: {
     nopost: 'No post was created yet',
-    noactivity: "You don't have any new activity",
+    noactivity: "You don't have any new event",
     recently: 'Recenet Contents',
     social: 'Sharing Community',
     trend: 'Trend',
@@ -182,7 +184,7 @@ const en = {
       imagenumbererror: 'Select max 3 images',
       pleaseselectagain: 'Please select again',
       textmorethan: 'Text must not be more than 1500 characters',
-      activity: 'Your activity community',
+      activity: 'Your event community',
       selectimageerror: 'Please select images again',
       postsuccessed: 'Posted successfully',
       post1: 'Post',
@@ -193,7 +195,7 @@ const en = {
   activityfilter: {
     course: 'Distance (Km)',
     during: 'During',
-    find: 'Search Activities',
+    find: 'Search Events',
     region: 'Region',
     selectone: 'Select region',
     noregion: 'No region was selected',
@@ -204,7 +206,7 @@ const en = {
   activity: {
     place: 'Place',
     register_date: 'Register Date During',
-    actual_date: 'Actual_date',
+    actual_date: 'Actual date',
     fee: 'Fee',
     bath: 'Baht',
     detail: 'Information and Timeline',
@@ -248,7 +250,7 @@ const en = {
     time: 'Time',
     amount: 'Amount',
     notransfer: 'No payment',
-    noactivity: 'No new activities',
+    noactivity: 'No new events',
     noverified: 'You have not verified identity',
     pleaseverify: 'Please verify your identity',
     selectaddress: 'Please select sending address',
@@ -257,7 +259,7 @@ const en = {
     selectsize: 'Please select shirt size',
   },
   payment: {
-    activity: 'Activity',
+    activity: 'Event',
     course: 'Course',
     size: 'Shirt Size',
     fee: 'fee',
@@ -317,7 +319,7 @@ const en = {
     time: 'Time',
     distance: 'Distance',
     average: 'Average',
-    activity: 'Activities',
+    activity: 'Events',
     activityunit: 'works',
     km: 'Km',
   },
@@ -330,10 +332,10 @@ const en = {
   coupon: {use: 'use coupon'},
   promoteactivity: {detail: 'More Detail'},
   history: {
-    noactivity: 'No history activity',
+    noactivity: 'No history events',
   },
   upcoming: {
-    noactivity: 'No upcoming activity',
+    noactivity: 'No upcoming events',
   },
   uploadpicture: {
     uploadPhoto: 'Upload Photo',
@@ -388,7 +390,7 @@ const en = {
   },
   userrecord: {
     year: 'Year',
-    activity: 'Activities',
+    activity: 'Events',
     work: 'works',
     distance: 'Distance',
     km: 'Km',

@@ -53,7 +53,7 @@ const UpcomingActivityScreen = () => {
           </Text>
           <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
             {checkTimeTilFuture(item.activity.id.actual_date)
-              ? dayjs(item.activity.id.actual_date).format('DD MMM YY')
+              ? dayjs(item.activity.id.actual_date).format('D MMM YY')
               : dayjs(item.activity.id.actual_date).fromNow()}
           </Text>
         </View>

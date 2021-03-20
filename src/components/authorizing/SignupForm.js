@@ -437,7 +437,7 @@ const SignupForm = () => {
                   paddingLeft: 20,
                 }}>
                 <Text style={[FONTS.body3, {flex: 1}]}>
-                  {dayjs(selectedDate).format('DD MMMM YYYY')}
+                  {dayjs(selectedDate).format('D MMMM YYYY')}
                 </Text>
                 <TouchableOpacity
                   activeOpacity={0.6}

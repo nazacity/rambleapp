@@ -99,7 +99,7 @@ const ActivityScreen = ({navigation}) => {
               </Text>
             </View>
             <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
-              {dayjs(item.actual_date).format('DD MMMM YY')}
+              {dayjs(item.actual_date).format('D MMMM YY')}
             </Text>
           </View>
         </ActivityCard>

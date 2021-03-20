@@ -85,7 +85,7 @@ const Transaction = ({userActivity}) => {
                     {t('activity.date')} :
                   </Text>
                   <Text style={[FONTS.body4]}>
-                    {dayjs(item.payDate).format('DD MMM YY')}
+                    {dayjs(item.payDate).format('D MMM YY')}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>

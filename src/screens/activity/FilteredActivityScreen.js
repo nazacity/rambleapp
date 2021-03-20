@@ -57,7 +57,7 @@ const FilteredActivityScreen = ({navigation}) => {
               </Text>
             </View>
             <Text style={[FONTS.h1, {color: '#fff'}]}>
-              {dayjs(item.actual_date).locale(lang).format('DD MMMM YY')}
+              {dayjs(item.actual_date).locale(lang).format('D MMMM YY')}
             </Text>
           </View>
         </ActivityCard>

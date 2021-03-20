@@ -68,7 +68,7 @@ const PromoteActivity = () => {
           <View style={{flex: 1}}>
             <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
             <Text style={[FONTS.h1, {color: '#fff'}]}>
-              {dayjs(item.actual_date).format('DD MMMM YY')}
+              {dayjs(item.actual_date).format('D MMMM YY')}
             </Text>
           </View>
           <View

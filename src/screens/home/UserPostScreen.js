@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import MenuButton from '../../components/layout/MenuButton';
@@ -9,6 +9,21 @@ import LocalizationContext from '../LocalizationContext';
 const UserPostScreen = () => {
   const {t} = React.useContext(LocalizationContext);
   const user_posts = useSelector((state) => state.user.user_posts);
+  const [data, setData] = useState([]);
+  const filterUserPosts = () => {
+    const filtered = user_posts.filter((item) => {
+      return (
+        item.activity.state === 'registering' ||
+        item.activity.state === 'end_register'
+      );
+    });
+
+    setData(filtered);
+  };
+
+  useEffect(() => {
+    filterUserPosts();
+  }, []);
 
   return (
     <View
@@ -27,7 +42,7 @@ const UserPostScreen = () => {
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={user_posts}
+          data={data}
           keyExtractor={(item) => `${item._id}`}
           renderItem={({item, index}) => {
             return (

@@ -43,7 +43,7 @@ const HistoryActivityScreen = () => {
             {item.activity.id.title}
           </Text>
           <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
-            {dayjs(item.activity.id.actual_date).format('DD MMMM YYYY')}
+            {dayjs(item.activity.id.actual_date).format('D MMMM YYYY')}
           </Text>
         </View>
       </ActivityCard>

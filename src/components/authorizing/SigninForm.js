@@ -16,7 +16,7 @@ import {
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
-import {Icon} from 'react-native-elements';
+import {Icon, CheckBox} from 'react-native-elements';
 
 import {FONTS, COLORS} from '../../constants';
 import Button from '../Button';
@@ -39,12 +39,11 @@ import ButtonOutline from '../ButtonOutline';
 import PDPAModal from './PDPAModal';
 
 const SigninForm = () => {
-  const lang = useSelector((state) => state.appState.lang);
   const {t} = React.useContext(LocalizationContext);
-  const {control, handleSubmit, errors} = useForm();
+  const {control, handleSubmit, reset} = useForm();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
+  const [memoUsername, setMemoUsername] = useState(false);
   // INPUT FUNCTIONS
   const [hidePassword, setHidePassword] = useState(true);
 
@@ -53,6 +52,20 @@ const SigninForm = () => {
     email: false,
     password: false,
   });
+
+  const setUsername = async () => {
+    const username = await AsyncStorage.getItem('username');
+    if (username) {
+      reset({
+        username: username,
+      });
+      setMemoUsername(true);
+    }
+  };
+
+  useEffect(() => {
+    setUsername();
+  }, []);
 
   const handleLineLogin = async () => {
     try {
@@ -113,6 +126,11 @@ const SigninForm = () => {
 
         if (res.token) {
           await AsyncStorage.setItem('accessToken', res.token);
+          if (memoUsername) {
+            await AsyncStorage.setItem('username', data.username);
+          } else if (!memoUsername) {
+            await AsyncStorage.removeItem('username');
+          }
           dispatch(signIn(res.user));
           dispatch(
             setSnackbarDisplay({
@@ -317,24 +335,45 @@ const SigninForm = () => {
             // rules={{required: true}}
             defaultValue=""
           />
-          <TouchableOpacity
-            style={{marginLeft: 5}}
-            activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate('ForgotPassword');
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 20,
             }}>
-            <Text
-              style={[
-                {
-                  color: COLORS.pinkText,
-                  textAlign: 'right',
-                  marginBottom: 10,
-                },
-                FONTS.h4,
-              ]}>
-              {t('signin.forgotpassword')}
-            </Text>
-          </TouchableOpacity>
+            <CheckBox
+              title={t('signin.rememberusername')}
+              checked={memoUsername}
+              onPress={() => setMemoUsername(!memoUsername)}
+              containerStyle={{
+                borderWidth: 0,
+                padding: 0,
+                backgroundColor: '#fff',
+                margin: 0,
+              }}
+              size={18}
+              checkedColor={COLORS.opcaityBlack}
+              textStyle={[FONTS.h4, {color: COLORS.opcaityBlack}]}
+            />
+            <TouchableOpacity
+              style={{marginLeft: 5}}
+              activeOpacity={0.8}
+              onPress={() => {
+                navigation.navigate('ForgotPassword');
+              }}>
+              <Text
+                style={[
+                  {
+                    color: COLORS.opcaityBlack,
+                    marginRight: 10,
+                  },
+                  FONTS.h4,
+                ]}>
+                {t('signin.forgotpassword')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={{alignItems: 'center'}}>
           <Button
