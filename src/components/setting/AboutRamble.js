@@ -1,9 +1,5 @@
-import Reactfrom 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import Ionicons from 'react-native-vector-icons/Ionicons';

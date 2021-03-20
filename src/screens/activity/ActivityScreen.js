@@ -277,97 +277,51 @@ const ActivityScreen = ({navigation}) => {
       }}>
       <MenuButton />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
-      {activities.length === 0 && !isLoading ? (
-        <Fragment>
-          <View style={{height: (SIZES.width * 2) / 3}}>
-            <PromoteActivity />
-          </View>
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={filterOption}
-            keyExtractor={(item) => `${item.id}`}
-            contentContainerStyle={{padding: 20}}
-            ItemSeparatorComponent={() => <View style={{margin: 5}} />}
-            renderItem={({item, index}) => {
-              return (
-                <View
-                  style={[
-                    SHADOW.default,
-                    {
-                      backgroundColor: COLORS.backgroundColor,
-                      borderRadius: 5,
-                      height: 50,
-                    },
-                  ]}>
-                  <TouchableOpacity
-                    activeOpacity={0.6}
-                    style={{
-                      height: 50,
-                      width: 120,
-                      backgroundColor: COLORS.backgroundColor,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      paddingHorizontal: 10,
-                      borderRadius: 5,
-                      borderWidth: state === item.id ? 1 : 0,
-                      borderColor: COLORS.primary,
-                    }}
-                    onPress={() => {
-                      item.function();
-                      setState(item.id);
-                    }}>
-                    <Text style={[FONTS.h4]}>{item.item}</Text>
-                  </TouchableOpacity>
-                </View>
-              );
-            }}
-          />
+
+      <Animated.FlatList
+        ListHeaderComponent={renderHeader()}
+        showsVerticalScrollIndicator={false}
+        data={activities}
+        keyExtractor={(item) => `${item._id}`}
+        renderItem={({item, index}) => {
+          return <ActivityCardDetail item={item} index={index} />;
+        }}
+        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+        // style={{padding: 20, paddingTop: 60}}
+        // contentContainerStyle={{paddingHorizontal: 5}}
+        ListFooterComponent={() => (
           <View
             style={{
+              marginBottom: activities.length > 2 ? CardHeight * 2 : 0,
+              justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: COLORS.backgroundColor,
-              flex: 1,
             }}>
-            <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-              {t('activity.noactivity')}
-            </Text>
+            {activities.length === 0 && !loading1 && (
+              <View
+                style={{
+                  alignItems: 'center',
+                  backgroundColor: COLORS.backgroundColor,
+                  marginTop: 100,
+                }}>
+                <Text style={[FONTS.h2, {color: COLORS.primary}]}>
+                  {t('activity.noactivity')}
+                </Text>
+              </View>
+            )}
+            {loading1 && (
+              <View style={{marginVertical: 20}}>
+                <ActivityIndicator color={COLORS.primary} size={30} />
+              </View>
+            )}
           </View>
-        </Fragment>
-      ) : (
-        <Animated.FlatList
-          ListHeaderComponent={renderHeader()}
-          showsVerticalScrollIndicator={false}
-          data={activities}
-          keyExtractor={(item) => `${item._id}`}
-          renderItem={({item, index}) => {
-            return <ActivityCardDetail item={item} index={index} />;
-          }}
-          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-          // style={{padding: 20, paddingTop: 60}}
-          // contentContainerStyle={{paddingHorizontal: 5}}
-          ListFooterComponent={() => (
-            <View
-              style={{
-                marginBottom: activities.length > 2 ? CardHeight * 2 : 0,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {loading1 && (
-                <View style={{marginVertical: 20}}>
-                  <ActivityIndicator color={COLORS.primary} size={30} />
-                </View>
-              )}
-            </View>
-          )}
-          onEndReached={onLoadMore}
-          onEndReachedThreshold={1}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: scrollY}}}],
-            {useNativeDriver: true},
-          )}
-        />
-      )}
+        )}
+        onEndReached={onLoadMore}
+        onEndReachedThreshold={1}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
+      />
     </View>
   );
 };
