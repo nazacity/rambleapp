@@ -20,7 +20,7 @@ const en = {
     forgotpassword: 'Forgot password',
     linelogin: 'Get Into Community with Line',
     applelogin: 'Sign in with Apple',
-    pdpa: 'PDPA Term',
+    pdpa: 'PDPA Condition',
     error: 'Please try again',
     appleloginerror: 'Apple sign in was error',
     rememberusername: 'Remember Username',
