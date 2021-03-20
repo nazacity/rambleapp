@@ -30,6 +30,8 @@ import BackButton from '../../components/layout/BackButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AddAddressModal from '../../components/modal/AddAddressModal';
 import AddEmergencyContactModal from '../../components/modal/AddEmergencyContactModal';
+import EditAddressModal from '../../components/modal/EditAddressModal';
+import EditEmergencyContactModal from '../../components/modal/EditEmergencyContactModal';
 
 const ActivityRegisterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -136,27 +138,15 @@ const ActivityRegisterScreen = ({navigation, route}) => {
     }
   };
 
-  useEffect(() => {
-    // if (user.addresses.length === 0) {
-    //   Alert.alert(t('activity.noaddresses'), t('activity.pleaseaddaddresses'), [
-    //     {
-    //       text: t('activity.okay'),
-    //       onPress: () => {
-    //         navigation.navigate('Address');
-    //       },
-    //     },
-    //   ]);
-    // } else if (user.emergency_contacts.length === 0) {
-    //   Alert.alert(t('activity.noemergency'), t('activity.pleaseaddemergency'), [
-    //     {
-    //       text: t('activity.okay'),
-    //       onPress: () => {
-    //         navigation.navigate('EmergencyContact');
-    //       },
-    //     },
-    //   ]);
-    // }
-  }, []);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const handleEditModalClose = () => {
+    setEditModalOpen(false);
+  };
+
+  const [editModalOpen1, setEditModalOpen1] = useState(false);
+  const handleEditModalClose1 = () => {
+    setEditModalOpen1(false);
+  };
 
   return (
     <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
@@ -292,7 +282,12 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                         onPress={() => {
                           setAddress(item);
                         }}>
-                        <AddressCard item={item} deletable={false} />
+                        <AddressCard
+                          item={item}
+                          editable={index === 0 ? false : true}
+                          setAddress={setAddress}
+                          setEditModalOpen={setEditModalOpen}
+                        />
                       </TouchableOpacity>
                     </View>
                   );
@@ -365,7 +360,12 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                           onPress={() => {
                             setEmergency(item);
                           }}>
-                          <EmergencyCard item={item} deletable={false} />
+                          <EmergencyCard
+                            item={item}
+                            editable={true}
+                            setEmergency={setEmergency}
+                            setEditModalOpen={setEditModalOpen1}
+                          />
                         </TouchableOpacity>
                       </View>
                     );
@@ -441,7 +441,17 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         />
       </ScrollView>
       <AddAddressModal />
+      <EditAddressModal
+        open={editModalOpen}
+        handleClose={handleEditModalClose}
+        address={address}
+      />
       <AddEmergencyContactModal />
+      <EditEmergencyContactModal
+        open={editModalOpen1}
+        handleClose={handleEditModalClose1}
+        emergency={emergency}
+      />
     </View>
   );
 };

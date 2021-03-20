@@ -186,7 +186,7 @@ const DrawerContent = (props) => {
             props.navigation.closeDrawer();
           }}
         />
-        <DrawerItem
+        {/* <DrawerItem
           icon={({color, size}) => <LocationIcon color={color} size={size} />}
           label={t('drawer.address')}
           labelStyle={[FONTS.h4]}
@@ -207,7 +207,7 @@ const DrawerContent = (props) => {
             });
             props.navigation.closeDrawer();
           }}
-        />
+        /> */}
         <DrawerItem
           icon={({color, size}) => (
             <Ionicons name="settings-outline" color={color} size={22} />

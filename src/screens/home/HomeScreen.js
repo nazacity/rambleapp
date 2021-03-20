@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  ScrollView,
-  BackHandler,
-  Alert,
-  StatusBar,
-  Platform,
-} from 'react-native';
+import {View, ScrollView, BackHandler, Alert} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
 
@@ -14,7 +7,7 @@ import UserDetail from '../../components/home/UserDetail';
 import PromoteActivity from '../../components/home/PromoteActivity';
 import UpcomingActivity from '../../components/home/UpcomingActivity';
 import HistoryActivity from '../../components/home/HistoryActivity';
-import MainAdvertise from '../../components/advertise/MainAdvertise';
+// import MainAdvertise from '../../components/advertise/MainAdvertise';
 import {COLORS} from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {post} from '../../redux/actions/request';

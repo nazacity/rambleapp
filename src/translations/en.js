@@ -296,6 +296,8 @@ const en = {
     error: 'Please provide all infomation',
     success: 'Added New Emergency Contact',
     editsuccess: 'Edited Emergency Contact',
+    edit: 'Edit',
+    edittitle: 'Edit Emergency Contact',
   },
   emergencycontact: {
     name: 'Name',

@@ -10,7 +10,7 @@ import {
 
 import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
 import FilterButton from '../../components/layout/FilterButton';
 import {get} from '../../redux/actions/request';
@@ -21,6 +21,8 @@ import LocalizationContext from '../LocalizationContext';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
+import PromoteActivity from '../../components/home/PromoteActivity';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
 
@@ -74,7 +76,7 @@ const ActivityScreen = ({navigation}) => {
       outputRange: [1, 1, 1, 0.5],
     });
     return (
-      <Fragment>
+      <View style={{alignItems: 'center'}}>
         <ActivityCard
           item={{activity: {id: item}}}
           onPress={() => {
@@ -105,7 +107,7 @@ const ActivityScreen = ({navigation}) => {
           </View>
         </ActivityCard>
         {/* {(index + 1) % 5 === 0 && <MinorAdvertise />} */}
-      </Fragment>
+      </View>
     );
   };
 
@@ -118,6 +120,117 @@ const ActivityScreen = ({navigation}) => {
     return unsubscribe;
   }, []);
 
+  const filterOption = [
+    {
+      id: '0',
+      item: 'ALL',
+      function: async () => {
+        dispatch(setLoading(true));
+        setPage(1);
+        setNoMore(false);
+        try {
+          const res = await get(`/api/users/getactivities?skip=${5}&limit=5`);
+
+          if (res.status === 200) {
+            if (res.data.length === 0) {
+              setNoMore(true);
+            } else {
+              if (page === 0) {
+                dispatch(setActivities([...res.data]));
+              } else {
+                dispatch(setActivities([...activities, ...res.data]));
+              }
+            }
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '1',
+      item: 'Full Marathons',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?range_min=${40}&range_max=${50}&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '2',
+      item: 'Half Marathons',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?range_min=${18}&range_max=${25}&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '3',
+      item: '10km Runs',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?range_min=${8}&range_max=${12}&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '4',
+      item: '5km Runs',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?range_min=${4}&range_max=${6}&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+  ];
+
   return (
     <View
       style={{
@@ -128,19 +241,101 @@ const ActivityScreen = ({navigation}) => {
       <MenuButton />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
       {activities.length === 0 && !isLoading ? (
-        <View
-          style={{
-            alignItems: 'center',
-            backgroundColor: COLORS.backgroundColor,
-            flex: 1,
-            justifyContent: 'center',
-          }}>
-          <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-            {t('activity.noactivity')}
-          </Text>
-        </View>
+        <Fragment>
+          <View style={{height: (SIZES.width * 2) / 3}}>
+            <PromoteActivity />
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={filterOption}
+            keyExtractor={(item) => `${item.id}`}
+            contentContainerStyle={{padding: 20}}
+            ItemSeparatorComponent={() => <View style={{margin: 5}} />}
+            renderItem={({item, index}) => {
+              return (
+                <View
+                  style={[
+                    SHADOW.default,
+                    {
+                      backgroundColor: COLORS.backgroundColor,
+                      borderRadius: 10,
+                      height: 50,
+                    },
+                  ]}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={{
+                      height: 50,
+                      width: 120,
+                      backgroundColor: COLORS.backgroundColor,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      paddingHorizontal: 10,
+                      borderRadius: 10,
+                    }}
+                    onPress={item.function}>
+                    <Text style={[FONTS.h4]}>{item.item}</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+          />
+          <View
+            style={{
+              alignItems: 'center',
+              backgroundColor: COLORS.backgroundColor,
+              flex: 1,
+            }}>
+            <Text style={[FONTS.h2, {color: COLORS.primary}]}>
+              {t('activity.noactivity')}
+            </Text>
+          </View>
+        </Fragment>
       ) : (
         <Animated.FlatList
+          ListHeaderComponent={() => {
+            return (
+              <View>
+                <PromoteActivity />
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  data={filterOption}
+                  keyExtractor={(item) => `${item.id}`}
+                  contentContainerStyle={{padding: 20}}
+                  ItemSeparatorComponent={() => <View style={{margin: 5}} />}
+                  renderItem={({item, index}) => {
+                    return (
+                      <View
+                        style={[
+                          SHADOW.default,
+                          {
+                            backgroundColor: COLORS.backgroundColor,
+                            borderRadius: 10,
+                          },
+                        ]}>
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          style={{
+                            height: 50,
+                            width: 120,
+                            backgroundColor: COLORS.backgroundColor,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingHorizontal: 5,
+                            borderRadius: 10,
+                          }}
+                          onPress={item.function}>
+                          <Text style={[FONTS.h4]}>{item.item}</Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }}
+                />
+              </View>
+            );
+          }}
           showsVerticalScrollIndicator={false}
           data={activities}
           keyExtractor={(item) => `${item._id}`}
@@ -148,8 +343,8 @@ const ActivityScreen = ({navigation}) => {
             return <ActivityCardDetail item={item} index={index} />;
           }}
           ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-          style={{padding: 20, paddingTop: 60}}
-          contentContainerStyle={{paddingHorizontal: 5}}
+          // style={{padding: 20, paddingTop: 60}}
+          // contentContainerStyle={{paddingHorizontal: 5}}
           ListFooterComponent={() => (
             <View
               style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
@@ -168,5 +363,3 @@ const ActivityScreen = ({navigation}) => {
 };
 
 export default ActivityScreen;
-
-const styles = StyleSheet.create({});

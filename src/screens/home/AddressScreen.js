@@ -5,7 +5,8 @@ import EditAddressModal from '../../components/modal/EditAddressModal';
 import {useSelector, useDispatch} from 'react-redux';
 import LocalizationContext from '../LocalizationContext';
 import AddressCard from '../../components/card/AddressCard';
-import MenuButton from '../../components/layout/MenuButton';
+// import MenuButton from '../../components/layout/MenuButton';
+import BackButton from '../../components/layout/BackButton';
 import {COLORS, SHADOW, FONTS} from '../../constants';
 import {setAddAddressModal} from '../../redux/actions/AppStateAction';
 import AddButton from '../../components/layout/AddButton';
@@ -31,7 +32,8 @@ const AddressScreen = () => {
         flex: 1,
         backgroundColor: COLORS.backgroundColor,
       }}>
-      <MenuButton />
+      {/* <MenuButton /> */}
+      <BackButton />
       {addresses.length < 3 && (
         <AddButton
           onPress={() => {
@@ -54,8 +56,8 @@ const AddressScreen = () => {
             return (
               <AddressCard
                 item={item}
-                // editable={true}
-                deletable={true}
+                editable={true}
+                // deletable={true}
                 index={index}
                 setAddress={setAddress}
                 setEditModalOpen={setEditModalOpen}

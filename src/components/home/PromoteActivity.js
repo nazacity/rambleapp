@@ -1,13 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {get} from '../../redux/actions/request';
 import {SHADOW, SIZES, FONTS, COLORS} from '../../constants';
@@ -132,9 +125,9 @@ const PromoteActivity = () => {
           height: (SIZES.width * 2) / 3,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: COLORS.primary,
+          backgroundColor: COLORS.backgroundColor,
         }}>
-        <ActivityIndicator color="#fff" size="large" />
+        <ActivityIndicator color={COLORS.primary} size="large" />
       </View>
     );
   }
@@ -174,5 +167,3 @@ const PromoteActivity = () => {
 };
 
 export default PromoteActivity;
-
-const styles = StyleSheet.create({});

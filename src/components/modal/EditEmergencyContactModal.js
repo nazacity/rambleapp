@@ -58,7 +58,7 @@ const EditEmergencyContactModal = ({emergency, open, handleClose}) => {
         }}>
         <View style={{marginBottom: 20}}>
           <Text style={[FONTS.h2, {textAlign: 'center'}]}>
-            {t('addemergencycontact.title')}
+            {t('addemergencycontact.edittitle')}
           </Text>
         </View>
         <Controller
@@ -110,7 +110,7 @@ const EditEmergencyContactModal = ({emergency, open, handleClose}) => {
             alignItems: 'center',
           }}>
           <Button
-            label={t('addemergencycontact.add')}
+            label={t('addemergencycontact.edit')}
             color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
             disabled={isLoading ? true : false}
             onPress={handleSubmit(onSubmit)}

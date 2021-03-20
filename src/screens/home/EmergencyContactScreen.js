@@ -6,7 +6,8 @@ import {COLORS, FONTS} from '../../constants';
 import {useDispatch} from 'react-redux';
 import EmergencyCard from '../../components/card/EmergencyCard';
 import {setEmergencyModal} from '../../redux/actions/AppStateAction';
-import MenuButton from '../../components/layout/MenuButton';
+// import MenuButton from '../../components/layout/MenuButton';
+import BackButton from '../../components/layout/BackButton';
 import AddButton from '../../components/layout/AddButton';
 import LocalizationContext from '../LocalizationContext';
 import EditEmergencyContactModal from '../../components/modal/EditEmergencyContactModal';
@@ -34,7 +35,8 @@ const EmergencyContactScreen = () => {
         flex: 1,
         backgroundColor: COLORS.backgroundColor,
       }}>
-      <MenuButton />
+      {/* <MenuButton /> */}
+      <BackButton />
       {emergency_contacts.length < 3 && (
         <AddButton
           onPress={() => {
@@ -56,10 +58,9 @@ const EmergencyContactScreen = () => {
           renderItem={({item, index}) => {
             return (
               <EmergencyCard
-                key={index}
                 item={item}
-                // editable={true}
-                deletable={true}
+                // deletable={true}
+                editable={true}
                 setEmergency={setEmergency}
                 setEditModalOpen={setEditModalOpen}
               />
