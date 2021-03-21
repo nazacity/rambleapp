@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Alert, Platform, KeyboardAvoidingView} from 'react-native';
+import {
+  View,
+  Alert,
+  Platform,
+  KeyboardAvoidingView,
+  SafeAreaView,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
 import Button from '../Button';
@@ -88,7 +94,13 @@ const EditPostForm = ({item}) => {
 
   return (
     <View
-      style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
+      style={[
+        {
+          flex: 1,
+          backgroundColor: 'white',
+          borderTopLeftRadius: 75,
+        },
+      ]}>
       <View
         style={{
           padding: 20,
@@ -249,7 +261,8 @@ const EditPostForm = ({item}) => {
           />
         </View>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={{flex: 1, marginBottom: Platform.OS === 'ios' ? 300 : 0}}>
           <View style={{marginBottom: 20}}>
             <TitleHeader title={t('createpost.moredetail')} />
             <Controller
@@ -261,7 +274,7 @@ const EditPostForm = ({item}) => {
                   inputContainerStyle={[
                     {
                       borderWidth: 1,
-                      borderRadius: 10,
+                      borderRadius: 5,
                       paddingHorizontal: 10,
                       backgroundColor: 'white',
                     },
@@ -294,15 +307,16 @@ const EditPostForm = ({item}) => {
               defaultValue=""
             />
           </View>
+
+          <View style={{alignItems: 'center'}}>
+            <Button
+              label={t('createpost.editpost')}
+              color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+              disabled={isLoading ? true : false}
+              onPress={handleSubmit(onSubmit)}
+            />
+          </View>
         </KeyboardAvoidingView>
-        <View style={{alignItems: 'center'}}>
-          <Button
-            label={t('createpost.editpost')}
-            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
-            disabled={isLoading ? true : false}
-            onPress={handleSubmit(onSubmit)}
-          />
-        </View>
       </View>
     </View>
   );

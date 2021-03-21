@@ -263,7 +263,8 @@ const CreatePostForm = ({activityId, userActivityId}) => {
           />
         </View>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1, marginBottom: Platform.OS === 'ios' ? 300 : 0}}>
           <View style={{marginBottom: 20}}>
             <TitleHeader title={t('createpost.moredetail')} />
             <Controller
@@ -275,7 +276,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                   inputContainerStyle={[
                     {
                       borderWidth: 1,
-                      borderRadius: 10,
+                      borderRadius: 5,
                       paddingHorizontal: 10,
                       backgroundColor: 'white',
                     },
@@ -309,49 +310,49 @@ const CreatePostForm = ({activityId, userActivityId}) => {
               defaultValue=""
             />
           </View>
-        </KeyboardAvoidingView>
-        <View
-          activeOpacity={0.6}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 20,
-          }}>
-          <View>
-            <CheckBox
-              checked={acceptTerm}
-              onPress={() => setAcceptTerm(!acceptTerm)}
-              containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
-              checkedColor={COLORS.pinkPastel}
-              textStyle={[FONTS.h3, {color: COLORS.primary}]}
+          <View
+            activeOpacity={0.6}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 20,
+            }}>
+            <View>
+              <CheckBox
+                checked={acceptTerm}
+                onPress={() => setAcceptTerm(!acceptTerm)}
+                containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
+                checkedColor={COLORS.pinkPastel}
+                textStyle={[FONTS.h3, {color: COLORS.primary}]}
+              />
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[FONTS.body4]}> {t('createpost.iagree')}</Text>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  setTermModalOpen(true);
+                }}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {textAlign: 'center', color: COLORS.buttonBlue},
+                  ]}>
+                  {t('createpost.term')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <Button
+              label={t('createpost.createpost')}
+              color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+              disabled={isLoading ? true : false}
+              onPress={handleSubmit(onSubmit)}
             />
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={[FONTS.body4]}> {t('createpost.iagree')}</Text>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                setTermModalOpen(true);
-              }}>
-              <Text
-                style={[
-                  FONTS.h4,
-                  {textAlign: 'center', color: COLORS.buttonBlue},
-                ]}>
-                {t('createpost.term')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{alignItems: 'center'}}>
-          <Button
-            label={t('createpost.createpost')}
-            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
-            disabled={isLoading ? true : false}
-            onPress={handleSubmit(onSubmit)}
-          />
-        </View>
+        </KeyboardAvoidingView>
       </View>
       <SharingPostTermsAndConditionsModal
         open={termModalOpen}
