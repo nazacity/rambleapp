@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Alert} from 'react-native';
+import {View, Alert, Platform, KeyboardAvoidingView} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
 import Button from '../Button';
@@ -248,50 +248,53 @@ const EditPostForm = ({item}) => {
             textStyle={[FONTS.h3]}
           />
         </View>
-        <View style={{marginBottom: 20}}>
-          <TitleHeader title={t('createpost.moredetail')} />
-          <Controller
-            control={control}
-            render={({onChange, onBlur, value}) => (
-              <Input
-                placeholder={t('createpost.moredetailcontact')}
-                placeholderTextColor={COLORS.inputPlaceholderColor}
-                inputContainerStyle={[
-                  {
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    paddingHorizontal: 10,
-                    backgroundColor: 'white',
-                  },
-                  {
-                    borderColor: focus.description
-                      ? COLORS.pinkPastel
-                      : COLORS.inputPlaceholderColor,
-                  },
-                ]}
-                inputStyle={[
-                  FONTS.h4,
-                  {
-                    textAlignVertical: 'top',
-                    height: 100,
-                  },
-                ]}
-                onChangeText={(value) => onChange(value)}
-                value={value}
-                onFocus={() => {
-                  setFocus({...focus, description: true});
-                }}
-                onBlur={() => {
-                  setFocus({...focus, description: false});
-                }}
-                multiline={true}
-                numberOfLines={5}
-              />
-            )}
-            name="description"
-            defaultValue=""
-          />
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View style={{marginBottom: 20}}>
+            <TitleHeader title={t('createpost.moredetail')} />
+            <Controller
+              control={control}
+              render={({onChange, onBlur, value}) => (
+                <Input
+                  placeholder={t('createpost.moredetailcontact')}
+                  placeholderTextColor={COLORS.inputPlaceholderColor}
+                  inputContainerStyle={[
+                    {
+                      borderWidth: 1,
+                      borderRadius: 10,
+                      paddingHorizontal: 10,
+                      backgroundColor: 'white',
+                    },
+                    {
+                      borderColor: focus.description
+                        ? COLORS.pinkPastel
+                        : COLORS.inputPlaceholderColor,
+                    },
+                  ]}
+                  inputStyle={[
+                    FONTS.h4,
+                    {
+                      textAlignVertical: 'top',
+                      height: 100,
+                    },
+                  ]}
+                  onChangeText={(value) => onChange(value)}
+                  value={value}
+                  onFocus={() => {
+                    setFocus({...focus, description: true});
+                  }}
+                  onBlur={() => {
+                    setFocus({...focus, description: false});
+                  }}
+                  multiline={true}
+                  numberOfLines={5}
+                />
+              )}
+              name="description"
+              defaultValue=""
+            />
+          </View>
+        </KeyboardAvoidingView>
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.editpost')}
