@@ -102,6 +102,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
     third: ThirdRoute,
     fourth: FourthRoute,
   });
+  const [scrollable, setScrollable] = useState(true);
 
   if (loading) {
     return (
@@ -118,12 +119,14 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   if (userActivity.state === 'finished') {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        scrollEnabled={scrollable}>
         <BackButton backTo={'Home'} />
         <View
           style={{
             backgroundColor: COLORS.primary,
-            height: 200,
+            height: 100,
           }}></View>
         <RecordCard item={userActivity} />
         {userActivity.coupons.map((item, index) => {
@@ -139,6 +142,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
                 borderRadius: 10,
               }}>
               <CouponCard
+                setScrollable={setScrollable}
                 item={item}
                 userActivityId={userActivity._id}
                 setUserActivity={setUserActivity}

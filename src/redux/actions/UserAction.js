@@ -449,23 +449,21 @@ export const useCoupon = (userActivityId, couponId, setUserActivity) => async (
   dispatch,
 ) => {
   try {
-    setTimeout(async () => {
-      const res = await post(`/api/users/usecoupon/${userActivityId}`, {
-        couponId,
-      });
-      const user = await get('/api/users/getuserbyjwt');
-      dispatch({
-        type: SET_USER,
-        payload: user,
-      });
-      if (res.status === 200) {
-        setUserActivity(res.data);
-      }
-      dispatch({
-        type: SET_LOADING,
-        payload: false,
-      });
-    }, 2000);
+    const res = await post(`/api/users/usecoupon/${userActivityId}`, {
+      couponId,
+    });
+    const user = await get('/api/users/getuserbyjwt');
+    dispatch({
+      type: SET_USER,
+      payload: user,
+    });
+    // if (res.status === 200) {
+    //   setUserActivity(res.data);
+    // }
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
   } catch (error) {
     console.log(error);
     dispatch({

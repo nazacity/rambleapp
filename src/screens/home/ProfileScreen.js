@@ -44,7 +44,6 @@ const ProfileScreen = () => {
                 flex: 1,
                 backgroundColor: COLORS.white,
                 borderRadius: 10,
-                height: 50,
                 alignItems: 'center',
                 flexDirection: 'row',
                 padding: 20,
@@ -60,7 +59,6 @@ const ProfileScreen = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 backgroundColor: COLORS.white,
-                flex: 1,
               }}>
               <LocationIcon color={COLORS.opcaityBlack} size={24} />
               <Text
@@ -79,7 +77,6 @@ const ProfileScreen = () => {
                 flex: 1,
                 backgroundColor: COLORS.white,
                 borderRadius: 10,
-                height: 50,
                 alignItems: 'center',
                 flexDirection: 'row',
                 padding: 20,
@@ -95,7 +92,6 @@ const ProfileScreen = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 backgroundColor: COLORS.white,
-                flex: 1,
               }}>
               <EmergencyIcon color={COLORS.opcaityBlack} size={20} />
               <Text
@@ -121,21 +117,9 @@ const ProfileScreen = () => {
             SHADOW.default,
           ]}>
           <LineConnectDisplay />
-          <View
-            style={{
-              height: 50,
-              borderColor: COLORS.opcaityBlack,
-              borderWidth: 0.2,
-            }}
-          />
+          <View style={styles.verticalLine} />
           <VerifyIdentifyDisplay />
-          <View
-            style={{
-              height: 50,
-              borderColor: COLORS.opcaityBlack,
-              borderWidth: 0.2,
-            }}
-          />
+          <View style={styles.verticalLine} />
           <VerifyVaccineDisplay />
         </View>
       </ScrollView>
@@ -145,4 +129,10 @@ const ProfileScreen = () => {
 
 export default ProfileScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  verticalLine: {
+    height: 50,
+    borderColor: COLORS.lightOpcaityBlack,
+    borderWidth: 0.5,
+  },
+});

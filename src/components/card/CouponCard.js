@@ -1,19 +1,12 @@
 import React, {useRef} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Animated,
-  PanResponder,
-} from 'react-native';
+import {StyleSheet, Text, Image, Animated, PanResponder} from 'react-native';
 import {SIZES} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useDispatch} from 'react-redux';
 import {useCoupon} from '../../redux/actions/UserAction';
 import {setLoading} from '../../redux/actions/AppStateAction';
 
-const CouponCard = ({item, userActivityId, setUserActivity}) => {
+const CouponCard = ({item, userActivityId, setUserActivity, setScrollable}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
   const pan = useRef(new Animated.ValueXY()).current;
@@ -21,6 +14,7 @@ const CouponCard = ({item, userActivityId, setUserActivity}) => {
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: () => {
+        setScrollable(false);
         pan.setOffset({
           x: pan.x._value,
           y: pan.y._value,
@@ -52,6 +46,7 @@ const CouponCard = ({item, userActivityId, setUserActivity}) => {
             useNativeDriver: false,
           }).start();
         }
+        setScrollable(true);
       },
     }),
   ).current;
@@ -120,5 +115,3 @@ const CouponCard = ({item, userActivityId, setUserActivity}) => {
 };
 
 export default CouponCard;
-
-const styles = StyleSheet.create({});
