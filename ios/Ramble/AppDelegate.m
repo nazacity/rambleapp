@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @import RNLine;
 
@@ -52,6 +53,7 @@ static void InitializeFlipper(UIApplication *application) {
   [RNSplashScreen show];
   // [RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
   [LineLogin setupWithChannelID:@"1655591354" universalLinkURL:nil];
+  +  [GMSServices provideAPIKey:@"AIzaSyCJb7zbQZ1ElwXTZrNYAPiBwPKFpQoXsDg"];
   return YES;
 }
 

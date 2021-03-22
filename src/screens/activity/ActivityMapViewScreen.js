@@ -229,7 +229,8 @@ const ExploreScreen = ({
           );
         })}
       </MapView>
-      <View style={{position: 'absolute', top: 50}}>
+      <View
+        style={{position: 'absolute', top: Platform.OS === 'ios' ? 80 : 50}}>
         <FilterOption
           filterOption={filterOption}
           state={state1}
