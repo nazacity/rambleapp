@@ -260,63 +260,59 @@ const EditPostForm = ({item}) => {
             textStyle={[FONTS.h3]}
           />
         </View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          style={{flex: 1, marginBottom: Platform.OS === 'ios' ? 300 : 0}}>
-          <View style={{marginBottom: 20}}>
-            <TitleHeader title={t('createpost.moredetail')} />
-            <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <Input
-                  placeholder={t('createpost.moredetailcontact')}
-                  placeholderTextColor={COLORS.inputPlaceholderColor}
-                  inputContainerStyle={[
-                    {
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      paddingHorizontal: 10,
-                      backgroundColor: 'white',
-                    },
-                    {
-                      borderColor: focus.description
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor,
-                    },
-                  ]}
-                  inputStyle={[
-                    FONTS.h4,
-                    {
-                      textAlignVertical: 'top',
-                      height: 100,
-                    },
-                  ]}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  onFocus={() => {
-                    setFocus({...focus, description: true});
-                  }}
-                  onBlur={() => {
-                    setFocus({...focus, description: false});
-                  }}
-                  multiline={true}
-                  numberOfLines={5}
-                />
-              )}
-              name="description"
-              defaultValue=""
-            />
-          </View>
+        <View style={{marginBottom: 20}}>
+          <TitleHeader title={t('createpost.moredetail')} />
+          <Controller
+            control={control}
+            render={({onChange, onBlur, value}) => (
+              <Input
+                placeholder={t('createpost.moredetailcontact')}
+                placeholderTextColor={COLORS.inputPlaceholderColor}
+                inputContainerStyle={[
+                  {
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    paddingHorizontal: 10,
+                    backgroundColor: 'white',
+                  },
+                  {
+                    borderColor: focus.description
+                      ? COLORS.pinkPastel
+                      : COLORS.inputPlaceholderColor,
+                  },
+                ]}
+                inputStyle={[
+                  FONTS.h4,
+                  {
+                    textAlignVertical: 'top',
+                    height: 100,
+                  },
+                ]}
+                onChangeText={(value) => onChange(value)}
+                value={value}
+                onFocus={() => {
+                  setFocus({...focus, description: true});
+                }}
+                onBlur={() => {
+                  setFocus({...focus, description: false});
+                }}
+                multiline={true}
+                numberOfLines={5}
+              />
+            )}
+            name="description"
+            defaultValue=""
+          />
+        </View>
 
-          <View style={{alignItems: 'center'}}>
-            <Button
-              label={t('createpost.editpost')}
-              color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
-              disabled={isLoading ? true : false}
-              onPress={handleSubmit(onSubmit)}
-            />
-          </View>
-        </KeyboardAvoidingView>
+        <View style={{alignItems: 'center'}}>
+          <Button
+            label={t('createpost.editpost')}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+            disabled={isLoading ? true : false}
+            onPress={handleSubmit(onSubmit)}
+          />
+        </View>
       </View>
     </View>
   );

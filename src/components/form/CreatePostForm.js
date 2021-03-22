@@ -262,97 +262,93 @@ const CreatePostForm = ({activityId, userActivityId}) => {
             textStyle={[FONTS.h3]}
           />
         </View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{flex: 1, marginBottom: Platform.OS === 'ios' ? 300 : 0}}>
-          <View style={{marginBottom: 20}}>
-            <TitleHeader title={t('createpost.moredetail')} />
-            <Controller
-              control={control}
-              render={({onChange, onBlur, value}) => (
-                <Input
-                  placeholder={t('createpost.moredetailcontact')}
-                  placeholderTextColor={COLORS.inputPlaceholderColor}
-                  inputContainerStyle={[
-                    {
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      paddingHorizontal: 10,
-                      backgroundColor: 'white',
-                    },
-                    {
-                      borderColor: focus.description
-                        ? COLORS.pinkPastel
-                        : COLORS.inputPlaceholderColor,
-                    },
-                  ]}
-                  inputStyle={[
-                    FONTS.h4,
-                    {
-                      textAlignVertical: 'top',
-                      height: 100,
-                    },
-                  ]}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  onFocus={() => {
-                    setFocus({...focus, description: true});
-                  }}
-                  onBlur={() => {
-                    setFocus({...focus, description: false});
-                  }}
-                  multiline={true}
-                  numberOfLines={5}
-                />
-              )}
-              name="description"
-              // rules={{required: true}}
-              defaultValue=""
-            />
-          </View>
-          <View
-            activeOpacity={0.6}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 20,
-            }}>
-            <View>
-              <CheckBox
-                checked={acceptTerm}
-                onPress={() => setAcceptTerm(!acceptTerm)}
-                containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
-                checkedColor={COLORS.pinkPastel}
-                textStyle={[FONTS.h3, {color: COLORS.primary}]}
+        <View style={{marginBottom: 20}}>
+          <TitleHeader title={t('createpost.moredetail')} />
+          <Controller
+            control={control}
+            render={({onChange, onBlur, value}) => (
+              <Input
+                placeholder={t('createpost.moredetailcontact')}
+                placeholderTextColor={COLORS.inputPlaceholderColor}
+                inputContainerStyle={[
+                  {
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    paddingHorizontal: 10,
+                    backgroundColor: 'white',
+                  },
+                  {
+                    borderColor: focus.description
+                      ? COLORS.pinkPastel
+                      : COLORS.inputPlaceholderColor,
+                  },
+                ]}
+                inputStyle={[
+                  FONTS.h4,
+                  {
+                    textAlignVertical: 'top',
+                    height: 100,
+                  },
+                ]}
+                onChangeText={(value) => onChange(value)}
+                value={value}
+                onFocus={() => {
+                  setFocus({...focus, description: true});
+                }}
+                onBlur={() => {
+                  setFocus({...focus, description: false});
+                }}
+                multiline={true}
+                numberOfLines={5}
               />
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={[FONTS.body4]}> {t('createpost.iagree')}</Text>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  setTermModalOpen(true);
-                }}>
-                <Text
-                  style={[
-                    FONTS.h4,
-                    {textAlign: 'center', color: COLORS.buttonBlue},
-                  ]}>
-                  {t('createpost.term')}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <Button
-              label={t('createpost.createpost')}
-              color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
-              disabled={isLoading ? true : false}
-              onPress={handleSubmit(onSubmit)}
+            )}
+            name="description"
+            // rules={{required: true}}
+            defaultValue=""
+          />
+        </View>
+        <View
+          activeOpacity={0.6}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 20,
+          }}>
+          <View>
+            <CheckBox
+              checked={acceptTerm}
+              onPress={() => setAcceptTerm(!acceptTerm)}
+              containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
+              checkedColor={COLORS.pinkPastel}
+              textStyle={[FONTS.h3, {color: COLORS.primary}]}
             />
           </View>
-        </KeyboardAvoidingView>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={[FONTS.body4]}> {t('createpost.iagree')}</Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                setTermModalOpen(true);
+              }}>
+              <Text
+                style={[
+                  FONTS.h4,
+                  {textAlign: 'center', color: COLORS.buttonBlue},
+                ]}>
+                {t('createpost.term')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <Button
+            label={t('createpost.createpost')}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+            disabled={isLoading ? true : false}
+            onPress={handleSubmit(onSubmit)}
+          />
+        </View>
       </View>
       <SharingPostTermsAndConditionsModal
         open={termModalOpen}
