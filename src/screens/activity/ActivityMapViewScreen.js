@@ -19,10 +19,13 @@ import {markers, mapDarkStyle, mapStandardStyle} from '../../constants/mapData';
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {useNavigation, useTheme} from '@react-navigation/native';
 import FilterOption from '../../components/activity/FilterOption';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
 import LinearGradient from 'react-native-linear-gradient';
 import {ActivityIndicator} from 'react-native';
+import {setLoading} from '../../redux/actions/AppStateAction';
+import {setActivities} from '../../redux/actions/ActivityAction';
+import {get} from '../../redux/actions/request';
 
 const CardSize = SIZES.width - 150;
 const CardHeight = ((SIZES.width - 150) * 2) / 3;
@@ -30,15 +33,171 @@ const CardHeight = ((SIZES.width - 150) * 2) / 3;
 const SPACING_FOR_CARD_INSET = SIZES.width * 0.1 - 10;
 
 const ExploreScreen = ({
-  filterOption,
   setState1,
   state1,
   onLoadMore,
   loading1,
+  setPage,
+  setNoMore,
 }) => {
   const activities = useSelector((state) => state.activity.activities);
   const theme = useTheme();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const _map = React.useRef(null);
+  const _scrollView = React.useRef(null);
+
+  const filterOption = [
+    {
+      id: '0',
+      item: 'ALL',
+      function: async () => {
+        dispatch(setLoading(true));
+        setPage(1);
+        setNoMore(false);
+        try {
+          const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
+
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '1',
+      item: 'ภาคกลาง',
+      function: async () => {
+        dispatch(setLoading(true));
+
+        try {
+          const res = await get(
+            `/api/users/getactivities?region=ภาคกลาง&limit=50`,
+          );
+
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '2',
+      item: 'ภาคใต้',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคใต้&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '3',
+      item: 'ภาคเหนือ',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคเหนือ&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '4',
+      item: 'ภาคตะวันออก',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันออก&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '5',
+      item: 'ภาคตะวันออกเฉียงเหนือ',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '6',
+      item: 'ภาคตะวันตก',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+  ];
 
   const ActivityCardDetail = ({item, index}) => {
     return (
@@ -48,7 +207,7 @@ const ExploreScreen = ({
             {
               width: CardSize,
               height: CardHeight,
-              borderRadius: 20,
+              borderRadius: 10,
               backgroundColor: COLORS.backgroundColor,
             },
             SHADOW.image,
@@ -62,7 +221,9 @@ const ExploreScreen = ({
             }}
             style={[
               {
-                borderRadius: 20,
+                width: CardSize,
+                height: CardHeight,
+                borderRadius: 10,
                 backgroundColor: COLORS.backgroundColor,
                 overflow: 'hidden',
               },
@@ -180,7 +341,7 @@ const ExploreScreen = ({
     return {scale};
   });
 
-  const onMarkerPress = (mapEventData) => {
+  const onMarkerPress = (mapEventData, index) => {
     const markerID = mapEventData._targetInst.return.key;
 
     let x = markerID * CardSize + markerID * 20;
@@ -188,11 +349,8 @@ const ExploreScreen = ({
       x = x - SPACING_FOR_CARD_INSET;
     }
 
-    _scrollView.current.scrollTo({x: x, y: 0, animated: true});
+    _scrollView.current.scrollToOffset({offset: x, animated: true});
   };
-
-  const _map = React.useRef(null);
-  const _scrollView = React.useRef(null);
 
   return (
     <View style={styles.container}>
@@ -217,7 +375,7 @@ const ExploreScreen = ({
                 latitude: marker.location.lat,
                 longitude: marker.location.lng,
               }}
-              onPress={(e) => onMarkerPress(e)}>
+              onPress={(e) => onMarkerPress(e, index)}>
               <Animated.View style={[styles.markerWrap]}>
                 <Animated.Image
                   source={require('../../../assets/map/map_marker.png')}
@@ -251,15 +409,14 @@ const ExploreScreen = ({
         snapToInterval={CardSize + 20}
         snapToAlignment="center"
         style={styles.scrollView}
-        contentInset={{
-          top: 0,
-          left: SPACING_FOR_CARD_INSET,
-          bottom: 0,
-          right: SPACING_FOR_CARD_INSET,
-        }}
+        // contentInset={{
+        //   top: 0,
+        //   left: SPACING_FOR_CARD_INSET,
+        //   bottom: 0,
+        //   right: SPACING_FOR_CARD_INSET,
+        // }}
         contentContainerStyle={{
-          paddingHorizontal:
-            Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0,
+          paddingHorizontal: 20,
         }}
         onScroll={Animated.event(
           [

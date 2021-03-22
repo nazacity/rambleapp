@@ -221,150 +221,6 @@ const ActivityScreen = ({navigation}) => {
     },
   ];
 
-  const filterOption1 = [
-    {
-      id: '0',
-      item: 'ALL',
-      function: async () => {
-        dispatch(setLoading(true));
-        setPage(1);
-        setNoMore(false);
-        try {
-          const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
-
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '1',
-      item: 'ภาคกลาง',
-      function: async () => {
-        dispatch(setLoading(true));
-        try {
-          const res = await get(
-            `/api/users/getactivities?region=ภาคกลาง&limit=50`,
-          );
-
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '2',
-      item: 'ภาคใต้',
-      function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคใต้&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '3',
-      item: 'ภาคเหนือ',
-      function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคเหนือ&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '4',
-      item: 'ภาคตะวันออก',
-      function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออก&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '5',
-      item: 'ภาคตะวันออกเฉียงเหนือ',
-      function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '6',
-      item: 'ภาคตะวันตก',
-      function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-  ];
-
   const renderHeader = () => {
     return (
       <View>
@@ -437,11 +293,12 @@ const ActivityScreen = ({navigation}) => {
       )}
       {view === 1 && (
         <ActiityMapViewScreen
-          filterOption={filterOption1}
           state1={state}
           setState1={setState}
           onLoadMore={onLoadMore}
           loading1={loading1}
+          setPage={setPage}
+          setNoMore={setNoMore}
         />
       )}
     </View>
