@@ -31,9 +31,6 @@ const ActivityScreen = ({navigation}) => {
   const [view, setView] = useState(0);
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activity.activities);
-
-  const lang = useSelector((state) => state.appState.lang);
-  dayjs.locale(lang);
   const onLoadMore = async () => {
     if (!noMore) {
       // dispatch(setLoading(true));
@@ -116,6 +113,7 @@ const ActivityScreen = ({navigation}) => {
       onLoadMore();
       setNoMore(false);
       setPage(0);
+      setState('0');
     });
     return unsubscribe;
   }, []);
