@@ -22,7 +22,7 @@ const FilterButton = ({onPress, top}) => {
         justifyContent: 'center',
       }}>
       <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-        <FilterIcon size={18} borderRadius={50} color={COLORS.pinkPastel} />
+        <FilterIcon size={14} borderRadius={50} color={COLORS.pinkPastel} />
       </TouchableOpacity>
     </View>
   );

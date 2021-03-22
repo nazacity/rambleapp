@@ -1,11 +1,10 @@
-import React, {Fragment, useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Text, View, FlatList, Animated, ActivityIndicator} from 'react-native';
-
-import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
 import FilterButton from '../../components/layout/FilterButton';
+import ViewButton from '../../components/layout/ViewButton';
 import {get} from '../../redux/actions/request';
 import {useSelector, useDispatch} from 'react-redux';
 import {setActivities} from '../../redux/actions/ActivityAction';
@@ -16,6 +15,9 @@ import 'dayjs/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
 import PromoteActivity from '../../components/home/PromoteActivity';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import ActiityMapViewScreen from './ActivityMapViewScreen';
+import MapView from 'react-native-maps';
+import FilterOption from '../../components/activity/FilterOption';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
 
@@ -26,9 +28,10 @@ const ActivityScreen = ({navigation}) => {
   const [page, setPage] = useState(0);
   const [noMore, setNoMore] = useState(false);
   const [state, setState] = useState('0');
+  const [view, setView] = useState(0);
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activity.activities);
-  const isLoading = useSelector((state) => state.appState.isLoading);
+
   const lang = useSelector((state) => state.appState.lang);
   dayjs.locale(lang);
   const onLoadMore = async () => {
@@ -220,49 +223,158 @@ const ActivityScreen = ({navigation}) => {
     },
   ];
 
+  const filterOption1 = [
+    {
+      id: '0',
+      item: 'ALL',
+      function: async () => {
+        dispatch(setLoading(true));
+        setPage(1);
+        setNoMore(false);
+        try {
+          const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
+
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '1',
+      item: 'ภาคกลาง',
+      function: async () => {
+        dispatch(setLoading(true));
+        try {
+          const res = await get(
+            `/api/users/getactivities?region=ภาคกลาง&limit=50`,
+          );
+
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '2',
+      item: 'ภาคใต้',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคใต้&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '3',
+      item: 'ภาคเหนือ',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคเหนือ&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '4',
+      item: 'ภาคตะวันออก',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันออก&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '5',
+      item: 'ภาคตะวันออกเฉียงเหนือ',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '6',
+      item: 'ภาคตะวันตก',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+  ];
+
   const renderHeader = () => {
     return (
       <View>
         <PromoteActivity />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={filterOption}
-          keyExtractor={(item) => `${item.id}`}
-          contentContainerStyle={{padding: 20}}
-          ItemSeparatorComponent={() => <View style={{margin: 5}} />}
-          renderItem={({item, index}) => {
-            return (
-              <View
-                style={[
-                  SHADOW.default,
-                  {
-                    backgroundColor: COLORS.backgroundColor,
-                    borderRadius: 5,
-                  },
-                ]}>
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  style={{
-                    height: 50,
-                    width: 120,
-                    backgroundColor: COLORS.backgroundColor,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    paddingHorizontal: 5,
-                    borderRadius: 5,
-                    borderWidth: state === item.id ? 1 : 0,
-                    borderColor: COLORS.primary,
-                  }}
-                  onPress={() => {
-                    item.function();
-                    setState(item.id);
-                  }}>
-                  <Text style={[FONTS.h4]}>{item.item}</Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }}
+        <FilterOption
+          filterOption={filterOption}
+          state={state}
+          setState={setState}
         />
       </View>
     );
@@ -276,52 +388,64 @@ const ActivityScreen = ({navigation}) => {
         flex: 1,
       }}>
       <MenuButton />
+      <ViewButton setView={setView} view={view} />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
 
-      <Animated.FlatList
-        ListHeaderComponent={renderHeader()}
-        showsVerticalScrollIndicator={false}
-        data={activities}
-        keyExtractor={(item) => `${item._id}`}
-        renderItem={({item, index}) => {
-          return <ActivityCardDetail item={item} index={index} />;
-        }}
-        ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-        // style={{padding: 20, paddingTop: 60}}
-        // contentContainerStyle={{paddingHorizontal: 5}}
-        ListFooterComponent={() => (
-          <View
-            style={{
-              marginBottom: activities.length > 2 ? CardHeight * 2 : 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            {activities.length === 0 && !loading1 && (
-              <View
-                style={{
-                  alignItems: 'center',
-                  backgroundColor: COLORS.backgroundColor,
-                  marginTop: 100,
-                }}>
-                <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-                  {t('activity.noactivity')}
-                </Text>
-              </View>
-            )}
-            {loading1 && (
-              <View style={{marginVertical: 20}}>
-                <ActivityIndicator color={COLORS.primary} size={30} />
-              </View>
-            )}
-          </View>
-        )}
-        onEndReached={onLoadMore}
-        onEndReachedThreshold={1}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: true},
-        )}
-      />
+      {view === 0 && (
+        <Animated.FlatList
+          ListHeaderComponent={renderHeader()}
+          showsVerticalScrollIndicator={false}
+          data={activities}
+          keyExtractor={(item) => `${item._id}`}
+          renderItem={({item, index}) => {
+            return <ActivityCardDetail item={item} index={index} />;
+          }}
+          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          // style={{padding: 20, paddingTop: 60}}
+          // contentContainerStyle={{paddingHorizontal: 5}}
+          ListFooterComponent={() => (
+            <View
+              style={{
+                marginBottom: activities.length > 2 ? CardHeight * 2 : 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {activities.length === 0 && !loading1 && (
+                <View
+                  style={{
+                    alignItems: 'center',
+                    backgroundColor: COLORS.backgroundColor,
+                    marginTop: 100,
+                  }}>
+                  <Text style={[FONTS.h2, {color: COLORS.primary}]}>
+                    {t('activity.noactivity')}
+                  </Text>
+                </View>
+              )}
+              {loading1 && (
+                <View style={{marginVertical: 20}}>
+                  <ActivityIndicator color={COLORS.primary} size={30} />
+                </View>
+              )}
+            </View>
+          )}
+          onEndReached={onLoadMore}
+          onEndReachedThreshold={1}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: true},
+          )}
+        />
+      )}
+      {view === 1 && (
+        <ActiityMapViewScreen
+          filterOption={filterOption1}
+          state1={state}
+          setState1={setState}
+          onLoadMore={onLoadMore}
+          loading1={loading1}
+        />
+      )}
     </View>
   );
 };

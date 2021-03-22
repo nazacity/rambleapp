@@ -416,7 +416,6 @@ const HomeStackScreen = ({navigation}) => {
           },
         }}
       />
-
       <HomeStack.Screen name="AboutRamble" component={AboutRambleScreen} />
     </HomeStack.Navigator>
   );

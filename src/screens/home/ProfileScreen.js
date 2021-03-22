@@ -25,7 +25,6 @@ const ProfileScreen = () => {
     <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <MenuButton />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <TopBackground /> */}
         <View
           style={{
             backgroundColor: COLORS.primary,
@@ -44,9 +43,6 @@ const ProfileScreen = () => {
                 flex: 1,
                 backgroundColor: COLORS.white,
                 borderRadius: 10,
-                alignItems: 'center',
-                flexDirection: 'row',
-                padding: 20,
               },
               SHADOW.default,
             ]}>
@@ -59,6 +55,8 @@ const ProfileScreen = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 backgroundColor: COLORS.white,
+                padding: 20,
+                borderRadius: 10,
               }}>
               <LocationIcon color={COLORS.opcaityBlack} size={24} />
               <Text
@@ -77,9 +75,6 @@ const ProfileScreen = () => {
                 flex: 1,
                 backgroundColor: COLORS.white,
                 borderRadius: 10,
-                alignItems: 'center',
-                flexDirection: 'row',
-                padding: 20,
               },
               SHADOW.default,
             ]}>
@@ -92,6 +87,8 @@ const ProfileScreen = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 backgroundColor: COLORS.white,
+                padding: 20,
+                borderRadius: 10,
               }}>
               <EmergencyIcon color={COLORS.opcaityBlack} size={20} />
               <Text
