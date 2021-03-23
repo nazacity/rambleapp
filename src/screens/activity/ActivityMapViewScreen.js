@@ -294,7 +294,7 @@ const ActivityMapViewScreen = ({
 
   useEffect(() => {
     mapAnimation.addListener(({value}) => {
-      let index = Math.floor(value / CardSize + 0.3); // animate 30% away from landing on the next item
+      let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
       if (index >= activities.length) {
         index = activities.length - 1;
       }
@@ -325,9 +325,9 @@ const ActivityMapViewScreen = ({
 
   const interpolations = activities.map((marker, index) => {
     const inputRange = [
-      (index - 1) * CardSize,
-      index * CardSize,
-      (index + 1) * CardSize,
+      (index - 1) * (CardSize + 20),
+      index * (CardSize + 20),
+      (index + 1) * (CardSize + 20),
     ];
 
     const scale = mapAnimation.interpolate({
@@ -444,7 +444,7 @@ const ActivityMapViewScreen = ({
         onEndReachedThreshold={2}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         ListFooterComponent={() => (
-          <Fragment>
+          <View style={{flexDirection: 'row'}}>
             {loading1 && (
               <View
                 style={{
@@ -471,7 +471,13 @@ const ActivityMapViewScreen = ({
                 </Text>
               </View>
             )}
-          </Fragment>
+            <View
+              style={{
+                width: CardSize,
+                height: CardHeight,
+              }}
+            />
+          </View>
         )}
       />
     </View>
