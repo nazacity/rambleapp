@@ -45,6 +45,23 @@ const ActivityMapViewScreen = ({
   const _scrollView = React.useRef(null);
   const {t} = React.useContext(LocalizationContext);
 
+  const setToFirstItemLocation = (data) => {
+    if (data.length > 0) {
+      const {location} = data[0];
+
+      _map.current.animateToRegion(
+        {
+          latitude: location.lat,
+          longitude: location.lng,
+          latitudeDelta: 15.20069573949079,
+          longitudeDelta: 9.81802023947239,
+        },
+        350,
+      );
+    }
+    _scrollView.current.scrollToOffset({offset: 0, animated: true});
+  };
+
   const filterOption = [
     {
       id: '0',
@@ -59,7 +76,8 @@ const ActivityMapViewScreen = ({
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
           }
-          _scrollView.current.scrollToOffset({offset: 1, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -82,7 +100,8 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToOffset({offset: 1, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -103,7 +122,8 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToOffset({offset: 1, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -124,7 +144,8 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToOffset({offset: 1, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -145,7 +166,8 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToOffset({offset: 1, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -166,7 +188,8 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToOffset({offset: 10, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -187,7 +210,8 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToOffset({offset: 1, animated: true});
+
+          setToFirstItemLocation(res.data);
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -294,9 +318,20 @@ const ActivityMapViewScreen = ({
 
   useEffect(() => {
     mapAnimation.addListener(({value}) => {
-      if (value === 0) {
-        if (activities.length > 0) {
-          const {location} = activities[0];
+      let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
+
+      if (index >= activities.length) {
+        index = activities.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(regionTimeout);
+      const regionTimeout = setTimeout(() => {
+        if (mapIndex !== index) {
+          mapIndex = index;
+          const {location} = activities[index];
 
           _map.current.animateToRegion(
             {
@@ -308,34 +343,7 @@ const ActivityMapViewScreen = ({
             350,
           );
         }
-      } else {
-        let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
-
-        if (index >= activities.length) {
-          index = activities.length - 1;
-        }
-        if (index <= 0) {
-          index = 0;
-        }
-
-        clearTimeout(regionTimeout);
-        const regionTimeout = setTimeout(() => {
-          if (mapIndex !== index) {
-            mapIndex = index;
-            const {location} = activities[index];
-
-            _map.current.animateToRegion(
-              {
-                latitude: location.lat,
-                longitude: location.lng,
-                latitudeDelta: 15.20069573949079,
-                longitudeDelta: 9.81802023947239,
-              },
-              350,
-            );
-          }
-        }, 10);
-      }
+      }, 10);
     });
   });
 
@@ -411,7 +419,7 @@ const ActivityMapViewScreen = ({
         })}
       </MapView>
       <View
-        style={{position: 'absolute', top: Platform.OS === 'ios' ? 80 : 50}}>
+        style={{position: 'absolute', top: Platform.OS === 'ios' ? 60 : 50}}>
         <FilterOption
           filterOption={filterOption}
           state={state1}
