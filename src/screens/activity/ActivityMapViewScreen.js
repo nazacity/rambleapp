@@ -294,32 +294,34 @@ const ActivityMapViewScreen = ({
 
   useEffect(() => {
     mapAnimation.addListener(({value}) => {
-      let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
-      if (index >= activities.length) {
-        index = activities.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
+      if (value !== 0) {
+        let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
 
-      clearTimeout(regionTimeout);
-
-      const regionTimeout = setTimeout(() => {
-        if (mapIndex !== index) {
-          mapIndex = index;
-          const {location} = activities[index];
-
-          _map.current.animateToRegion(
-            {
-              latitude: location.lat,
-              longitude: location.lng,
-              latitudeDelta: 15.20069573949079,
-              longitudeDelta: 9.81802023947239,
-            },
-            350,
-          );
+        if (index >= activities.length) {
+          index = activities.length - 1;
         }
-      }, 10);
+        if (index <= 0) {
+          index = 0;
+        }
+
+        clearTimeout(regionTimeout);
+        const regionTimeout = setTimeout(() => {
+          if (mapIndex !== index) {
+            mapIndex = index;
+            const {location} = activities[index];
+
+            _map.current.animateToRegion(
+              {
+                latitude: location.lat,
+                longitude: location.lng,
+                latitudeDelta: 15.20069573949079,
+                longitudeDelta: 9.81802023947239,
+              },
+              350,
+            );
+          }
+        }, 10);
+      }
     });
   });
 
