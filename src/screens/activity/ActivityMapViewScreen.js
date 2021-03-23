@@ -59,7 +59,7 @@ const ActivityMapViewScreen = ({
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 1, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -82,7 +82,7 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 1, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -103,7 +103,7 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 1, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -124,7 +124,7 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 1, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -145,7 +145,7 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 1, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -166,7 +166,7 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 10, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -187,7 +187,7 @@ const ActivityMapViewScreen = ({
             dispatch(setActivities([...res.data]));
             setNoMore(true);
           }
-          _scrollView.current.scrollToIndex({index: 0, animated: true});
+          _scrollView.current.scrollToOffset({offset: 1, animated: true});
           dispatch(setLoading(false));
         } catch (error) {
           console.log(error);
@@ -294,7 +294,21 @@ const ActivityMapViewScreen = ({
 
   useEffect(() => {
     mapAnimation.addListener(({value}) => {
-      if (value !== 0) {
+      if (value === 0) {
+        if (activities.length > 0) {
+          const {location} = activities[0];
+
+          _map.current.animateToRegion(
+            {
+              latitude: location.lat,
+              longitude: location.lng,
+              latitudeDelta: 15.20069573949079,
+              longitudeDelta: 9.81802023947239,
+            },
+            350,
+          );
+        }
+      } else {
         let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
 
         if (index >= activities.length) {

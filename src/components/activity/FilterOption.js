@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import {COLORS, FONTS, SHADOW} from '../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
 
 const FilterOption = ({state, setState, filterOption}) => {
+  const scrollRef = useRef();
   return (
     <FlatList
+      ref={scrollRef}
       horizontal
       showsHorizontalScrollIndicator={false}
       data={filterOption}
@@ -35,6 +37,11 @@ const FilterOption = ({state, setState, filterOption}) => {
                 borderColor: COLORS.primary,
               }}
               onPress={() => {
+                scrollRef.current.scrollToIndex({
+                  animated: true,
+                  index: index,
+                  viewOffset: SIZES.width / 2 - 100,
+                });
                 item.function();
                 setState(item.id);
               }}>
