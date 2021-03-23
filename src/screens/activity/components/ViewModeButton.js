@@ -10,7 +10,7 @@ const ViewButton = ({top, setDark, dark}) => {
       style={[
         {
           position: 'absolute',
-          top: 140,
+          top: Platform.OS === 'ios' ? 170 : 140,
           right: 10,
           zIndex: 100,
           alignItems: 'center',
