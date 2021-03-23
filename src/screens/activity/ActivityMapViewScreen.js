@@ -1,23 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Fragment, useState} from 'react';
 import {
   StyleSheet,
   Text,
-  TextInput,
   View,
-  ScrollView,
   Animated,
-  Image,
   TouchableOpacity,
-  Dimensions,
   Platform,
   ImageBackground,
 } from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
-import {markers, mapDarkStyle, mapStandardStyle} from '../../constants/mapData';
+import {mapDarkStyle, mapStandardStyle} from '../../constants/mapData';
 // import StarRating from '../components/StarRating';
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
-import {useNavigation, useTheme} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import FilterOption from '../../components/activity/FilterOption';
 import {useDispatch, useSelector} from 'react-redux';
 import dayjs from 'dayjs';
@@ -26,13 +22,15 @@ import {ActivityIndicator} from 'react-native';
 import {setLoading} from '../../redux/actions/AppStateAction';
 import {setActivities} from '../../redux/actions/ActivityAction';
 import {get} from '../../redux/actions/request';
+import LocalizationContext from '../LocalizationContext';
+import ViewModeButton from './components/ViewModeButton';
 
-const CardSize = SIZES.width - 150;
-const CardHeight = ((SIZES.width - 150) * 2) / 3;
+const CardSize = 225;
+const CardHeight = 150;
 
 const SPACING_FOR_CARD_INSET = SIZES.width * 0.1 - 10;
 
-const ExploreScreen = ({
+const ActivityMapViewScreen = ({
   setState1,
   state1,
   onLoadMore,
@@ -41,11 +39,11 @@ const ExploreScreen = ({
   setNoMore,
 }) => {
   const activities = useSelector((state) => state.activity.activities);
-  const theme = useTheme();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
+  const {t} = React.useContext(LocalizationContext);
 
   const filterOption = [
     {
@@ -289,7 +287,7 @@ const ExploreScreen = ({
     },
   };
 
-  const [state, setState] = React.useState(initialMapState);
+  const [state, setState] = useState(initialMapState);
 
   let mapIndex = 0;
   let mapAnimation = new Animated.Value(0);
@@ -352,6 +350,15 @@ const ExploreScreen = ({
     _scrollView.current.scrollToOffset({offset: x, animated: true});
   };
 
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const time = new Date().getHours();
+    if (time >= 19 || time <= 6) {
+      setDark(true);
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -359,7 +366,7 @@ const ExploreScreen = ({
         initialRegion={state.region}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
-        customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}>
+        customMapStyle={dark ? mapDarkStyle : mapStandardStyle}>
         {activities.map((marker, index) => {
           const scaleStyle = {
             transform: [
@@ -395,6 +402,9 @@ const ExploreScreen = ({
           setState={setState1}
         />
       </View>
+
+      <ViewModeButton setDark={setDark} dark={dark} />
+
       <Animated.FlatList
         data={activities}
         keyExtractor={(item) => `${item._id}`}
@@ -434,26 +444,41 @@ const ExploreScreen = ({
         onEndReachedThreshold={2}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         ListFooterComponent={() => (
-          <View
-            style={{
-              height: CardHeight,
-              width: 100,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <Fragment>
             {loading1 && (
-              <View style={{marginVertical: 20}}>
+              <View
+                style={{
+                  height: CardHeight,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 100,
+                }}>
                 <ActivityIndicator color={COLORS.primary} size={30} />
               </View>
             )}
-          </View>
+            {activities.length === 0 && !loading1 && (
+              <View
+                style={{
+                  width: CardSize,
+                  height: CardHeight,
+                  borderRadius: 10,
+                  backgroundColor: COLORS.backgroundColor,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={[FONTS.h2, {color: COLORS.primary}]}>
+                  {t('activity.noactivity')}
+                </Text>
+              </View>
+            )}
+          </Fragment>
         )}
       />
     </View>
   );
 };
 
-export default ExploreScreen;
+export default ActivityMapViewScreen;
 
 const styles = StyleSheet.create({
   container: {

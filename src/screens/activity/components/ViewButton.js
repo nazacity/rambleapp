@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Platform, StatusBar} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import {COLORS, SHADOW} from '../../constants';
+import {COLORS, SHADOW} from '../../../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const ViewButton = ({top, setView, view}) => {
@@ -11,7 +11,7 @@ const ViewButton = ({top, setView, view}) => {
         {
           position: 'absolute',
           top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
-          right: 50,
+          right: 70,
           zIndex: 100,
           alignItems: 'center',
           justifyContent: 'center',

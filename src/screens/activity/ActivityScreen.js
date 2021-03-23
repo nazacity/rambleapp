@@ -4,7 +4,7 @@ import {Text, View, FlatList, Animated, ActivityIndicator} from 'react-native';
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
 import FilterButton from '../../components/layout/FilterButton';
-import ViewButton from '../../components/layout/ViewButton';
+import ViewButton from './components/ViewButton';
 import {get} from '../../redux/actions/request';
 import {useSelector, useDispatch} from 'react-redux';
 import {setActivities} from '../../redux/actions/ActivityAction';
@@ -14,9 +14,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import ActivityCard from '../../components/activity/ActivityCard';
 import PromoteActivity from '../../components/home/PromoteActivity';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import ActiityMapViewScreen from './ActivityMapViewScreen';
-import MapView from 'react-native-maps';
 import FilterOption from '../../components/activity/FilterOption';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
