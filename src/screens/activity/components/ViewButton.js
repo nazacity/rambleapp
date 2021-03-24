@@ -4,7 +4,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {COLORS, SHADOW} from '../../../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const ViewButton = ({top, setView, view}) => {
+const ViewButton = ({top, setView, view, loadAll, setState}) => {
   return (
     <View
       style={[
@@ -24,7 +24,9 @@ const ViewButton = ({top, setView, view}) => {
       ]}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
+        onPress={async () => {
+          setState('0');
+          await loadAll();
           setView(0);
         }}
         style={{
@@ -45,7 +47,9 @@ const ViewButton = ({top, setView, view}) => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => {
+        onPress={async () => {
+          setState('0');
+          await loadAll();
           setView(1);
         }}
         style={{

@@ -276,7 +276,7 @@ const ActivityMapViewScreen = ({
                 <Text style={[FONTS.h3, {color: COLORS.white, lineHeight: 18}]}>
                   {item.title}
                 </Text>
-                <View style={{flexDirection: 'row'}}>
+                {/* <View>
                   <Text
                     style={[
                       FONTS.h4,
@@ -284,6 +284,8 @@ const ActivityMapViewScreen = ({
                     ]}>
                     {item.location.place_name}
                   </Text>
+                </View> */}
+                <View>
                   <Text
                     style={[FONTS.h4, {color: COLORS.white, lineHeight: 18}]}>
                     {item.location.province}
@@ -465,7 +467,7 @@ const ActivityMapViewScreen = ({
           {useNativeDriver: true},
         )}
         onEndReached={onLoadMore}
-        onEndReachedThreshold={2}
+        onEndReachedThreshold={0.5}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         ListFooterComponent={() => (
           <View style={{flexDirection: 'row'}}>

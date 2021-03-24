@@ -29,6 +29,7 @@ const ActivityScreen = ({navigation}) => {
   const [view, setView] = useState(0);
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activity.activities);
+  const [refresh, setRefresh] = useState(false);
   const onLoadMore = async () => {
     if (!noMore) {
       // dispatch(setLoading(true));
@@ -45,7 +46,8 @@ const ActivityScreen = ({navigation}) => {
             if (page === 0) {
               dispatch(setActivities([...res.data]));
             } else {
-              dispatch(setActivities([...activities, ...res.data]));
+              let newData = [...activities, ...res.data];
+              dispatch(setActivities(newData));
             }
           }
           setPage(page + 1);
@@ -116,26 +118,28 @@ const ActivityScreen = ({navigation}) => {
     return unsubscribe;
   }, []);
 
+  const loadAll = async () => {
+    dispatch(setLoading(true));
+    setPage(1);
+    setNoMore(false);
+    try {
+      const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
+
+      if (res.status === 200) {
+        dispatch(setActivities([...res.data]));
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error);
+      dispatch(setLoading(false));
+    }
+  };
+
   const filterOption = [
     {
       id: '0',
       item: 'ALL',
-      function: async () => {
-        dispatch(setLoading(true));
-        setPage(1);
-        setNoMore(false);
-        try {
-          const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
-
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
+      function: loadAll,
     },
     {
       id: '1',
@@ -219,6 +223,13 @@ const ActivityScreen = ({navigation}) => {
     },
   ];
 
+  const onRefresh = async () => {
+    setRefresh(true);
+    setState('0');
+    await loadAll();
+    setRefresh(false);
+  };
+
   const renderHeader = () => {
     return (
       <View>
@@ -240,7 +251,12 @@ const ActivityScreen = ({navigation}) => {
         flex: 1,
       }}>
       <MenuButton />
-      <ViewButton setView={setView} view={view} />
+      <ViewButton
+        setView={setView}
+        view={view}
+        setState={setState}
+        loadAll={loadAll}
+      />
       <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
 
       {view === 0 && (
@@ -282,11 +298,13 @@ const ActivityScreen = ({navigation}) => {
             </View>
           )}
           onEndReached={onLoadMore}
-          onEndReachedThreshold={1}
+          onEndReachedThreshold={0.5}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {y: scrollY}}}],
             {useNativeDriver: true},
           )}
+          onRefresh={onRefresh}
+          refreshing={refresh}
         />
       )}
       {view === 1 && (
