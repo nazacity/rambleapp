@@ -30,6 +30,7 @@ const ActivityScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activity.activities);
   const [refresh, setRefresh] = useState(false);
+  const filterRef = useRef();
   const onLoadMore = async () => {
     if (!noMore) {
       // dispatch(setLoading(true));
@@ -123,6 +124,11 @@ const ActivityScreen = ({navigation}) => {
     setPage(1);
     setNoMore(false);
     try {
+      filterRef.current.scrollToIndex({
+        animated: true,
+        index: 0,
+        viewOffset: 40,
+      });
       const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
       if (res.status === 200) {
@@ -238,6 +244,7 @@ const ActivityScreen = ({navigation}) => {
           filterOption={filterOption}
           state={state}
           setState={setState}
+          filterRef={filterRef}
         />
       </View>
     );
@@ -315,6 +322,7 @@ const ActivityScreen = ({navigation}) => {
           loading1={loading1}
           setPage={setPage}
           setNoMore={setNoMore}
+          filterRef={filterRef}
         />
       )}
     </View>

@@ -37,6 +37,7 @@ const ActivityMapViewScreen = ({
   loading1,
   setPage,
   setNoMore,
+  filterRef,
 }) => {
   const activities = useSelector((state) => state.activity.activities);
   const navigation = useNavigation();
@@ -92,6 +93,11 @@ const ActivityMapViewScreen = ({
         dispatch(setLoading(true));
 
         try {
+          filterRef.current.scrollToIndex({
+            animated: true,
+            index: 0,
+            viewOffset: 40,
+          });
           const res = await get(
             `/api/users/getactivities?region=ภาคกลาง&limit=50`,
           );
@@ -426,6 +432,7 @@ const ActivityMapViewScreen = ({
           filterOption={filterOption}
           state={state1}
           setState={setState1}
+          filterRef={filterRef}
         />
       </View>
 
