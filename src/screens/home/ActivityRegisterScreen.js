@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  Image,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import ImageModal from 'react-native-image-modal';
@@ -150,24 +151,14 @@ const ActivityRegisterScreen = ({navigation, route}) => {
     <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
       <BackButton />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View
+        <Image
           style={{
             width: SIZES.width,
             height: 300,
-            borderRadius: 10,
-            alignSelf: 'center',
-          }}>
-          <ImageModal
-            resizeMode="contain"
-            imageBackgroundColor={COLORS.background}
-            overlayBackgroundColor="rgba(0,0,0,0.3)"
-            style={{
-              width: SIZES.width,
-              height: 300,
-            }}
-            source={{uri: activity.activity_picture_url}}
-          />
-        </View>
+            resizeMode: 'contain',
+          }}
+          source={{uri: activity.activity_picture_url}}
+        />
         <View style={{marginBottom: 20, paddingHorizontal: 20}}>
           <TitleHeader title={t('activity.course')} />
           <View>
@@ -252,71 +243,48 @@ const ActivityRegisterScreen = ({navigation, route}) => {
             )}
           </View>
           <View>
-            {/* {user.addresses.length > 0 ? ( */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={[
-                  {
-                    _id: '5ff6600d20ed83388ab4ccbd',
-                    address: t('activity.atevent'),
-                  },
-                  ...user.addresses,
-                ]}
-                keyExtractor={(item) => `${item._id}`}
-                renderItem={({item, index}) => {
-                  return (
-                    <View
-                      style={[
-                        SHADOW.default,
-                        {
-                          backgroundColor: COLORS.white,
-                          borderRadius: 10,
-                          width: SIZES.width - 80,
-                        },
-                      ]}>
-                      <TouchableOpacity
-                        style={{
-                          backgroundColor: COLORS.white,
-                          borderRadius: 10,
-                          borderWidth: item._id === address._id ? 1 : 0,
-                          borderColor: COLORS.primary,
-                          paddingBottom: 1,
-                        }}
-                        activeOpacity={0.9}
-                        onPress={() => {
-                          setAddress(item);
-                        }}>
-                        <AddressCard
-                          item={item}
-                          editable={index === 0 ? false : true}
-                          setAddress={setAddress}
-                          setEditModalOpen={setEditModalOpen}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-                ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-                contentContainerStyle={{paddingHorizontal: 20}}
-                ListFooterComponent={() => <View style={{margin: 5}} />}
-                ListHeaderComponent={() => <View style={{margin: 5}} />}
-              />
-            </ScrollView>
-            {/* ) : (
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={() => {
-                  navigation.navigate('home', {screen: 'Address'});
-                }}>
-                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                  {t('activity.addaddress')}
-                </Text>
-                <Text style={[FONTS.h5, {textAlign: 'center'}]}>
-                  {t('activity.clickhere')}
-                </Text>
-              </TouchableOpacity>
-            )} */}
+            {[
+              {
+                _id: '5ff6600d20ed83388ab4ccbd',
+                address: t('activity.atevent'),
+              },
+              ...user.addresses,
+            ].map((item, index) => {
+              return (
+                <View
+                  key={item._id}
+                  style={[
+                    SHADOW.default,
+                    {
+                      backgroundColor: COLORS.white,
+                      borderRadius: 10,
+                      width: SIZES.width - 80,
+                      marginHorizontal: 20,
+                      marginVertical: 10,
+                      borderWidth: item._id === address._id ? 1 : 0,
+                      borderColor: COLORS.primary,
+                      paddingBottom: 1,
+                    },
+                  ]}>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: COLORS.white,
+                      borderRadius: 10,
+                    }}
+                    activeOpacity={0.9}
+                    onPress={() => {
+                      setAddress(item);
+                    }}>
+                    <AddressCard
+                      item={item}
+                      editable={index === 0 ? false : true}
+                      setAddress={setAddress}
+                      setEditModalOpen={setEditModalOpen}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
           </View>
         </View>
 
@@ -341,50 +309,42 @@ const ActivityRegisterScreen = ({navigation, route}) => {
           </View>
           <View>
             {user.emergency_contacts.length > 0 ? (
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={user.emergency_contacts}
-                  keyExtractor={(item, index) => `${index}`}
-                  renderItem={({item, index}) => {
-                    return (
-                      <View
-                        style={[
-                          SHADOW.default,
-                          {
-                            backgroundColor: COLORS.white,
-                            borderRadius: 10,
-                            width: SIZES.width - 80,
-                          },
-                        ]}>
-                        <TouchableOpacity
-                          style={{
-                            backgroundColor: COLORS.white,
-                            borderRadius: 10,
-                            borderWidth: item._id === emergency._id ? 1 : 0,
-                            borderColor: COLORS.primary,
-                            paddingBottom: 1,
-                          }}
-                          activeOpacity={0.9}
-                          onPress={() => {
-                            setEmergency(item);
-                          }}>
-                          <EmergencyCard
-                            item={item}
-                            editable={true}
-                            setEmergency={setEmergency}
-                            setEditModalOpen={setEditModalOpen1}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  }}
-                  ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-                  contentContainerStyle={{paddingHorizontal: 20}}
-                  ListFooterComponent={() => <View style={{margin: 5}} />}
-                  ListHeaderComponent={() => <View style={{margin: 5}} />}
-                />
-              </ScrollView>
+              user.emergency_contacts.map((item, index) => {
+                return (
+                  <View
+                    key={item._id}
+                    style={[
+                      SHADOW.default,
+                      {
+                        backgroundColor: COLORS.white,
+                        borderRadius: 10,
+                        width: SIZES.width - 80,
+                        marginHorizontal: 20,
+                        marginVertical: 10,
+                        borderWidth: item._id === emergency._id ? 1 : 0,
+                        borderColor: COLORS.primary,
+                        paddingBottom: 1,
+                      },
+                    ]}>
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: COLORS.white,
+                        borderRadius: 10,
+                      }}
+                      activeOpacity={0.9}
+                      onPress={() => {
+                        setEmergency(item);
+                      }}>
+                      <EmergencyCard
+                        item={item}
+                        editable={true}
+                        setEmergency={setEmergency}
+                        setEditModalOpen={setEditModalOpen1}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                );
+              })
             ) : (
               <TouchableOpacity
                 activeOpacity={0.8}

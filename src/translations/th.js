@@ -193,7 +193,7 @@ const th = {
     },
   },
   activityfilter: {
-    course: 'ระยะทางวิ่ง (กม.)',
+    course: 'ประเภท',
     during: 'ห้วงวันที่',
     find: 'ค้นหางานอีเว้นท์',
     region: 'ภูมิภาค',

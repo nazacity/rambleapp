@@ -482,6 +482,13 @@ const ActivityStackScreen = ({navigation}) => {
         }}
       />
       <ActivityStack.Screen
+        name="ActivityRegister"
+        component={ActivityRegisterScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ActivityStack.Screen
         name="ActivityDetail"
         component={ActivityDetailScreen}
         options={{

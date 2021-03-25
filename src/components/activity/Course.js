@@ -1,34 +1,52 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {FONTS, COLORS} from '../../constants';
+import React, {useRef} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {FONTS, COLORS, SHADOW} from '../../constants';
 import ImageModal from 'react-native-image-modal';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
 
 const Course = ({course}) => {
   const {t} = React.useContext(LocalizationContext);
+  const imageRef = useRef();
+
   return (
     <View style={{marginBottom: 20}}>
       <TitleHeader title={t('activityfilter.course')} />
       <View style={{marginLeft: 20}}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            imageRef.current._open();
+          }}
+          style={[
+            {
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginBottom: 10,
+              backgroundColor: COLORS.white,
+              borderRadius: 5,
+            },
+            SHADOW.default,
+          ]}>
           <View
             style={{
               width: 100,
               height: 100,
-              borderRadius: 10,
+              borderBottomLeftRadius: 5,
+              borderTopLeftRadius: 5,
               overflow: 'hidden',
             }}>
             <ImageModal
+              ref={imageRef}
               resizeMode="contain"
               imageBackgroundColor={COLORS.background}
-              overlayBackgroundColor="rgba(0,0,0,0.3)"
+              overlayBackgroundColor={COLORS.darkOpacityBlack}
               style={{
                 width: 100,
                 height: 100,
-                borderRadius: 10,
+                borderBottomLeftRadius: 5,
+                borderTopLeftRadius: 5,
               }}
-              borderRadius={10}
               source={{
                 uri: course.course_picture_url,
               }}
@@ -40,7 +58,7 @@ const Course = ({course}) => {
               {t('activity.fee')} {course.price} {t('activity.bath')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

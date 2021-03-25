@@ -227,6 +227,17 @@ const ActivityMapViewScreen = ({
     },
   ];
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      _scrollView.current.scrollToIndex({
+        animated: true,
+        index: 0,
+        viewOffset: 40,
+      });
+    });
+    return unsubscribe;
+  }, []);
+
   const ActivityCardDetail = ({item, index}) => {
     return (
       <View style={{alignItems: 'center'}}>

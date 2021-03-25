@@ -193,7 +193,7 @@ const en = {
     },
   },
   activityfilter: {
-    course: 'Distance (Km)',
+    course: 'Type',
     during: 'During',
     find: 'Search Events',
     region: 'Region',

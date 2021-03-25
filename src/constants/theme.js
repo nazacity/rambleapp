@@ -31,6 +31,7 @@ export const COLORS = {
   lightGrey: '#eceff1',
   opcaityBlack: 'rgba(0,0,0,0.6)',
   lightOpcaityBlack: 'rgba(0,0,0,0.2)',
+  darkOpacityBlack: 'rgba(0,0,0,0.8)',
 };
 
 export const Radius = {

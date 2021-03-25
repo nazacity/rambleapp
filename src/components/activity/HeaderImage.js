@@ -17,13 +17,10 @@ import {
 } from 'react-native-image-header-scroll-view';
 import * as Animatable from 'react-native-animatable';
 
-import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
-import {HeaderBackButton} from '@react-navigation/stack';
+import {COLORS, SIZES} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
-import {useNavigation} from '@react-navigation/native';
 import BackButton from '../layout/BackButton';
 import ButtonSection from './ButtonSection';
-import {useSelector} from 'react-redux';
 import LineShareButton from '../layout/LineShareButton';
 // import Share from 'react-native-share';
 
@@ -40,24 +37,6 @@ const HeaderImage = ({
   const {t} = React.useContext(LocalizationContext);
   const navTitleView = useRef(null);
 
-  // const handleShare = async () => {
-  //   const shareOptions = {
-  //     title: `${
-  //       t('share.interest') + activity.title
-  //     } \n https://liff.line.me/1655591354-8d5Zzbm5?activity=${activity._id}`,
-  //     message: `${
-  //       t('share.interest') + activity.title
-  //     } \n https://liff.line.me/1655591354-8d5Zzbm5?activity=${activity._id}`,
-  //     url: `https://liff.line.me/1655591354-8d5Zzbm5?activity=${activity._id} `,
-  //   };
-  //   try {
-  //     const ShareResponse = await Share.open(shareOptions);
-  //     console.log(JSON.stringify(ShareResponse));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <Fragment>
       <BackButton />
@@ -67,6 +46,7 @@ const HeaderImage = ({
         maxOverlayOpacity={0.6}
         minOverlayOpacity={0.3}
         showsVerticalScrollIndicator={false}
+        useNativeDriver
         renderHeader={() => (
           <Image
             source={{uri: activity.activity_picture_url}}
@@ -117,7 +97,7 @@ const HeaderImage = ({
         renderFixedForeground={() => (
           <Animatable.View
             style={{
-              height: MIN_HEIGHT,
+              height: 50,
               justifyContent: 'center',
               alignItems: 'center',
               paddingTop: Platform.OS === 'ios' ? 40 : 5,
@@ -134,55 +114,56 @@ const HeaderImage = ({
             </Text>
           </Animatable.View>
         )}>
-        {location && (
-          <TriggeringView
-            style={{
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              backgroundColor: 'white',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-            onHide={() => {
-              navTitleView.current.fadeInUp(200);
-            }}
-            onDisplay={() => navTitleView.current.fadeOut(100)}>
-            {activity.location && (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{
-                  width: 40,
-                  height: 40,
-                  backgroundColor: COLORS.pinkPastel,
-                  borderRadius: 5,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginRight: 20,
-                  borderRadius: 50,
-                }}
-                onPress={() => {
-                  Linking.openURL(
-                    `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
-                  );
-                }}>
-                <Ionicons name="location-sharp" size={20} color="#fff" />
-              </TouchableOpacity>
-            )}
-            <View style={{width: 60}}>
-              <Text>{t('createpost.province')} </Text>
-              <Text>{t('activity.place')} </Text>
-            </View>
-            <View>
-              <Text>{activity.location.province}</Text>
-              <Text>{activity.location.place_name}</Text>
-            </View>
-            <View
+        {/* {location && ( */}
+        <TriggeringView
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            backgroundColor: 'white',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+          onHide={() => {
+            console.log('test');
+            navTitleView.current.fadeInUp(50);
+          }}
+          onDisplay={() => navTitleView.current.fadeOut(50)}>
+          {activity.location && (
+            <TouchableOpacity
+              activeOpacity={0.8}
               style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}></View>
-          </TriggeringView>
-        )}
+                width: 40,
+                height: 40,
+                backgroundColor: COLORS.pinkPastel,
+                borderRadius: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginRight: 20,
+                borderRadius: 50,
+              }}
+              onPress={() => {
+                Linking.openURL(
+                  `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
+                );
+              }}>
+              <Ionicons name="location-sharp" size={20} color="#fff" />
+            </TouchableOpacity>
+          )}
+          <View style={{width: 60}}>
+            <Text>{t('createpost.province')} </Text>
+            <Text>{t('activity.place')} </Text>
+          </View>
+          <View>
+            <Text>{activity.location.province}</Text>
+            <Text>{activity.location.place_name}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}></View>
+        </TriggeringView>
+        {/* )} */}
         {children}
       </ImageHeaderScrollView>
       <View
@@ -229,6 +210,25 @@ const HeaderImage = ({
               Linking.openURL(`http://line.me/ti/p/~${activity.contact.line}`);
             }}>
             <Fontisto name="line" size={20} color="#fff" />
+          </TouchableOpacity>
+        )}
+        {activity.contact?.facebook && (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{
+              width: 40,
+              height: 40,
+              backgroundColor: COLORS.pinkPastel,
+              borderRadius: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 10,
+              borderRadius: 50,
+            }}
+            onPress={() => {
+              Linking.openURL(`${activity.contact.facebook}`);
+            }}>
+            <Fontisto name="facebook" size={20} color="#fff" />
           </TouchableOpacity>
         )}
       </View>
