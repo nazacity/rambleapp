@@ -113,16 +113,14 @@ const SignupForm = () => {
           message: t('signup.password8'),
         }),
       );
-    }
-    // else if (!data.display_name) {
-    //   dispatch(
-    //     setSnackbarDisplay({
-    //       state: 'error',
-    //       message: t('signup.displaynameerror'),
-    //     }),
-    //   );
-    // }
-    else if (!data.first_name) {
+    } else if (data.phone_number && data.phone_number.length < 10) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.phoneerror'),
+        }),
+      );
+    } else if (!data.first_name) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',

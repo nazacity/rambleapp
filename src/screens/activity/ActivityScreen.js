@@ -31,7 +31,6 @@ const ActivityScreen = ({navigation}) => {
   const activities = useSelector((state) => state.activity.activities);
   const [refresh, setRefresh] = useState(false);
   const filterRef = useRef();
-  const _scrollView = React.useRef(null);
   const onLoadMore = async () => {
     if (!noMore) {
       // dispatch(setLoading(true));
@@ -112,13 +111,6 @@ const ActivityScreen = ({navigation}) => {
 
   const firstTimeLoad = async () => {
     dispatch(setLoading(true));
-    // if (_scrollView.current) {
-    //   _scrollView.current.scrollToIndex({
-    //     animated: true,
-    //     index: 0,
-    //     viewOffset: 40,
-    //   });
-    // }
     filterRef.current.scrollToIndex({
       animated: true,
       index: 0,
@@ -342,7 +334,6 @@ const ActivityScreen = ({navigation}) => {
           setPage={setPage}
           setNoMore={setNoMore}
           filterRef={filterRef}
-          _scrollView={_scrollView}
         />
       )}
     </View>
