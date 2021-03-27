@@ -156,9 +156,10 @@ const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}
       avoidKeyboard
-      onSwipeComplete={handleClose}
-      useNativeDriverForBackdrop
-      swipeDirection={Platform.OS === 'ios' ? null : ['up']}>
+      // onSwipeComplete={handleClose}
+      // useNativeDriverForBackdrop
+      // swipeDirection={Platform.OS === 'ios' ? null : ['up']}
+    >
       <AnnouncementModal
         open={open}
         handleClose={handleModalClose}
