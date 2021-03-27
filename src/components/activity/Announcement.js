@@ -69,7 +69,7 @@ const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
           backgroundColor:
             item.state === 'not_read'
               ? COLORS.notificationNotRead
-              : COLORS.white,
+              : COLORS.backgroundColor,
         }}>
         <TouchableOpacity
           activeOpacity={0.8}
