@@ -17,16 +17,11 @@ import {useNavigation} from '@react-navigation/native';
 import {get} from '../../redux/actions/request';
 import {refresh} from '../../redux/actions/UserAction';
 import AnnouncementModal from '../modal/AnnouncementModal';
-import TitleHeader from '../layout/TitleHeader';
-import dayjs from 'dayjs';
-import 'dayjs/locale/th';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import {checkTimeFromPast} from '../../services/util';
-dayjs.extend(relativeTime);
+import Modal from 'react-native-modal';
 
-const UpcomingActivity = ({userActivity, setUserActivity}) => {
+const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
   const {t} = React.useContext(LocalizationContext);
-  const lang = useSelector((state) => state.appState.lang);
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -68,7 +63,13 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
 
   const AnnouncementCard = ({item, index}) => {
     return (
-      <View style={[SHADOW.default, {margin: 10}]}>
+      <View
+        style={{
+          backgroundColor:
+            item.state === 'not_read'
+              ? COLORS.notificationNotRead
+              : COLORS.white,
+        }}>
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
@@ -80,12 +81,12 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
           }}
           style={[
             {
-              borderRadius: 10,
               overflow: 'hidden',
               flexDirection: 'row',
-              backgroundColor: item.state === 'not_read' ? '#fff9c4' : '#fff',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 10,
             },
-            SHADOW.default,
           ]}>
           <Image
             source={{
@@ -94,10 +95,9 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
                 : userActivity.activity.id.activity_picture_url,
             }}
             style={{
-              width: 100,
-              height: 100,
-              borderTopLeftRadius: 5,
-              borderBottomLeftRadius: 5,
+              width: 60,
+              height: 60,
+              borderRadius: 40,
             }}
           />
           <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
@@ -112,7 +112,7 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
                 {checkTimeFromPast(item.createdAt)}
               </Text>
             </View>
-            <Text style={[FONTS.body5, {width: SIZES.width - 180}]}>
+            <Text style={[FONTS.body5, {width: SIZES.width - 100}]}>
               {item.description.length > 100
                 ? `${item.description.substring(0, 80)}...`
                 : item.description}
@@ -132,40 +132,81 @@ const UpcomingActivity = ({userActivity, setUserActivity}) => {
             </TouchableOpacity>
           )}
         </TouchableOpacity>
+        <View
+          style={{
+            borderBottomWidth: 0.5,
+            borderBottomColor: 'rgba(0,0,0,0.2)',
+            alignSelf: 'center',
+            width: 250,
+            marginVertical: 4,
+          }}
+        />
       </View>
     );
   };
 
   return (
-    <View>
+    <Modal
+      animationIn="slideInDown"
+      animationOut="slideOutUp"
+      isVisible={open1}
+      style={{margin: 0, justifyContent: 'flex-start'}}
+      onBackdropPress={handleClose}
+      onBackButtonPress={handleClose}
+      avoidKeyboard
+      onSwipeComplete={handleClose}
+      useNativeDriverForBackdrop
+      swipeDirection={['up']}>
       <AnnouncementModal
         open={open}
         handleClose={handleModalClose}
         data={data}
         activityPictureUrl={userActivity.activity.id.activity_picture_url}
       />
-      {userActivity.announcement.length === 0 ? (
-        <View
-          style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>{t('activity.noannouncement')}</Text>
-        </View>
-      ) : (
-        <View style={{paddingVertical: 10}}>
-          {userActivity.announcement
-            .sort((a, b) => {
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            })
-            .map((item, index) => {
-              return (
-                <AnnouncementCard key={item._id} item={item} index={index} />
-              );
-            })}
-        </View>
-      )}
-    </View>
+      <View
+        style={{
+          backgroundColor: COLORS.backgroundColor,
+          paddingBottom: 20,
+          borderBottomRightRadius: 10,
+          borderBottomLeftRadius: 10,
+          height:
+            userActivity.announcement.length > 5
+              ? (SIZES.height / 3) * 2
+              : undefined,
+        }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {userActivity.announcement.length === 0 ? (
+            <View
+              style={{
+                height: 150,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text>{t('activity.noannouncement')}</Text>
+            </View>
+          ) : (
+            <View>
+              {userActivity.announcement
+                .sort((a, b) => {
+                  return new Date(b.createdAt) - new Date(a.createdAt);
+                })
+                .map((item, index) => {
+                  return (
+                    <AnnouncementCard
+                      key={item._id}
+                      item={item}
+                      index={index}
+                    />
+                  );
+                })}
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    </Modal>
   );
 };
 
-export default UpcomingActivity;
+export default Announcement;
 
 const styles = StyleSheet.create({});

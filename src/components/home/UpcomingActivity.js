@@ -14,10 +14,11 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {FONTS, COLORS, SHADOW} from '../../constants';
-import {Badge} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {setUpcomeActivities} from '../../redux/actions/ActivityAction';
 import TitleHeader from '../layout/TitleHeader';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import NotificationBadge from '../layout/NotificationBadge';
 
 const UpcomingActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -80,6 +81,7 @@ const UpcomingActivity = () => {
               height: 150,
               borderRadius: 5,
               backgroundColor: COLORS.backgroundColor,
+              position: 'relative',
             },
           ]}>
           <View
@@ -98,22 +100,10 @@ const UpcomingActivity = () => {
             />
           </View>
           {badgeNumber.length > 0 && (
-            <Badge
+            <NotificationBadge
               value={badgeNumber.length}
-              status="error"
-              containerStyle={{
-                position: 'absolute',
-                top: -10,
-                right: -10,
-                zIndex: 500,
-              }}
-              badgeStyle={[
-                {
-                  borderRadius: 15,
-                  width: 30,
-                  height: 30,
-                },
-              ]}
+              top={-10}
+              right={-10}
             />
           )}
         </View>
@@ -132,6 +122,7 @@ const UpcomingActivity = () => {
         }}
         paddingHorizontal={20}
       />
+
       {loading ? (
         <View
           style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
