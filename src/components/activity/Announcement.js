@@ -17,11 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import {get} from '../../redux/actions/request';
 import {refresh} from '../../redux/actions/UserAction';
 import AnnouncementModal from '../modal/AnnouncementModal';
-import dayjs from 'dayjs';
-import 'dayjs/locale/th';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import {checkTimeFromPast} from '../../services/util';
-dayjs.extend(relativeTime);
 import Modal from 'react-native-modal';
 
 const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
