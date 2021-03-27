@@ -168,9 +168,6 @@ const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
       <View
         style={{
           backgroundColor: COLORS.backgroundColor,
-          paddingBottom: 20,
-          borderBottomRightRadius: 10,
-          borderBottomLeftRadius: 10,
           height:
             userActivity.announcement.length > 5
               ? (SIZES.height / 3) * 2
