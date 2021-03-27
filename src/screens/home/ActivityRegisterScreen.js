@@ -155,7 +155,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
           style={{
             width: SIZES.width,
             height: 300,
-            resizeMode: 'contain',
+            resizeMode: 'cover',
           }}
           source={{uri: activity.activity_picture_url}}
         />

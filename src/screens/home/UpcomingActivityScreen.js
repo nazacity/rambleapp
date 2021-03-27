@@ -14,6 +14,7 @@ import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
 import {Badge} from 'react-native-elements';
 import {checkTimeTilFuture} from '../../services/util';
+import NotificationBadge from '../../components/layout/NotificationBadge';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
 
@@ -58,24 +59,7 @@ const UpcomingActivityScreen = () => {
           </Text>
         </View>
         {badgeNumber.length > 0 && (
-          <Badge
-            value={badgeNumber.length}
-            status="error"
-            containerStyle={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              zIndex: 200,
-            }}
-            badgeStyle={[
-              {
-                borderRadius: 15,
-                width: 30,
-                height: 30,
-              },
-              SHADOW.default,
-            ]}
-          />
+          <NotificationBadge value={badgeNumber.length} top={10} right={10} />
         )}
       </ActivityCard>
     );

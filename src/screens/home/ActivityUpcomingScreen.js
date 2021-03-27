@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-
-import MinorAdvertise from '../../components/advertise/MinorAdvertise';
 import {FONTS, COLORS} from '../../constants';
 import {getActivityById} from '../../redux/actions/ActivityAction';
 
@@ -16,7 +14,6 @@ import Course from '../../components/activity/Course';
 import BackButton from '../../components/layout/BackButton';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import ContestNo from '../../components/activity/ContestNo';
-import Announcement from '../../components/activity/Announcement';
 import ActualDate from '../../components/activity/ActualDate';
 import Transaction from '../../components/activity/Transaction';
 import ButtonSection from '../../components/activity/ButtonSection';
@@ -53,15 +50,6 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const ThirdRoute = () => (
     <View style={{padding: 20}}>
-      <Announcement
-        userActivity={userActivity}
-        setUserActivity={setUserActivity}
-      />
-    </View>
-  );
-
-  const FourthRoute = () => (
-    <View style={{padding: 20}}>
       <Transaction userActivity={userActivity} />
     </View>
   );
@@ -92,15 +80,13 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [routes] = useState([
     {key: 'first', title: 'Info'},
     {key: 'second', title: 'Timeline'},
-    {key: 'third', title: 'Announce'},
-    {key: 'fourth', title: 'Receive'},
+    {key: 'third', title: 'Receive'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
-    fourth: FourthRoute,
   });
   const [scrollable, setScrollable] = useState(true);
 
@@ -160,7 +146,8 @@ const ActivityDetailScreen = ({navigation, route}) => {
         activity={activity}
         location={true}
         buttonAction={true}
-        userActivity={userActivity}>
+        userActivity={userActivity}
+        setUserActivity={setUserActivity}>
         <TabView
           navigationState={{index, routes}}
           renderScene={renderScene}
@@ -179,7 +166,6 @@ const ActivityDetailScreen = ({navigation, route}) => {
         />
 
         {/* <MinorAdvertise /> */}
-
         <View style={{marginBottom: 50}}></View>
       </HeaderImage>
     </View>
