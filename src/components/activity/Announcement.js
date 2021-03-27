@@ -20,6 +20,7 @@ import AnnouncementModal from '../modal/AnnouncementModal';
 import {checkTimeFromPast} from '../../services/util';
 import Modal from 'react-native-modal';
 import {SafeAreaView} from 'react-native';
+import {Platform} from 'react-native';
 
 const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -157,7 +158,7 @@ const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
       avoidKeyboard
       onSwipeComplete={handleClose}
       useNativeDriverForBackdrop
-      swipeDirection={['up']}>
+      swipeDirection={Platform.OS === 'ios' ? null : ['up']}>
       <AnnouncementModal
         open={open}
         handleClose={handleModalClose}
