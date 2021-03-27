@@ -11,13 +11,14 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {
   ImageHeaderScrollView,
   TriggeringView,
 } from 'react-native-image-header-scroll-view';
 import * as Animatable from 'react-native-animatable';
 
-import {COLORS, SIZES} from '../../constants';
+import {COLORS, SHADOW, SIZES} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import BackButton from '../layout/BackButton';
 import ButtonSection from './ButtonSection';
@@ -145,25 +146,30 @@ const HeaderImage = ({
             }}
             onDisplay={() => navTitleView.current.fadeOut(50)}>
             {activity.location && (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{
-                  width: 40,
-                  height: 40,
-                  backgroundColor: COLORS.pinkPastel,
-                  borderRadius: 5,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginRight: 20,
-                  borderRadius: 50,
-                }}
-                onPress={() => {
-                  Linking.openURL(
-                    `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
-                  );
-                }}>
-                <Ionicons name="location-sharp" size={20} color="#fff" />
-              </TouchableOpacity>
+              <View
+                style={[
+                  {
+                    width: 40,
+                    height: 40,
+                    backgroundColor: COLORS.pinkPastel,
+                    borderRadius: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginRight: 20,
+                    borderRadius: 50,
+                  },
+                  SHADOW.default,
+                ]}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    Linking.openURL(
+                      `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
+                    );
+                  }}>
+                  <FontAwesome5 name="map-marked-alt" size={20} color="#fff" />
+                </TouchableOpacity>
+              </View>
             )}
             <View style={{width: 60}}>
               <Text>{t('createpost.province')} </Text>

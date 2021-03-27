@@ -22,7 +22,6 @@ import Modal from 'react-native-modal';
 
 const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
   const {t} = React.useContext(LocalizationContext);
-  const lang = useSelector((state) => state.appState.lang);
 
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
