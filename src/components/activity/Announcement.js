@@ -19,6 +19,7 @@ import {refresh} from '../../redux/actions/UserAction';
 import AnnouncementModal from '../modal/AnnouncementModal';
 import {checkTimeFromPast} from '../../services/util';
 import Modal from 'react-native-modal';
+import {SafeAreaView} from 'react-native';
 
 const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -174,34 +175,36 @@ const Announcement = ({userActivity, setUserActivity, handleClose, open1}) => {
               ? (SIZES.height / 3) * 2
               : undefined,
         }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {userActivity.announcement.length === 0 ? (
-            <View
-              style={{
-                height: 150,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text>{t('activity.noannouncement')}</Text>
-            </View>
-          ) : (
-            <View>
-              {userActivity.announcement
-                .sort((a, b) => {
-                  return new Date(b.createdAt) - new Date(a.createdAt);
-                })
-                .map((item, index) => {
-                  return (
-                    <AnnouncementCard
-                      key={item._id}
-                      item={item}
-                      index={index}
-                    />
-                  );
-                })}
-            </View>
-          )}
-        </ScrollView>
+        <SafeAreaView>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {userActivity.announcement.length === 0 ? (
+              <View
+                style={{
+                  height: 150,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text>{t('activity.noannouncement')}</Text>
+              </View>
+            ) : (
+              <View>
+                {userActivity.announcement
+                  .sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                  })
+                  .map((item, index) => {
+                    return (
+                      <AnnouncementCard
+                        key={item._id}
+                        item={item}
+                        index={index}
+                      />
+                    );
+                  })}
+              </View>
+            )}
+          </ScrollView>
+        </SafeAreaView>
       </View>
     </Modal>
   );
