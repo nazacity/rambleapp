@@ -166,7 +166,7 @@ const en = {
   community: {
     nopost: 'No post was created yet',
     noactivity: "You don't have any new event",
-    recently: 'Recenet Contents',
+    recently: 'Recent Contents',
     social: 'Sharing Community',
     trend: 'Trend',
     comment: {

@@ -167,7 +167,7 @@ const th = {
   community: {
     nopost: 'ยังไม่มีโพสต์',
     noactivity: 'คุณยังไม่ได้สมัครงานอีเว้นท์ใหม่',
-    recently: 'Recenet Contents',
+    recently: 'Recent Contents',
     social: 'Sharing Community',
     trend: 'Trend',
     comment: {
