@@ -167,8 +167,9 @@ const en = {
     nopost: 'No post was created yet',
     noactivity: "You don't have any new event",
     recently: 'Recent Contents',
-    social: 'Sharing Community',
-    trend: 'Trend',
+    sharingsocial: 'Sharing Community',
+    socialcommunity: 'Social Community',
+    trend: 'Trendy',
     comment: {
       commentblog: 'Comment to this content',
       seeall: 'See all',

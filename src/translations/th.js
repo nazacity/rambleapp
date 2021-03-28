@@ -167,9 +167,10 @@ const th = {
   community: {
     nopost: 'ยังไม่มีโพสต์',
     noactivity: 'คุณยังไม่ได้สมัครงานอีเว้นท์ใหม่',
-    recently: 'Recent Contents',
-    social: 'Sharing Community',
-    trend: 'Trend',
+    recently: 'เนื้อหาใหม่',
+    sharingsocial: 'สังคมการแชร์',
+    socialcommunity: 'สังคมชุมชน',
+    trend: 'อินเทรนด์',
     comment: {
       commentblog: 'คุณคิดเห็นอย่างไรกับบทความนี้',
       seeall: 'ดูทั้งหมด',

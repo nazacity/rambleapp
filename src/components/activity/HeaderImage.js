@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -24,6 +23,7 @@ import BackButton from '../layout/BackButton';
 import ButtonSection from './ButtonSection';
 import LineShareButton from '../layout/LineShareButton';
 import NotificationButton from '../layout/NotificationButton';
+import NotificationButton2 from '../layout/NotificationButton2';
 import {StatusBar} from 'react-native';
 // import Share from 'react-native-share';
 
@@ -41,7 +41,9 @@ const HeaderImage = ({
   const {t} = React.useContext(LocalizationContext);
   const navTitleView = useRef(null);
 
-  const announcementNumber = userActivity.announcement
+  console.log(activity.announcement);
+
+  const announcementNumber = userActivity?.announcement
     ? userActivity.announcement.filter((item1) => item1.state === 'not_read')
     : [];
 
@@ -75,7 +77,7 @@ const HeaderImage = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {userActivity.announcement && (
+            {userActivity?.announcement && (
               <NotificationButton
                 value={announcementNumber.length}
                 top={Platform.OS === 'ios' ? 40 : StatusBar.currentHeight}
@@ -84,6 +86,16 @@ const HeaderImage = ({
                 setUserActivity={setUserActivity}
               />
             )}
+            {userActivity &&
+              activity.announcement &&
+              activity.announcement.length !== 0 && (
+                <NotificationButton2
+                  value={activity.announcement.length}
+                  top={Platform.OS === 'ios' ? 40 : StatusBar.currentHeight}
+                  right={100}
+                  activity={activity}
+                />
+              )}
             <LineShareButton
               onPress={() => {
                 Linking.openURL(

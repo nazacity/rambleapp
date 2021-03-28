@@ -67,7 +67,7 @@ const SocialContainer = () => {
             />
             <View style={{position: 'absolute', bottom: 10, right: 10}}>
               <Text style={[FONTS.body2, {color: COLORS.white}]}>
-                Sharing Community
+                {t('community.sharingsocial')}
               </Text>
             </View>
           </ImageBackground>
@@ -75,7 +75,7 @@ const SocialContainer = () => {
       </View>
       <View style={{marginTop: 20}}>
         <Text style={[FONTS.h1, {color: COLORS.black, textAlign: 'center'}]}>
-          Social Community
+          {t('community.socialcommunity')}
         </Text>
       </View>
       <SocialCategoryContainer />

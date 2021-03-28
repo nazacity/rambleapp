@@ -14,13 +14,14 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import {useDispatch, useSelector} from 'react-redux';
 import LoveButton from '../../components/blog/layout/LoveButton';
-import {useNavigation} from '@react-navigation/native';
-import {blogs} from '../../components/blog/data';
 import BackButton from '../../components/layout/BackButton';
 import {getSocial} from '../../redux/actions/request';
 import {setLoading} from '../../redux/actions/AppStateAction';
+import {Image} from 'react-native';
+import LocalizationContext from '../LocalizationContext';
 
 const BlogsScreen = ({navigation, route}) => {
+  const {t} = React.useContext(LocalizationContext);
   const lang = useSelector((state) => state.appState.lang);
   const scrollY = useRef(new Animated.Value(0)).current;
   const {blogCategoryId, picture_url, title} = route.params;
@@ -52,11 +53,6 @@ const BlogsScreen = ({navigation, route}) => {
     return unsubscribe;
   }, []);
 
-  const height = scrollY.interpolate({
-    inputRange: [0, 200],
-    outputRange: [300, 100],
-    extrapolate: 'clamp',
-  });
   const BlogCard = ({item, index}) => {
     const scale = scrollY.interpolate({
       inputRange: [-1, 0, (200 / 0.8) * index, (200 / 0.8) * (index + 1)],
@@ -167,19 +163,24 @@ const BlogsScreen = ({navigation, route}) => {
           alignItems: 'center',
         }}
         ListHeaderComponent={() => (
-          <Animated.View
+          <View
             style={{
               width: SIZES.width,
-              height: height,
+              height: 300,
               overflow: 'hidden',
-              borderBottomRightRadius: 75,
-              marginBottom: 50,
+              marginBottom: 40,
+              position: 'relative',
             }}>
             <ImageBackground
               source={{uri: picture_url}}
-              style={{resizeMode: 'cover', width: SIZES.width, height: 300}}>
+              style={{
+                resizeMode: 'cover',
+                width: SIZES.width,
+                height: 300,
+                position: 'relative',
+              }}>
               <LinearGradient
-                colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,1)']}
+                colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
                 start={{x: 0, y: 1}}
                 end={{x: 1, y: 1}}
                 useAngle
@@ -195,7 +196,7 @@ const BlogsScreen = ({navigation, route}) => {
               <View
                 style={{
                   width: SIZES.width,
-                  height: 300,
+                  height: 200,
                   justifyContent: 'center',
                   alignItems: 'center',
                   position: 'absolute',
@@ -208,14 +209,51 @@ const BlogsScreen = ({navigation, route}) => {
                   {title}
                 </Text>
               </View>
+
+              <View
+                style={{
+                  height: 100,
+                  borderTopLeftRadius: 75,
+                  backgroundColor: COLORS.backgroundColor,
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                }}
+              />
+              <Image
+                source={require('../../../assets/boderradius/bottomright.png')}
+                style={{width: 100, height: 100}}
+                style={{
+                  height: 100,
+                  position: 'absolute',
+                  bottom: 100,
+                  right: 0,
+                }}
+              />
             </ImageBackground>
-          </Animated.View>
+          </View>
         )}
         ItemSeparatorComponent={() => <View style={{margin: 10}} />}
         renderItem={({item, index}) => {
           return <BlogCard item={item} index={index} />;
         }}
-        ListFooterComponent={() => <View style={{marginBottom: 50}} />}
+        ListFooterComponent={() => (
+          <View style={{marginBottom: 50, height: 2000}}>
+            {data.blogs.length === 0 && (
+              <View
+                style={{
+                  height: 150,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={[FONTS.body4, {color: COLORS.black}]}>
+                  {t('community.comment.noblog')}
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {
