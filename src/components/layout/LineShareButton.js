@@ -1,21 +1,24 @@
 import React from 'react';
 import {View, TouchableOpacity, StatusBar, Image, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS, FONTS} from '../../constants';
+import {COLORS, FONTS, SHADOW} from '../../constants';
 
 const ShareButton = ({onPress, top, right}) => {
   return (
     <View
-      style={{
-        position: 'absolute',
-        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
-        right: right ? right : 10,
-        zIndex: 100,
-        borderRadius: 5,
-        backgroundColor: COLORS.greenLine,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+      style={[
+        {
+          position: 'absolute',
+          top: 10,
+          right: right ? right : 10,
+          zIndex: 100,
+          borderRadius: 5,
+          backgroundColor: COLORS.greenLine,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        SHADOW.default,
+      ]}>
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onPress}

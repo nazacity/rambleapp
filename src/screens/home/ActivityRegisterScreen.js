@@ -56,13 +56,12 @@ const ActivityRegisterScreen = ({navigation, route}) => {
     setTermModalOpen(false);
   };
 
-  const navigateUser = (userActivityId) => {
+  const navigateUser = (userActivity) => {
+    console.log(('test', userActivity));
     navigation.replace('Payment', {
-      course: course,
-      size: size,
       address: address,
       activity_title: activity.title,
-      userActivityId: userActivityId,
+      userActivity: userActivity,
     });
   };
 
@@ -154,7 +153,7 @@ const ActivityRegisterScreen = ({navigation, route}) => {
         <Image
           style={{
             width: SIZES.width,
-            height: 300,
+            height: (SIZES.width * 2) / 3,
             resizeMode: 'cover',
           }}
           source={{uri: activity.activity_picture_url}}
@@ -261,9 +260,13 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                       width: SIZES.width - 80,
                       marginHorizontal: 20,
                       marginVertical: 10,
-                      borderWidth: item._id === address._id ? 1 : 0,
-                      borderColor: COLORS.primary,
+                      // borderWidth: item._id === address._id ? 1 : 0,
+                      // borderColor: COLORS.primary,
                       paddingBottom: 1,
+                      backgroundColor:
+                        item._id === address._id
+                          ? COLORS.primary
+                          : COLORS.white,
                     },
                   ]}>
                   <TouchableOpacity
@@ -280,6 +283,9 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                       editable={index === 0 ? false : true}
                       setAddress={setAddress}
                       setEditModalOpen={setEditModalOpen}
+                      backgroundColor={
+                        item._id === address._id ? COLORS.primary : COLORS.white
+                      }
                     />
                   </TouchableOpacity>
                 </View>
@@ -321,14 +327,17 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                         width: SIZES.width - 80,
                         marginHorizontal: 20,
                         marginVertical: 10,
-                        borderWidth: item._id === emergency._id ? 1 : 0,
-                        borderColor: COLORS.primary,
+                        // borderWidth: item._id === emergency._id ? 1 : 0,
+                        // borderColor: COLORS.primary,
                         paddingBottom: 1,
+                        backgroundColor:
+                          item._id === emergency._id
+                            ? COLORS.primary
+                            : COLORS.white,
                       },
                     ]}>
                     <TouchableOpacity
                       style={{
-                        backgroundColor: COLORS.white,
                         borderRadius: 10,
                       }}
                       activeOpacity={0.9}
@@ -340,6 +349,11 @@ const ActivityRegisterScreen = ({navigation, route}) => {
                         editable={true}
                         setEmergency={setEmergency}
                         setEditModalOpen={setEditModalOpen1}
+                        backgroundColor={
+                          item._id === emergency._id
+                            ? COLORS.primary
+                            : COLORS.white
+                        }
                       />
                     </TouchableOpacity>
                   </View>

@@ -87,10 +87,10 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Timeline'},
+    {key: 'first', title: t('activity.info')},
+    {key: 'second', title: t('activity.timeline')},
     {key: 'third', title: 'Detail'},
-    {key: 'fourth', title: 'Other'},
+    {key: 'fourth', title: t('activity.contact')},
   ]);
 
   const renderScene = SceneMap({

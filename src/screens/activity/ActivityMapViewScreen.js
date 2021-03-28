@@ -1,4 +1,4 @@
-import React, {useEffect, Fragment, useState} from 'react';
+import React, {useEffect, Fragment, useState, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -24,6 +24,7 @@ import {setActivities} from '../../redux/actions/ActivityAction';
 import {get} from '../../redux/actions/request';
 import LocalizationContext from '../LocalizationContext';
 import ViewModeButton from './components/ViewModeButton';
+import ViewButton from './components/ViewButton';
 
 const CardSize = 225;
 const CardHeight = 150;
@@ -38,6 +39,7 @@ const ActivityMapViewScreen = ({
   setPage,
   setNoMore,
   filterRef,
+  ViewButtonDisplay,
 }) => {
   const activities = useSelector((state) => state.activity.activities);
   const navigation = useNavigation();
@@ -66,7 +68,8 @@ const ActivityMapViewScreen = ({
   const filterOption = [
     {
       id: '0',
-      item: 'ALL',
+      item_th: 'ทุกภาค',
+      item_en: 'All region',
       function: async () => {
         dispatch(setLoading(true));
         setPage(1);
@@ -88,7 +91,8 @@ const ActivityMapViewScreen = ({
     },
     {
       id: '1',
-      item: 'ภาคกลาง',
+      item_th: 'ภาคกลาง',
+      item_en: 'Central',
       function: async () => {
         dispatch(setLoading(true));
 
@@ -117,29 +121,8 @@ const ActivityMapViewScreen = ({
     },
     {
       id: '2',
-      item: 'ภาคใต้',
-      function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคใต้&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
-      },
-    },
-    {
-      id: '3',
-      item: 'ภาคเหนือ',
+      item_th: 'ภาคเหนือ',
+      item_en: 'North',
       function: async () => {
         try {
           dispatch(setLoading(true));
@@ -160,8 +143,9 @@ const ActivityMapViewScreen = ({
       },
     },
     {
-      id: '4',
-      item: 'ภาคตะวันออก',
+      id: '3',
+      item_th: 'ภาคตะวันออก',
+      item_en: 'East',
       function: async () => {
         try {
           dispatch(setLoading(true));
@@ -182,13 +166,37 @@ const ActivityMapViewScreen = ({
       },
     },
     {
-      id: '5',
-      item: 'ภาคตะวันออกเฉียงเหนือ',
+      id: '4',
+      item_th: 'ภาคตะวันตก',
+      item_en: 'West',
       function: async () => {
         try {
           dispatch(setLoading(true));
           const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
+            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+
+          setToFirstItemLocation(res.data);
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '5',
+      item_th: 'ภาคใต้',
+      item_en: 'South',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคใต้&limit=50`,
           );
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
@@ -205,12 +213,13 @@ const ActivityMapViewScreen = ({
     },
     {
       id: '6',
-      item: 'ภาคตะวันตก',
+      item_th: 'ภาคตะวันออกเฉียงเหนือ',
+      item_en: 'Northeast',
       function: async () => {
         try {
           dispatch(setLoading(true));
           const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
+            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
           );
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
@@ -238,16 +247,62 @@ const ActivityMapViewScreen = ({
     return unsubscribe;
   }, []);
 
+  let mapIndex = 0;
+  const mapAnimation = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    mapAnimation.addListener(({value}) => {
+      let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
+
+      if (index >= activities.length) {
+        index = activities.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(regionTimeout);
+      const regionTimeout = setTimeout(() => {
+        if (mapIndex !== index) {
+          mapIndex = index;
+          const {location} = activities[index];
+
+          _map.current.animateToRegion(
+            {
+              latitude: location.lat,
+              longitude: location.lng,
+              latitudeDelta: 15.20069573949079,
+              longitudeDelta: 9.81802023947239,
+            },
+            350,
+          );
+        }
+      }, 10);
+    });
+  });
+
   const ActivityCardDetail = ({item, index}) => {
+    const scale = mapAnimation.interpolate({
+      inputRange: [
+        (index - 1) * (CardSize + 20),
+        index * (CardSize + 20),
+        (index + 1) * (CardSize + 20),
+      ],
+      outputRange: [0.5, 1, 0.5],
+    });
     return (
       <View style={{alignItems: 'center'}}>
-        <View
+        <Animated.View
           style={[
             {
               width: CardSize,
               height: CardHeight,
               borderRadius: 10,
               backgroundColor: COLORS.backgroundColor,
+              transform: [
+                {
+                  scale,
+                },
+              ],
             },
             SHADOW.image,
           ]}>
@@ -314,7 +369,7 @@ const ActivityMapViewScreen = ({
               </View>
             </ImageBackground>
           </TouchableOpacity>
-        </View>
+        </Animated.View>
       </View>
     );
   };
@@ -331,40 +386,6 @@ const ActivityMapViewScreen = ({
   };
 
   const [state, setState] = useState(initialMapState);
-
-  let mapIndex = 0;
-  let mapAnimation = new Animated.Value(0);
-
-  useEffect(() => {
-    mapAnimation.addListener(({value}) => {
-      let index = Math.floor(value / (CardSize + 10)); // animate 30% away from landing on the next item
-
-      if (index >= activities.length) {
-        index = activities.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
-
-      clearTimeout(regionTimeout);
-      const regionTimeout = setTimeout(() => {
-        if (mapIndex !== index) {
-          mapIndex = index;
-          const {location} = activities[index];
-
-          _map.current.animateToRegion(
-            {
-              latitude: location.lat,
-              longitude: location.lng,
-              latitudeDelta: 15.20069573949079,
-              longitudeDelta: 9.81802023947239,
-            },
-            350,
-          );
-        }
-      }, 10);
-    });
-  });
 
   const interpolations = activities.map((marker, index) => {
     const inputRange = [
@@ -393,14 +414,14 @@ const ActivityMapViewScreen = ({
     _scrollView.current.scrollToOffset({offset: x, animated: true});
   };
 
-  const [dark, setDark] = useState(false);
+  // const [dark, setDark] = useState(false);
 
-  useEffect(() => {
-    const time = new Date().getHours();
-    if (time >= 19 || time <= 6) {
-      setDark(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const time = new Date().getHours();
+  //   if (time >= 19 || time <= 6) {
+  //     setDark(true);
+  //   }
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -409,7 +430,7 @@ const ActivityMapViewScreen = ({
         initialRegion={state.region}
         style={styles.container}
         provider={PROVIDER_GOOGLE}
-        customMapStyle={dark ? mapDarkStyle : mapStandardStyle}>
+        customMapStyle={mapStandardStyle}>
         {activities.map((marker, index) => {
           const scaleStyle = {
             transform: [
@@ -438,7 +459,14 @@ const ActivityMapViewScreen = ({
         })}
       </MapView>
       <View
-        style={{position: 'absolute', top: Platform.OS === 'ios' ? 60 : 50}}>
+        style={{
+          position: 'absolute',
+          left: 50,
+          flexDirection: 'row',
+          alignItems: 'center',
+          top: -5,
+        }}>
+        {ViewButtonDisplay()}
         <FilterOption
           filterOption={filterOption}
           state={state1}
@@ -447,7 +475,7 @@ const ActivityMapViewScreen = ({
         />
       </View>
 
-      <ViewModeButton setDark={setDark} dark={dark} />
+      {/* <ViewModeButton setDark={setDark} dark={dark} /> */}
 
       <Animated.FlatList
         data={activities}
@@ -470,18 +498,10 @@ const ActivityMapViewScreen = ({
         //   right: SPACING_FOR_CARD_INSET,
         // }}
         contentContainerStyle={{
-          paddingHorizontal: 20,
+          paddingLeft: CardSize / 2.5,
         }}
         onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: mapAnimation,
-                },
-              },
-            },
-          ],
+          [{nativeEvent: {contentOffset: {x: mapAnimation}}}],
           {useNativeDriver: true},
         )}
         onEndReached={onLoadMore}

@@ -1,7 +1,7 @@
 const en = {
   tab: {
     home: 'Home',
-    activity: 'Event',
+    activity: 'Events',
     community: 'Community',
   },
   onboarding: {
@@ -11,14 +11,14 @@ const en = {
   signin: {
     username: 'Username',
     password: 'Password',
-    signin: 'Get Into Community',
+    signin: 'Sign in',
     noaccount: 'Do not have an Account?',
     register: 'Sign Up',
     '401error': 'Username or Password is incorrect',
     welcome: 'Welcome to Marathon Sharing Community',
     nouserorpasserror: 'Please fill username and password',
     forgotpassword: 'Forgot password',
-    linelogin: 'Get Into Community with Line',
+    linelogin: 'Sign in with Line',
     applelogin: 'Sign in with Apple',
     pdpa: 'PDPA Condition',
     error: 'Please try again',
@@ -85,6 +85,7 @@ const en = {
     policy: 'Privacy Policy',
     useragreement: 'Term and Condition',
     successed: 'Register successfully',
+    successed1: 'You can sign in to the system now',
     male: 'Male',
     female: 'Female',
   },
@@ -108,7 +109,7 @@ const en = {
     setting: 'Setting',
   },
   home: {
-    upcomingactivity: 'Upcoming Events',
+    upcomingactivity: 'Your Upcoming Events',
     historyactivity: 'History Events',
     seeall: 'See All',
     exit: 'Exit the app',
@@ -206,6 +207,9 @@ const en = {
   },
   activity: {
     place: 'Place',
+    info: 'Info',
+    timeline: 'Timeline',
+    contact: 'Contact organizer',
     register_date: 'Register Date During',
     actual_date: 'Actual date',
     fee: 'Fee',
@@ -223,7 +227,7 @@ const en = {
     rules: 'Rules',
     course: 'Courses',
     size: 'Size',
-    address: 'Shipping Address',
+    address: 'Equitment Receiving',
     emergency: 'Emergency Contact',
     accept: 'Accept',
     conditionandterms: 'Condition and Terms',
@@ -231,7 +235,7 @@ const en = {
     addemergency: 'Please add emergency contact',
     addaddress: 'Please add address',
     clickhere: 'Press here',
-    atevent: 'At event place',
+    atevent: 'Recive at event place',
     contestno: 'Contest No',
     noannouncement: 'No annoucement',
     readmore: 'Read more',
@@ -261,6 +265,7 @@ const en = {
   },
   payment: {
     activity: 'Event',
+    userinfo: 'User Information',
     course: 'Course',
     size: 'Shirt Size',
     fee: 'fee',
@@ -318,7 +323,7 @@ const en = {
   },
   profile: {
     time: 'Time',
-    distance: 'Distance',
+    distance: 'Running Distance',
     average: 'Average',
     activity: 'Events',
     activityunit: 'works',
@@ -331,7 +336,7 @@ const en = {
     tryagain: 'Try Again',
   },
   coupon: {use: 'use coupon'},
-  promoteactivity: {detail: 'More Detail'},
+  promoteactivity: {detail: 'Register'},
   history: {
     noactivity: 'No history events',
   },

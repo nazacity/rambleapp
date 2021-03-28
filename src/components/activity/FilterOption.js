@@ -1,8 +1,10 @@
 import React, {useRef} from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
 
 const FilterOption = ({state, setState, filterOption, filterRef}) => {
+  const lang = useSelector((state) => state.appState.lang);
   return (
     <FlatList
       ref={filterRef}
@@ -44,7 +46,10 @@ const FilterOption = ({state, setState, filterOption, filterRef}) => {
                 item.function();
                 setState(item.id);
               }}>
-              <Text style={[FONTS.h4]}>{item.item}</Text>
+              <Text style={[FONTS.h4]}>
+                {lang === 'th' && item.item_th}
+                {lang === 'en' && item.item_en}
+              </Text>
             </TouchableOpacity>
           </View>
         );

@@ -5,6 +5,7 @@ const url = 'https://api.ramble-club.com';
 export const socialurl = 'https://social.ramble-club.com';
 
 // const url = 'http://192.168.1.181:5000';
+// const url = 'http://192.168.2.181:5000';
 // export const socialurl = 'http://192.168.1.181:5100';
 
 const createJWTTokenHeaders = async () => {

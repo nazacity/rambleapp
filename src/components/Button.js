@@ -4,14 +4,14 @@ import {Text, TouchableOpacity} from 'react-native';
 
 import {COLORS, FONTS, SHADOW} from '../constants';
 
-const Button = ({label, onPress, color, width, leftIcon, disabled}) => {
+const Button = ({label, onPress, color, width, leftIcon, disabled, height}) => {
   return (
     <View
       style={[
         SHADOW.default,
         {
           borderRadius: 5,
-          height: 50,
+          height: height ? height : 50,
           width: width ? width : 300,
           backgroundColor: COLORS.backgroundColor,
         },
@@ -22,7 +22,7 @@ const Button = ({label, onPress, color, width, leftIcon, disabled}) => {
         style={[
           {
             borderRadius: 5,
-            height: 50,
+            height: height ? height : 50,
             width: width ? width : 300,
             alignItems: 'center',
             flexDirection: 'row',

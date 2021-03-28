@@ -12,7 +12,7 @@ import PolicyModal from '../../components/authorizing/PolicyModal';
 import UserAgreementModal from '../../components/authorizing/UserAgreementModal';
 import PDPAModal from '../../components/authorizing/PDPAModal';
 import {setPDPAModal} from '../../redux/actions/AppStateAction';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const AboutRambleScreen = ({navigation}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -21,6 +21,7 @@ const AboutRambleScreen = ({navigation}) => {
   const handlePolicyModalClose = () => {
     setPolicyModalOpen(false);
   };
+  const version = useSelector((state) => state.appState.version);
 
   const [userAgreementModalOpen, setUserAgreementModalOpen] = useState(false);
   const handleUserAgreementModalClose = () => {
@@ -44,7 +45,7 @@ const AboutRambleScreen = ({navigation}) => {
             height: 60,
           }}
           onPress={() => {}}>
-          <Text style={[FONTS.body3]}>Ramble Version 1.2.7</Text>
+          <Text style={[FONTS.body3]}>Ramble Version {version}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.line} />

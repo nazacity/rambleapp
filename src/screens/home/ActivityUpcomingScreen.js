@@ -17,10 +17,12 @@ import ContestNo from '../../components/activity/ContestNo';
 import ActualDate from '../../components/activity/ActualDate';
 import Transaction from '../../components/activity/Transaction';
 import ButtonSection from '../../components/activity/ButtonSection';
+import LocalizationContext from '../LocalizationContext';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
 const ActivityDetailScreen = ({navigation, route}) => {
+  const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
   const activity = useSelector((state) => state.activity.activity);
   const {activityId, state} = route.params;
@@ -78,8 +80,8 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    {key: 'first', title: 'Info'},
-    {key: 'second', title: 'Timeline'},
+    {key: 'first', title: t('activity.info')},
+    {key: 'second', title: t('activity.timeline')},
     {key: 'third', title: 'Receive'},
   ]);
 

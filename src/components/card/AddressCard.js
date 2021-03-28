@@ -14,6 +14,7 @@ const AddressCard = ({
   setAddress,
   setEditModalOpen,
   editable,
+  backgroundColor,
 }) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const AddressCard = ({
     <View
       style={[
         {
-          backgroundColor: '#fff',
+          backgroundColor: backgroundColor ? backgroundColor : COLORS.white,
           borderRadius: 10,
           padding: 20,
         },
@@ -30,22 +31,74 @@ const AddressCard = ({
       ]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}>
-          <Text style={[FONTS.h4, {marginHorizontal: 5}]}>{item.address}</Text>
+          <Text
+            style={[
+              FONTS.h4,
+              {
+                marginHorizontal: 5,
+                color:
+                  backgroundColor === COLORS.primary
+                    ? COLORS.white
+                    : COLORS.black,
+              },
+            ]}>
+            {item.address}
+          </Text>
           {item.phone_number && (
             <Fragment>
               <View style={{flexDirection: 'row'}}>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {item.province}
                 </Text>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {item.zip}
                 </Text>
               </View>
               <View style={{flexDirection: 'row'}}>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {t('address.phone')}
                 </Text>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {item.phone_number}
                 </Text>
               </View>
@@ -76,7 +129,7 @@ const AddressCard = ({
             <MaterialCommunityIcons
               name="delete-outline"
               size={24}
-              color="grey"
+              color={backgroundColor === COLORS.primary ? COLORS.white : 'grey'}
             />
           </TouchableOpacity>
         )}
@@ -88,7 +141,11 @@ const AddressCard = ({
               setAddress(item);
               setEditModalOpen(true);
             }}>
-            <MaterialIcons name="edit" size={24} color="grey" />
+            <MaterialIcons
+              name="edit"
+              size={24}
+              color={backgroundColor === COLORS.primary ? COLORS.white : 'grey'}
+            />
           </TouchableOpacity>
         )}
       </View>

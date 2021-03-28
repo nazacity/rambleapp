@@ -22,6 +22,7 @@ const initialState = {
   addAddressModal: false,
   addEmergencyContactModal: false,
   uploadPictureModal: false,
+  version: '1.3.2',
 };
 
 export default (state = initialState, action) => {

@@ -20,8 +20,7 @@ import Animated, {
   timing,
   Easing,
 } from 'react-native-reanimated';
-import {useSelector, useDispatch} from 'react-redux';
-import LocalizationContext from '../LocalizationContext';
+import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Slide from './Slide';
@@ -39,7 +38,6 @@ import {
 } from '../../redux/actions/AppStateAction';
 import {Avatar} from 'react-native-elements';
 import SplashScreen from 'react-native-splash-screen';
-import {get} from '../../redux/actions/request';
 
 const {width, height} = Dimensions.get('window');
 
@@ -66,11 +64,9 @@ const Onboarding = ({navigation}) => {
     {
       title: 'New way',
       subtitle_th: 'การดำเนินการที่ดีกว่า',
-      description_th:
-        'สะดวกสบายมากขึ้นกับระบบการลงทะเบียน เช็คอิน และเช็คเอ้าท์',
+      description_th: 'สะดวกสบายมากขึ้นกับระบบการลงทะเบียนเข้าร่วมการแข่งขัน',
       subtitle_en: 'Better processes',
-      description_en:
-        'More convinient with our registering, checking in and chekcing out processes',
+      description_en: 'More convinient with our registering, and join events',
       color: '#b91e66',
       picture: require('../../../assets/onboarding/AW-03.png'),
     },
