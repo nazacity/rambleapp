@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS, FONTS} from '../../constants';
@@ -60,7 +60,15 @@ const NotificationButton = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={[FONTS.body5, {color: COLORS.white, marginBottom: 2}]}>
+            <Text
+              style={[
+                FONTS.body5,
+                {
+                  color: COLORS.white,
+                  marginBottom: 2,
+                  marginLeft: Platform.OS === 'ios' ? 1 : 0,
+                },
+              ]}>
               {value}
             </Text>
           </View>
