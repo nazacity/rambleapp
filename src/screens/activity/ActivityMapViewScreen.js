@@ -287,7 +287,7 @@ const ActivityMapViewScreen = ({
         index * (CardSize + 20),
         (index + 1) * (CardSize + 20),
       ],
-      outputRange: [0.5, 1, 0.5],
+      outputRange: [0.7, 1, 0.7],
     });
     return (
       <View style={{alignItems: 'center'}}>
