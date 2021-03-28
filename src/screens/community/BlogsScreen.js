@@ -239,7 +239,7 @@ const BlogsScreen = ({navigation, route}) => {
           return <BlogCard item={item} index={index} />;
         }}
         ListFooterComponent={() => (
-          <View style={{marginBottom: 50, height: 2000}}>
+          <View style={{marginBottom: 50}}>
             {data.blogs.length === 0 && (
               <View
                 style={{
