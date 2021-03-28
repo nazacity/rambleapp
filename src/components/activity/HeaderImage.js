@@ -41,8 +41,6 @@ const HeaderImage = ({
   const {t} = React.useContext(LocalizationContext);
   const navTitleView = useRef(null);
 
-  console.log(activity.announcement);
-
   const announcementNumber = userActivity?.announcement
     ? userActivity.announcement.filter((item1) => item1.state === 'not_read')
     : [];

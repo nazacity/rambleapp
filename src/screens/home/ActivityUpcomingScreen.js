@@ -34,9 +34,9 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const FirstRoute = () => (
     <View style={{padding: 20}}>
+      <ContestNo contest_no={userActivity.contest_no} />
       <Course course={userActivity.activity.course} />
       <ActualDate activity={activity} />
-      <ContestNo contest_no={userActivity.contest_no} />
       <MoreInfomation activity={activity} />
       <ButtonSection userActivity={userActivity} activity={activity} />
     </View>

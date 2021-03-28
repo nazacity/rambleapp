@@ -99,6 +99,11 @@ export const FONTS = {
     textAlign: 'center',
     lineHeight: 50,
   },
+  contestno: {
+    fontSize: 40,
+    fontFamily: 'SFProText-Bold',
+    lineHeight: 55,
+  },
   h1: {
     fontFamily: 'SFProText-Bold',
     fontSize: SIZES.h1,

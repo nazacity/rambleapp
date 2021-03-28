@@ -1,17 +1,27 @@
 import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
-import {SIZES, COLORS, FONTS} from '../../constants';
+import {SIZES, COLORS, FONTS, SHADOW} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
 
 const TimelineDisplay = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
   return (
-    <View style={{marginBottom: 20}}>
-      <TitleHeader title={t('activity.detail')} />
-      <ScrollView horizontal style={{marginTop: 10}}>
-        <View style={{width: SIZES.width - 40}}>
+    <View
+      style={[
+        {
+          borderRadius: 10,
+          backgroundColor: COLORS.white,
+          borderRadius: 5,
+          alignItems: 'center',
+          marginBottom: 20,
+        },
+        SHADOW.default,
+      ]}>
+      <TitleHeader title={t('activity.detail')} noDot={true} />
+      <ScrollView horizontal style={{marginTop: 10}} scrollEnabled={false}>
+        <View style={{width: 300}}>
           <Timeline
             data={activity.timeline}
             circleColor={COLORS.onboarding1}
