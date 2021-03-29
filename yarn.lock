@@ -7666,11 +7666,6 @@
     "prop-types" "^15.7.2"
     "yargs" "^15.0.2"
 
-"react-native-view-shot@^3.1.2":
-  "integrity" "sha512-9u9fPtp6a52UMoZ/UCPrCjKZk8tnkI9To0Eh6yYnLKFEGkRZ7Chm6DqwDJbYJHeZrheCCopaD5oEOnRqhF4L2Q=="
-  "resolved" "https://registry.npmjs.org/react-native-view-shot/-/react-native-view-shot-3.1.2.tgz"
-  "version" "3.1.2"
-
 "react-native-webview@^11.0.2":
   "integrity" "sha512-GDyIBRbCZ2wbMUGCxA7LufSEbSoWKOzkFB8YljmAffA15tzN6ccvGEquB/hkk5KhvoYy300kwJyEmyBeG6d/AA=="
   "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.0.2.tgz"
