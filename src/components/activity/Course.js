@@ -40,6 +40,22 @@ const Course = ({course}) => {
               overflow: 'hidden',
             }}>
             <ImageModal
+              renderHeader={(close) => {
+                return (
+                  <TouchableOpacity
+                    style={{flex: 1, height: 180}}
+                    onPress={close}
+                  />
+                );
+              }}
+              renderFooter={(close) => {
+                return (
+                  <TouchableOpacity
+                    style={{flex: 1, height: 150}}
+                    onPress={close}
+                  />
+                );
+              }}
               ref={imageRef}
               resizeMode="contain"
               imageBackgroundColor={COLORS.background}

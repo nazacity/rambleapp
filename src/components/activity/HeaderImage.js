@@ -144,8 +144,7 @@ const HeaderImage = ({
                 setUserActivity={setUserActivity}
               />
             )}
-            {!userActivity &&
-              activity.announcement &&
+            {userActivity.state === 'unregister' &&
               activity.announcement.length !== 0 && (
                 <NotificationButton2
                   value={activity.announcement.length}
