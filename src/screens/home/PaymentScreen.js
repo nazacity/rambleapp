@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Button from '../../components/Button';
-import {FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS, SHADOW} from '../../constants';
 import {post} from '../../redux/actions/request';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {refresh} from '../../redux/actions/UserAction';
@@ -22,7 +22,7 @@ import EditAddressModal from '../../components/modal/EditAddressModal';
 
 const PaymentScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
-  const {activity_title, userActivity} = route.params;
+  const {userActivity} = route.params;
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const PaymentScreen = ({navigation, route}) => {
       amount = +userActivity.activity.course.price + 80;
       const res = await post(`/api/users/requestpayment/${userActivity._id}`, {
         amount: amount,
-        activity_title: activity_title,
+        activity_title: userActivity.activity.id.title,
         mailfee: true,
       });
 
@@ -45,7 +45,7 @@ const PaymentScreen = ({navigation, route}) => {
       amount = +userActivity.activity.course.price;
       const res = await post(`/api/users/requestpayment/${userActivity._id}`, {
         amount: amount,
-        activity_title: activity_title,
+        activity_title: userActivity.activity.id.title,
         mailfee: false,
       });
 
@@ -73,18 +73,6 @@ const PaymentScreen = ({navigation, route}) => {
     return () => backHandler.remove();
   }, []);
 
-  const [address, setAddress] = useState({
-    _id: '',
-    address: '',
-    zip: '',
-    phone_number: '',
-    province: '',
-  });
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const handleEditModalClose = () => {
-    setEditModalOpen(false);
-  };
-
   if (loading) {
     return (
       <Spinner
@@ -109,17 +97,36 @@ const PaymentScreen = ({navigation, route}) => {
         <Text style={[FONTS.h2, {textAlign: 'center', color: COLORS.primary}]}>
           {t('payment.confirm')}
         </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 10,
+          }}>
+          <Text style={[FONTS.h3]}>REF ID: </Text>
+          <Text style={[FONTS.body3]}>{userActivity._id}</Text>
+        </View>
         <View>
-          <TitleHeader title={t('payment.userinfo')} />
+          <TitleHeader title={t('payment.userinfo')} noDot={true} />
           <Text style={[FONTS.body3, {marginBottom: 10}]}>
-            ชื่อ {user.first_name} {user.last_name}
+            {t('signup.first_name')} {user.first_name} {t('signup.last_name')}{' '}
+            {user.last_name}
           </Text>
           <Text style={[FONTS.body3, {marginBottom: 10}]}>
-            เพศ {user.gender}
+            {t('signup.gender')}{' '}
+            {user.gender === 'male' && (
+              <Text style={[FONTS.body3]}>{t('createpost.male')}</Text>
+            )}
+            {user.gender === 'female' && (
+              <Text style={[FONTS.body3]}>{t('createpost.female')}</Text>
+            )}
+          </Text>
+          <Text style={[FONTS.body3, {marginBottom: 10}]}>
+            {t('payment.age')} {user.age}
           </Text>
         </View>
         <View>
-          <TitleHeader title={t('payment.userinfo')} />
+          <TitleHeader title={t('payment.address')} noDot={true} />
           <View style={{padding: 5}}>
             <AddressCard
               item={
@@ -130,22 +137,26 @@ const PaymentScreen = ({navigation, route}) => {
                     }
                   : userActivity.address
               }
-              editable={
-                userActivity.address._id === '5ff6600d20ed83388ab4ccbd'
-                  ? false
-                  : true
-              }
-              // deletable={true}
-              setAddress={setAddress}
-              setEditModalOpen={setEditModalOpen}
+              editable={false}
             />
           </View>
         </View>
         <View>
-          <TitleHeader title={t('payment.activity')} />
-          <Text style={[FONTS.body4, {marginBottom: 10}]}>
-            {activity_title}
-          </Text>
+          <TitleHeader title={t('payment.activity')} noDot={true} />
+          <View
+            style={[
+              SHADOW.image,
+              {
+                alignSelf: 'center',
+                backgroundColor: COLORS.white,
+                borderRadius: 10,
+              },
+            ]}>
+            <Image
+              source={{uri: userActivity.activity.id.activity_picture_url}}
+              style={{width: 300, height: 200, borderRadius: 10}}
+            />
+          </View>
         </View>
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1}}>
@@ -179,11 +190,7 @@ const PaymentScreen = ({navigation, route}) => {
         </View>
         <View style={{flex: 1}}>
           <TitleHeader title={t('payment.total')} noDot={true} />
-          <Text
-            style={[
-              FONTS.h2,
-              {marginLeft: 20, marginBottom: 10, textAlign: 'center'},
-            ]}>
+          <Text style={[FONTS.h2, {marginLeft: 20, marginBottom: 10}]}>
             {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd'
               ? userActivity.activity.course.price + 80
               : userActivity.activity.course.price}{' '}
@@ -209,6 +216,16 @@ const PaymentScreen = ({navigation, route}) => {
               height: 200,
             }}
           />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginVertical: 10,
+            justifyContent: 'center',
+          }}>
+          <Text style={[FONTS.h3]}>REF ID: </Text>
+          <Text style={[FONTS.body4]}>{userActivity._id}</Text>
         </View>
         <View style={{marginVertical: 20}}>
           <Text style={[FONTS.body3, {textAlign: 'center'}]}>
@@ -240,11 +257,6 @@ const PaymentScreen = ({navigation, route}) => {
         </View>
         <View style={{marginBottom: 50}} />
       </ScrollView>
-      <EditAddressModal
-        open={editModalOpen}
-        handleClose={handleEditModalClose}
-        address={address}
-      />
     </View>
   );
 };

@@ -1,6 +1,5 @@
 import React, {useRef, Fragment, useState, useEffect} from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -24,7 +23,6 @@ import ButtonSection from './ButtonSection';
 import LineShareButton from '../layout/LineShareButton';
 import NotificationButton from '../layout/NotificationButton';
 import NotificationButton2 from '../layout/NotificationButton2';
-import {StatusBar} from 'react-native';
 // import Share from 'react-native-share';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
@@ -48,7 +46,6 @@ const HeaderImage = ({
   return (
     <Fragment>
       <BackButton />
-
       <ImageHeaderScrollView
         maxHeight={MAX_HEIGHT}
         minHeight={MIN_HEIGHT}
@@ -175,7 +172,7 @@ const HeaderImage = ({
           right: 10,
           zIndex: 100,
         }}>
-        {activity.contact?.phone_number && (
+        {/* {activity.contact?.phone_number && (
           <TouchableOpacity
             activeOpacity={0.8}
             style={{
@@ -230,12 +227,10 @@ const HeaderImage = ({
             }}>
             <Fontisto name="facebook" size={20} color="#fff" />
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </Fragment>
   );
 };
 
 export default HeaderImage;
-
-const styles = StyleSheet.create({});

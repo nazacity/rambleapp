@@ -1,3 +1,5 @@
+import {ramble} from '../constants';
+
 const th = {
   tab: {
     home: 'Home',
@@ -266,6 +268,7 @@ const th = {
   payment: {
     activity: 'งานอีเว้นท์',
     userinfo: 'ข้อมูลส่วนบุคคล',
+    address: 'การรับอุปกรณ์',
     course: 'ประเภทวิ่ง',
     size: 'ไซส์เสื้อ',
     fee: 'ค่าสมัคร',
@@ -274,9 +277,10 @@ const th = {
     baht: 'บาท',
     confirm: 'ยืนยันการลงทะเบียน',
     warning1: 'ท่านสามารถสแกน Qrcode เพื่อชำระเงินผ่านระบบ Promtpay ได้ทุกชนิด',
-    warning2: 'หากต้องการชำระเงินทางอื่น กรุณาติดต่อ Admin ทาง',
+    warning2: `หรือโดยเงินเข้าบัญชี \n ธนาคารไทยพาณิชย์ \n เลขที่บัญชี ${ramble.account_no}  \n บริษัท นาซ่าซิตี้ จำกัด \n กรุณาส่งเลข REF ID (ด้านบน) และสลิปการโอน \n ติดต่อ Admin ทาง`,
     warning3: 'Ramble Line OA กดที่นี่',
     back: 'กลับสู่หน้าหลัก',
+    age: 'อายุ',
   },
   addaddress: {
     title: 'เพิ่มที่อยู่ใหม่',

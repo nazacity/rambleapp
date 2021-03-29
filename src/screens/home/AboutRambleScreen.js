@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
-import {COLORS, FONTS, SIZES} from '../../constants';
+import {COLORS, FONTS, SIZES, ramble} from '../../constants';
 import PolicyModal from '../../components/authorizing/PolicyModal';
 import UserAgreementModal from '../../components/authorizing/UserAgreementModal';
 import PDPAModal from '../../components/authorizing/PDPAModal';
@@ -21,7 +21,6 @@ const AboutRambleScreen = ({navigation}) => {
   const handlePolicyModalClose = () => {
     setPolicyModalOpen(false);
   };
-  const version = useSelector((state) => state.appState.version);
 
   const [userAgreementModalOpen, setUserAgreementModalOpen] = useState(false);
   const handleUserAgreementModalClose = () => {
@@ -45,7 +44,7 @@ const AboutRambleScreen = ({navigation}) => {
             height: 60,
           }}
           onPress={() => {}}>
-          <Text style={[FONTS.body3]}>Ramble Version {version}</Text>
+          <Text style={[FONTS.body3]}>Ramble Version {ramble.version}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.line} />

@@ -4,6 +4,7 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import ImageModal from 'react-native-image-modal';
 import {FONTS, COLORS, SHADOW} from '../../constants';
 import TitleHeader from '../layout/TitleHeader';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ShirtStyle = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -22,31 +23,67 @@ const ShirtStyle = ({activity}) => {
             marginBottom: 10,
             backgroundColor: COLORS.white,
             borderRadius: 5,
+            width: 300,
+            height: 200,
           },
           SHADOW.default,
         ]}>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginRight: 10,
-            borderBottomLeftRadius: 5,
+            width: 300,
+            height: 200,
+            borderRadius: 5,
             overflow: 'hidden',
           }}>
           <ImageModal
+            renderHeader={(close) => {
+              return (
+                <TouchableOpacity
+                  style={{flex: 1, height: 180}}
+                  onPress={close}
+                />
+              );
+            }}
+            renderFooter={(close) => {
+              return (
+                <TouchableOpacity
+                  style={{flex: 1, height: 150}}
+                  onPress={close}
+                />
+              );
+            }}
             ref={imageRef}
             resizeMode="contain"
             imageBackgroundColor={COLORS.background}
             overlayBackgroundColor={COLORS.darkOpacityBlack}
             style={{
-              width: 100,
-              height: 100,
-              borderTopLeftRadius: 5,
+              width: 300,
+              height: 200,
+              borderRadius: 5,
             }}
             source={{uri: item.shirt_picturl_url}}
           />
+          <LinearGradient
+            colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
+            start={{x: 0, y: 1}}
+            end={{x: 1, y: 1}}
+            useAngle
+            angle={180}
+            style={{
+              flex: 1,
+              left: 0,
+              top: 0,
+              width: 300,
+              height: 200,
+              position: 'absolute',
+            }}
+          />
         </View>
-        <Text style={[FONTS.body3, {marginLeft: 20}]}>{item.style}</Text>
+        <View style={{position: 'absolute', bottom: 20, left: 20}}>
+          <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>
+            {item.style}
+          </Text>
+        </View>
       </TouchableOpacity>
     );
   };

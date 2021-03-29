@@ -1,3 +1,5 @@
+import {ramble} from '../constants';
+
 const en = {
   tab: {
     home: 'Home',
@@ -266,6 +268,7 @@ const en = {
   payment: {
     activity: 'Event',
     userinfo: 'User Information',
+    address: 'Equitment Receiving',
     course: 'Course',
     size: 'Shirt Size',
     fee: 'fee',
@@ -274,10 +277,10 @@ const en = {
     baht: 'baht',
     confirm: 'Register Confirmation',
     warning1: 'You can pay via every promtpay systems',
-    warning2:
-      'in case you would like to pay via other option please contact our admin via',
+    warning2: `Or you can transfer via SCB \n Account no: ${ramble.account_no} \n Nazacity CO.,LTD. \n Please provide REF ID (Above) and Transfer Recieve \n contact Admin via`,
     back: 'Back to home screen',
     warning3: 'Ramble Line OA Click here',
+    age: 'Age',
   },
   addaddress: {
     title: 'New Address',

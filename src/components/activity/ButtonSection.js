@@ -49,8 +49,6 @@ const ButtonSection = ({userActivity, activity}) => {
             color={COLORS.pinkPastel}
             onPress={() => {
               navigation.navigate('Payment', {
-                activity_title: activity.title,
-                activity_picture_url: activity.activity_picture_url,
                 userActivity: userActivity,
               });
             }}
