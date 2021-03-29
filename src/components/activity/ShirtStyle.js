@@ -5,6 +5,7 @@ import ImageModal from 'react-native-image-modal';
 import {FONTS, COLORS, SHADOW} from '../../constants';
 import TitleHeader from '../layout/TitleHeader';
 import LinearGradient from 'react-native-linear-gradient';
+import Feather from 'react-native-vector-icons/Feather';
 
 const ShirtStyle = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -64,7 +65,7 @@ const ShirtStyle = ({activity}) => {
             source={{uri: item.shirt_picturl_url}}
           />
           <LinearGradient
-            colors={['rgba(0,0,0,0.0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
+            colors={['rgba(0,0,0,1)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)']}
             start={{x: 0, y: 1}}
             end={{x: 1, y: 1}}
             useAngle
@@ -83,6 +84,9 @@ const ShirtStyle = ({activity}) => {
           <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>
             {item.style}
           </Text>
+        </View>
+        <View style={{position: 'absolute', top: 5, right: 5}}>
+          <Feather name="zoom-in" size={24} color={COLORS.white} />
         </View>
       </TouchableOpacity>
     );

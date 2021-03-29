@@ -1,6 +1,11 @@
 import {ramble} from '../constants';
 
 const th = {
+  checkversion: {
+    warning1: 'มี Ramble Application เวอร์ชั่นใหม่',
+    warning2: 'กรุณาอัพเดท Ramble Application',
+    updated: 'อัพเดท',
+  },
   tab: {
     home: 'Home',
     activity: 'Events',
@@ -281,6 +286,8 @@ const th = {
     warning3: 'Ramble Line OA กดที่นี่',
     back: 'กลับสู่หน้าหลัก',
     age: 'อายุ',
+    postzip: 'รับทางไปรษณีย์',
+    emergency: 'การติดต่อฉุกเฉิน',
   },
   addaddress: {
     title: 'เพิ่มที่อยู่ใหม่',

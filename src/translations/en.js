@@ -1,6 +1,11 @@
 import {ramble} from '../constants';
 
 const en = {
+  checkversion: {
+    warning1: 'New Version is available',
+    warning2: 'Please update Ramble Application',
+    updated: 'Update',
+  },
   tab: {
     home: 'Home',
     activity: 'Events',
@@ -281,6 +286,7 @@ const en = {
     back: 'Back to home screen',
     warning3: 'Ramble Line OA Click here',
     age: 'Age',
+    postzip: 'Ship address',
   },
   addaddress: {
     title: 'New Address',

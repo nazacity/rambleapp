@@ -19,6 +19,7 @@ import LocalizationContext from '../LocalizationContext';
 import TitleHeader from '../../components/layout/TitleHeader';
 import AddressCard from '../../components/card/AddressCard';
 import EditAddressModal from '../../components/modal/EditAddressModal';
+import EmergencyCard from '../../components/card/EmergencyCard';
 
 const PaymentScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -126,22 +127,6 @@ const PaymentScreen = ({navigation, route}) => {
           </Text>
         </View>
         <View>
-          <TitleHeader title={t('payment.address')} noDot={true} />
-          <View style={{padding: 5}}>
-            <AddressCard
-              item={
-                userActivity.address._id === '5ff6600d20ed83388ab4ccbd'
-                  ? {
-                      _id: '5ff6600d20ed83388ab4ccbd',
-                      address: t('activity.atevent'),
-                    }
-                  : userActivity.address
-              }
-              editable={false}
-            />
-          </View>
-        </View>
-        <View>
           <TitleHeader title={t('payment.activity')} noDot={true} />
           <View
             style={[
@@ -170,6 +155,39 @@ const PaymentScreen = ({navigation, route}) => {
             <Text style={[FONTS.body4, {marginBottom: 10}]}>
               {userActivity.size.size.toUpperCase()}
             </Text>
+          </View>
+        </View>
+        <View>
+          <TitleHeader title={t('payment.address')} noDot={true} />
+          <Text style={[FONTS.body4, {marginLeft: 10}]}>
+            {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' &&
+              t('payment.postzip')}
+            {userActivity.address._id === '5ff6600d20ed83388ab4ccbd' &&
+              t('activity.atevent')}
+          </Text>
+          {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' && (
+            <View style={{padding: 5}}>
+              <AddressCard
+                item={
+                  userActivity.address._id === '5ff6600d20ed83388ab4ccbd'
+                    ? {
+                        _id: '5ff6600d20ed83388ab4ccbd',
+                        address: t('activity.atevent'),
+                      }
+                    : userActivity.address
+                }
+                editable={false}
+              />
+            </View>
+          )}
+        </View>
+        <View>
+          <TitleHeader title={t('payment.emergency')} noDot={true} />
+          <View style={{padding: 5}}>
+            <EmergencyCard
+              item={userActivity.emergency_contact}
+              editable={false}
+            />
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>

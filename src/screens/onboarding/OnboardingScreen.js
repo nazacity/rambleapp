@@ -27,7 +27,7 @@ import Slide from './Slide';
 import Subslide from './Subslide';
 import Dot from './Dot';
 
-import {FONTS, COLORS} from '../../constants';
+import {FONTS} from '../../constants';
 
 import SigninForm from '../../components/authorizing/SigninForm';
 import {
@@ -38,10 +38,12 @@ import {
 } from '../../redux/actions/AppStateAction';
 import {Avatar} from 'react-native-elements';
 import SplashScreen from 'react-native-splash-screen';
+import LocalizationContext from '../LocalizationContext';
 
 const {width, height} = Dimensions.get('window');
 
 const Onboarding = ({navigation}) => {
+  const {t} = React.useContext(LocalizationContext);
   const slides = [
     {
       title: 'Running',
@@ -99,7 +101,7 @@ const Onboarding = ({navigation}) => {
   };
 
   useEffect(() => {
-    dispatch(checkIsSignedin(checkSkipOnBoarding));
+    dispatch(checkIsSignedin(checkSkipOnBoarding, t));
   }, []);
 
   const scroll = useRef(null);
