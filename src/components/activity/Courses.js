@@ -68,7 +68,7 @@ const Courses = ({activity}) => {
             }}
           />
           <LinearGradient
-            colors={['rgba(0,0,0,1)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)']}
+            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
             start={{x: 0, y: 1}}
             end={{x: 1, y: 1}}
             useAngle
@@ -84,7 +84,11 @@ const Courses = ({activity}) => {
           />
         </View>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>
+          <Text
+            style={[
+              FONTS.body3,
+              {color: COLORS.white, lineHeight: 18, width: 250},
+            ]}>
             {item.title}
           </Text>
           <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>

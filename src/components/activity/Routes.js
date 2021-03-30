@@ -1,15 +1,16 @@
 import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import LocalizationContext from '../../screens/LocalizationContext';
+import {FONTS, COLORS, SHADOW, SIZES} from '../../constants';
 import ImageModal from 'react-native-image-modal';
-import {FONTS, COLORS, SHADOW} from '../../constants';
+import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 
-const ShirtStyle = ({activity}) => {
+const Routes = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
-  const ShirtCard = ({item}) => {
+
+  const RouteCard = ({item, index}) => {
     const imageRef = useRef();
     return (
       <TouchableOpacity
@@ -62,7 +63,9 @@ const ShirtStyle = ({activity}) => {
               height: 200,
               borderRadius: 5,
             }}
-            source={{uri: item.shirt_picturl_url}}
+            source={{
+              uri: item.route_picture_url,
+            }}
           />
           <LinearGradient
             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
@@ -81,29 +84,58 @@ const ShirtStyle = ({activity}) => {
           />
         </View>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>
-            {item.style}
+          <Text
+            style={[
+              FONTS.body3,
+              {color: COLORS.white, lineHeight: 18, width: 250},
+            ]}>
+            {item.title}
           </Text>
         </View>
         <View style={{position: 'absolute', top: 5, right: 5}}>
           <Feather name="zoom-in" size={24} color={COLORS.white} />
         </View>
+        {/* <View style={[SHADOW.default]}>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={() => {
+          navigation.navigate('ActivityRegister', {
+            course: item,
+            activity: activity,
+          });
+        }}
+        style={[
+          {
+            width: 30,
+            height: 30,
+            backgroundColor: COLORS.white,
+            borderRadius: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          SHADOW.default,
+        ]}>
+        <MaterialIcons
+          name="arrow-forward-ios"
+          color={COLORS.primary}
+          size={20}
+        />
+      </TouchableOpacity>
+    </View> */}
       </TouchableOpacity>
     );
   };
+
   return (
     <View style={{marginBottom: 20}}>
-      <TitleHeader title={t('activity.shirt_style')} />
-      <View
-        style={{
-          marginLeft: 20,
-        }}>
-        {activity.shirt_detail.map((item, index) => {
-          return <ShirtCard key={index} item={item} />;
+      <TitleHeader title={t('activity.routes')} />
+      <View style={{marginLeft: 20}}>
+        {activity.routes.map((item, index) => {
+          return <RouteCard key={index} item={item} index={index} />;
         })}
       </View>
     </View>
   );
 };
 
-export default ShirtStyle;
+export default Routes;

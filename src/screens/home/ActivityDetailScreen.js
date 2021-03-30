@@ -19,6 +19,7 @@ import Rules from '../../components/activity/Rules';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import ActualDate from '../../components/activity/ActualDate';
 import ButtonSection from '../../components/activity/ButtonSection';
+import Routes from '../../components/activity/Routes';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -39,6 +40,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
       <ActualDate activity={activity} />
       <RegisterDate activity={activity} />
       <Courses activity={activity} />
+      {activity.routes.length > 0 && <Routes activity={activity} />}
       <Gift activity={activity} />
       <ShirtStyle activity={activity} />
       <ButtonSection userActivity={userActivity} activity={activity} />
@@ -48,6 +50,8 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const SecondRoute = () => (
     <View style={{padding: 20}}>
       <TimelineDisplay activity={activity} />
+      <Reward activity={activity} />
+      <Rules activity={activity} />
       <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
@@ -88,7 +92,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: t('activity.info')},
-    {key: 'second', title: t('activity.timeline')},
+    {key: 'second', title: t('activity.reward')},
     {key: 'third', title: 'Detail'},
     {key: 'fourth', title: t('activity.contact')},
   ]);

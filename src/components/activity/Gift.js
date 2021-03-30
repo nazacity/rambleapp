@@ -66,7 +66,7 @@ const Gift = ({activity}) => {
             source={{uri: item.gift_picture_url}}
           />
           <LinearGradient
-            colors={['rgba(0,0,0,1)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)']}
+            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
             start={{x: 0, y: 1}}
             end={{x: 1, y: 1}}
             useAngle
