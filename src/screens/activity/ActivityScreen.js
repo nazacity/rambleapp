@@ -336,8 +336,6 @@ const ActivityScreen = ({navigation}) => {
         alignItems: 'center',
         backgroundColor: COLORS.backgroundColor,
         flex: 1,
-        width: SIZES.width,
-        overflow: 'hidden',
       }}>
       <MenuButton />
 

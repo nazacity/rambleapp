@@ -12,6 +12,7 @@ const FilterOption = ({state, setState, filterOption, filterRef}) => {
       showsHorizontalScrollIndicator={false}
       data={filterOption}
       keyExtractor={(item) => `${item.id}`}
+      style={{width: 50}}
       contentContainerStyle={{padding: 20}}
       ItemSeparatorComponent={() => <View style={{margin: 5}} />}
       renderItem={({item, index}) => {
