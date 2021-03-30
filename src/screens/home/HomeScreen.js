@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, ScrollView, BackHandler, Alert} from 'react-native';
+import {
+  RefreshControl,
+  View,
+  ScrollView,
+  BackHandler,
+  Alert,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
 
@@ -64,13 +70,26 @@ const HomeScreen = ({navigation}) => {
     return unsubscribe;
   }, []);
 
-  // const [rate, setRate] = useState(3);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(refresh());
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   return (
     <View>
       <MenuButton />
       <ScrollView
         style={{backgroundColor: COLORS.backgroundColor}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         showsVerticalScrollIndicator={false}>
         {/* <RatingBar size={20} value={rate} onPress={(item) => setRate(item)} /> */}
         <PromoteActivity />

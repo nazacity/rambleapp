@@ -1,5 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Text, View, FlatList, Animated, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  Animated,
+  ActivityIndicator,
+  Platform,
+  StatusBar,
+} from 'react-native';
 
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
@@ -155,17 +163,19 @@ const ActivityScreen = ({navigation}) => {
   const filterOption = [
     {
       id: '0',
-      item: 'ALL',
+      item_th: 'ทุกภาค',
+      item_en: 'All region',
       function: loadAll,
     },
     {
       id: '1',
-      item: 'Full Marathons',
+      item_th: 'ภาคกลาง',
+      item_en: 'Central',
       function: async () => {
         try {
           dispatch(setLoading(true));
           const res = await get(
-            `/api/users/getactivities?range_min=${40}&range_max=${50}&limit=50`,
+            `/api/users/getactivities?region=ภาคกลาง&limit=50`,
           );
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
@@ -180,12 +190,13 @@ const ActivityScreen = ({navigation}) => {
     },
     {
       id: '2',
-      item: 'Half Marathons',
+      item_th: 'ภาคเหนือ',
+      item_en: 'North',
       function: async () => {
         try {
           dispatch(setLoading(true));
           const res = await get(
-            `/api/users/getactivities?range_min=${18}&range_max=${25}&limit=50`,
+            `/api/users/getactivities?region=ภาคเหนือ&limit=50`,
           );
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
@@ -200,12 +211,13 @@ const ActivityScreen = ({navigation}) => {
     },
     {
       id: '3',
-      item: '10km Runs',
+      item_th: 'ภาคตะวันออก',
+      item_en: 'East',
       function: async () => {
         try {
           dispatch(setLoading(true));
           const res = await get(
-            `/api/users/getactivities?range_min=${8}&range_max=${12}&limit=50`,
+            `/api/users/getactivities?region=ภาคตะวันออก&limit=50`,
           );
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
@@ -220,12 +232,55 @@ const ActivityScreen = ({navigation}) => {
     },
     {
       id: '4',
-      item: '5km Runs',
+      item_th: 'ภาคตะวันตก',
+      item_en: 'West',
       function: async () => {
         try {
           dispatch(setLoading(true));
           const res = await get(
-            `/api/users/getactivities?range_min=${4}&range_max=${6}&limit=50`,
+            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '5',
+      item_th: 'ภาคใต้',
+      item_en: 'South',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคใต้&limit=50`,
+          );
+          if (res.status === 200) {
+            dispatch(setActivities([...res.data]));
+            setNoMore(true);
+          }
+          dispatch(setLoading(false));
+        } catch (error) {
+          console.log(error);
+          dispatch(setLoading(false));
+        }
+      },
+    },
+    {
+      id: '6',
+      item_th: 'ภาคตะวันออกเฉียงเหนือ',
+      item_en: 'Northeast',
+      function: async () => {
+        try {
+          dispatch(setLoading(true));
+          const res = await get(
+            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
           );
           if (res.status === 200) {
             dispatch(setActivities([...res.data]));
@@ -247,16 +302,30 @@ const ActivityScreen = ({navigation}) => {
     setRefresh(false);
   };
 
+  const ViewButtonDisplay = () => {
+    return (
+      <ViewButton
+        setView={setView}
+        view={view}
+        setState={setState}
+        loadAll={loadAll}
+      />
+    );
+  };
+
   const renderHeader = () => {
     return (
       <View>
         <PromoteActivity />
-        <FilterOption
-          filterOption={filterOption}
-          state={state}
-          setState={setState}
-          filterRef={filterRef}
-        />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          {ViewButtonDisplay()}
+          <FilterOption
+            filterOption={filterOption}
+            state={state}
+            setState={setState}
+            filterRef={filterRef}
+          />
+        </View>
       </View>
     );
   };
@@ -269,13 +338,6 @@ const ActivityScreen = ({navigation}) => {
         flex: 1,
       }}>
       <MenuButton />
-      <ViewButton
-        setView={setView}
-        view={view}
-        setState={setState}
-        loadAll={loadAll}
-      />
-      <FilterButton onPress={() => navigation.navigate('ActivityFilter')} />
 
       {view === 0 && (
         <Animated.FlatList
@@ -334,6 +396,7 @@ const ActivityScreen = ({navigation}) => {
           setPage={setPage}
           setNoMore={setNoMore}
           filterRef={filterRef}
+          ViewButtonDisplay={ViewButtonDisplay}
         />
       )}
     </View>

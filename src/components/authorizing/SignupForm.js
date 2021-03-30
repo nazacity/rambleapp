@@ -1,5 +1,11 @@
 import React, {useState, Fragment, useEffect} from 'react';
-import {Text, View, TouchableOpacity, ImageBackground} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  Alert,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   setLoading,
@@ -175,12 +181,18 @@ const SignupForm = () => {
         if (res.data === 'Successed') {
           dispatch(setLoading(false));
           reset({});
-          dispatch(
-            setSnackbarDisplay({
-              state: 'success',
-              message: t('signup.successed'),
-            }),
-          );
+          // dispatch(
+          //   setSnackbarDisplay({
+          //     state: 'success',
+          //     message: t('signup.successed'),
+          //   }),
+          // );
+          Alert.alert(t('signup.successed'), t('signup.successed1'), [
+            {
+              text: t('community.comment.okay'),
+              onPress: () => console.log('okay'),
+            },
+          ]);
           dispatch(setLoading(false));
           navigation.navigate('Signin');
         } else if (res.data === 'Username is used') {

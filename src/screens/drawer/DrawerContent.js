@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import profile from '../../../assets/profile/profile.png';
 
-import {
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Avatar} from 'react-native-elements';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,10 +11,7 @@ import {
   HomeIcon,
   UpcomingIcon,
   HistoryIcon,
-  PostIcon,
   UserIcon,
-  LocationIcon,
-  EmergencyIcon,
   SignoutIcon,
 } from '../../components/Icon';
 
@@ -29,7 +22,6 @@ import {signOut} from '../../redux/actions/UserAction';
 
 import LocalizationContext from '../LocalizationContext';
 
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Drawer, Title, Caption} from 'react-native-paper';
 import {FONTS, COLORS} from '../../constants';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -74,7 +66,15 @@ const DrawerContent = (props) => {
         <Drawer.Section style={styles.drawerSection}>
           <View style={styles.userInfoSection}>
             <View style={{flexDirection: 'row', margin: 15}}>
-              <Avatar rounded source={{uri: user.user_picture_url}} size={60} />
+              <Avatar
+                rounded
+                source={
+                  user.user_background_picture_url
+                    ? {uri: user.user_picture_url}
+                    : profile
+                }
+                size={60}
+              />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
                 <Title style={[FONTS.h3]}>{user.display_name}</Title>
                 <Caption style={[FONTS.body4]}>
@@ -122,7 +122,7 @@ const DrawerContent = (props) => {
               props.navigation.closeDrawer();
             }}
           />
-          <DrawerItem
+          {/* <DrawerItem
             icon={({color, size}) => (
               <AntDesign name="profile" color={color} size={22} />
             )}
@@ -134,7 +134,7 @@ const DrawerContent = (props) => {
               });
               props.navigation.closeDrawer();
             }}
-          />
+          /> */}
         </Drawer.Section>
       </DrawerContentScrollView>
       <DropDownPicker

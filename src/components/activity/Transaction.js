@@ -5,6 +5,7 @@ import {COLORS, FONTS, SHADOW} from '../../constants';
 import {get} from '../../redux/actions/request';
 import LocalizationContext from '../../screens/LocalizationContext';
 import dayjs from 'dayjs';
+import TitleHeader from '../layout/TitleHeader';
 
 const Transaction = ({userActivity}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -55,6 +56,7 @@ const Transaction = ({userActivity}) => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
+      <TitleHeader title={t('activity.payment')} />
       {userActivity.transaction.length > 0 ? (
         userActivity.transaction.map((item) => {
           return (

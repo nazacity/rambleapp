@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {Text, View, TouchableOpacity, Image, Linking} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {post} from '../../redux/actions/request';
 import {
@@ -16,7 +16,6 @@ import {useNavigation} from '@react-navigation/native';
 import FloatingLabelInput from '../floatinglabelinput/FloatingLabelInput';
 
 const ForgotPasswordForm = () => {
-  const lang = useSelector((state) => state.appState.lang);
   const {t} = React.useContext(LocalizationContext);
   const {control, handleSubmit, errors} = useForm();
   const dispatch = useDispatch();
@@ -24,6 +23,7 @@ const ForgotPasswordForm = () => {
 
   const onSubmit = async (data) => {
     if (!data.username || !data.phone_number) {
+      4;
       dispatch(
         setSnackbarDisplay({
           state: 'error',

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Platform} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS, FONTS} from '../../constants';
+import {COLORS, FONTS, SHADOW} from '../../constants';
 import Announcement from '../activity/Announcement';
 
 const NotificationButton = ({
@@ -18,18 +18,21 @@ const NotificationButton = ({
   };
   return (
     <View
-      style={{
-        position: 'absolute',
-        top: top ? top : 0,
-        right: right ? right : 0,
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: COLORS.white,
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 100,
-      }}>
+      style={[
+        {
+          position: 'absolute',
+          top: top ? top : 0,
+          right: right ? right : 0,
+          width: 30,
+          height: 30,
+          borderRadius: 15,
+          backgroundColor: COLORS.white,
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 100,
+        },
+        SHADOW.default,
+      ]}>
       <Announcement
         open1={annoucementModalOpen}
         handleClose={handleAnnoucementModalClose}

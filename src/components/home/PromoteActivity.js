@@ -61,7 +61,7 @@ const PromoteActivity = () => {
           style={{
             flexDirection: 'row',
             position: 'absolute',
-            bottom: 40,
+            bottom: 20,
             left: 20,
             alignItems: 'center',
           }}>
@@ -76,8 +76,8 @@ const PromoteActivity = () => {
               SHADOW.default,
               {
                 borderRadius: 5,
-                height: 50,
-                width: 130,
+                height: 40,
+                width: 100,
                 backgroundColor: COLORS.primary,
                 marginRight: 30,
               },
@@ -87,8 +87,8 @@ const PromoteActivity = () => {
               style={[
                 {
                   borderRadius: 5,
-                  height: 50,
-                  width: 130,
+                  height: 40,
+                  width: 100,
                   justifyContent: 'center',
                   alignItems: 'center',
                   backgroundColor: COLORS.primary,

@@ -22,6 +22,7 @@ const EmergencyCard = ({
   editable,
   setEmergency,
   setEditModalOpen,
+  backgroundColor,
 }) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
@@ -29,33 +30,98 @@ const EmergencyCard = ({
     <View
       style={[
         {
-          backgroundColor: '#fff',
+          backgroundColor: backgroundColor ? backgroundColor : COLORS.white,
           borderRadius: 10,
           padding: 20,
         },
         SHADOW.default,
       ]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{flex: 1}}>
+        <View
+          style={{
+            flex: 1,
+          }}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+            <Text
+              style={[
+                FONTS.h4,
+                {
+                  marginHorizontal: 5,
+                  color:
+                    backgroundColor === COLORS.primary
+                      ? COLORS.white
+                      : COLORS.black,
+                },
+              ]}>
               {t('emergencycontact.name')}
             </Text>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>{item.name}</Text>
+            <Text
+              style={[
+                FONTS.h4,
+                {
+                  marginHorizontal: 5,
+                  color:
+                    backgroundColor === COLORS.primary
+                      ? COLORS.white
+                      : COLORS.black,
+                },
+              ]}>
+              {item.name}
+            </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+            <Text
+              style={[
+                FONTS.h4,
+                {
+                  marginHorizontal: 5,
+                  color:
+                    backgroundColor === COLORS.primary
+                      ? COLORS.white
+                      : COLORS.black,
+                },
+              ]}>
               {t('emergencycontact.relationship')}
             </Text>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+            <Text
+              style={[
+                FONTS.h4,
+                {
+                  marginHorizontal: 5,
+                  color:
+                    backgroundColor === COLORS.primary
+                      ? COLORS.white
+                      : COLORS.black,
+                },
+              ]}>
               {item.relationship}
             </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+            <Text
+              style={[
+                FONTS.h4,
+                {
+                  marginHorizontal: 5,
+                  color:
+                    backgroundColor === COLORS.primary
+                      ? COLORS.white
+                      : COLORS.black,
+                },
+              ]}>
               {t('emergencycontact.phone')}
             </Text>
-            <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+            <Text
+              style={[
+                FONTS.h4,
+                {
+                  marginHorizontal: 5,
+                  color:
+                    backgroundColor === COLORS.primary
+                      ? COLORS.white
+                      : COLORS.black,
+                },
+              ]}>
               {item.phone_number}
             </Text>
           </View>
@@ -84,7 +150,7 @@ const EmergencyCard = ({
             <MaterialCommunityIcons
               name="delete-outline"
               size={24}
-              color="grey"
+              color={backgroundColor === COLORS.primary ? COLORS.white : 'grey'}
             />
           </TouchableOpacity>
         )}
@@ -96,7 +162,11 @@ const EmergencyCard = ({
               setEmergency(item);
               setEditModalOpen(true);
             }}>
-            <MaterialIcons name="edit" size={24} color="grey" />
+            <MaterialIcons
+              name="edit"
+              size={24}
+              color={backgroundColor === COLORS.primary ? COLORS.white : 'grey'}
+            />
           </TouchableOpacity>
         )}
       </View>

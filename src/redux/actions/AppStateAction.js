@@ -11,9 +11,12 @@ import {
   UploadPictureModal,
   SET_PDPA_MODAL,
 } from '../types';
-import {post, get} from './request';
+import {post, get, everyGet} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
+import {ramble} from '../../constants';
+import {Alert, Linking} from 'react-native';
+import {Platform} from 'react-native';
 
 export const setEn = () => async (dispatch) => {
   await AsyncStorage.setItem('lang', 'en');
@@ -49,22 +52,46 @@ export const setSnackbarDismiss = (state) => (dispatch) => {
   });
 };
 
-export const checkIsSignedin = (checkSkipOnBoarding) => async (dispatch) => {
+export const checkIsSignedin = (checkSkipOnBoarding, t) => async (dispatch) => {
   try {
-    const res = await get('/api/users/getuserbyjwt');
+    const version = await everyGet('/api/everyone/version');
+    if (version.version === ramble.version) {
+      const res = await get('/api/users/getuserbyjwt');
+      if (res._id) {
+        dispatch({
+          type: SET_USER,
+          payload: res,
+        });
+        dispatch({
+          type: isSignIn,
+          payload: true,
+        });
 
-    if (res._id) {
-      dispatch({
-        type: SET_USER,
-        payload: res,
-      });
-      dispatch({
-        type: isSignIn,
-        payload: true,
-      });
-
-      SplashScreen.hide();
+        SplashScreen.hide();
+      } else {
+        await checkSkipOnBoarding();
+      }
     } else {
+      Alert.alert(t('checkversion.warning1'), t('checkversion.warning2'), [
+        {
+          text: t('checkversion.updated'),
+          onPress: () => {
+            if (Platform.OS === 'ios') {
+              Linking.openURL(
+                `https://apps.apple.com/th/app/ramble/id1551268864?l=th`,
+              );
+            } else if (Platform.OS === 'android') {
+              Linking.openURL(
+                `https://play.google.com/store/apps/details?id=com.ramble`,
+              );
+            }
+          },
+        },
+      ]);
+      dispatch({
+        type: SET_LOADING,
+        payload: false,
+      });
       await checkSkipOnBoarding();
     }
   } catch (error) {

@@ -9,16 +9,13 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
     <View
       style={[
         {
-          position: 'absolute',
-          top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
-          right: 70,
-          zIndex: 100,
+          flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          flexDirection: 'row',
-          borderRadius: 5,
+          backgroundColor: COLORS.white,
+          marginHorizontal: 10,
+          borderRadius: 3,
           overflow: 'hidden',
-          backgroundColor: COLORS.backgroundColor,
         },
         SHADOW.default,
       ]}>

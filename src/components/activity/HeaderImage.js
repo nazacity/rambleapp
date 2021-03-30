@@ -1,6 +1,5 @@
 import React, {useRef, Fragment, useState, useEffect} from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
@@ -24,11 +23,10 @@ import ButtonSection from './ButtonSection';
 import LineShareButton from '../layout/LineShareButton';
 import NotificationButton from '../layout/NotificationButton';
 import NotificationButton2 from '../layout/NotificationButton2';
-import {StatusBar} from 'react-native';
 // import Share from 'react-native-share';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
-const MAX_HEIGHT = 300;
+const MAX_HEIGHT = (SIZES.width * 2) / 3;
 
 const HeaderImage = ({
   children,
@@ -48,7 +46,6 @@ const HeaderImage = ({
   return (
     <Fragment>
       <BackButton />
-
       <ImageHeaderScrollView
         maxHeight={MAX_HEIGHT}
         minHeight={MIN_HEIGHT}
@@ -75,42 +72,6 @@ const HeaderImage = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            {userActivity?.announcement && (
-              <NotificationButton
-                value={announcementNumber.length}
-                top={Platform.OS === 'ios' ? 40 : StatusBar.currentHeight}
-                right={100}
-                userActivity={userActivity}
-                setUserActivity={setUserActivity}
-              />
-            )}
-            {userActivity &&
-              activity.announcement &&
-              activity.announcement.length !== 0 && (
-                <NotificationButton2
-                  value={activity.announcement.length}
-                  top={Platform.OS === 'ios' ? 40 : StatusBar.currentHeight}
-                  right={100}
-                  activity={activity}
-                />
-              )}
-            <LineShareButton
-              onPress={() => {
-                Linking.openURL(
-                  `https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fliff.line.me%2F1655591354-8d5Zzbm5%3Factivity%3D${activity._id}`,
-                );
-              }}
-            />
-            <Text
-              style={{
-                color: 'white',
-                backgroundColor: 'transparent',
-                fontSize: 24,
-                textAlign: 'center',
-                width: 350,
-              }}>
-              {activity.title}
-            </Text>
             {buttonAction && (
               <View style={{position: 'absolute', bottom: 20, right: 20}}>
                 <ButtonSection
@@ -120,26 +81,6 @@ const HeaderImage = ({
               </View>
             )}
           </View>
-        )}
-        renderFixedForeground={() => (
-          <Animatable.View
-            style={{
-              height: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingTop: Platform.OS === 'ios' ? 40 : 5,
-              opacity: 0,
-            }}
-            ref={navTitleView}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 18,
-                backgroundColor: 'transparent',
-              }}>
-              {activity.title}
-            </Text>
-          </Animatable.View>
         )}>
         {location && (
           <TriggeringView
@@ -194,6 +135,31 @@ const HeaderImage = ({
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}></View>
+            {userActivity?.announcement && (
+              <NotificationButton
+                value={announcementNumber.length}
+                top={10}
+                right={100}
+                userActivity={userActivity}
+                setUserActivity={setUserActivity}
+              />
+            )}
+            {userActivity.state === 'unregister' &&
+              activity.announcement.length !== 0 && (
+                <NotificationButton2
+                  value={activity.announcement.length}
+                  top={10}
+                  right={100}
+                  activity={activity}
+                />
+              )}
+            <LineShareButton
+              onPress={() => {
+                Linking.openURL(
+                  `https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fliff.line.me%2F1655591354-8d5Zzbm5%3Factivity%3D${activity._id}`,
+                );
+              }}
+            />
           </TriggeringView>
         )}
         {children}
@@ -204,9 +170,8 @@ const HeaderImage = ({
           bottom: 20,
           right: 10,
           zIndex: 100,
-          flexDirection: 'row',
         }}>
-        {activity.contact?.phone_number && (
+        {/* {activity.contact?.phone_number && (
           <TouchableOpacity
             activeOpacity={0.8}
             style={{
@@ -216,7 +181,7 @@ const HeaderImage = ({
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 10,
+              marginBottom: 10,
               borderRadius: 50,
             }}
             onPress={() => {
@@ -235,7 +200,7 @@ const HeaderImage = ({
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 10,
+              marginBottom: 10,
               borderRadius: 50,
             }}
             onPress={() => {
@@ -254,7 +219,6 @@ const HeaderImage = ({
               borderRadius: 5,
               justifyContent: 'center',
               alignItems: 'center',
-              marginRight: 10,
               borderRadius: 50,
             }}
             onPress={() => {
@@ -262,12 +226,10 @@ const HeaderImage = ({
             }}>
             <Fontisto name="facebook" size={20} color="#fff" />
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </Fragment>
   );
 };
 
 export default HeaderImage;
-
-const styles = StyleSheet.create({});

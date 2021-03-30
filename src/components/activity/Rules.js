@@ -23,7 +23,7 @@ const Rules = ({activity}) => {
 
   return (
     <View style={{marginBottom: 20}}>
-      <TitleHeader title={t('activity.rules')} />
+      {/* <TitleHeader title={t('activity.rules')} /> */}
       <View style={{paddingLeft: 20}}>
         <Markdown>{detail}</Markdown>
       </View>

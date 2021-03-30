@@ -366,7 +366,7 @@ export const registerActivity = (data, navigateUser, t) => async (dispatch) => {
       type: AddEmergencyContactModal,
       payload: false,
     });
-    navigateUser(res.id);
+    navigateUser(res.data);
     dispatch({
       type: SET_SNACKBAR_DISPLAY,
       payload: {
