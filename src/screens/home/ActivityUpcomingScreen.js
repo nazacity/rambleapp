@@ -18,6 +18,16 @@ import ActualDate from '../../components/activity/ActualDate';
 import Transaction from '../../components/activity/Transaction';
 import ButtonSection from '../../components/activity/ButtonSection';
 import LocalizationContext from '../LocalizationContext';
+import Routes from '../../components/activity/Routes';
+import RacePack from '../../components/activity/RacePack';
+import Rules from '../../components/activity/Rules';
+import ShirtStyle from '../../components/activity/ShirtStyle';
+import Courses from '../../components/activity/Courses';
+import Gift from '../../components/activity/Gift';
+import Reward from '../../components/activity/Reward';
+import TitleHeader from '../../components/layout/TitleHeader';
+import AddressCard from '../../components/card/AddressCard';
+import EmergencyCard from '../../components/card/EmergencyCard';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -37,9 +47,56 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const FirstRoute = () => (
     <View style={{padding: 20}}>
       <ContestNo contest_no={userActivity.contest_no} />
-      <Course course={userActivity.activity.course} />
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+          <TitleHeader title={t('payment.course')} noDot={true} />
+          <Text style={[FONTS.body4, {marginBottom: 10}]}>
+            {userActivity.activity.course.title}
+          </Text>
+        </View>
+        <View style={{flex: 0.5}}>
+          <TitleHeader title={t('payment.size')} noDot={true} />
+          <Text style={[FONTS.body4, {marginBottom: 10}]}>
+            {userActivity.size.size.toUpperCase()}
+          </Text>
+        </View>
+      </View>
       <ActualDate activity={activity} />
+      <View>
+        <TitleHeader title={t('payment.address')} />
+        <Text style={[FONTS.body4, {marginLeft: 10}]}>
+          {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' &&
+            t('payment.postzip')}
+          {userActivity.address._id === '5ff6600d20ed83388ab4ccbd' &&
+            t('activity.atevent')}
+        </Text>
+        {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' && (
+          <View style={{padding: 5}}>
+            <AddressCard
+              item={
+                userActivity.address._id === '5ff6600d20ed83388ab4ccbd'
+                  ? {
+                      _id: '5ff6600d20ed83388ab4ccbd',
+                      address: t('activity.atevent'),
+                    }
+                  : userActivity.address
+              }
+              editable={false}
+            />
+          </View>
+        )}
+      </View>
+      <View>
+        <TitleHeader title={t('payment.emergency')} />
+        <View style={{padding: 5}}>
+          <EmergencyCard
+            item={userActivity.emergency_contact}
+            editable={false}
+          />
+        </View>
+      </View>
       <MoreInfomation activity={activity} />
+      <Transaction userActivity={userActivity} />
       <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
@@ -47,12 +104,19 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const SecondRoute = () => (
     <View style={{padding: 20}}>
       <TimelineDisplay activity={activity} />
+      {/* <Courses activity={activity} /> */}
+      {activity.routes.length > 0 && <Routes activity={activity} />}
+      <ShirtStyle activity={activity} />
+      {activity.racepack.length > 0 && <RacePack activity={activity} />}
+      <Gift activity={activity} />
+      <Reward activity={activity} />
     </View>
   );
 
   const ThirdRoute = () => (
     <View style={{padding: 20}}>
-      <Transaction userActivity={userActivity} />
+      <Rules activity={activity} />
+      {/* <MoreInfomation activity={activity} /> */}
     </View>
   );
 
@@ -81,8 +145,8 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'first', title: t('activity.info')},
-    {key: 'second', title: t('activity.timeline')},
-    {key: 'third', title: 'Receive'},
+    {key: 'second', title: t('activity.info1')},
+    {key: 'third', title: t('activity.more')},
   ]);
 
   const renderScene = SceneMap({

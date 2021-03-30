@@ -92,7 +92,7 @@ const ShirtStyle = ({activity}) => {
     );
   };
   return (
-    <View style={{marginBottom: 20}}>
+    <View>
       <TitleHeader title={t('activity.shirt_style')} />
       <View
         style={{

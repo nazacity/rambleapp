@@ -20,6 +20,7 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import ActualDate from '../../components/activity/ActualDate';
 import ButtonSection from '../../components/activity/ButtonSection';
 import Routes from '../../components/activity/Routes';
+import RacePack from '../../components/activity/RacePack';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -41,31 +42,24 @@ const ActivityDetailScreen = ({navigation, route}) => {
       <RegisterDate activity={activity} />
       <Courses activity={activity} />
       {activity.routes.length > 0 && <Routes activity={activity} />}
-      <Gift activity={activity} />
       <ShirtStyle activity={activity} />
+      {activity.racepack.length > 0 && <RacePack activity={activity} />}
       <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 
   const SecondRoute = () => (
     <View style={{padding: 20}}>
+      <Gift activity={activity} />
       <TimelineDisplay activity={activity} />
       <Reward activity={activity} />
-      <Rules activity={activity} />
       <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
   );
 
   const ThirdRoute = () => (
     <View style={{padding: 20}}>
-      <Reward activity={activity} />
       <Rules activity={activity} />
-      <ButtonSection userActivity={userActivity} activity={activity} />
-    </View>
-  );
-
-  const FourthRoute = () => (
-    <View style={{padding: 20}}>
       <MoreInfomation activity={activity} />
       <ButtonSection userActivity={userActivity} activity={activity} />
     </View>
@@ -93,15 +87,13 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [routes] = useState([
     {key: 'first', title: t('activity.info')},
     {key: 'second', title: t('activity.reward')},
-    {key: 'third', title: 'Detail'},
-    {key: 'fourth', title: t('activity.contact')},
+    {key: 'third', title: t('activity.more')},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
     third: ThirdRoute,
-    fourth: FourthRoute,
   });
 
   if (loading) {

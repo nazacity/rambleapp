@@ -93,7 +93,7 @@ const Gift = ({activity}) => {
     );
   };
   return (
-    <View style={{marginBottom: 20}}>
+    <View>
       <TitleHeader title={t('activity.gifts')} />
       <View
         style={{

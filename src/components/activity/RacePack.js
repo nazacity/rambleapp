@@ -1,16 +1,16 @@
 import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {FONTS, COLORS, SHADOW, SIZES} from '../../constants';
-import ImageModal from 'react-native-image-modal';
 import LocalizationContext from '../../screens/LocalizationContext';
+import ImageModal from 'react-native-image-modal';
+import {FONTS, COLORS, SHADOW} from '../../constants';
 import TitleHeader from '../layout/TitleHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 
-const Routes = ({activity}) => {
+const RacePack = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
 
-  const RouteCard = ({item, index}) => {
+  const RacePackCard = ({item}) => {
     const imageRef = useRef();
     return (
       <TouchableOpacity
@@ -63,9 +63,7 @@ const Routes = ({activity}) => {
               height: 200,
               borderRadius: 5,
             }}
-            source={{
-              uri: item.route_picture_url,
-            }}
+            source={{uri: item.racepack_picture_url}}
           />
           <LinearGradient
             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
@@ -84,11 +82,7 @@ const Routes = ({activity}) => {
           />
         </View>
         <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text
-            style={[
-              FONTS.body3,
-              {color: COLORS.white, lineHeight: 18, width: 250},
-            ]}>
+          <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>
             {item.title}
           </Text>
         </View>
@@ -98,17 +92,19 @@ const Routes = ({activity}) => {
       </TouchableOpacity>
     );
   };
-
   return (
-    <View>
-      <TitleHeader title={t('activity.routes')} />
-      <View style={{marginLeft: 20}}>
-        {activity.routes.map((item, index) => {
-          return <RouteCard key={index} item={item} index={index} />;
+    <View style={{marginBottom: 20}}>
+      <TitleHeader title={t('activity.other')} />
+      <View
+        style={{
+          marginLeft: 20,
+        }}>
+        {activity.racepack.map((item, index) => {
+          return <RacePackCard item={item} key={index} />;
         })}
       </View>
     </View>
   );
 };
 
-export default Routes;
+export default RacePack;

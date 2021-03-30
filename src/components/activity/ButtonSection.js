@@ -45,7 +45,7 @@ const ButtonSection = ({userActivity, activity}) => {
           <Button
             width={100}
             height={40}
-            label={t('activity.payment')}
+            label={t('activity.pay')}
             color={COLORS.pinkPastel}
             onPress={() => {
               navigation.navigate('Payment', {
