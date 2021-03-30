@@ -23,6 +23,7 @@ const TimelineDisplay = ({activity}) => {
       <ScrollView horizontal style={{marginTop: 10}} scrollEnabled={false}>
         <View style={{width: 300}}>
           <Timeline
+            scrollEnabled={false}
             data={activity.timeline}
             circleColor={COLORS.onboarding1}
             titleStyle={[{color: '#000'}, FONTS.body3]}
