@@ -15,7 +15,6 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
           backgroundColor: COLORS.white,
           marginHorizontal: 10,
           borderRadius: 3,
-          overflow: 'hidden',
         },
         SHADOW.default,
       ]}>
