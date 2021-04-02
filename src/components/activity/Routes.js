@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {FONTS, COLORS, SHADOW, SIZES} from '../../constants';
-import ImageModal from 'react-native-image-modal';
+import ImageModal from '../modal/ImageModal';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,62 +11,28 @@ const Routes = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
 
   const RouteCard = ({item, index}) => {
-    const imageRef = useRef();
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => {
-          imageRef.current._open();
-        }}
+      <View
         style={[
           {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 10,
-            backgroundColor: COLORS.white,
-            borderRadius: 5,
             width: 300,
             height: 200,
+            borderRadius: 5,
+            marginBottom: 10,
           },
-          SHADOW.default,
+          SHADOW.image,
         ]}>
-        <View
+        <ImageModal
           style={{
             width: 300,
             height: 200,
             borderRadius: 5,
+            backgrounColor: COLORS.white,
             overflow: 'hidden',
+          }}
+          source={{
+            uri: item.route_picture_url,
           }}>
-          <ImageModal
-            renderHeader={(close) => {
-              return (
-                <TouchableOpacity
-                  style={{flex: 1, height: 180}}
-                  onPress={close}
-                />
-              );
-            }}
-            renderFooter={(close) => {
-              return (
-                <TouchableOpacity
-                  style={{flex: 1, height: 150}}
-                  onPress={close}
-                />
-              );
-            }}
-            ref={imageRef}
-            resizeMode="contain"
-            imageBackgroundColor={COLORS.background}
-            overlayBackgroundColor={COLORS.darkOpacityBlack}
-            style={{
-              width: 300,
-              height: 200,
-              borderRadius: 5,
-            }}
-            source={{
-              uri: item.route_picture_url,
-            }}
-          />
           <LinearGradient
             colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
             start={{x: 0, y: 1}}
@@ -82,20 +48,20 @@ const Routes = ({activity}) => {
               position: 'absolute',
             }}
           />
-        </View>
-        <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text
-            style={[
-              FONTS.body3,
-              {color: COLORS.white, lineHeight: 18, width: 250},
-            ]}>
-            {item.title}
-          </Text>
-        </View>
-        <View style={{position: 'absolute', top: 5, right: 5}}>
-          <Feather name="zoom-in" size={24} color={COLORS.white} />
-        </View>
-      </TouchableOpacity>
+          <View style={{position: 'absolute', bottom: 20, left: 20}}>
+            <Text
+              style={[
+                FONTS.body3,
+                {color: COLORS.white, lineHeight: 18, width: 250},
+              ]}>
+              {item.title}
+            </Text>
+          </View>
+          <View style={{position: 'absolute', top: 5, right: 5}}>
+            <Feather name="zoom-in" size={24} color={COLORS.white} />
+          </View>
+        </ImageModal>
+      </View>
     );
   };
 

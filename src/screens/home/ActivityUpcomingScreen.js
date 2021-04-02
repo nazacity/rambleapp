@@ -62,6 +62,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
         </View>
       </View>
       <ActualDate activity={activity} />
+      <TimelineDisplay activity={activity} />
       <View>
         <TitleHeader title={t('payment.address')} />
         <Text style={[FONTS.body4, {marginLeft: 10}]}>
@@ -103,7 +104,6 @@ const ActivityDetailScreen = ({navigation, route}) => {
 
   const SecondRoute = () => (
     <View style={{padding: 20}}>
-      <TimelineDisplay activity={activity} />
       {/* <Courses activity={activity} /> */}
       {activity.routes.length > 0 && <Routes activity={activity} />}
       <ShirtStyle activity={activity} />

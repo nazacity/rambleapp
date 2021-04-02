@@ -87,7 +87,7 @@ const ButtonSection = ({userActivity, activity}) => {
           }}
         />
       )} */}
-      {userActivity.state === 'actual_date' && (
+      {/* {userActivity.state === 'actual_date' && (
         <Button
           width={100}
           height={40}
@@ -116,7 +116,7 @@ const ButtonSection = ({userActivity, activity}) => {
             });
           }}
         />
-      )}
+      )} */}
       <NewUserRegisterModal
         open={open}
         handleClose={handleNewUserRegisterModalClose}

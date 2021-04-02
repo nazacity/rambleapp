@@ -23,6 +23,7 @@ import ButtonSection from './ButtonSection';
 import LineShareButton from '../layout/LineShareButton';
 import NotificationButton from '../layout/NotificationButton';
 import NotificationButton2 from '../layout/NotificationButton2';
+import ShareModal from '../modal/ShareModal';
 // import Share from 'react-native-share';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 120 : 85;
@@ -139,7 +140,7 @@ const HeaderImage = ({
               <NotificationButton
                 value={announcementNumber.length}
                 top={10}
-                right={100}
+                right={50}
                 userActivity={userActivity}
                 setUserActivity={setUserActivity}
               />
@@ -149,17 +150,18 @@ const HeaderImage = ({
                 <NotificationButton2
                   value={activity.announcement.length}
                   top={10}
-                  right={100}
+                  right={50}
                   activity={activity}
                 />
               )}
-            <LineShareButton
+            {/* <LineShareButton
               onPress={() => {
                 Linking.openURL(
                   `https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fliff.line.me%2F1655591354-8d5Zzbm5%3Factivity%3D${activity._id}`,
                 );
               }}
-            />
+            /> */}
+            <ShareModal activity={activity} />
           </TriggeringView>
         )}
         {children}

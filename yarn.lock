@@ -747,6 +747,13 @@
     "exec-sh" "^0.3.2"
     "minimist" "^1.2.0"
 
+"@dudigital/react-native-zoomable-view@^1.0.16":
+  "integrity" "sha512-20H1FEwX+JKTf9zJAub+3cOCU98YpmRqgn73FwslHNOXJZbavnTAV3Qpbt90vinRo4CkWaobH28sJG1asPw2qg=="
+  "resolved" "https://registry.npmjs.org/@dudigital/react-native-zoomable-view/-/react-native-zoomable-view-1.0.16.tgz"
+  "version" "1.0.16"
+  dependencies:
+    "prop-types" "^15.5.10"
+
 "@egjs/hammerjs@^2.0.17":
   "integrity" "sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A=="
   "resolved" "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz"
@@ -1064,6 +1071,11 @@
   "version" "1.12.1"
   dependencies:
     "deep-assign" "^3.0.0"
+
+"@react-native-community/cameraroll@^4.0.4":
+  "integrity" "sha512-3SY96Xh1yQjV5M7dFisl5kQmrO/K09URarZwmTN801KEalOoo/opsd/e8Vu1dwSKe0NGCK7A2u0oJQpeNbWbnA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/cameraroll/-/cameraroll-4.0.4.tgz"
+  "version" "4.0.4"
 
 "@react-native-community/cli-debugger-ui@^3.0.0":
   "integrity" "sha512-m3X+iWLsK/H7/b7PpbNO33eQayR/+M26la4ZbYe1KRke5Umg4PIWsvg21O8Tw4uJcY8LA5hsP+rBi/syBkBf0g=="
@@ -7427,6 +7439,11 @@
     "react-native-safe-area-context" "^3.1.9"
     "react-native-size-matters" "^0.3.1"
 
+"react-native-fbsdk-next@^4.0.0":
+  "integrity" "sha512-ql5Pbbxpp1kN2IK2AsYVoh2BJ7cMc4fT6oU7U04GLufikYuiul/rcwe4SXuEJzdzsce8idZ9oYcmPt1yHyZm1g=="
+  "resolved" "https://registry.npmjs.org/react-native-fbsdk-next/-/react-native-fbsdk-next-4.0.0.tgz"
+  "version" "4.0.0"
+
 "react-native-fit-image@^1.5.5":
   "integrity" "sha512-Wl3Vq2DQzxgsWKuW4USfck9zS7YzhvLNPpkwUUCF90bL32e1a0zOVQ3WsJILJOwzmPdHfzZmWasiiAUNBkhNkg=="
   "resolved" "https://registry.npmjs.org/react-native-fit-image/-/react-native-fit-image-1.5.5.tgz"
@@ -7666,6 +7683,11 @@
     "prop-types" "^15.7.2"
     "yargs" "^15.0.2"
 
+"react-native-view-shot@^3.1.2":
+  "integrity" "sha512-9u9fPtp6a52UMoZ/UCPrCjKZk8tnkI9To0Eh6yYnLKFEGkRZ7Chm6DqwDJbYJHeZrheCCopaD5oEOnRqhF4L2Q=="
+  "resolved" "https://registry.npmjs.org/react-native-view-shot/-/react-native-view-shot-3.1.2.tgz"
+  "version" "3.1.2"
+
 "react-native-webview@^11.0.2":
   "integrity" "sha512-GDyIBRbCZ2wbMUGCxA7LufSEbSoWKOzkFB8YljmAffA15tzN6ccvGEquB/hkk5KhvoYy300kwJyEmyBeG6d/AA=="
   "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.0.2.tgz"
@@ -7674,7 +7696,7 @@
     "escape-string-regexp" "2.0.0"
     "invariant" "2.2.4"
 
-"react-native@*", "react-native@>=0.61.1", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@>=v0.40.0", "react-native@0.64.0":
+"react-native@*", "react-native@>=0.59.0", "react-native@>=0.60", "react-native@>=0.61.1", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@>=v0.40.0", "react-native@0.64.0":
   "integrity" "sha512-8dhSHBthgGwAjU+OjqUEA49229ThPMQH7URH0u8L0xoQFCnZO2sZ9Wc6KcbxI0x9KSmjCMFFZqRe3w3QsRv64g=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.64.0.tgz"
   "version" "0.64.0"
@@ -7773,7 +7795,7 @@
     "react-is" "^16.8.6"
     "scheduler" "^0.19.1"
 
-"react@*", "react@^15.4.0 || ^16.0.0-alpha", "react@^16.0", "react@17.0.1":
+"react@*", "react@^15.4.0 || ^16.0.0-alpha", "react@^16.0", "react@16 || 17", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"
