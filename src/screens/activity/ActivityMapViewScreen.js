@@ -464,7 +464,7 @@ const ActivityMapViewScreen = ({
           left: 50,
           flexDirection: 'row',
           alignItems: 'center',
-          top: -5,
+          top: Platform.OS === 'ios' ? 20 : 10,
         }}>
         {ViewButtonDisplay()}
         <FilterOption
