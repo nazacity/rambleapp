@@ -1,6 +1,9 @@
 import {ramble} from '../constants';
 
 const th = {
+  sharemodal: {
+    title: 'แชร์กิจกรรม',
+  },
   checkversion: {
     warning1: 'มี Ramble Application เวอร์ชั่นใหม่',
     warning2: 'กรุณาอัพเดท Ramble Application',

@@ -16,9 +16,12 @@ import Share from 'react-native-share';
 import CameraRoll from '@react-native-community/cameraroll';
 import Modal from 'react-native-modal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {COLORS, FONTS, SHADOW} from '../../constants';
+import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
+import LocalizationContext from '../../screens/LocalizationContext';
+import dayjs from 'dayjs';
 
 const ShareModal = ({activity}) => {
+  const {t} = React.useContext(LocalizationContext);
   const [open, setOpen] = useState(false);
   const viewShotRef = useRef();
   const handleClose = () => {
@@ -104,7 +107,26 @@ const ShareModal = ({activity}) => {
         onSwipeComplete={handleClose}
         useNativeDriverForBackdrop
         swipeDirection={['down']}>
-        <View style={{backgroundColor: COLORS.white, paddingTop: 20}}>
+        <View
+          style={{
+            backgroundColor: COLORS.white,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}>
+          <View style={{padding: 20}}>
+            <Text style={[FONTS.h2, {textAlign: 'center'}]}>
+              {t('sharemodal.title')}
+            </Text>
+          </View>
+          <View
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: 'rgba(0,0,0,0.2)',
+              width: SIZES.width - 60,
+              alignSelf: 'center',
+              marginBottom: 20,
+            }}
+          />
           <ViewShot
             ref={viewShotRef}
             options={{format: 'jpg', quality: 1}}
@@ -112,21 +134,63 @@ const ShareModal = ({activity}) => {
               backgroundColor: COLORS.white,
               alignSelf: 'center',
             }}>
-            <Image
-              source={{uri: activity.activity_picture_url}}
+            <View
               style={{
-                height: 200,
-                width: 300,
-              }}
-            />
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                borderRadius: 10,
+                backgroundColor: COLORS.primary,
+                padding: 10,
+              }}>
               <Image
-                source={require('../../../assets/logo/ramble512.png')}
-                style={{width: 30, height: 30}}
+                source={{uri: activity.activity_picture_url}}
+                style={{
+                  height: 200,
+                  width: 300,
+                  borderRadius: 10,
+                }}
               />
-              <Text style={(FONTS.body5, {color: COLORS.black})}>
-                www.ramble-club.com
-              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 10,
+                  justifyContent: 'center',
+                }}>
+                <Text style={(FONTS.h5, {color: COLORS.white})}>
+                  {activity.title}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginTop: 10,
+                  justifyContent: 'space-between',
+                }}>
+                <View>
+                  <Text style={(FONTS.h5, {color: COLORS.white, fontSize: 10})}>
+                    {t('createpost.province')} {activity.location.province}
+                  </Text>
+                  <Text style={(FONTS.h5, {color: COLORS.white, fontSize: 10})}>
+                    {t('activity.actual_date')}{' '}
+                    {dayjs(activity.actual_date).format('D MMM YY')}
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Image
+                    source={require('../../../assets/logo/ramble512.png')}
+                    style={{
+                      width: 15,
+                      height: 15,
+                      backgroundColor: COLORS.white,
+                      borderRadius: 10,
+                      marginRight: 5,
+                    }}
+                  />
+                  <Text style={(FONTS.h5, {color: COLORS.white, fontSize: 10})}>
+                    www.ramble-club.com
+                  </Text>
+                </View>
+              </View>
             </View>
           </ViewShot>
           <View
@@ -141,7 +205,7 @@ const ShareModal = ({activity}) => {
               style={{marginRight: 10}}>
               <Image
                 source={require('../../../assets/socialicon/facebook.png')}
-                style={{width: 50, height: 50}}
+                style={{width: 40, height: 40, borderRadius: 5}}
               />
             </TouchableOpacity>
             {/* <TouchableOpacity
@@ -150,13 +214,13 @@ const ShareModal = ({activity}) => {
               style={{marginRight: 10}}>
               <Image
                 source={require('../../../assets/socialicon/instagram.png')}
-                style={{width: 50, height: 50}}
+                style={{width: 40, height: 40}}
               />
             </TouchableOpacity> */}
             <TouchableOpacity activeOpacity={1} onPress={shareToLine}>
               <Image
                 source={require('../../../assets/socialicon/line.png')}
-                style={{width: 50, height: 50}}
+                style={{width: 40, height: 40, borderRadius: 5}}
               />
             </TouchableOpacity>
           </View>

@@ -1,6 +1,9 @@
 import {ramble} from '../constants';
 
 const en = {
+  sharemodal: {
+    title: 'Share activity',
+  },
   checkversion: {
     warning1: 'New Version is available',
     warning2: 'Please update Ramble Application',
