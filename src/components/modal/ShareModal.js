@@ -37,7 +37,6 @@ const ShareModal = ({activity}) => {
     };
 
     ShareDialog.canShow(content).then((canShow) => {
-      console.log(canShow);
       if (canShow) {
         return ShareDialog.show(content)
           .then((result) => {

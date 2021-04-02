@@ -498,7 +498,7 @@ const ActivityMapViewScreen = ({
         //   right: SPACING_FOR_CARD_INSET,
         // }}
         contentContainerStyle={{
-          paddingLeft: CardSize / 2.5,
+          paddingLeft: Platform.OS === 'android' ? CardSize / 2.5 : 0,
         }}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: mapAnimation}}}],
