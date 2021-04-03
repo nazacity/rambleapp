@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,10 @@ import {CheckBox} from 'react-native-elements';
 import TermsAndConditionsModal from '../../components/modal/TermsAndConditionsModal';
 import AddressCard from '../../components/card/AddressCard';
 import EmergencyCard from '../../components/card/EmergencyCard';
-import {registerActivity} from '../../redux/actions/UserAction';
+import {
+  editUserProfile,
+  registerActivity,
+} from '../../redux/actions/UserAction';
 import LocalizationContext from '../LocalizationContext';
 import TitleHeader from '../../components/layout/TitleHeader';
 import {
@@ -31,6 +34,10 @@ import AddAddressModal from '../../components/modal/AddAddressModal';
 import AddEmergencyContactModal from '../../components/modal/AddEmergencyContactModal';
 import EditAddressModal from '../../components/modal/EditAddressModal';
 import EditEmergencyContactModal from '../../components/modal/EditEmergencyContactModal';
+import {ActivityIndicator} from 'react-native';
+import FloatingLabelInput from '../../components/floatinglabelinput/FloatingLabelInput';
+import {get} from '../../redux/actions/request';
+import {Alert} from 'react-native';
 
 const ActivityRegisterScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -50,6 +57,15 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   const [size, setSize] = useState(activity.size[0]);
   const [acceptTerm, setAcceptTerm] = useState(false);
   const [termModalOpen, setTermModalOpen] = useState(false);
+  const [value, setValue] = useState({
+    idcard: '',
+    phone_number: '',
+  });
+  const [checkIdLoading, setCheckIdLoading] = useState(false);
+  const [message, setMessage] = useState({
+    msg: '',
+    state: 'success',
+  });
   const dispatch = useDispatch();
 
   const handleTermModalClose = () => {
@@ -57,7 +73,6 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   };
 
   const navigateUser = (userActivity) => {
-    console.log(('test', userActivity));
     navigation.replace('Payment', {
       address: address,
       activity_title: activity.title,
@@ -66,7 +81,23 @@ const ActivityRegisterScreen = ({navigation, route}) => {
   };
 
   const onSubmit = () => {
-    if (!address._id) {
+    if (user.idcard === 'not provided yet') {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.pleaseprovideidcard'),
+        }),
+      );
+      return;
+    } else if (user.phone_number === 'not provided yet') {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('activity.pleaseprovidephonenumber'),
+        }),
+      );
+      return;
+    } else if (!address._id) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -146,6 +177,48 @@ const ActivityRegisterScreen = ({navigation, route}) => {
     setEditModalOpen1(false);
   };
 
+  const updateIdcard = async () => {
+    if (value.idcard.length < 10) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.phoneerror'),
+        }),
+      );
+    } else {
+      dispatch(
+        editUserProfile(
+          {
+            type: 'idcard',
+            idcard: value.idcard,
+          },
+          `${t('signup.idcard')} ${t('editprofile.sucessed')}`,
+        ),
+      );
+    }
+  };
+
+  const updatePhoneNumber = async (data) => {
+    if (value.phone_number.length < 10) {
+      dispatch(
+        setSnackbarDisplay({
+          state: 'error',
+          message: t('signup.phoneerror'),
+        }),
+      );
+    } else {
+      dispatch(
+        editUserProfile(
+          {
+            type: 'phone_number',
+            phone_number: value.phone_number,
+          },
+          `${t('signup.phone_number')} ${t('editprofile.sucessed')}`,
+        ),
+      );
+    }
+  };
+
   return (
     <View style={{backgroundColor: COLORS.backgroundColor, flex: 1}}>
       <BackButton />
@@ -159,6 +232,59 @@ const ActivityRegisterScreen = ({navigation, route}) => {
           source={{uri: activity.activity_picture_url}}
         />
         <View style={{marginBottom: 20, paddingHorizontal: 20}}>
+          {user.idcard === 'not provided yet' ||
+          user.phone_number === 'not provided yet' ? (
+            <TitleHeader title={t('activity.neededfirsttime')} />
+          ) : null}
+          {user.idcard === 'not provided yet' && (
+            <Fragment>
+              <FloatingLabelInput
+                floatingLabel={t('editprofile.idcardorpassport')}
+                inputContainerStyle={{borderBottomWidth: 0, width: 300}}
+                onChangeText={(text) => {
+                  setValue({...value, idcard: text});
+                }}
+                value={value.idcard}
+                keyboardType="number-pad"
+              />
+              <View style={{alignItems: 'flex-end'}}>
+                <Button
+                  label={t('activity.save')}
+                  width={100}
+                  color={COLORS.pinkPastel}
+                  onPress={updateIdcard}
+                />
+              </View>
+            </Fragment>
+          )}
+
+          {user.phone_number === 'not provided yet' && (
+            <Fragment>
+              <FloatingLabelInput
+                floatingLabel={t('editprofile.phone_number')}
+                inputContainerStyle={{borderBottomWidth: 0, width: 300}}
+                onChangeText={(text) => {
+                  setValue({...value, phone_number: text});
+                }}
+                value={value.phone_number}
+                keyboardType="number-pad"
+              />
+              <View style={{alignItems: 'flex-end'}}>
+                <Button
+                  label={t('activity.save')}
+                  width={100}
+                  color={
+                    value.phone_number.length !== 10
+                      ? COLORS.inactiveColor
+                      : COLORS.pinkPastel
+                  }
+                  disabled={value.phone_number.length !== 10 ? true : false}
+                  onPress={updatePhoneNumber}
+                />
+              </View>
+            </Fragment>
+          )}
+
           <TitleHeader title={t('activity.course')} />
           <View>
             {activity.courses.map((item, index) => {

@@ -216,6 +216,10 @@ const en = {
     clickhere: 'Go back to filter setting',
   },
   activity: {
+    pleaseprovideidcard: 'Please provide id card \nor passport no ',
+    pleaseprovidephonenumber: 'Please provide phone number',
+    neededfirsttime: 'More information (First time needed)',
+    save: 'Save',
     place: 'Place',
     info: 'Register Info',
     info1: 'Event Info',
@@ -393,6 +397,7 @@ const en = {
     verifiedvaccine: 'Verified covid vaccine',
     sendinfo: 'Send Infomation',
     idcard: 'Identity Card Number',
+    idcardorpassport: 'Identity Card No or Passpost No',
     idcardlengthincorret: 'Identity Card Number must be 13 characters',
     pleasecheck: 'Please check',
     okay: 'Okay',

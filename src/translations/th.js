@@ -216,6 +216,11 @@ const th = {
     selectregion: 'กรุณาเลือกภูมิภาค',
   },
   activity: {
+    pleaseprovideidcard:
+      'กรุณากรอกข้อมูลรหัสบัตรประจำตัวประชาชน \nหรือเลขพาสปอร์ต',
+    pleaseprovidephonenumber: 'กรุณากรอกเบอร์โทรศัพท์',
+    neededfirsttime: 'ข้อมูลส่วนตัวเพิ่มเติม (บันทึกเพียงครั้งเดียว)',
+    save: 'บันทึก',
     place: 'สถานที่',
     info: 'ข้อมูลการสมัคร',
     info1: 'ข้อมูลงาน',
@@ -394,6 +399,7 @@ const th = {
     verifiedvaccine: 'ยืนยันการฉีดวัคซีนแล้ว',
     sendinfo: 'ส่งข้อมูล',
     idcard: 'รหัสบัตรประจำตัวประชาชน',
+    idcardorpassport: 'รหัสบัตรประจำตัวประชาชน หรือเลขพาสปอร์ต',
     idcardlengthincorret: 'กรุณากรอกรหัสบัตรประชาชน 13 หลัก',
     pleasecheck: 'กรุณาตรวจสอบ',
     okay: 'ตกลง',

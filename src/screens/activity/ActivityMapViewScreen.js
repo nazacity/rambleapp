@@ -491,12 +491,6 @@ const ActivityMapViewScreen = ({
         snapToInterval={CardSize + 20}
         snapToAlignment="start"
         style={styles.scrollView}
-        // contentInset={{
-        //   top: 0,
-        //   left: SPACING_FOR_CARD_INSET,
-        //   bottom: 0,
-        //   right: SPACING_FOR_CARD_INSET,
-        // }}
         contentContainerStyle={{
           paddingLeft: CardSize / 2.5,
         }}
