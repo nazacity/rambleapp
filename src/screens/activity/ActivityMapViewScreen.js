@@ -489,7 +489,7 @@ const ActivityMapViewScreen = ({
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
         snapToInterval={CardSize + 20}
-        snapToAlignment="center"
+        snapToAlignment="start"
         style={styles.scrollView}
         // contentInset={{
         //   top: 0,
@@ -498,7 +498,7 @@ const ActivityMapViewScreen = ({
         //   right: SPACING_FOR_CARD_INSET,
         // }}
         contentContainerStyle={{
-          paddingLeft: Platform.OS === 'android' ? CardSize / 2.5 : 0,
+          paddingLeft: CardSize / 2.5,
         }}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: mapAnimation}}}],
