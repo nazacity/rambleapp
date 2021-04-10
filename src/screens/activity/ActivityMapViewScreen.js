@@ -36,6 +36,7 @@ const ActivityMapViewScreen = ({
   state1,
   onLoadMore,
   loading1,
+  setLoading1,
   setPage,
   setNoMore,
   filterRef,
@@ -47,6 +48,7 @@ const ActivityMapViewScreen = ({
   const _map = React.useRef(null);
   const _scrollView = React.useRef(null);
   const {t} = React.useContext(LocalizationContext);
+  const [loading2, setLoading2] = useState(false);
 
   const setToFirstItemLocation = (data) => {
     if (data.length > 0) {
@@ -65,16 +67,39 @@ const ActivityMapViewScreen = ({
     _scrollView.current.scrollToOffset({offset: 0, animated: true});
   };
 
+  const fetchFromRegion = async (region) => {
+    dispatch(setActivities([]));
+    try {
+      setLoading2(true);
+
+      const res = await get(
+        `/api/users/getactivities?region=${region}&limit=50`,
+      );
+
+      if (res.status === 200) {
+        dispatch(setActivities([...res.data]));
+        setNoMore(true);
+      }
+
+      setToFirstItemLocation(res.data);
+      setLoading2(false);
+    } catch (error) {
+      console.log(error);
+      setLoading2(false);
+    }
+  };
+
   const filterOption = [
     {
       id: '0',
       item_th: 'ทุกภาค',
       item_en: 'All region',
       function: async () => {
-        dispatch(setLoading(true));
         setPage(1);
         setNoMore(false);
+        dispatch(setActivities([]));
         try {
+          setLoading2(true);
           const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
           if (res.status === 200) {
@@ -82,10 +107,10 @@ const ActivityMapViewScreen = ({
           }
 
           setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
+          setLoading2(false);
         } catch (error) {
           console.log(error);
-          dispatch(setLoading(false));
+          setLoading2(false);
         }
       },
     },
@@ -94,29 +119,7 @@ const ActivityMapViewScreen = ({
       item_th: 'ภาคกลาง',
       item_en: 'Central',
       function: async () => {
-        dispatch(setLoading(true));
-
-        try {
-          filterRef.current.scrollToIndex({
-            animated: true,
-            index: 0,
-            viewOffset: 40,
-          });
-          const res = await get(
-            `/api/users/getactivities?region=ภาคกลาง&limit=50`,
-          );
-
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคกลาง');
       },
     },
     {
@@ -124,22 +127,7 @@ const ActivityMapViewScreen = ({
       item_th: 'ภาคเหนือ',
       item_en: 'North',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคเหนือ&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคเหนือ');
       },
     },
     {
@@ -147,22 +135,7 @@ const ActivityMapViewScreen = ({
       item_th: 'ภาคตะวันออก',
       item_en: 'East',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออก&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคตะวันออก');
       },
     },
     {
@@ -170,22 +143,7 @@ const ActivityMapViewScreen = ({
       item_th: 'ภาคตะวันตก',
       item_en: 'West',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคตะวันตก');
       },
     },
     {
@@ -193,22 +151,7 @@ const ActivityMapViewScreen = ({
       item_th: 'ภาคใต้',
       item_en: 'South',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคใต้&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคใต้');
       },
     },
     {
@@ -216,33 +159,20 @@ const ActivityMapViewScreen = ({
       item_th: 'ภาคตะวันออกเฉียงเหนือ',
       item_en: 'Northeast',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-
-          setToFirstItemLocation(res.data);
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคตะวันออกเฉียงเหนือ');
       },
     },
   ];
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      _scrollView.current.scrollToIndex({
-        animated: true,
-        index: 0,
-        viewOffset: 40,
-      });
+      if (activities.length > 0) {
+        _scrollView.current.scrollToIndex({
+          animated: true,
+          index: 0,
+          viewOffset: 500,
+        });
+      }
     });
     return unsubscribe;
   }, []);
@@ -461,10 +391,9 @@ const ActivityMapViewScreen = ({
       <View
         style={{
           position: 'absolute',
-          left: 50,
           flexDirection: 'row',
           alignItems: 'center',
-          top: Platform.OS === 'ios' ? 20 : 10,
+          top: 55,
         }}>
         {ViewButtonDisplay()}
         <FilterOption
@@ -477,6 +406,19 @@ const ActivityMapViewScreen = ({
 
       {/* <ViewModeButton setDark={setDark} dark={dark} /> */}
 
+      {loading2 && (
+        <View
+          style={{
+            height: CardHeight,
+            width: SIZES.width,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            bottom: 0,
+          }}>
+          <ActivityIndicator color={COLORS.primary} size={30} />
+        </View>
+      )}
       <Animated.FlatList
         data={activities}
         keyExtractor={(item) => `${item._id}`}
@@ -507,14 +449,14 @@ const ActivityMapViewScreen = ({
               <View
                 style={{
                   height: CardHeight,
+                  width: activities.length === 0 ? SIZES.width : 100,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: 100,
                 }}>
                 <ActivityIndicator color={COLORS.primary} size={30} />
               </View>
             )}
-            {activities.length === 0 && !loading1 && (
+            {activities.length === 0 && !loading1 && !loading2 && (
               <View
                 style={{
                   width: CardSize,
@@ -549,21 +491,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: SIZES.width,
   },
-  searchBox: {
-    position: 'absolute',
-    marginTop: Platform.OS === 'ios' ? 40 : 20,
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: '#ccc',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
-  },
+
   chipsScrollView: {
     position: 'absolute',
     top: Platform.OS === 'ios' ? 90 : 80,

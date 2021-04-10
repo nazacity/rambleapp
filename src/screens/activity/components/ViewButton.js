@@ -3,8 +3,18 @@ import {View, TouchableOpacity, Platform, StatusBar} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {COLORS, SHADOW} from '../../../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {setLoading} from '../../../redux/actions/AppStateAction';
+import {useDispatch} from 'react-redux';
 
 const ViewButton = ({top, setView, view, loadAll, setState}) => {
+  const dispatch = useDispatch();
+  const changeView = async (v) => {
+    dispatch(setLoading(true));
+    setState('0');
+    await loadAll();
+    setView(v);
+    dispatch(setLoading(false));
+  };
   return (
     <View
       style={[
@@ -13,17 +23,15 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: COLORS.white,
-          marginHorizontal: 10,
           borderRadius: 3,
+          marginHorizontal: 10,
         },
         SHADOW.default,
       ]}>
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={async () => {
-          setState('0');
-          await loadAll();
-          setView(0);
+          await changeView(0);
         }}
         style={{
           backgroundColor:
@@ -44,9 +52,7 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={async () => {
-          setState('0');
-          await loadAll();
-          setView(1);
+          await changeView(1);
         }}
         style={{
           backgroundColor:

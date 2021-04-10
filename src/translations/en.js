@@ -301,6 +301,7 @@ const en = {
     warning3: 'Ramble Line OA Click here',
     age: 'Age',
     postzip: 'Ship address',
+    emergency: 'Emergency Contact',
   },
   addaddress: {
     title: 'New Address',

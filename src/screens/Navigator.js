@@ -64,6 +64,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   setAddAddressModal,
   setEmergencyModal,
+  setLoading,
 } from '../redux/actions/AppStateAction';
 
 // AsyncStorage
@@ -71,7 +72,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {ActivityIcon, HomeIcon} from '../components/Icon';
 import SplashScreen from 'react-native-splash-screen';
-import {useIsFocused} from '@react-navigation/native';
 
 const HomeStack = createStackNavigator();
 const ActivityStack = createStackNavigator();
@@ -79,14 +79,9 @@ const CommunityStack = createStackNavigator();
 const OnboardingAndAuthorizingStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-function FocusAwareStatusBar(props) {
-  const isFocused = useIsFocused();
-
-  return isFocused ? <StatusBar {...props} /> : null;
-}
-
 export const MainTabScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
+  const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -106,6 +101,7 @@ export const MainTabScreen = ({navigation, route}) => {
         }}
         listeners={{
           tabPress: (e) => {
+            dispatch(setLoading(true));
             navigation.jumpTo('home', {screen: 'Home'});
           },
         }}
@@ -119,6 +115,7 @@ export const MainTabScreen = ({navigation, route}) => {
         }}
         listeners={{
           tabPress: (e) => {
+            dispatch(setLoading(true));
             navigation.jumpTo('activity', {screen: 'Activty'});
           },
         }}

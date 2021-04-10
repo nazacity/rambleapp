@@ -9,9 +9,8 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
+import {FONTS, COLORS, SIZES} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
-import FilterButton from '../../components/layout/FilterButton';
 import ViewButton from './components/ViewButton';
 import {get} from '../../redux/actions/request';
 import {useSelector, useDispatch} from 'react-redux';
@@ -119,10 +118,9 @@ const ActivityScreen = ({navigation}) => {
 
   const firstTimeLoad = async () => {
     dispatch(setLoading(true));
-    filterRef.current.scrollToIndex({
+    filterRef.current.scrollToOffset({
       animated: true,
-      index: 0,
-      viewOffset: 40,
+      offset: 0,
     });
     setNoMore(false);
     setPage(0);
@@ -139,10 +137,11 @@ const ActivityScreen = ({navigation}) => {
   }, []);
 
   const loadAll = async () => {
-    dispatch(setLoading(true));
     setPage(1);
     setNoMore(false);
+    dispatch(setActivities([]));
     try {
+      setLoading1(true);
       filterRef.current.scrollToIndex({
         animated: true,
         index: 0,
@@ -153,10 +152,28 @@ const ActivityScreen = ({navigation}) => {
       if (res.status === 200) {
         dispatch(setActivities([...res.data]));
       }
-      dispatch(setLoading(false));
+      setLoading1(false);
     } catch (error) {
       console.log(error);
-      dispatch(setLoading(false));
+      setLoading1(false);
+    }
+  };
+
+  const fetchFromRegion = async (region) => {
+    dispatch(setActivities([]));
+    try {
+      setLoading1(true);
+      const res = await get(
+        `/api/users/getactivities?region=${region}&limit=50`,
+      );
+      if (res.status === 200) {
+        dispatch(setActivities([...res.data]));
+        setNoMore(true);
+      }
+      setLoading1(false);
+    } catch (error) {
+      console.log(error);
+      setLoading1(false);
     }
   };
 
@@ -172,20 +189,7 @@ const ActivityScreen = ({navigation}) => {
       item_th: 'ภาคกลาง',
       item_en: 'Central',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคกลาง&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคกลาง');
       },
     },
     {
@@ -193,20 +197,7 @@ const ActivityScreen = ({navigation}) => {
       item_th: 'ภาคเหนือ',
       item_en: 'North',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคเหนือ&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคเหนือ');
       },
     },
     {
@@ -214,20 +205,7 @@ const ActivityScreen = ({navigation}) => {
       item_th: 'ภาคตะวันออก',
       item_en: 'East',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออก&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคตะวันออก');
       },
     },
     {
@@ -235,20 +213,7 @@ const ActivityScreen = ({navigation}) => {
       item_th: 'ภาคตะวันตก',
       item_en: 'West',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันตก&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคตะวันตก');
       },
     },
     {
@@ -256,20 +221,7 @@ const ActivityScreen = ({navigation}) => {
       item_th: 'ภาคใต้',
       item_en: 'South',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคใต้&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคใต้');
       },
     },
     {
@@ -277,20 +229,7 @@ const ActivityScreen = ({navigation}) => {
       item_th: 'ภาคตะวันออกเฉียงเหนือ',
       item_en: 'Northeast',
       function: async () => {
-        try {
-          dispatch(setLoading(true));
-          const res = await get(
-            `/api/users/getactivities?region=ภาคตะวันออกเฉียงเหนือ&limit=50`,
-          );
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-            setNoMore(true);
-          }
-          dispatch(setLoading(false));
-        } catch (error) {
-          console.log(error);
-          dispatch(setLoading(false));
-        }
+        await fetchFromRegion('ภาคตะวันออกเฉียงเหนือ');
       },
     },
   ];
@@ -317,7 +256,12 @@ const ActivityScreen = ({navigation}) => {
     return (
       <View>
         <PromoteActivity />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 10,
+          }}>
           {ViewButtonDisplay()}
           <FilterOption
             filterOption={filterOption}
@@ -393,6 +337,7 @@ const ActivityScreen = ({navigation}) => {
           setState1={setState}
           onLoadMore={onLoadMore}
           loading1={loading1}
+          setLoading1={setLoading1}
           setPage={setPage}
           setNoMore={setNoMore}
           filterRef={filterRef}

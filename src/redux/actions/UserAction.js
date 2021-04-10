@@ -107,8 +107,16 @@ export const refresh = () => async (dispatch) => {
       type: SET_USER,
       payload: user,
     });
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
   } catch (error) {
     console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
   }
 };
 

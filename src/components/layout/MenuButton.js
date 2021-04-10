@@ -12,7 +12,7 @@ const MenuButton = ({top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
+        top: top ? top : Platform.OS === 'ios' ? 40 : 20,
         left: 10,
         zIndex: 100,
         backgroundColor: '#fff',

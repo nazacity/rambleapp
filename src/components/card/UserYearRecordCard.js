@@ -28,62 +28,81 @@ const UserYearRecordCard = ({data}) => {
       style={[
         {
           backgroundColor: COLORS.white,
-          borderRadius: 10,
+          borderRadius: 5,
           width: SIZES.width - 40,
         },
         SHADOW.default,
       ]}>
-      <View style={{paddingTop: 10}}>
+      <View>
         <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingHorizontal: 5,
-          }}>
+          style={[
+            {
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginHorizontal: 10,
+              backgroundColor: COLORS.backgroundColor,
+              borderRadius: 5,
+            },
+          ]}>
           <View
             style={[
               {
                 marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
-                borderRadius: 5,
-                height: '100%',
-                flex: 1,
+                width: 100,
+                height: 100,
                 alignItems: 'center',
+                justifyContent: 'center',
               },
-              SHADOW.default,
             ]}>
             <Caption style={[FONTS.h4]}> {t('userrecord.year')}</Caption>
-            <Text style={[FONTS.h3]}>{data.year}</Text>
+            <Text style={[FONTS.h1]}>{data.year}</Text>
           </View>
+          <View
+            style={{
+              height: 60,
+              borderLeftWidth: 0.5,
+              borderColor: COLORS.lightOpcaityBlack,
+            }}
+          />
           <View
             style={[
               {
                 marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
-                borderRadius: 5,
+
+                width: 100,
+                height: 100,
                 alignItems: 'center',
-                flex: 1,
+                justifyContent: 'center',
               },
-              SHADOW.default,
             ]}>
             <Caption style={[FONTS.h4]}> {t('userrecord.activity')}</Caption>
             <Text style={[FONTS.h3]}> {data.activity_number}</Text>
             <Caption style={[FONTS.h4]}> {t('userrecord.work')}</Caption>
           </View>
           <View
+            style={{
+              height: 60,
+              borderLeftWidth: 0.5,
+              borderColor: COLORS.lightOpcaityBlack,
+            }}
+          />
+          <View
             style={[
               {
                 marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
-                borderRadius: 5,
+
+                width: 100,
+                height: 100,
                 alignItems: 'center',
-                flex: 1,
+                justifyContent: 'center',
               },
-              SHADOW.default,
             ]}>
             <Caption style={[FONTS.h4]}>{t('userrecord.distance')}</Caption>
             <Text style={[FONTS.h3]}>{data.distance}</Text>
@@ -91,6 +110,14 @@ const UserYearRecordCard = ({data}) => {
           </View>
         </View>
       </View>
+      <View
+        style={{
+          width: '60%',
+          borderBottomWidth: 0.5,
+          borderColor: COLORS.lightOpcaityBlack,
+          alignSelf: 'center',
+        }}
+      />
       <View>
         {data.user_activities.length === 0 ? (
           <View
@@ -99,7 +126,7 @@ const UserYearRecordCard = ({data}) => {
               justifyContent: 'center',
               alignItems: 'center',
               height: 100,
-              margin: 20,
+              margin: 10,
             }}>
             <Text style={[FONTS.h2, {color: COLORS.primary}]}>
               {t('history.noactivity')}
@@ -122,12 +149,11 @@ const UserYearRecordCard = ({data}) => {
                     {
                       width: 100,
                       height: 100,
-                      borderRadius: 100,
+                      borderRadius: 5,
                       backgroundColor: COLORS.white,
                       marginRight:
                         index === data.user_activities.length - 1 ? 0 : 10,
                     },
-                    SHADOW.image,
                   ]}>
                   <TouchableOpacity
                     activeOpacity={0.9}
@@ -135,8 +161,7 @@ const UserYearRecordCard = ({data}) => {
                       {
                         width: 100,
                         height: 100,
-                        borderRadius: 100,
-                        overflow: 'hidden',
+                        borderRadius: 5,
                       },
                       SHADOW.image,
                     ]}
@@ -151,7 +176,7 @@ const UserYearRecordCard = ({data}) => {
                         width: 100,
                         height: 100,
                         resizeMode: 'cover',
-                        borderRadius: 100,
+                        borderRadius: 5,
                         overflow: 'hidden',
                       }}></ImageBackground>
                   </TouchableOpacity>

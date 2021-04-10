@@ -3,18 +3,29 @@ import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 import {COLORS, FONTS, SHADOW, SIZES} from '../../constants';
 
-const FilterOption = ({state, setState, filterOption, filterRef}) => {
+const FilterOption = ({
+  state,
+  setState,
+  filterOption,
+  filterRef,
+  ViewButtonDisplay,
+}) => {
   const lang = useSelector((state) => state.appState.lang);
   return (
     <FlatList
       ref={filterRef}
       horizontal
       showsHorizontalScrollIndicator={false}
+      ListHeaderComponent={ViewButtonDisplay}
       data={filterOption}
       keyExtractor={(item) => `${item.id}`}
       style={{width: 50}}
-      contentContainerStyle={{padding: 20}}
-      ItemSeparatorComponent={() => <View style={{margin: 5}} />}
+      contentContainerStyle={{
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        paddingVertical: 2,
+      }}
+      ItemSeparatorComponent={() => <View style={{marginHorizontal: 5}} />}
       renderItem={({item, index}) => {
         return (
           <View

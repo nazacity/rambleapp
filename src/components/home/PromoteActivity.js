@@ -151,7 +151,7 @@ const PromoteActivity = () => {
   return (
     <View
       style={{
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.backgroundColor,
       }}>
       <Swiper
         height={(SIZES.width * 2) / 3}

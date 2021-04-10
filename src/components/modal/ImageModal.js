@@ -1,7 +1,6 @@
 import React, {useState, Fragment} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import {SIZES, FONTS, COLORS} from '../../constants';
-import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView';
+import {TouchableOpacity, Image} from 'react-native';
+import {SIZES} from '../../constants';
 
 import Modal from 'react-native-modal';
 
