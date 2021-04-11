@@ -434,7 +434,7 @@ const ActivityMapViewScreen = ({
         snapToAlignment="start"
         style={styles.scrollView}
         contentContainerStyle={{
-          paddingLeft: CardSize / 2.5,
+          paddingLeft: SIZES.width / 2 - CardSize / 2,
         }}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: mapAnimation}}}],
