@@ -62,7 +62,7 @@ const FilterOption = ({
         onBackButtonPress={handleClose}>
         <View
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             overflow: 'hidden',
             width: SIZES.width - 60,
           }}>
@@ -109,7 +109,10 @@ const FilterOption = ({
                     style={{
                       height: 50,
                       width: SIZES.width - 60,
-                      backgroundColor: COLORS.backgroundColor,
+                      backgroundColor:
+                        state.id === item.id
+                          ? COLORS.primary
+                          : COLORS.backgroundColor,
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}
@@ -128,9 +131,7 @@ const FilterOption = ({
                         FONTS.h4,
                         {
                           color:
-                            state.id === item.id
-                              ? COLORS.primary
-                              : COLORS.black,
+                            state.id === item.id ? COLORS.white : COLORS.black,
                         },
                       ]}>
                       {lang === 'th' && item.item_th}
