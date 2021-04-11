@@ -79,7 +79,7 @@ const HomeScreen = ({navigation}) => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     dispatch(refresh());
-    wait(2000).then(() => setRefreshing(false));
+    setRefreshing(false);
   }, []);
 
   return (

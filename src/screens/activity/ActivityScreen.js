@@ -85,6 +85,7 @@ const ActivityScreen = ({navigation}) => {
         <ActivityCard
           item={{activity: {id: item}}}
           onPress={() => {
+            dispatch(setLoading(true));
             navigation.navigate('ActivityDetail', {
               activityId: item._id,
             });

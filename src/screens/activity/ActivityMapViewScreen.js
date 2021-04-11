@@ -239,6 +239,7 @@ const ActivityMapViewScreen = ({
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
+              dispatch(setLoading(true));
               navigation.navigate('ActivityDetail', {
                 activityId: item._id,
               });

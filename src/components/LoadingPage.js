@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import {COLORS, FONTS, SIZES} from '../constants';
 import {useSelector} from 'react-redux';
 import {ActivityIndicator} from 'react-native';
+import LottieView from 'lottie-react-native';
 
 const LoadingPage = () => {
   const isLoading = useSelector((state) => state.appState.isLoading);
@@ -18,15 +19,15 @@ const LoadingPage = () => {
             padding: 20,
             borderRadius: 10,
             flex: 1,
+            width: SIZES.width,
             justifyContent: 'center',
             alignItems: 'center',
-            width: SIZES.width,
           }}>
-          <Text style={[FONTS.body3]}>Loading...</Text>
-          <ActivityIndicator
-            style={{padding: 10}}
-            size="small"
-            color={COLORS.primary}
+          <LottieView
+            autoPlay={true}
+            loop={true}
+            source={require('../../assets/loader/Loader.json')}
+            style={{width: 100, height: 100}}
           />
         </View>
       }
