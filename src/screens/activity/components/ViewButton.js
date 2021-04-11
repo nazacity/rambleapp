@@ -10,7 +10,7 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
   const dispatch = useDispatch();
   const changeView = async (v) => {
     dispatch(setLoading(true));
-    setState('0');
+    setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
     await loadAll();
     setView(v);
     dispatch(setLoading(false));
@@ -22,7 +22,7 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: COLORS.white,
+          backgroundColor: COLORS.lightOpcaityBlack,
           borderRadius: 3,
           marginHorizontal: 10,
           borderWidth: 2,
@@ -38,8 +38,6 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
           backgroundColor:
             view === 0 ? COLORS.backgroundColor : COLORS.inputPlaceholderColor,
           padding: 5,
-          height: 30,
-          width: 30,
           alignItems: 'center',
           justifyContent: 'center',
         }}>
@@ -59,8 +57,6 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
           backgroundColor:
             view === 1 ? COLORS.backgroundColor : COLORS.inputPlaceholderColor,
           padding: 5,
-          height: 30,
-          width: 30,
           alignItems: 'center',
           justifyContent: 'center',
         }}>

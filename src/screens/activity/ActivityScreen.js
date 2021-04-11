@@ -32,7 +32,11 @@ const ActivityScreen = ({navigation}) => {
   const [loading1, setLoading1] = useState(false);
   const [page, setPage] = useState(0);
   const [noMore, setNoMore] = useState(false);
-  const [state, setState] = useState('0');
+  const [state, setState] = useState({
+    id: '0',
+    item_th: 'ทุกภาค',
+    item_en: 'All region',
+  });
   const [view, setView] = useState(0);
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activity.activities);
@@ -118,13 +122,13 @@ const ActivityScreen = ({navigation}) => {
   };
 
   const firstTimeLoad = async () => {
-    filterRef.current.scrollToOffset({
-      animated: true,
-      offset: 0,
-    });
+    // filterRef.current.scrollToOffset({
+    //   animated: true,
+    //   offset: 0,
+    // });
     setNoMore(false);
     setPage(0);
-    setState('0');
+    setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
     await onLoadMore();
   };
 
@@ -141,11 +145,11 @@ const ActivityScreen = ({navigation}) => {
     dispatch(setActivities([]));
     try {
       setLoading1(true);
-      filterRef.current.scrollToIndex({
-        animated: true,
-        index: 0,
-        viewOffset: 40,
-      });
+      // filterRef.current.scrollToIndex({
+      //   animated: true,
+      //   index: 0,
+      //   viewOffset: 40,
+      // });
       const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
       if (res.status === 200) {
@@ -235,7 +239,7 @@ const ActivityScreen = ({navigation}) => {
 
   const onRefresh = async () => {
     setRefresh(true);
-    setState('0');
+    setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
     await loadAll();
     setRefresh(false);
   };
@@ -268,6 +272,7 @@ const ActivityScreen = ({navigation}) => {
             state={state}
             setState={setState}
             filterRef={filterRef}
+            loading1={loading1}
           />
         </View>
       </View>
