@@ -20,12 +20,13 @@ import TitleHeader from '../../components/layout/TitleHeader';
 import AddressCard from '../../components/card/AddressCard';
 import EditAddressModal from '../../components/modal/EditAddressModal';
 import EmergencyCard from '../../components/card/EmergencyCard';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const PaymentScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const {userActivity} = route.params;
   const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading1] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -55,7 +56,8 @@ const PaymentScreen = ({navigation, route}) => {
       }
     }
 
-    setLoading(false);
+    setLoading1(false);
+    dispatch(setLoading(false));
   };
 
   useEffect(() => {
@@ -75,16 +77,7 @@ const PaymentScreen = ({navigation, route}) => {
   }, []);
 
   if (loading) {
-    return (
-      <Spinner
-        visible={true}
-        textContent={'Loading...'}
-        textStyle={{
-          color: '#FFF',
-        }}
-        color={COLORS.pinkPastel}
-      />
-    );
+    return <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}} />;
   }
 
   return (

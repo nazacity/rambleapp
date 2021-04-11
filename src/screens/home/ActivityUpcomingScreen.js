@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {FONTS, COLORS} from '../../constants';
 import {getActivityById} from '../../redux/actions/ActivityAction';
@@ -29,8 +29,6 @@ import TitleHeader from '../../components/layout/TitleHeader';
 import AddressCard from '../../components/card/AddressCard';
 import EmergencyCard from '../../components/card/EmergencyCard';
 
-const initialLayout = {width: Dimensions.get('window').width};
-
 const ActivityDetailScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
@@ -43,82 +41,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
     state: 'unregister',
     transaction: [],
   });
-
-  const FirstRoute = () => (
-    <View style={{padding: 20}}>
-      <ContestNo contest_no={userActivity.contest_no} />
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 1}}>
-          <TitleHeader title={t('payment.course')} noDot={true} />
-          <Text style={[FONTS.body4, {marginBottom: 10}]}>
-            {userActivity.activity.course.title}
-          </Text>
-        </View>
-        <View style={{flex: 0.5}}>
-          <TitleHeader title={t('payment.size')} noDot={true} />
-          <Text style={[FONTS.body4, {marginBottom: 10}]}>
-            {userActivity.size.size.toUpperCase()}
-          </Text>
-        </View>
-      </View>
-      <ActualDate activity={activity} />
-      <TimelineDisplay activity={activity} />
-      <View>
-        <TitleHeader title={t('payment.address')} />
-        <Text style={[FONTS.body4, {marginLeft: 10}]}>
-          {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' &&
-            t('payment.postzip')}
-          {userActivity.address._id === '5ff6600d20ed83388ab4ccbd' &&
-            t('activity.atevent')}
-        </Text>
-        {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' && (
-          <View style={{padding: 5}}>
-            <AddressCard
-              item={
-                userActivity.address._id === '5ff6600d20ed83388ab4ccbd'
-                  ? {
-                      _id: '5ff6600d20ed83388ab4ccbd',
-                      address: t('activity.atevent'),
-                    }
-                  : userActivity.address
-              }
-              editable={false}
-            />
-          </View>
-        )}
-      </View>
-      <View>
-        <TitleHeader title={t('payment.emergency')} />
-        <View style={{padding: 5}}>
-          <EmergencyCard
-            item={userActivity.emergency_contact}
-            editable={false}
-          />
-        </View>
-      </View>
-      <MoreInfomation activity={activity} />
-      <Transaction userActivity={userActivity} />
-      <ButtonSection userActivity={userActivity} activity={activity} />
-    </View>
-  );
-
-  const SecondRoute = () => (
-    <View style={{padding: 20}}>
-      {/* <Courses activity={activity} /> */}
-      {activity.routes.length > 0 && <Routes activity={activity} />}
-      <ShirtStyle activity={activity} />
-      {activity.racepack.length > 0 && <RacePack activity={activity} />}
-      <Gift activity={activity} />
-      <Reward activity={activity} />
-    </View>
-  );
-
-  const ThirdRoute = () => (
-    <View style={{padding: 20}}>
-      <Rules activity={activity} />
-      {/* <MoreInfomation activity={activity} /> */}
-    </View>
-  );
+  const scrollRef = useRef();
 
   const checkUserActivities = () => {
     const checkActivity = user.user_activities.find(
@@ -142,31 +65,10 @@ const ActivityDetailScreen = ({navigation, route}) => {
     return unsubscribe;
   }, [user, userActivity]);
 
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    {key: 'first', title: t('activity.info')},
-    {key: 'second', title: t('activity.info1')},
-    {key: 'third', title: t('activity.more')},
-  ]);
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-  });
   const [scrollable, setScrollable] = useState(true);
 
   if (loading) {
-    return (
-      <Spinner
-        visible={true}
-        textContent={'Loading...'}
-        textStyle={{
-          color: '#FFF',
-        }}
-        color={COLORS.pinkPastel}
-      />
-    );
+    return <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}} />;
   }
 
   if (userActivity.state === 'finished') {
@@ -214,26 +116,72 @@ const ActivityDetailScreen = ({navigation, route}) => {
         buttonAction={true}
         userActivity={userActivity}
         setUserActivity={setUserActivity}>
-        <TabView
-          navigationState={{index, routes}}
-          renderScene={renderScene}
-          renderTabBar={(props) => (
-            <TabBar
-              {...props}
-              indicatorStyle={{backgroundColor: 'white'}}
-              style={{backgroundColor: COLORS.primary}}
-              renderLabel={({route, focused, color}) => (
-                <Text style={[FONTS.h3, {color}]}>{route.title}</Text>
-              )}
-            />
-          )}
-          onIndexChange={setIndex}
-          initialLayout={initialLayout}
-        />
-
-        {/* <MinorAdvertise /> */}
-        <View style={{marginBottom: 50}}></View>
+        <ScrollView
+          scrollRef={scrollRef}
+          style={{paddingHorizontal: 20, marginBottom: 60}}>
+          <ContestNo contest_no={userActivity.contest_no} />
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
+              <TitleHeader title={t('payment.course')} noDot={true} />
+              <Text style={[FONTS.body4, {marginBottom: 10}]}>
+                {userActivity.activity.course.title}
+              </Text>
+            </View>
+            <View style={{flex: 0.5}}>
+              <TitleHeader title={t('payment.size')} noDot={true} />
+              <Text style={[FONTS.body4, {marginBottom: 10}]}>
+                {userActivity.size.size.toUpperCase()}
+              </Text>
+            </View>
+          </View>
+          <ActualDate activity={activity} />
+          <TimelineDisplay activity={activity} />
+          <View>
+            <TitleHeader title={t('payment.address')} />
+            <Text style={[FONTS.body4, {marginLeft: 10}]}>
+              {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' &&
+                t('payment.postzip')}
+              {userActivity.address._id === '5ff6600d20ed83388ab4ccbd' &&
+                t('activity.atevent')}
+            </Text>
+            {userActivity.address._id !== '5ff6600d20ed83388ab4ccbd' && (
+              <View style={{padding: 5}}>
+                <AddressCard
+                  item={
+                    userActivity.address._id === '5ff6600d20ed83388ab4ccbd'
+                      ? {
+                          _id: '5ff6600d20ed83388ab4ccbd',
+                          address: t('activity.atevent'),
+                        }
+                      : userActivity.address
+                  }
+                  editable={false}
+                />
+              </View>
+            )}
+          </View>
+          <View>
+            <TitleHeader title={t('payment.emergency')} />
+            <View style={{padding: 5}}>
+              <EmergencyCard
+                item={userActivity.emergency_contact}
+                editable={false}
+              />
+            </View>
+          </View>
+          <MoreInfomation activity={activity} />
+          <Transaction userActivity={userActivity} />
+          {activity.routes.length > 0 && <Routes activity={activity} />}
+          <ShirtStyle activity={activity} />
+          {activity.racepack.length > 0 && <RacePack activity={activity} />}
+          <Gift activity={activity} />
+          <Reward activity={activity} />
+          <Rules activity={activity} />
+        </ScrollView>
       </HeaderImage>
+      <View style={{position: 'absolute', bottom: 20, right: 20}}>
+        <ButtonSection userActivity={userActivity} activity={activity} />
+      </View>
     </View>
   );
 };

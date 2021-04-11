@@ -75,8 +75,8 @@ const ActivityScreen = ({navigation}) => {
       inputRange: [
         -1,
         0,
-        (CardHeight / 0.8) * index,
-        (CardHeight / 0.8) * (index + 1),
+        (CardHeight + 20) * index + 300,
+        (CardHeight + 20) * (index + 1) + 300,
       ],
       outputRange: [1, 1, 1, 0.7],
     });
@@ -117,7 +117,6 @@ const ActivityScreen = ({navigation}) => {
   };
 
   const firstTimeLoad = async () => {
-    dispatch(setLoading(true));
     filterRef.current.scrollToOffset({
       animated: true,
       offset: 0,
@@ -126,7 +125,6 @@ const ActivityScreen = ({navigation}) => {
     setPage(0);
     setState('0');
     await onLoadMore();
-    dispatch(setLoading(false));
   };
 
   useEffect(() => {

@@ -18,6 +18,7 @@ import {Icon} from 'react-native-elements';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {setHisActivities} from '../../redux/actions/ActivityAction';
 import TitleHeader from '../layout/TitleHeader';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const HistoryActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -25,7 +26,7 @@ const HistoryActivity = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading1] = useState(true);
   const [historyActivities, setHistoryActivities] = useState([]);
 
   const checkHistoryActivityState = () => {
@@ -36,7 +37,7 @@ const HistoryActivity = () => {
       dispatch(setHisActivities(finishedActivities));
       setHistoryActivities(finishedActivities.slice(0, 5));
     }
-    setLoading(false);
+    setLoading1(false);
   };
 
   useEffect(() => {
@@ -52,6 +53,7 @@ const HistoryActivity = () => {
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => {
+          dispatch(setLoading(true));
           navigation.navigate('ActivityHistory', {
             userActivity: item,
           });
@@ -67,8 +69,8 @@ const HistoryActivity = () => {
           style={[
             SHADOW.image,
             {
-              width: 150,
-              height: 150,
+              width: 135,
+              height: 90,
               borderRadius: 5,
               backgroundColor: COLORS.backgroundColor,
             },
@@ -81,8 +83,8 @@ const HistoryActivity = () => {
             <ImageBackground
               source={{uri: item.activity.id.activity_picture_url}}
               style={{
-                width: 150,
-                height: 150,
+                width: 135,
+                height: 90,
                 resizeMode: 'cover',
                 borderRadius: 5,
               }}

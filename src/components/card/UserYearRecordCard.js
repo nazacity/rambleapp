@@ -10,11 +10,12 @@ import LocalizationContext from '../../screens/LocalizationContext';
 import {Title, Caption, Text} from 'react-native-paper';
 import {Avatar, Icon} from 'react-native-elements';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import Distance from './recordcard/Distance1';
 import {useNavigation} from '@react-navigation/native';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 // import Average from './recordcard/Average';
 // import Time from './recordcard/Time';
@@ -22,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 const UserYearRecordCard = ({data}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -73,7 +75,6 @@ const UserYearRecordCard = ({data}) => {
                 marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
-
                 width: 100,
                 height: 100,
                 alignItems: 'center',
@@ -97,7 +98,6 @@ const UserYearRecordCard = ({data}) => {
                 marginHorizontal: 5,
                 padding: 10,
                 backgroundColor: COLORS.backgroundColor,
-
                 width: 100,
                 height: 100,
                 alignItems: 'center',
@@ -144,43 +144,35 @@ const UserYearRecordCard = ({data}) => {
             keyExtractor={(item, index) => `${item._id} ${index}`}
             renderItem={({item, index}) => {
               return (
-                <View
+                <TouchableOpacity
+                  activeOpacity={0.9}
                   style={[
                     {
-                      width: 100,
-                      height: 100,
+                      width: 90,
+                      height: 60,
                       borderRadius: 5,
                       backgroundColor: COLORS.white,
                       marginRight:
                         index === data.user_activities.length - 1 ? 0 : 10,
                     },
-                  ]}>
-                  <TouchableOpacity
-                    activeOpacity={0.9}
-                    style={[
-                      {
-                        width: 100,
-                        height: 100,
-                        borderRadius: 5,
-                      },
-                      SHADOW.image,
-                    ]}
-                    onPress={() => {
-                      navigation.navigate('ActivityHistory', {
-                        userActivity: item,
-                      });
-                    }}>
-                    <ImageBackground
-                      source={{uri: item.activity.id.activity_picture_url}}
-                      style={{
-                        width: 100,
-                        height: 100,
-                        resizeMode: 'cover',
-                        borderRadius: 5,
-                        overflow: 'hidden',
-                      }}></ImageBackground>
-                  </TouchableOpacity>
-                </View>
+                    SHADOW.image,
+                  ]}
+                  onPress={() => {
+                    dispatch(setLoading(true));
+                    navigation.navigate('ActivityHistory', {
+                      userActivity: item,
+                    });
+                  }}>
+                  <ImageBackground
+                    source={{uri: item.activity.id.activity_picture_url}}
+                    style={{
+                      width: 90,
+                      height: 60,
+                      resizeMode: 'cover',
+                      borderRadius: 5,
+                      overflow: 'hidden',
+                    }}></ImageBackground>
+                </TouchableOpacity>
               );
             }}
             contentContainerStyle={{padding: 10}}

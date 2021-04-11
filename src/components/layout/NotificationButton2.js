@@ -24,8 +24,9 @@ const NotificationButton2 = ({value, top, right, activity}) => {
           justifyContent: 'center',
           alignItems: 'center',
           zIndex: 100,
+          borderColor: COLORS.lightOpcaityBlack,
+          borderWidth: 1,
         },
-        SHADOW.default,
       ]}>
       <Announcement2
         open1={annoucementModalOpen}

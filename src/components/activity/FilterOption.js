@@ -30,7 +30,6 @@ const FilterOption = ({
         return (
           <View
             style={[
-              SHADOW.default,
               {
                 backgroundColor: COLORS.backgroundColor,
                 borderRadius: 5,
@@ -46,8 +45,9 @@ const FilterOption = ({
                 alignItems: 'center',
                 paddingHorizontal: 5,
                 borderRadius: 5,
-                borderWidth: state === item.id ? 1 : 0,
-                borderColor: COLORS.primary,
+                borderWidth: 1,
+                borderColor:
+                  state === item.id ? COLORS.primary : COLORS.lightOpcaityBlack,
               }}
               onPress={() => {
                 filterRef.current.scrollToIndex({

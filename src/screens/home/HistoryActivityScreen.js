@@ -11,8 +11,6 @@ import {get} from '../../redux/actions/request';
 import UserYearRecordCard from '../../components/card/UserYearRecordCard';
 
 const HistoryActivityScreen = () => {
-  const {t} = React.useContext(LocalizationContext);
-  const lang = useSelector((state) => state.appState.lang);
   const scrollY = useRef(new Animated.Value(0)).current;
   const [data, setData] = useState([]);
 

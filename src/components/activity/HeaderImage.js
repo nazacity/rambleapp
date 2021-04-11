@@ -72,16 +72,7 @@ const HeaderImage = ({
               alignSelf: 'stretch',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
-            {buttonAction && (
-              <View style={{position: 'absolute', bottom: 20, right: 20}}>
-                <ButtonSection
-                  userActivity={userActivity}
-                  activity={activity}
-                />
-              </View>
-            )}
-          </View>
+            }}></View>
         )}>
         {location && (
           <TriggeringView
@@ -97,32 +88,6 @@ const HeaderImage = ({
               navTitleView.current.fadeInUp(50);
             }}
             onDisplay={() => navTitleView.current.fadeOut(50)}>
-            {activity.location && (
-              <View
-                style={[
-                  {
-                    width: 40,
-                    height: 40,
-                    backgroundColor: COLORS.pinkPastel,
-                    borderRadius: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginRight: 20,
-                    borderRadius: 50,
-                  },
-                  SHADOW.default,
-                ]}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={() => {
-                    Linking.openURL(
-                      `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
-                    );
-                  }}>
-                  <FontAwesome5 name="map-marked-alt" size={20} color="#fff" />
-                </TouchableOpacity>
-              </View>
-            )}
             <View style={{width: 60}}>
               <Text>{t('createpost.province')} </Text>
               <Text>{t('activity.place')} </Text>
@@ -136,6 +101,38 @@ const HeaderImage = ({
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}></View>
+            {activity.location && (
+              <View
+                style={[
+                  {
+                    position: 'absolute',
+                    top: 10,
+                    right: 90,
+                    borderRadius: 50,
+                    width: 30,
+                    height: 30,
+                    backgroundColor: COLORS.white,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderColor: COLORS.lightOpcaityBlack,
+                    borderWidth: 1,
+                  },
+                ]}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    Linking.openURL(
+                      `https://www.google.com/maps/search/?api=1&query=${activity.location.lat},${activity.location.lng}`,
+                    );
+                  }}>
+                  <FontAwesome5
+                    name="map-marked-alt"
+                    size={16}
+                    color={COLORS.primary}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
             {userActivity?.announcement && (
               <NotificationButton
                 value={announcementNumber.length}
@@ -145,15 +142,14 @@ const HeaderImage = ({
                 setUserActivity={setUserActivity}
               />
             )}
-            {userActivity.state === 'unregister' &&
-              activity.announcement.length !== 0 && (
-                <NotificationButton2
-                  value={activity.announcement.length}
-                  top={10}
-                  right={50}
-                  activity={activity}
-                />
-              )}
+            {userActivity.state === 'unregister' && (
+              <NotificationButton2
+                value={activity.announcement.length}
+                top={10}
+                right={50}
+                activity={activity}
+              />
+            )}
             {/* <LineShareButton
               onPress={() => {
                 Linking.openURL(

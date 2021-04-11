@@ -68,9 +68,12 @@ const UserDetail = ({marginTop, editable}) => {
               ? {uri: user.user_background_picture_url}
               : backgroundprofile
           }
-          style={{
-            flex: 1,
-          }}>
+          style={[
+            {
+              flex: 1,
+            },
+            SHADOW.default,
+          ]}>
           <View
             style={{
               flex: 1,

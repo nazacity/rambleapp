@@ -4,15 +4,16 @@ import Button from '../Button';
 import {COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import NewUserRegisterModal from '../modal/NewUserRegisterModal';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const ButtonSection = ({userActivity, activity}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const handleNewUserRegisterModalClose = () => {
     setOpen(false);
   };
@@ -48,6 +49,7 @@ const ButtonSection = ({userActivity, activity}) => {
             label={t('activity.pay')}
             color={COLORS.pinkPastel}
             onPress={() => {
+              dispatch(setLoading(true));
               navigation.navigate('Payment', {
                 userActivity: userActivity,
               });

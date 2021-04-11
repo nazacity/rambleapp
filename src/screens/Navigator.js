@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 import {View, StatusBar} from 'react-native';
 
@@ -82,6 +83,7 @@ const Tab = createMaterialBottomTabNavigator();
 export const MainTabScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -101,7 +103,6 @@ export const MainTabScreen = ({navigation, route}) => {
         }}
         listeners={{
           tabPress: (e) => {
-            dispatch(setLoading(true));
             navigation.jumpTo('home', {screen: 'Home'});
           },
         }}
@@ -115,7 +116,6 @@ export const MainTabScreen = ({navigation, route}) => {
         }}
         listeners={{
           tabPress: (e) => {
-            dispatch(setLoading(true));
             navigation.jumpTo('activity', {screen: 'Activty'});
           },
         }}

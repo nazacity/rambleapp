@@ -19,6 +19,7 @@ import {setUpcomeActivities} from '../../redux/actions/ActivityAction';
 import TitleHeader from '../layout/TitleHeader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import NotificationBadge from '../layout/NotificationBadge';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const UpcomingActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -26,7 +27,7 @@ const UpcomingActivity = () => {
   const user_activities = useSelector((state) => state.user.user_activities);
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading1] = useState(true);
   const [upcomingActivities, setUpcomingActivities] = useState([]);
 
   const checkUpcomingActivityState = () => {
@@ -42,7 +43,7 @@ const UpcomingActivity = () => {
       dispatch(setUpcomeActivities(upcomingActivities));
       setUpcomingActivities(upcomingActivities.slice(0, 5));
     }
-    setLoading(false);
+    setLoading1(false);
   };
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const UpcomingActivity = () => {
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => {
+          dispatch(setLoading(true));
           navigation.navigate('ActivityUpcoming', {
             activityId: item.activity.id._id,
           });
@@ -77,8 +79,8 @@ const UpcomingActivity = () => {
           style={[
             SHADOW.image,
             {
-              width: 150,
-              height: 150,
+              width: 135,
+              height: 90,
               borderRadius: 5,
               backgroundColor: COLORS.backgroundColor,
               position: 'relative',
@@ -92,8 +94,8 @@ const UpcomingActivity = () => {
             <ImageBackground
               source={{uri: item.activity.id.activity_picture_url}}
               style={{
-                width: 150,
-                height: 150,
+                width: 135,
+                height: 90,
                 resizeMode: 'cover',
                 borderRadius: 5,
               }}

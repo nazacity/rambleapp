@@ -30,8 +30,9 @@ const NotificationButton = ({
           justifyContent: 'center',
           alignItems: 'center',
           zIndex: 100,
+          borderColor: COLORS.lightOpcaityBlack,
+          borderWidth: 1,
         },
-        SHADOW.default,
       ]}>
       <Announcement
         open1={annoucementModalOpen}

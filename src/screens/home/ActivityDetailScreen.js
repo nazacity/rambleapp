@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, Dimensions, Text} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Dimensions, Text, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {COLORS, FONTS} from '../../constants';
@@ -22,8 +22,6 @@ import ButtonSection from '../../components/activity/ButtonSection';
 import Routes from '../../components/activity/Routes';
 import RacePack from '../../components/activity/RacePack';
 
-const initialLayout = {width: Dimensions.get('window').width};
-
 const ActivityDetailScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
   const user = useSelector((state) => state.user);
@@ -34,36 +32,7 @@ const ActivityDetailScreen = ({navigation, route}) => {
   const [userActivity, setUserActivity] = useState({
     state: 'unregister',
   });
-
-  const FirstRoute = () => (
-    <View style={{padding: 20}}>
-      <Description activity={activity} />
-      <ActualDate activity={activity} />
-      <RegisterDate activity={activity} />
-      <Courses activity={activity} />
-      {activity.routes.length > 0 && <Routes activity={activity} />}
-      <ShirtStyle activity={activity} />
-      {activity.racepack.length > 0 && <RacePack activity={activity} />}
-      <ButtonSection userActivity={userActivity} activity={activity} />
-    </View>
-  );
-
-  const SecondRoute = () => (
-    <View style={{padding: 20}}>
-      <Gift activity={activity} />
-      <TimelineDisplay activity={activity} />
-      <Reward activity={activity} />
-      <ButtonSection userActivity={userActivity} activity={activity} />
-    </View>
-  );
-
-  const ThirdRoute = () => (
-    <View style={{padding: 20}}>
-      <Rules activity={activity} />
-      <MoreInfomation activity={activity} />
-      <ButtonSection userActivity={userActivity} activity={activity} />
-    </View>
-  );
+  const scrollRef = useRef();
 
   const checkUserActivities = () => {
     const checkActivity = user.user_activities.find(
@@ -76,37 +45,11 @@ const ActivityDetailScreen = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      dispatch(getActivityById(activityId, setLoading, checkUserActivities));
-    });
-
-    return unsubscribe;
-  }, [activity]);
-
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    {key: 'first', title: t('activity.info')},
-    {key: 'second', title: t('activity.reward')},
-    {key: 'third', title: t('activity.more')},
-  ]);
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-  });
+    dispatch(getActivityById(activityId, setLoading, checkUserActivities));
+  }, []);
 
   if (loading) {
-    return (
-      <Spinner
-        visible={true}
-        textContent={'Loading...'}
-        textStyle={{
-          color: '#FFF',
-        }}
-        color={COLORS.pinkPastel}
-      />
-    );
+    return <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}} />;
   }
 
   return (
@@ -116,24 +59,26 @@ const ActivityDetailScreen = ({navigation, route}) => {
         location={true}
         buttonAction={true}
         userActivity={userActivity}>
-        <TabView
-          navigationState={{index, routes}}
-          renderScene={renderScene}
-          renderTabBar={(props) => (
-            <TabBar
-              {...props}
-              indicatorStyle={{backgroundColor: 'white'}}
-              style={{backgroundColor: COLORS.primary}}
-              renderLabel={({route, focused, color}) => (
-                <Text style={[FONTS.h3, {color}]}>{route.title}</Text>
-              )}
-            />
-          )}
-          onIndexChange={setIndex}
-          initialLayout={initialLayout}
-        />
-        <View style={{margin: 10}} />
+        <ScrollView
+          scrollRef={scrollRef}
+          style={{paddingHorizontal: 20, marginBottom: 60}}>
+          <Description activity={activity} />
+          <ActualDate activity={activity} />
+          <RegisterDate activity={activity} />
+          <Courses activity={activity} />
+          {activity.routes.length > 0 && <Routes activity={activity} />}
+          <ShirtStyle activity={activity} />
+          {activity.racepack.length > 0 && <RacePack activity={activity} />}
+          <Gift activity={activity} />
+          <TimelineDisplay activity={activity} />
+          <Reward activity={activity} />
+          <Rules activity={activity} />
+          <MoreInfomation activity={activity} />
+        </ScrollView>
       </HeaderImage>
+      <View style={{position: 'absolute', bottom: 20, right: 20}}>
+        <ButtonSection userActivity={userActivity} activity={activity} />
+      </View>
     </View>
   );
 };

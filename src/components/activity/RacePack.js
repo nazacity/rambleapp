@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import ImageModal from '../modal/ImageModal';
 import {FONTS, COLORS, SHADOW} from '../../constants';
@@ -15,17 +15,17 @@ const RacePack = ({activity}) => {
       <View
         style={[
           {
-            width: 300,
-            height: 200,
+            width: 150,
+            height: 100,
             borderRadius: 5,
-            marginBottom: 10,
+            marginRight: 10,
           },
           SHADOW.image,
         ]}>
         <ImageModal
           style={{
-            width: 300,
-            height: 200,
+            width: 150,
+            height: 100,
             borderRadius: 5,
             backgrounColor: COLORS.white,
             overflow: 'hidden',
@@ -41,34 +41,35 @@ const RacePack = ({activity}) => {
               flex: 1,
               left: 0,
               top: 0,
-              width: 300,
-              height: 200,
+              width: 150,
+              height: 100,
               position: 'absolute',
             }}
           />
-          <View style={{position: 'absolute', bottom: 20, left: 20}}>
-            <Text style={[FONTS.body3, {color: COLORS.white, lineHeight: 18}]}>
+          <View style={{position: 'absolute', bottom: 5, left: 5}}>
+            <Text
+              style={[
+                FONTS.body3,
+                {color: COLORS.white, lineHeight: 18, width: 125},
+              ]}>
               {item.title}
             </Text>
           </View>
-          <View style={{position: 'absolute', top: 5, right: 5}}>
+          {/* <View style={{position: 'absolute', top: 5, right: 5}}>
             <Feather name="zoom-in" size={24} color={COLORS.white} />
-          </View>
+          </View> */}
         </ImageModal>
       </View>
     );
   };
   return (
-    <View style={{marginBottom: 20}}>
+    <View>
       <TitleHeader title={t('activity.other')} />
-      <View
-        style={{
-          marginLeft: 20,
-        }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {activity.racepack.map((item, index) => {
           return <RacePackCard item={item} key={index} />;
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 };

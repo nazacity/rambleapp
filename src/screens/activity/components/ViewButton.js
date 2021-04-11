@@ -25,8 +25,9 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
           backgroundColor: COLORS.white,
           borderRadius: 3,
           marginHorizontal: 10,
+          borderWidth: 2,
+          borderColor: COLORS.lightOpcaityBlack,
         },
-        SHADOW.default,
       ]}>
       <TouchableOpacity
         activeOpacity={0.8}

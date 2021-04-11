@@ -15,8 +15,10 @@ const TimelineDisplay = ({activity}) => {
           backgroundColor: COLORS.white,
           borderRadius: 5,
           alignItems: 'center',
-          marginBottom: 20,
+          marginVertical: 20,
+          marginHorizontal: 5,
         },
+        SHADOW.default,
       ]}>
       <TitleHeader title={t('activity.detail')} noDot={true} />
       <ScrollView horizontal style={{marginTop: 10}} scrollEnabled={false}>

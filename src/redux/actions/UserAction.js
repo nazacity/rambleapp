@@ -107,10 +107,6 @@ export const refresh = () => async (dispatch) => {
       type: SET_USER,
       payload: user,
     });
-    dispatch({
-      type: SET_LOADING,
-      payload: false,
-    });
   } catch (error) {
     console.log(error);
     dispatch({
@@ -382,12 +378,6 @@ export const registerActivity = (data, navigateUser, t) => async (dispatch) => {
         message: t('activity.registersuccessed'),
       },
     });
-    setTimeout(() => {
-      dispatch({
-        type: SET_LOADING,
-        payload: false,
-      });
-    }, 200);
   } catch (error) {
     console.log(error);
     dispatch({

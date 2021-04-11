@@ -33,73 +33,55 @@ const ProfileScreen = () => {
         <UserDetail marginTop={-30} editable={true} />
         <View
           style={{
-            flexDirection: 'row',
             paddingHorizontal: 20,
             marginBottom: 10,
+            flexDirection: 'row',
           }}>
-          <View
-            style={[
-              {
-                flex: 1,
-                backgroundColor: COLORS.white,
-                borderRadius: 10,
-              },
-              SHADOW.default,
-            ]}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.navigate('Address');
-              }}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: COLORS.white,
-                padding: 20,
-                borderRadius: 10,
-              }}>
-              <LocationIcon color={COLORS.opcaityBlack} size={24} />
-              <Text
-                style={[
-                  FONTS.h4,
-                  {color: COLORS.opcaityBlack, marginLeft: 10},
-                ]}>
-                {t('drawer.address')}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('Address');
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: COLORS.white,
+              padding: 10,
+              borderRadius: 5,
+              borderWidth: 2,
+              borderColor: COLORS.lightOpcaityBlack,
+              width: 150,
+              flex: 1,
+            }}>
+            <LocationIcon color={COLORS.opcaityBlack} size={24} />
+            <Text
+              style={[FONTS.h4, {color: COLORS.opcaityBlack, marginLeft: 10}]}>
+              {t('drawer.address')}
+            </Text>
+          </TouchableOpacity>
           <View style={{margin: 5}} />
-          <View
-            style={[
-              {
-                flex: 1,
-                backgroundColor: COLORS.white,
-                borderRadius: 10,
-              },
-              SHADOW.default,
-            ]}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => {
-                navigation.navigate('EmergencyContact');
-              }}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: COLORS.white,
-                padding: 20,
-                borderRadius: 10,
-              }}>
-              <EmergencyIcon color={COLORS.opcaityBlack} size={20} />
-              <Text
-                style={[
-                  FONTS.h4,
-                  {color: COLORS.opcaityBlack, marginLeft: 10},
-                ]}>
-                {t('drawer.emergencycontact')}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('EmergencyContact');
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: COLORS.white,
+              padding: 10,
+              borderRadius: 5,
+              borderWidth: 2,
+              width: 150,
+              borderColor: COLORS.lightOpcaityBlack,
+              flex: 1,
+            }}>
+            <EmergencyIcon color={COLORS.opcaityBlack} size={20} />
+            <Text
+              style={[FONTS.h4, {color: COLORS.opcaityBlack, marginLeft: 10}]}>
+              {t('drawer.emergencycontact')}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View
           style={[
@@ -108,10 +90,11 @@ const ProfileScreen = () => {
               flexDirection: 'row',
               marginHorizontal: 20,
               backgroundColor: COLORS.white,
-              borderRadius: 10,
+              borderRadius: 5,
               marginBottom: 10,
+              borderWidth: 2,
+              borderColor: COLORS.lightOpcaityBlack,
             },
-            SHADOW.default,
           ]}>
           <LineConnectDisplay />
           <View style={styles.verticalLine} />

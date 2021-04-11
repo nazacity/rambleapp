@@ -8,8 +8,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import Swiper from 'react-native-swiper';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LocalizationContext from '../../screens/LocalizationContext';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const PromoteActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -17,7 +18,8 @@ const PromoteActivity = () => {
   dayjs.locale(lang);
   const navigation = useNavigation();
   const [promote_activities, setPromote_activities] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading1] = useState(true);
+  const dispatch = useDispatch();
   const fetchPromoteActivity = async () => {
     try {
       const res = await get('/api/users/getpromoteactivities');
@@ -25,10 +27,10 @@ const PromoteActivity = () => {
         setPromote_activities(res.data);
       }
 
-      setLoading(false);
+      setLoading1(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      setLoading1(false);
     }
   };
   useEffect(() => {
@@ -96,6 +98,7 @@ const PromoteActivity = () => {
                 SHADOW.default,
               ]}
               onPress={() => {
+                dispatch(setLoading(true));
                 navigation.navigate('ActivityDetail', {
                   activityId: item._id,
                   from: 'HomeScreen',

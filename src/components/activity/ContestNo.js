@@ -14,6 +14,7 @@ const ContestNo = ({contest_no}) => {
           borderRadius: 10,
           backgroundColor: COLORS.white,
           borderRadius: 5,
+          margin: 5,
           padding: 20,
         },
         SHADOW.default,

@@ -4,6 +4,7 @@ import {
   SET_HISTORY_ACTIVITIES,
   SET_FILTERED_ACTIVITIES,
   SET_ACTIVITIES,
+  SET_LOADING,
 } from '../types';
 import {post, get, Delete} from './request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +16,8 @@ export const getActivityById = (
   state,
 ) => async (dispatch) => {
   try {
+    setLoading(true);
+
     const res = await get(`/api/users/getactivity/${id}`);
 
     if (res.status === 200) {
@@ -24,10 +27,17 @@ export const getActivityById = (
       });
     }
     checkUserActivities(state);
-
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
     setLoading(false);
   } catch (error) {
     console.log(error);
+    dispatch({
+      type: SET_LOADING,
+      payload: false,
+    });
     setLoading(false);
   }
 };

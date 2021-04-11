@@ -61,7 +61,7 @@ const DrawerContent = (props) => {
   const [focus, setFocus] = useState({});
 
   return (
-    <View style={{flex: 1, borderTopRightRadius: 100, backgroundColor: '#fff'}}>
+    <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <DrawerContentScrollView {...props}>
         <Drawer.Section style={styles.drawerSection}>
           <View style={styles.userInfoSection}>
@@ -74,6 +74,7 @@ const DrawerContent = (props) => {
                     : profile
                 }
                 size={60}
+                containerStyle={{borderWidth: 1, borderColor: COLORS.primary}}
               />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
                 <Title style={[FONTS.h3]}>{user.display_name}</Title>

@@ -85,11 +85,12 @@ const ShareModal = ({activity}) => {
             borderRadius: 50,
             width: 30,
             height: 30,
-            backgroundColor: '#fff',
+            backgroundColor: COLORS.white,
             alignItems: 'center',
             justifyContent: 'center',
+            borderColor: COLORS.lightOpcaityBlack,
+            borderWidth: 1,
           },
-          SHADOW.default,
         ]}>
         <TouchableOpacity onPress={() => setOpen(true)}>
           <Ionicons name="share-social" size={20} color={COLORS.primary} />
