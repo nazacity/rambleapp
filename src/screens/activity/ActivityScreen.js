@@ -259,6 +259,7 @@ const ActivityScreen = ({navigation}) => {
             flexDirection: 'row',
             alignItems: 'center',
             paddingVertical: 10,
+            width: SIZES.width,
           }}>
           {ViewButtonDisplay()}
           <FilterOption
