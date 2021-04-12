@@ -93,10 +93,12 @@ const Onboarding = ({navigation}) => {
     if (skipOnBoarding === 'true') {
       getStarted.start(async ({finished}) => {
         setIsSignInState(true);
-        getSignin.start();
+        getSignin.start(() => {
+          dispatch(setLoading(false));
+        });
       });
     }
-    dispatch(setLoading(false));
+
     SplashScreen.hide();
   };
 

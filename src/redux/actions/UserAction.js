@@ -135,7 +135,10 @@ export const setUser = (user) => async (dispatch) => {
 };
 
 export const signOut = (navigation) => async (dispatch) => {
-  SplashScreen.show();
+  dispatch({
+    type: SET_LOADING,
+    payload: true,
+  });
   await AsyncStorage.removeItem('accessToken');
   dispatch({
     type: CLEAR_USER,
