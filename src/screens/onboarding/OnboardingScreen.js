@@ -97,6 +97,8 @@ const Onboarding = ({navigation}) => {
           dispatch(setLoading(false));
         });
       });
+    } else {
+      dispatch(setLoading(false));
     }
 
     SplashScreen.hide();

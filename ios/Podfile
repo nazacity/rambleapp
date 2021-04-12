@@ -21,6 +21,8 @@ target 'Ramble' do
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
   
 
+  pod 'react-native-version-check', :path => '../node_modules/react-native-version-check'
+
   target 'RambleTests' do
     inherit! :complete
     # Pods for testing
