@@ -346,6 +346,8 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.2.0):
     - React
+  - react-native-version-check (3.4.2):
+    - React
   - react-native-view-shot (3.1.2):
     - React
   - react-native-webview (11.0.2):
@@ -513,6 +515,7 @@ DEPENDENCIES:
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -632,6 +635,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-version-check:
+    :path: "../node_modules/react-native-version-check"
   react-native-view-shot:
     :path: "../node_modules/react-native-view-shot"
   react-native-webview:
@@ -699,7 +704,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 49cbe4b43e445b06bf29199b6ad2057649e4c8f5
-  FBReactNativeSpec: 0d0613413873c055c891ff6b5593830610c90455
+  FBReactNativeSpec: 0e2179fafdbe8f2f3b38ca6be3ecce72515a7a1d
   FBSDKCoreKit: fada1a6a0076724678993ff05a633848765ff18c
   FBSDKLoginKit: d5ffe6d808897019ccf16feb6f0a7ab260bc5cd6
   FBSDKShareKit: 6a85acb92eaf43a0b6dfa2ba6106eb74c7f10d30
@@ -744,6 +749,7 @@ SPEC CHECKSUMS:
   react-native-onesignal: f92b6fae16388422f1b5d73b2c31e7000f481ae8
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-version-check: d8b8900e6ce03ae1568cb22ef9451f2508188883
   react-native-view-shot: 4475fde003fe8a210053d1f98fb9e06c1d834e1c
   react-native-webview: dfd7202ff115c44d3ea401c2f36122fb3ac79f07
   React-perflogger: 9c547d8f06b9bf00cb447f2b75e8d7f19b7e02af
@@ -777,6 +783,6 @@ SPEC CHECKSUMS:
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ddccec6b5d74cf7af4a526c63013e3c6fcea43f6
+PODFILE CHECKSUM: 70496eabcbf70ce66cb893b825988313bfa6b076
 
 COCOAPODS: 1.10.1

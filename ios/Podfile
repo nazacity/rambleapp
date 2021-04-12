@@ -19,9 +19,7 @@ target 'Ramble' do
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
-  
 
-  pod 'react-native-version-check', :path => '../node_modules/react-native-version-check'
 
   target 'RambleTests' do
     inherit! :complete
@@ -44,5 +42,6 @@ target 'Ramble-tvOS' do
   target 'Ramble-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+ 
   end
 end

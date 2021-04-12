@@ -5624,6 +5624,11 @@
   "resolved" "https://registry.npmjs.org/lodash.pick/-/lodash.pick-4.4.0.tgz"
   "version" "4.4.0"
 
+"lodash.result@^4.5.2":
+  "integrity" "sha1-y0Wyf7kU6qjY7m8M57KHC4fLcKo="
+  "resolved" "https://registry.npmjs.org/lodash.result/-/lodash.result-4.5.2.tgz"
+  "version" "4.5.2"
+
 "lodash.sortby@^4.7.0":
   "integrity" "sha1-7dFMgk4sycHgsKG0K7UhBRakJDg="
   "resolved" "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz"
@@ -7393,6 +7398,13 @@
   dependencies:
     "react-native-gesture-handler" "^1.7.0"
     "react-native-reanimated" "^1.10.2"
+
+"react-native-appstore-version-checker@^3.0.0":
+  "integrity" "sha512-qC8y4t82XqqbacDbL5O/Stsw5J8dbXAr+79IKewHWUkGZ+b7p8R3YFDw/LJId+PLoVIWnStp/zYhX+be4t9UyQ=="
+  "resolved" "https://registry.npmjs.org/react-native-appstore-version-checker/-/react-native-appstore-version-checker-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "lodash.result" "^4.5.2"
 
 "react-native-calendar-picker@^7.0.6":
   "integrity" "sha512-2nZViYhPHRfn20pQ3pijrrDl4mrcSpButnob3hE3RvavSp9x4/ATCL1foNHlQNUNjkG5CNJk2fFOhWaJBUGSxw=="

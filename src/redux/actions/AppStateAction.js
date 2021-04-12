@@ -18,6 +18,7 @@ import {ramble} from '../../constants';
 import {Alert, Linking} from 'react-native';
 import {Platform} from 'react-native';
 import VersionCheck from 'react-native-version-check';
+import {getAppstoreAppMetadata} from 'react-native-appstore-version-checker';
 
 export const setEn = () => async (dispatch) => {
   await AsyncStorage.setItem('lang', 'en');
@@ -54,12 +55,16 @@ export const setSnackbarDismiss = (state) => (dispatch) => {
 };
 
 export const checkIsSignedin = (checkSkipOnBoarding, t) => async (dispatch) => {
+  await checkSkipOnBoarding();
+
   try {
     let version;
     if (Platform.OS === 'ios') {
-      version = await VersionCheck.getLatestVersion({
-        provider: 'appStore',
+      const res = await getAppstoreAppMetadata('1551268864', {
+        typeOfId: 'id',
+        country: 'th',
       });
+      version = res.version;
     } else if (Platform.OS === 'android') {
       version = await VersionCheck.getLatestVersion({
         provider: 'playStore',
@@ -74,7 +79,7 @@ export const checkIsSignedin = (checkSkipOnBoarding, t) => async (dispatch) => {
         const token = await AsyncStorage.getItem('accessToken');
         if (token) {
           const res1 = await get('/api/users/getuserbyjwt');
-          console.log(res1);
+
           if (res1._id) {
             dispatch({
               type: SET_USER,

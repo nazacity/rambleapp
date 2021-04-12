@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {View, Image, Platform} from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {COLORS, FONTS, SIZES} from '../constants';
 import {useSelector} from 'react-redux';
@@ -23,12 +23,19 @@ const LoadingPage = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <LottieView
-            autoPlay={true}
-            loop={true}
-            source={require('../../assets/loader/Loader.json')}
-            style={{width: 100, height: 100}}
-          />
+          {Platform.OS === 'android' ? (
+            <LottieView
+              autoPlay={true}
+              loop={true}
+              source={require('../../assets/loader/Loader.json')}
+              style={{width: 100, height: 100}}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/loader/ramble640.gif')}
+              style={{width: 100, height: 100, resizeMode: 'contain'}}
+            />
+          )}
         </View>
       }
     />
