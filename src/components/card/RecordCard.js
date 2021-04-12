@@ -24,14 +24,14 @@ const RecordCard = ({item}) => {
           backgroundColor: 'white',
           marginBottom: 10,
           marginHorizontal: 20,
-          borderRadius: 15,
+          borderRadius: 10,
           marginTop: -30,
         },
         SHADOW.default,
       ]}>
       <View
         style={{
-          borderRadius: 15,
+          borderRadius: 10,
           overflow: 'hidden',
         }}>
         <ImageBackground

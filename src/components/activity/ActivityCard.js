@@ -13,7 +13,7 @@ const ActivityCard = ({item, children, onPress, scale}) => {
         {
           width: CardSize,
           height: CardHeight,
-          borderRadius: 20,
+          borderRadius: 10,
           transform: [{scale}],
           backgroundColor: COLORS.backgroundColor,
         },
@@ -24,7 +24,7 @@ const ActivityCard = ({item, children, onPress, scale}) => {
         onPress={onPress}
         style={[
           {
-            borderRadius: 20,
+            borderRadius: 10,
             backgroundColor: COLORS.backgroundColor,
             overflow: 'hidden',
           },

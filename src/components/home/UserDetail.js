@@ -52,14 +52,14 @@ const UserDetail = ({marginTop, editable}) => {
           backgroundColor: 'white',
           marginBottom: 10,
           marginHorizontal: 20,
-          borderRadius: 15,
+          borderRadius: 10,
           marginTop: marginTop ? marginTop : 0,
         },
         SHADOW.default,
       ]}>
       <View
         style={{
-          borderRadius: 15,
+          borderRadius: 10,
           overflow: 'hidden',
         }}>
         <ImageBackground
@@ -156,5 +156,3 @@ const UserDetail = ({marginTop, editable}) => {
 };
 
 export default UserDetail;
-
-const styles = StyleSheet.create({});

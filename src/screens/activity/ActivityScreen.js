@@ -145,11 +145,6 @@ const ActivityScreen = ({navigation}) => {
     dispatch(setActivities([]));
     try {
       setLoading1(true);
-      // filterRef.current.scrollToIndex({
-      //   animated: true,
-      //   index: 0,
-      //   viewOffset: 40,
-      // });
       const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
       if (res.status === 200) {
@@ -272,7 +267,7 @@ const ActivityScreen = ({navigation}) => {
             state={state}
             setState={setState}
             filterRef={filterRef}
-            loading1={loading1}
+            loading={loading1}
           />
         </View>
       </View>
@@ -303,7 +298,7 @@ const ActivityScreen = ({navigation}) => {
           ListFooterComponent={() => (
             <View
               style={{
-                marginBottom: activities.length > 2 ? CardHeight * 2 : 0,
+                marginBottom: activities.length > 2 ? CardHeight / 3 : 0,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>

@@ -13,7 +13,7 @@ const FilterOption = ({
   filterOption,
   filterRef,
   ViewButtonDisplay,
-  loading1,
+  loading,
 }) => {
   const lang = useSelector((state) => state.appState.lang);
   const [open, setOpen] = useState(false);
@@ -59,14 +59,17 @@ const FilterOption = ({
           alignItems: 'center',
         }}
         onBackdropPress={handleClose}
-        onBackButtonPress={handleClose}>
+        onBackButtonPress={handleClose}
+        onSwipeComplete={handleClose}
+        useNativeDriverForBackdrop
+        swipeDirection={['down', 'up']}>
         <View
           style={{
             borderRadius: 10,
             overflow: 'hidden',
-            width: SIZES.width - 60,
+            width: 200,
           }}>
-          {loading1 && (
+          {loading && (
             <View
               style={{
                 position: 'absolute',
@@ -74,7 +77,7 @@ const FilterOption = ({
                 flex: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: SIZES.width - 60,
+                width: 200,
                 height: 350,
                 backgroundColor: COLORS.lightOpcaityBlack,
               }}>
@@ -105,10 +108,10 @@ const FilterOption = ({
                   ]}>
                   <TouchableOpacity
                     activeOpacity={0.8}
-                    disabled={loading1}
+                    disabled={loading}
                     style={{
                       height: 50,
-                      width: SIZES.width - 60,
+                      width: 200,
                       backgroundColor:
                         state.id === item.id
                           ? COLORS.primary

@@ -226,7 +226,7 @@ const ActivityMapViewScreen = ({
             {
               width: CardSize,
               height: CardHeight,
-              borderRadius: 10,
+              borderRadius: 5,
               backgroundColor: COLORS.backgroundColor,
               transform: [
                 {
@@ -248,7 +248,7 @@ const ActivityMapViewScreen = ({
               {
                 width: CardSize,
                 height: CardHeight,
-                borderRadius: 10,
+                borderRadius: 5,
                 backgroundColor: COLORS.backgroundColor,
                 overflow: 'hidden',
               },
@@ -402,6 +402,7 @@ const ActivityMapViewScreen = ({
           state={state1}
           setState={setState1}
           filterRef={filterRef}
+          loading={loading2}
         />
       </View>
 
