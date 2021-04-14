@@ -68,7 +68,9 @@ const RecieptModal = ({open, handleClose, userActivity, reciept}) => {
   };
 
   const saveToDevice = async () => {
-    await checkAndroidPermission();
+    if (Platform.OS === 'android') {
+      await checkAndroidPermission();
+    }
     const imageUrl = await viewShotRef.current.capture();
 
     CameraRoll.save(imageUrl)
@@ -286,19 +288,21 @@ const RecieptModal = ({open, handleClose, userActivity, reciept}) => {
                       {userActivity.activity.course.title}
                     </Text>
                   </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      flex: 1,
-                    }}>
-                    <Text style={[FONTS.h4, {flex: 1, color: COLORS.white}]}>
-                      {t('reciept.payer')}
-                    </Text>
-                    <Text style={[FONTS.body2, {color: COLORS.white}]}>
-                      {data.payerName}
-                    </Text>
-                  </View>
+                  {data.payerName !== '' && (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        flex: 1,
+                      }}>
+                      <Text style={[FONTS.h4, {flex: 1, color: COLORS.white}]}>
+                        {t('reciept.payer')}
+                      </Text>
+                      <Text style={[FONTS.body2, {color: COLORS.white}]}>
+                        {data.payerName}
+                      </Text>
+                    </View>
+                  )}
 
                   <View
                     style={{
@@ -337,7 +341,7 @@ const RecieptModal = ({open, handleClose, userActivity, reciept}) => {
                     FONTS.body2,
                     {color: COLORS.darkOpacityBlack, marginRight: 20},
                   ]}>
-                  {data.amount}{' '}
+                  {data.amount ? data.amount : reciept.amount + '.00'}{' '}
                 </Text>
                 <Text style={[FONTS.h4, {color: COLORS.darkOpacityBlack}]}>
                   {t('activity.bath')}

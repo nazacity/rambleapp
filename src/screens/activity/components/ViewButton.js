@@ -30,6 +30,7 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
         },
       ]}>
       <TouchableOpacity
+        disabled={view === 0 ? true : false}
         activeOpacity={0.8}
         onPress={async () => {
           await changeView(0);
@@ -49,6 +50,7 @@ const ViewButton = ({top, setView, view, loadAll, setState}) => {
         />
       </TouchableOpacity>
       <TouchableOpacity
+        disabled={view === 1 ? true : false}
         activeOpacity={0.8}
         onPress={async () => {
           await changeView(1);
