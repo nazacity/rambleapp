@@ -92,7 +92,7 @@ const HomeScreen = ({navigation}) => {
         }
         showsVerticalScrollIndicator={false}>
         {/* <RatingBar size={20} value={rate} onPress={(item) => setRate(item)} /> */}
-        {/* <PromoteActivity /> */}
+        <PromoteActivity />
         <UserDetail marginTop={30} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />
