@@ -83,7 +83,8 @@ const PaymentScreen = ({navigation, route}) => {
   return (
     <View
       style={{
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingTop: 20,
         backgroundColor: COLORS.backgroundColor,
         flex: 1,
       }}>

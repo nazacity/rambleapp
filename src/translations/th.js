@@ -1,6 +1,13 @@
 import {ramble} from '../constants';
 
 const th = {
+  reciept: {
+    reciept: 'ใบเสร็จรับเงิน',
+    payer: 'ผู้ชำระ',
+    payee: 'ผู้รับชำระ',
+    successed: 'บันทึกภาพลงแกลลอรี่ภาพเรียบร้อย',
+    save: 'บันทึกใบเสร็จ',
+  },
   sharemodal: {
     title: 'แชร์กิจกรรม',
   },

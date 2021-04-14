@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Snackbar} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
+import {COLORS} from '../../constants';
 import {setSnackbarDismiss} from '../../redux/actions/AppStateAction';
 
 const SnackbarNotification = () => {
@@ -17,10 +18,10 @@ const SnackbarNotification = () => {
       style={{
         backgroundColor:
           snackbar.state === 'error'
-            ? '#d9534f'
+            ? COLORS.error
             : snackbar.state === 'success'
-            ? '#5cb85c'
-            : snackbar.state === 'warning' && '#f0ad4e',
+            ? COLORS.success
+            : snackbar.state === 'warning' && COLORS.waring,
         margin: 20,
       }}
       duration={1500}>

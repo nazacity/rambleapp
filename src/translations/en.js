@@ -1,6 +1,13 @@
 import {ramble} from '../constants';
 
 const en = {
+  reciept: {
+    reciept: 'Reciept',
+    payer: 'Payer',
+    payee: 'Payee',
+    successed: 'Save photo successfully',
+    save: 'Save reciept',
+  },
   sharemodal: {
     title: 'Share activity',
   },
