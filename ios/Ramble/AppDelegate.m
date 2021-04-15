@@ -79,13 +79,10 @@ static void InitializeFlipper(UIApplication *application) {
 {
   if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
     return YES;
-  }
-  if([LineLogin application:app open:url options:options]){
+  } else {
 
     return [LineLogin application:app open:url options:options];
   }
-
-  return NO;
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler

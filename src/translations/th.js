@@ -67,7 +67,7 @@ const th = {
     username: 'ชื่อบัญชีผู้ใช้งาน',
     password: 'รหัสผ่าน',
     confirm_password: 'ยืนยันรหัสผ่าน',
-    signin: 'เข้าสู่ระบบ4747',
+    signin: 'เข้าสู่ระบบ',
     selfinfo: 'ข้อมูลส่วนตัว',
     first_name: 'ชื่อ',
     last_name: 'นามสกุล',
