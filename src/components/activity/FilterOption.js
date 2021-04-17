@@ -78,7 +78,7 @@ const FilterOption = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 width: 200,
-                height: 350,
+                height: '100%',
                 backgroundColor: COLORS.lightOpcaityBlack,
               }}>
               <ActivityIndicator color={COLORS.primary} size={30} />

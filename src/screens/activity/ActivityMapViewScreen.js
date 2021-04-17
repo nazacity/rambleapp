@@ -89,29 +89,40 @@ const ActivityMapViewScreen = ({
     }
   };
 
+  const fetchAllRegion = async () => {
+    setPage(1);
+    setNoMore(false);
+    dispatch(setActivities([]));
+    try {
+      setLoading2(true);
+      const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
+
+      if (res.status === 200) {
+        dispatch(setActivities([...res.data]));
+      }
+
+      setToFirstItemLocation(res.data);
+      setLoading2(false);
+    } catch (error) {
+      console.log(error);
+      setLoading2(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      await fetchAllRegion();
+    });
+    return unsubscribe;
+  }, []);
+
   const filterOption = [
     {
       id: '0',
       item_th: 'ทุกภาค',
       item_en: 'All region',
       function: async () => {
-        setPage(1);
-        setNoMore(false);
-        dispatch(setActivities([]));
-        try {
-          setLoading2(true);
-          const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
-
-          if (res.status === 200) {
-            dispatch(setActivities([...res.data]));
-          }
-
-          setToFirstItemLocation(res.data);
-          setLoading2(false);
-        } catch (error) {
-          console.log(error);
-          setLoading2(false);
-        }
+        await fetchAllRegion();
       },
     },
     {

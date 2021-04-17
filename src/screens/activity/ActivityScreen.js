@@ -49,7 +49,7 @@ const ActivityScreen = ({navigation}) => {
 
       try {
         const res = await get(
-          `/api/users/getactivities?skip=${5 * page}&limit=5`,
+          `/api/users/getallactivities?skip=${5 * page}&limit=5`,
         );
         if (res.status === 200) {
           if (res.data.length === 0) {
@@ -128,7 +128,7 @@ const ActivityScreen = ({navigation}) => {
     // });
     setNoMore(false);
     setPage(0);
-    setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
+    setState({id: '0', item_th: 'ทุกงาน', item_en: 'All events'});
     await onLoadMore();
   };
 
@@ -140,6 +140,24 @@ const ActivityScreen = ({navigation}) => {
   }, []);
 
   const loadAll = async () => {
+    setPage(1);
+    setNoMore(false);
+    dispatch(setActivities([]));
+    try {
+      setLoading1(true);
+      const res = await get(`/api/users/getallactivities?skip=${0}&limit=5`);
+
+      if (res.status === 200) {
+        dispatch(setActivities([...res.data]));
+      }
+      setLoading1(false);
+    } catch (error) {
+      console.log(error);
+      setLoading1(false);
+    }
+  };
+
+  const fetchAllRegion = async () => {
     setPage(1);
     setNoMore(false);
     dispatch(setActivities([]));
@@ -178,12 +196,18 @@ const ActivityScreen = ({navigation}) => {
   const filterOption = [
     {
       id: '0',
-      item_th: 'ทุกภาค',
-      item_en: 'All region',
+      item_th: 'ทุกงาน',
+      item_en: 'All events',
       function: loadAll,
     },
     {
       id: '1',
+      item_th: 'ทุกภาค',
+      item_en: 'All region',
+      function: fetchAllRegion,
+    },
+    {
+      id: '2',
       item_th: 'ภาคกลาง',
       item_en: 'Central',
       function: async () => {
@@ -191,7 +215,7 @@ const ActivityScreen = ({navigation}) => {
       },
     },
     {
-      id: '2',
+      id: '3',
       item_th: 'ภาคเหนือ',
       item_en: 'North',
       function: async () => {
@@ -199,7 +223,7 @@ const ActivityScreen = ({navigation}) => {
       },
     },
     {
-      id: '3',
+      id: '4',
       item_th: 'ภาคตะวันออก',
       item_en: 'East',
       function: async () => {
@@ -207,7 +231,7 @@ const ActivityScreen = ({navigation}) => {
       },
     },
     {
-      id: '4',
+      id: '5',
       item_th: 'ภาคตะวันตก',
       item_en: 'West',
       function: async () => {
@@ -215,7 +239,7 @@ const ActivityScreen = ({navigation}) => {
       },
     },
     {
-      id: '5',
+      id: '6',
       item_th: 'ภาคใต้',
       item_en: 'South',
       function: async () => {
@@ -223,18 +247,26 @@ const ActivityScreen = ({navigation}) => {
       },
     },
     {
-      id: '6',
+      id: '7',
       item_th: 'ภาคตะวันออกเฉียงเหนือ',
       item_en: 'Northeast',
       function: async () => {
         await fetchFromRegion('ภาคตะวันออกเฉียงเหนือ');
       },
     },
+    {
+      id: '8',
+      item_th: 'Virtual',
+      item_en: 'Virtual',
+      function: async () => {
+        await fetchFromRegion('virtual');
+      },
+    },
   ];
 
   const onRefresh = async () => {
     setRefresh(true);
-    setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
+    setState({id: '0', item_th: 'ทุกงาน', item_en: 'All events'});
     await loadAll();
     setRefresh(false);
   };
@@ -246,6 +278,7 @@ const ActivityScreen = ({navigation}) => {
         view={view}
         setState={setState}
         loadAll={loadAll}
+        fetchAllRegion={fetchAllRegion}
       />
     );
   };

@@ -6,12 +6,25 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {setLoading} from '../../../redux/actions/AppStateAction';
 import {useDispatch} from 'react-redux';
 
-const ViewButton = ({top, setView, view, loadAll, setState}) => {
+const ViewButton = ({
+  top,
+  setView,
+  view,
+  loadAll,
+  fetchAllRegion,
+  setState,
+}) => {
   const dispatch = useDispatch();
   const changeView = async (v) => {
     dispatch(setLoading(true));
-    setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
-    await loadAll();
+    if (v === 0) {
+      setState({id: '0', item_th: 'ทุกงาน', item_en: 'All events'});
+      await loadAll();
+    } else if (v === 1) {
+      setState({id: '0', item_th: 'ทุกภาค', item_en: 'All region'});
+      await fetchAllRegion();
+    }
+
     setView(v);
     dispatch(setLoading(false));
   };

@@ -101,7 +101,7 @@ const HeaderImage = ({
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}></View>
-            {activity.location && (
+            {activity.location.province !== 'virtual' && (
               <View
                 style={[
                   {
