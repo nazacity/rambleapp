@@ -77,7 +77,7 @@ const ActivityMapViewScreen = ({
       );
 
       if (res.status === 200) {
-        dispatch(setActivities([...res.data]));
+        dispatch(setActivities(res.data));
         setNoMore(true);
       }
 
@@ -98,7 +98,7 @@ const ActivityMapViewScreen = ({
       const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
       if (res.status === 200) {
-        dispatch(setActivities([...res.data]));
+        dispatch(setActivities(res.data));
       }
 
       setToFirstItemLocation(res.data);

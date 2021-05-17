@@ -56,7 +56,7 @@ const ActivityScreen = ({navigation}) => {
             setNoMore(true);
           } else {
             if (page === 0) {
-              dispatch(setActivities([...res.data]));
+              dispatch(setActivities(res.data));
             } else {
               let newData = [...activities, ...res.data];
               dispatch(setActivities(newData));
@@ -148,7 +148,7 @@ const ActivityScreen = ({navigation}) => {
       const res = await get(`/api/users/getallactivities?skip=${0}&limit=5`);
 
       if (res.status === 200) {
-        dispatch(setActivities([...res.data]));
+        dispatch(setActivities(res.data));
       }
       setLoading1(false);
     } catch (error) {
@@ -166,7 +166,7 @@ const ActivityScreen = ({navigation}) => {
       const res = await get(`/api/users/getactivities?skip=${0}&limit=5`);
 
       if (res.status === 200) {
-        dispatch(setActivities([...res.data]));
+        dispatch(setActivities(res.data));
       }
       setLoading1(false);
     } catch (error) {
@@ -183,7 +183,7 @@ const ActivityScreen = ({navigation}) => {
         `/api/users/getactivities?region=${region}&limit=50`,
       );
       if (res.status === 200) {
-        dispatch(setActivities([...res.data]));
+        dispatch(setActivities(res.data));
         setNoMore(true);
       }
       setLoading1(false);
