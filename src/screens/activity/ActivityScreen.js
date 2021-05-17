@@ -49,7 +49,7 @@ const ActivityScreen = ({navigation}) => {
 
       try {
         const res = await get(
-          `/api/users/getallactivities?skip=${5 * page}&limit=5`,
+          `/api/users/getallactivities?skip=${5 * page + 1}&limit=5`,
         );
         if (res.status === 200) {
           if (res.data.length === 0) {
