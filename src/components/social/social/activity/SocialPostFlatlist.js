@@ -1,17 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View, Text, ImageBackground, FlatList, Image} from 'react-native';
-
-import dayjs from 'dayjs';
-import 'dayjs/locale/th';
-import relativeTime from 'dayjs/plugin/relativeTime';
-
-dayjs.extend(relativeTime);
 import BackButton from '../../../layout/BackButton';
 import LinearGradient from 'react-native-linear-gradient';
 import SocialPostCard from './SocialPostCard';
 import {ActivityIndicator} from 'react-native';
 import {SIZES, COLORS} from '../../../../constants';
-import {useNavigation} from '@react-navigation/native';
 
 const SocialFlatlist = ({
   picture_url,

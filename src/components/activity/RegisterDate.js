@@ -16,11 +16,11 @@ const RegisterDate = ({activity}) => {
       <TitleHeader title={t('activity.register_date')} />
       <View style={{flexDirection: 'row', marginLeft: 20}}>
         <Text style={[FONTS.body3]}>
-          {dayjs(activity.register_start_date).format('DD MMMM YYYY')}
+          {dayjs(activity.register_start_date).format('D MMMM YYYY')}
         </Text>
         <Text style={[FONTS.body3, {marginHorizontal: 10}]}>-</Text>
         <Text style={[FONTS.body3]}>
-          {dayjs(activity.register_end_date).format('DD MMMM YYYY')}
+          {dayjs(activity.register_end_date).format('D MMMM YYYY')}
         </Text>
       </View>
     </View>

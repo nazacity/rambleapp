@@ -1,22 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {Text, View, TouchableOpacity, Image, Platform} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {signIn} from '../../redux/actions/UserAction';
-import {everyGet, get, post} from '../../redux/actions/request';
+import {post} from '../../redux/actions/request';
 import {
   setLoading,
   setPDPAModal,
   setSnackbarDisplay,
 } from '../../redux/actions/AppStateAction';
 
-import {Icon} from 'react-native-elements';
+import {Icon, CheckBox} from 'react-native-elements';
 
 import {FONTS, COLORS} from '../../constants';
 import Button from '../Button';
@@ -29,22 +22,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LineLogin from '@xmartlabs/react-native-line';
 import lineLogo from '../../../assets/line/linebutton.png';
 import rambleLogo from '../../../assets/logo/ramble-white512.png';
-import {
-  AppleButton,
-  appleAuth,
-} from '@invertase/react-native-apple-authentication';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
 
 import {everyPost} from '../../redux/actions/request';
 import ButtonOutline from '../ButtonOutline';
 import PDPAModal from './PDPAModal';
 
 const SigninForm = () => {
-  const lang = useSelector((state) => state.appState.lang);
   const {t} = React.useContext(LocalizationContext);
-  const {control, handleSubmit, errors} = useForm();
+  const {control, handleSubmit, reset} = useForm();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
+  const [memoUsername, setMemoUsername] = useState(false);
   // INPUT FUNCTIONS
   const [hidePassword, setHidePassword] = useState(true);
 
@@ -53,6 +42,20 @@ const SigninForm = () => {
     email: false,
     password: false,
   });
+
+  const setUsername = async () => {
+    const username = await AsyncStorage.getItem('username');
+    if (username) {
+      reset({
+        username: username,
+      });
+      setMemoUsername(true);
+    }
+  };
+
+  useEffect(() => {
+    setUsername();
+  }, []);
 
   const handleLineLogin = async () => {
     try {
@@ -113,6 +116,11 @@ const SigninForm = () => {
 
         if (res.token) {
           await AsyncStorage.setItem('accessToken', res.token);
+          if (memoUsername) {
+            await AsyncStorage.setItem('username', data.username);
+          } else if (!memoUsername) {
+            await AsyncStorage.removeItem('username');
+          }
           dispatch(signIn(res.user));
           dispatch(
             setSnackbarDisplay({
@@ -206,27 +214,6 @@ const SigninForm = () => {
     }
   };
 
-  // const test = {
-  //   user: '000891.5f9c56eb01ac455e9aca9eecf8534d87.0744',
-  //   email: null,
-  //   authorizedScopes: [],
-  //   fullName: {
-  //     namePrefix: null,
-  //     givenName: null,
-  //     familyName: null,
-  //     nickname: null,
-  //     middleName: null,
-  //     nameSuffix: null,
-  //   },
-  //   identityToken:
-  //     'eyJraWQiOiJlWGF1bm1MIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiY29tLnJhbWJsZWNsdWIucmFtYmxlaW9zIiwiZXhwIjoxNjEzMjAyNzEzLCJpYXQiOjE2MTMxMTYzMTMsInN1YiI6IjAwMDg5MS41ZjljNTZlYjAxYWM0NTVlOWFjYTllZWNmODUzNGQ4Ny4wNzQ0Iiwibm9uY2UiOiIwNWU4NGQ2Zjc0YTRjMjJhYzNiZGNiZWY3MTQ2ZDkzODQ4MTRkODg2NWU1YTQwZWNmMDE4YWEyY2M3OTJkNWU2IiwiY19oYXNoIjoiTHB0UmFsVFRvd1N5UGdqbGFwMmN6dyIsImF1dGhfdGltZSI6MTYxMzExNjMxMywibm9uY2Vfc3VwcG9ydGVkIjp0cnVlfQ.ofKcalJKA92zwyB1R09XeNitbxGM3OFyv7cN7Y4MxTjLHLid3K0VnIPrFUsestA5RWxZ6GLksqZDboolagj4MiccKL9R4KK05XbsTkdoLJUxWhLFKPm3JZ-QlEs5cpAs9_W_jsWLQMGfzPkD1elEEaapbi_b2mqnxXv8Otd_rQ19dMAXVVtB_0Gsgw4JDRF6xVveEQce19c2HTib_Ps7ZeI4Eir-Uyylwbrh2yVm8ITr5iHBgEdzFIpcpL8dH1ri11gEIHWuoXdyItVL5LoADU-QSaqL3wUJ8e8e1VsPn3G4N6d6CAWKirXQAWIiuth0GD3iRqYuEAhbT-TiYxJn3w',
-  //   authorizationCode:
-  //     'caccf9f4e47a14d4ca3be16ff491f3d9d.0.ryzr.fycbcgYk9py5GiNAYoktxw',
-  //   realUserStatus: 1,
-  //   state: null,
-  //   nonce: 'fHzkzcgehppX.sgArlU2GKO-r7yXYewU',
-  // };
-
   return (
     <View
       style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
@@ -317,24 +304,45 @@ const SigninForm = () => {
             // rules={{required: true}}
             defaultValue=""
           />
-          <TouchableOpacity
-            style={{marginLeft: 5}}
-            activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate('ForgotPassword');
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 20,
             }}>
-            <Text
-              style={[
-                {
-                  color: COLORS.pinkText,
-                  textAlign: 'right',
-                  marginBottom: 10,
-                },
-                FONTS.h4,
-              ]}>
-              {t('signin.forgotpassword')}
-            </Text>
-          </TouchableOpacity>
+            <CheckBox
+              title={t('signin.rememberusername')}
+              checked={memoUsername}
+              onPress={() => setMemoUsername(!memoUsername)}
+              containerStyle={{
+                borderWidth: 0,
+                padding: 0,
+                backgroundColor: '#fff',
+                margin: 0,
+              }}
+              size={18}
+              checkedColor={COLORS.opcaityBlack}
+              textStyle={[FONTS.h4, {color: COLORS.opcaityBlack}]}
+            />
+            <TouchableOpacity
+              style={{marginLeft: 5}}
+              activeOpacity={0.8}
+              onPress={() => {
+                navigation.navigate('ForgotPassword');
+              }}>
+              <Text
+                style={[
+                  {
+                    color: COLORS.opcaityBlack,
+                    marginRight: 10,
+                  },
+                  FONTS.h4,
+                ]}>
+                {t('signin.forgotpassword')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={{alignItems: 'center'}}>
           <Button

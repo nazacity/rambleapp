@@ -12,22 +12,25 @@ const MenuButton = ({top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
+        top: top ? top : Platform.OS === 'ios' ? 40 : 20,
         left: 10,
         zIndex: 100,
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        width: 30,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.openDrawer()}
-        style={{
-          backgroundColor: '#fff',
-          borderRadius: 50,
-          width: 30,
-          height: 30,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <MenuIcon size={14} borderRadius={50} color={COLORS.pinkPastel} />
+        onPress={() => navigation.openDrawer()}>
+        <Ionicons
+          name="menu-sharp"
+          size={24}
+          borderRadius={50}
+          color={COLORS.pinkPastel}
+        />
       </TouchableOpacity>
     </View>
   );

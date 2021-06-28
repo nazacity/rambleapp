@@ -1,5 +1,11 @@
 import React, {useState, Fragment, useEffect} from 'react';
-import {Text, View, TouchableOpacity, ImageBackground} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  Alert,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   setLoading,
@@ -24,7 +30,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import DatePickerModal from '../modal/DatePickerModal';
-import {post, get} from '../../redux/actions/request';
+import {post} from '../../redux/actions/request';
 import PolicyModal from './PolicyModal';
 import UserAgreementModal from './UserAgreementModal';
 
@@ -35,6 +41,7 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const lineInfo = route.params.lineInfo;
   const [image, setImage] = useState('');
@@ -83,14 +90,15 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (data) => {
-    if (!image) {
-      dispatch(
-        setSnackbarDisplay({
-          state: 'error',
-          message: t('signup.noimage'),
-        }),
-      );
-    } else if (data.username.length < 6) {
+    // if (!image) {
+    //   dispatch(
+    //     setSnackbarDisplay({
+    //       state: 'error',
+    //       message: t('signup.noimage'),
+    //     }),
+    //   );
+    // } else
+    if (data.username.length < 6) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
@@ -111,11 +119,11 @@ const SignupForm = () => {
           message: t('signup.password8'),
         }),
       );
-    } else if (!data.display_name) {
+    } else if (data.phone_number && data.phone_number.length < 10) {
       dispatch(
         setSnackbarDisplay({
           state: 'error',
-          message: t('signup.displaynameerror'),
+          message: t('signup.phoneerror'),
         }),
       );
     } else if (!data.first_name) {
@@ -152,7 +160,7 @@ const SignupForm = () => {
         const userinfo = {
           username: data.username,
           password: data.password,
-          display_name: data.display_name,
+          display_name: data.first_name,
           idcard: 'not provided yet',
           first_name: data.first_name,
           last_name: data.last_name,
@@ -173,12 +181,18 @@ const SignupForm = () => {
         if (res.data === 'Successed') {
           dispatch(setLoading(false));
           reset({});
-          dispatch(
-            setSnackbarDisplay({
-              state: 'success',
-              message: t('signup.successed'),
-            }),
-          );
+          // dispatch(
+          //   setSnackbarDisplay({
+          //     state: 'success',
+          //     message: t('signup.successed'),
+          //   }),
+          // );
+          Alert.alert(t('signup.successed'), t('signup.successed1'), [
+            {
+              text: t('community.comment.okay'),
+              onPress: () => console.log('okay'),
+            },
+          ]);
           dispatch(setLoading(false));
           navigation.navigate('Signin');
         } else if (res.data === 'Username is used') {
@@ -352,7 +366,7 @@ const SignupForm = () => {
               // rules={{required: true}}
               defaultValue=""
             />
-            <Controller
+            {/* <Controller
               control={control}
               render={({onChange, onBlur, value}) => (
                 <FloatingLabelInput
@@ -364,7 +378,7 @@ const SignupForm = () => {
               )}
               name="display_name"
               defaultValue=""
-            />
+            /> */}
 
             <View style={{marginHorizontal: 10, marginVertical: 10}}>
               <Text style={[FONTS.h2]}>{t('signup.selfinfo')}</Text>
@@ -428,12 +442,12 @@ const SignupForm = () => {
                   borderWidth: 1,
                   borderColor: COLORS.inputPlaceholderColor,
                   height: 50,
-                  borderRadius: 10,
+                  borderRadius: 5,
                   alignItems: 'center',
                   paddingLeft: 20,
                 }}>
                 <Text style={[FONTS.body3, {flex: 1}]}>
-                  {dayjs(selectedDate).format('DD MMMM YYYY')}
+                  {dayjs(selectedDate).format('D MMMM YYYY')}
                 </Text>
                 <TouchableOpacity
                   activeOpacity={0.6}
@@ -682,7 +696,8 @@ const SignupForm = () => {
             <View style={{alignItems: 'center'}}>
               <Button
                 label={t('signup.signup')}
-                color={COLORS.pinkPastel}
+                disabled={isLoading ? true : false}
+                color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
                 onPress={handleSubmit(onSubmit)}
               />
             </View>

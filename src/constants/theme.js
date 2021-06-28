@@ -30,6 +30,10 @@ export const COLORS = {
   white: '#fff',
   lightGrey: '#eceff1',
   opcaityBlack: 'rgba(0,0,0,0.6)',
+  lightOpcaityBlack: 'rgba(0,0,0,0.2)',
+  darkOpacityBlack: 'rgba(0,0,0,0.8)',
+  notificationNotRead: '#ffecb3',
+  opacityPrimary: '#f5caff',
 };
 
 export const Radius = {
@@ -95,6 +99,11 @@ export const FONTS = {
     color: 'white',
     textAlign: 'center',
     lineHeight: 50,
+  },
+  contestno: {
+    fontSize: 40,
+    fontFamily: 'SFProText-Bold',
+    lineHeight: 55,
   },
   h1: {
     fontFamily: 'SFProText-Bold',

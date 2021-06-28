@@ -190,11 +190,11 @@ const ActivityFilterScreen = ({navigation, route}) => {
               marginVertical: 20,
             }}>
             <Text style={[FONTS.body3]}>
-              {dayjs(selectedDate.startDate).locale(lang).format('DD MMM YYYY')}
+              {dayjs(selectedDate.startDate).locale(lang).format('D MMM YYYY')}
             </Text>
             <Text style={[FONTS.body3, {marginHorizontal: 5}]}>-</Text>
             <Text style={[FONTS.body3]}>
-              {dayjs(selectedDate.endDate).locale(lang).format('DD MMM YYYY')}
+              {dayjs(selectedDate.endDate).locale(lang).format('D MMM YYYY')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.6}

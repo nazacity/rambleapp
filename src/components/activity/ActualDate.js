@@ -12,11 +12,11 @@ const ActualDate = ({activity}) => {
   const lang = useSelector((state) => state.appState.lang);
   dayjs.locale(lang);
   return (
-    <View style={{marginBottom: 20}}>
+    <View>
       <TitleHeader title={t('activity.actual_date')} />
       <View style={{flexDirection: 'row', marginLeft: 20}}>
         <Text style={[FONTS.body3]}>
-          {dayjs(activity.actual_date).format('DD MMMM YYYY')}
+          {dayjs(activity.actual_date).format('D MMMM YYYY')}
         </Text>
       </View>
     </View>

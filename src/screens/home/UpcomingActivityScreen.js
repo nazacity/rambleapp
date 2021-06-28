@@ -1,19 +1,20 @@
 import React, {useRef} from 'react';
-import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
+import {StyleSheet, Text, View, Animated} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {FONTS, COLORS, SIZES, SHADOW} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
-import {Badge} from 'react-native-elements';
 import {checkTimeTilFuture} from '../../services/util';
+import NotificationBadge from '../../components/layout/NotificationBadge';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const CardHeight = ((SIZES.width - 80) * 2) / 3;
 
@@ -22,8 +23,7 @@ const UpcomingActivityScreen = () => {
   const navigation = useNavigation();
   const scrollY = useRef(new Animated.Value(0)).current;
   const activities = useSelector((state) => state.activity.upcoming_activities);
-  const lang = useSelector((state) => state.appState.lang);
-  dayjs.locale(lang);
+  const dispatch = useDispatch();
 
   const UpcomingActivityCard = ({item, index}) => {
     const badgeNumber = item.announcement.filter(
@@ -33,15 +33,16 @@ const UpcomingActivityScreen = () => {
       inputRange: [
         -1,
         0,
-        (CardHeight / 0.8) * index,
-        (CardHeight / 0.8) * (index + 1),
+        (CardHeight + 20) * index,
+        (CardHeight + 20) * (index + 1),
       ],
-      outputRange: [1, 1, 1, 0.5],
+      outputRange: [1, 1, 1, 0.7],
     });
     return (
       <ActivityCard
         item={item}
         onPress={() => {
+          dispatch(setLoading(true));
           navigation.navigate('ActivityUpcoming', {
             activityId: item.activity.id._id,
           });
@@ -53,29 +54,12 @@ const UpcomingActivityScreen = () => {
           </Text>
           <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
             {checkTimeTilFuture(item.activity.id.actual_date)
-              ? dayjs(item.activity.id.actual_date).format('DD MMM YY')
+              ? dayjs(item.activity.id.actual_date).format('D MMM YY')
               : dayjs(item.activity.id.actual_date).fromNow()}
           </Text>
         </View>
         {badgeNumber.length > 0 && (
-          <Badge
-            value={badgeNumber.length}
-            status="error"
-            containerStyle={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              zIndex: 200,
-            }}
-            badgeStyle={[
-              {
-                borderRadius: 15,
-                width: 30,
-                height: 30,
-              },
-              SHADOW.default,
-            ]}
-          />
+          <NotificationBadge value={badgeNumber.length} top={10} right={10} />
         )}
       </ActivityCard>
     );
@@ -104,11 +88,11 @@ const UpcomingActivityScreen = () => {
             return <UpcomingActivityCard item={item} index={index} />;
           }}
           ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-          style={{padding: 20, paddingTop: 60}}
+          style={{padding: 20, paddingTop: 20}}
           contentContainerStyle={{paddingHorizontal: 5}}
           ListFooterComponent={() => (
             <View
-              style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
+              style={{marginBottom: activities.length > 2 ? CardHeight / 3 : 0}}
             />
           )}
           onScroll={Animated.event(

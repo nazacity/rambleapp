@@ -62,7 +62,7 @@ const UserPostCard = ({item, editState}) => {
                 <Text style={[FONTS.h2]}>{item.user.display_name}</Text>
                 <View style={{width: 200}}>
                   <Text style={[FONTS.body4]}>
-                    {dayjs(item.createdAt).format('วันที่ DD MMMM YYYY')}
+                    {dayjs(item.createdAt).format('วันที่ D MMMM YYYY')}
                   </Text>
                 </View>
               </View>

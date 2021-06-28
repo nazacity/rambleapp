@@ -1,50 +1,73 @@
-import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React, {useRef} from 'react';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import LocalizationContext from '../../screens/LocalizationContext';
-import ImageModal from 'react-native-image-modal';
-import {FONTS, COLORS} from '../../constants';
+import ImageModal from '../modal/ImageModal';
+import {FONTS, COLORS, SHADOW} from '../../constants';
 import TitleHeader from '../layout/TitleHeader';
+import LinearGradient from 'react-native-linear-gradient';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Gift = ({activity}) => {
   const {t} = React.useContext(LocalizationContext);
+
+  const GiftCard = ({item}) => {
+    return (
+      <View
+        style={[
+          {
+            width: 150,
+            height: 100,
+            borderRadius: 5,
+            marginRight: 10,
+          },
+          SHADOW.image,
+        ]}>
+        <ImageModal
+          style={{
+            width: 150,
+            height: 100,
+            borderRadius: 5,
+            backgrounColor: COLORS.white,
+            overflow: 'hidden',
+          }}
+          source={{uri: item.gift_picture_url}}>
+          <LinearGradient
+            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}
+            start={{x: 0, y: 1}}
+            end={{x: 1, y: 1}}
+            useAngle
+            angle={180}
+            style={{
+              flex: 1,
+              left: 0,
+              top: 0,
+              width: 150,
+              height: 100,
+              position: 'absolute',
+            }}
+          />
+          <View style={{position: 'absolute', bottom: 5, left: 5}}>
+            <Text
+              style={[
+                FONTS.body3,
+                {color: COLORS.white, lineHeight: 18, width: 125},
+              ]}>
+              {item.description}
+            </Text>
+          </View>
+          {/* <View style={{position: 'absolute', top: 5, right: 5}}>
+            <Feather name="zoom-in" size={24} color={COLORS.white} />
+          </View> */}
+        </ImageModal>
+      </View>
+    );
+  };
   return (
-    <View style={{marginBottom: 20}}>
+    <View>
       <TitleHeader title={t('activity.gifts')} />
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{
-          paddingTop: 20,
-          flexDirection: 'row',
-        }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {activity.gifts.map((item, index) => {
-          return (
-            <View key={index}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginRight: 10,
-                  borderRadius: 10,
-                  overflow: 'hidden',
-                }}>
-                <ImageModal
-                  resizeMode="contain"
-                  imageBackgroundColor={COLORS.background}
-                  overlayBackgroundColor="rgba(0,0,0,0.3)"
-                  style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 10,
-                  }}
-                  source={{uri: item.gift_picture_url}}
-                />
-              </View>
-              <Text style={[FONTS.body3, {marginLeft: 20}]}>
-                {item.description}
-              </Text>
-            </View>
-          );
+          return <GiftCard item={item} key={index} />;
         })}
       </ScrollView>
     </View>

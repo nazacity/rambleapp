@@ -3,11 +3,19 @@ import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 
 import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {deleteAddress} from '../../redux/actions/UserAction';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useDispatch} from 'react-redux';
 
-const AddressCard = ({deletable, item, shadow}) => {
+const AddressCard = ({
+  deletable,
+  item,
+  setAddress,
+  setEditModalOpen,
+  editable,
+  backgroundColor,
+}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
 
@@ -15,7 +23,7 @@ const AddressCard = ({deletable, item, shadow}) => {
     <View
       style={[
         {
-          backgroundColor: '#fff',
+          backgroundColor: backgroundColor ? backgroundColor : COLORS.white,
           borderRadius: 10,
           padding: 20,
         },
@@ -23,22 +31,74 @@ const AddressCard = ({deletable, item, shadow}) => {
       ]}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}>
-          <Text style={[FONTS.h4, {marginHorizontal: 5}]}>{item.address}</Text>
+          <Text
+            style={[
+              FONTS.h4,
+              {
+                marginHorizontal: 5,
+                color:
+                  backgroundColor === COLORS.primary
+                    ? COLORS.white
+                    : COLORS.black,
+              },
+            ]}>
+            {item.address}
+          </Text>
           {item.phone_number && (
             <Fragment>
               <View style={{flexDirection: 'row'}}>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {item.province}
                 </Text>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {item.zip}
                 </Text>
               </View>
               <View style={{flexDirection: 'row'}}>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {t('address.phone')}
                 </Text>
-                <Text style={[FONTS.h4, {marginHorizontal: 5}]}>
+                <Text
+                  style={[
+                    FONTS.h4,
+                    {
+                      marginHorizontal: 5,
+                      color:
+                        backgroundColor === COLORS.primary
+                          ? COLORS.white
+                          : COLORS.black,
+                    },
+                  ]}>
                   {item.phone_number}
                 </Text>
               </View>
@@ -69,8 +129,22 @@ const AddressCard = ({deletable, item, shadow}) => {
             <MaterialCommunityIcons
               name="delete-outline"
               size={24}
-              color="grey"
-              style={{marginRight: 10}}
+              color={backgroundColor === COLORS.primary ? COLORS.white : 'grey'}
+            />
+          </TouchableOpacity>
+        )}
+        {editable && (
+          <TouchableOpacity
+            style={{marginRight: 15}}
+            activeOpacity={0.8}
+            onPress={() => {
+              setAddress(item);
+              setEditModalOpen(true);
+            }}>
+            <MaterialIcons
+              name="edit"
+              size={24}
+              color={backgroundColor === COLORS.primary ? COLORS.white : 'grey'}
             />
           </TouchableOpacity>
         )}

@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
-import {FONTS, COLORS, theme} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useSelector} from 'react-redux';
@@ -31,17 +31,23 @@ const VerifyIdentifyAndCovidDisplay = ({user}) => {
 
   return (
     <Fragment>
-      <View>
+      <View
+        style={[
+          {
+            borderRadius: 5,
+            flex: 1,
+          },
+        ]}>
         <TouchableOpacity
           activeOpacity={0.6}
           disabled={verifyState === 'verifying' || verifyState === 'verified'}
           style={{
-            borderRadius: 20,
+            borderRadius: 5,
             marginLeft: 5,
-            paddingHorizontal: 20,
-            flexDirection: 'row',
             alignItems: 'center',
-            height: 60,
+            padding: 20,
+            height: 100,
+            paddingBottom: 5,
           }}
           onPress={() => {
             if (verifyState === 'rejected' || verifyState === 'not_verify') {
@@ -51,12 +57,16 @@ const VerifyIdentifyAndCovidDisplay = ({user}) => {
           <MaterialIcons
             name="verified-user"
             color={
-              verifyState === 'verified' ? COLORS.primary : COLORS.inactiveColor
+              verifyState === 'verified' ? COLORS.primary : COLORS.opcaityBlack
             }
-            size={20}
-            style={{marginRight: 20}}
+            size={30}
           />
-          <Text style={[FONTS.h3]}>
+          <View style={{flex: 1}} />
+          <Text
+            style={[
+              FONTS.h5,
+              {textAlign: 'center', color: COLORS.opcaityBlack},
+            ]}>
             {verifyState === 'verifying' && t('editprofile.verifying')}
             {verifyState === 'verified' && t('editprofile.verifiedidentity')}
             {verifyState === 'rejected' && t('editprofile.rejected')}

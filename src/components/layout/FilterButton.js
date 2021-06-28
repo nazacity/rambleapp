@@ -11,22 +11,18 @@ const FilterButton = ({onPress, top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
+        top: top ? top : Platform.OS === 'ios' ? 40 : 20,
         right: 10,
         zIndex: 100,
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        width: 30,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={onPress}
-        style={{
-          backgroundColor: '#fff',
-          borderRadius: 50,
-          width: 30,
-          height: 30,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <FilterIcon size={18} borderRadius={50} color={COLORS.pinkPastel} />
+      <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
+        <FilterIcon size={14} borderRadius={50} color={COLORS.pinkPastel} />
       </TouchableOpacity>
     </View>
   );

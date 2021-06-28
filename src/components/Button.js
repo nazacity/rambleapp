@@ -1,27 +1,28 @@
 import React from 'react';
 import {View} from 'react-native';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
 import {COLORS, FONTS, SHADOW} from '../constants';
 
-const Button = ({label, onPress, color, width, leftIcon}) => {
+const Button = ({label, onPress, color, width, leftIcon, disabled, height}) => {
   return (
     <View
       style={[
         SHADOW.default,
         {
           borderRadius: 5,
-          height: 50,
+          height: height ? height : 50,
           width: width ? width : 300,
           backgroundColor: COLORS.backgroundColor,
         },
       ]}>
       <TouchableOpacity
-        activeOpacity={0.95}
+        disabled={disabled}
+        activeOpacity={0.9}
         style={[
           {
             borderRadius: 5,
-            height: 50,
+            height: height ? height : 50,
             width: width ? width : 300,
             alignItems: 'center',
             flexDirection: 'row',

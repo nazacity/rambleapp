@@ -1,54 +1,33 @@
-import React, {useRef} from 'react';
-import {StyleSheet, Text, View, FlatList, Animated} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {Text, View, FlatList, Animated, ActivityIndicator} from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import {useSelector} from 'react-redux';
 
 import {FONTS, COLORS, SIZES} from '../../constants';
-import {useNavigation} from '@react-navigation/native';
-import ActivityCard from '../../components/activity/ActivityCard';
 import MenuButton from '../../components/layout/MenuButton';
 import LocalizationContext from '../LocalizationContext';
-
-const CardHeight = ((SIZES.width - 80) * 2) / 3;
+import {get} from '../../redux/actions/request';
+import UserYearRecordCard from '../../components/card/UserYearRecordCard';
 
 const HistoryActivityScreen = () => {
-  const {t} = React.useContext(LocalizationContext);
-  const navigation = useNavigation();
   const scrollY = useRef(new Animated.Value(0)).current;
-  const activities = useSelector((state) => state.activity.history_activities);
-  const lang = useSelector((state) => state.appState.lang);
-  dayjs.locale(lang);
-  const HistoryActivityCard = ({item, index}) => {
-    const scale = scrollY.interpolate({
-      inputRange: [
-        -1,
-        0,
-        (CardHeight / 0.8) * index,
-        (CardHeight / 0.8) * (index + 1),
-      ],
-      outputRange: [1, 1, 1, 0.5],
-    });
-    return (
-      <ActivityCard
-        item={item}
-        onPress={() => {
-          navigation.navigate('ActivityHistory', {
-            userActivity: item,
-          });
-        }}
-        scale={scale}>
-        <View style={{position: 'absolute', bottom: 20, left: 20}}>
-          <Text style={[FONTS.h4, {color: COLORS.white, lineHeight: 22}]}>
-            {item.activity.id.title}
-          </Text>
-          <Text style={[FONTS.h1, {color: COLORS.white, lineHeight: 22}]}>
-            {dayjs(item.activity.id.actual_date).format('DD MMMM YYYY')}
-          </Text>
-        </View>
-      </ActivityCard>
-    );
+  const [data, setData] = useState([]);
+
+  const getUserRecords = async () => {
+    try {
+      const res = await get('/api/users/getuseryearrecords');
+      if (res.status === 200) {
+        setData(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    getUserRecords();
+  }, []);
 
   return (
     <View
@@ -58,28 +37,29 @@ const HistoryActivityScreen = () => {
         backgroundColor: COLORS.backgroundColor,
       }}>
       <MenuButton />
-      {activities.length === 0 ? (
+      {data.length === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={[FONTS.h2, {color: COLORS.primary}]}>
-            {t('history.noactivity')}
-          </Text>
+          <ActivityIndicator
+            style={{padding: 10}}
+            size={40}
+            color={COLORS.primary}
+          />
         </View>
       ) : (
         <Animated.FlatList
           showsVerticalScrollIndicator={false}
-          data={activities}
-          keyExtractor={(item) => `${item._id}`}
+          data={data}
+          keyExtractor={(item, index) => `${item._id} ${index}`}
           renderItem={({item, index}) => {
-            return <HistoryActivityCard item={item} index={index} />;
+            return <UserYearRecordCard data={item} />;
           }}
-          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
-          style={{padding: 20, paddingTop: 60}}
-          contentContainerStyle={{paddingHorizontal: 5}}
-          ListFooterComponent={() => (
-            <View
-              style={{marginBottom: activities.length > 2 ? CardHeight * 2 : 0}}
-            />
-          )}
+          ItemSeparatorComponent={() => <View style={{margin: 5}} />}
+          style={{paddingTop: 60}}
+          contentContainerStyle={{
+            padding: 5,
+            justifyContent: 'center',
+          }}
+          ListFooterComponent={() => <View style={{marginBottom: 100}} />}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {y: scrollY}}}],
             {useNativeDriver: true},
@@ -91,5 +71,3 @@ const HistoryActivityScreen = () => {
 };
 
 export default HistoryActivityScreen;
-
-const styles = StyleSheet.create({});

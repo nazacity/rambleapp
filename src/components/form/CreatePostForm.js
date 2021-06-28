@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
 import Button from '../../components/Button';
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
-import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createUserPost} from '../../redux/actions/UserAction';
 import SharingPostTermsAndConditionsModal from '../modal/SharingPostTermsAndConditionModal';
 
@@ -20,6 +26,7 @@ const CreatePostForm = ({activityId, userActivityId}) => {
   const [focus, setFocus] = useState({});
   const [acceptTerm, setAcceptTerm] = useState(false);
   const [termModalOpen, setTermModalOpen] = useState(false);
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const handleTermModalClose = () => {
     setTermModalOpen(false);
@@ -266,10 +273,9 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                 inputContainerStyle={[
                   {
                     borderWidth: 1,
-                    borderRadius: 10,
+                    borderRadius: 5,
                     paddingHorizontal: 10,
                     backgroundColor: 'white',
-                    fontFamily: 'SF-Pro-Text-Regular',
                   },
                   {
                     borderColor: focus.description
@@ -277,10 +283,13 @@ const CreatePostForm = ({activityId, userActivityId}) => {
                       : COLORS.inputPlaceholderColor,
                   },
                 ]}
-                inputStyle={{
-                  fontFamily: 'SF-Pro-Text-Regular',
-                  textAlignVertical: 'top',
-                }}
+                inputStyle={[
+                  FONTS.h4,
+                  {
+                    textAlignVertical: 'top',
+                    height: 100,
+                  },
+                ]}
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 onFocus={() => {
@@ -298,7 +307,6 @@ const CreatePostForm = ({activityId, userActivityId}) => {
             defaultValue=""
           />
         </View>
-
         <View
           activeOpacity={0.6}
           style={{
@@ -336,7 +344,8 @@ const CreatePostForm = ({activityId, userActivityId}) => {
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.createpost')}
-            color={COLORS.pinkPastel}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+            disabled={isLoading ? true : false}
             onPress={handleSubmit(onSubmit)}
           />
         </View>

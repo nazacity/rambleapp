@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
-import {SIZES, FONTS, COLORS} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useSelector, useDispatch} from 'react-redux';
 import {setEmergencyModal} from '../../redux/actions/AppStateAction';
 import {addNewEmergencyContact} from '../../redux/actions/UserAction';
@@ -34,7 +28,7 @@ const AddEmergencyContactModal = ({}) => {
     if (!data.name || !data.relationship || !data.phone_number) {
       setError(true);
     } else {
-      dispatch(addNewEmergencyContact(data));
+      dispatch(addNewEmergencyContact(data, t));
     }
   };
   return (
@@ -106,6 +100,7 @@ const AddEmergencyContactModal = ({}) => {
         <View
           style={{
             alignItems: 'center',
+            marginVertical: 30,
           }}>
           <Button
             label={t('addemergencycontact.add')}

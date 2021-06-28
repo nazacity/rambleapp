@@ -44,7 +44,7 @@ const SigninScreen = () => {
           alignItems: 'center',
           justifyContent: 'flex-start',
           position: 'absolute',
-          bottom: 10,
+          top: 100,
           right: 10,
         }}>
         <TouchableOpacity onPress={() => dispatch(setTh())}>

@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, Alert} from 'react-native';
+import {
+  View,
+  Alert,
+  Platform,
+  KeyboardAvoidingView,
+  SafeAreaView,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {Input, CheckBox} from 'react-native-elements';
 import Button from '../Button';
-import {FONTS, COLORS, SIZES} from '../../constants';
+import {FONTS, COLORS} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import LocalizationContext from '../../screens/LocalizationContext';
 import TitleHeader from '../layout/TitleHeader';
-import {post} from '../../redux/actions/request';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {provinceDict} from '../../constants/provinces';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {editUserPost} from '../../redux/actions/UserAction';
 
 const EditPostForm = ({item}) => {
@@ -27,6 +32,7 @@ const EditPostForm = ({item}) => {
   });
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.appState.isLoading);
 
   const navigationUser = () => {
     setOption({
@@ -88,7 +94,13 @@ const EditPostForm = ({item}) => {
 
   return (
     <View
-      style={[{flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75}]}>
+      style={[
+        {
+          flex: 1,
+          backgroundColor: 'white',
+          borderTopLeftRadius: 75,
+        },
+      ]}>
       <View
         style={{
           padding: 20,
@@ -259,10 +271,9 @@ const EditPostForm = ({item}) => {
                 inputContainerStyle={[
                   {
                     borderWidth: 1,
-                    borderRadius: 10,
+                    borderRadius: 5,
                     paddingHorizontal: 10,
                     backgroundColor: 'white',
-                    fontFamily: 'SF-Pro-Text-Regular',
                   },
                   {
                     borderColor: focus.description
@@ -270,10 +281,13 @@ const EditPostForm = ({item}) => {
                       : COLORS.inputPlaceholderColor,
                   },
                 ]}
-                inputStyle={{
-                  fontFamily: 'SF-Pro-Text-Regular',
-                  textAlignVertical: 'top',
-                }}
+                inputStyle={[
+                  FONTS.h4,
+                  {
+                    textAlignVertical: 'top',
+                    height: 100,
+                  },
+                ]}
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 onFocus={() => {
@@ -287,40 +301,15 @@ const EditPostForm = ({item}) => {
               />
             )}
             name="description"
-            // rules={{required: true}}
             defaultValue=""
           />
         </View>
-        {/* <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 20,
-          }}
-          onPress={() => {
-            setOption({...option, acceptTerm: !option.acceptTerm});
-          }}>
-          <View>
-            <CheckBox
-              checked={option.acceptTerm}
-              onPress={() =>
-                setOption({...option, acceptTerm: !option.acceptTerm})
-              }
-              containerStyle={{borderWidth: 0, padding: 0, margin: 0}}
-              checkedColor={COLORS.pinkPastel}
-              textStyle={[FONTS.h3, {color: COLORS.pinkText}]}
-            />
-          </View>
-          <Text style={{textAlign: 'center'}}>
-            {t('createpost.revealinfoterm')}
-          </Text>
-        </TouchableOpacity> */}
+
         <View style={{alignItems: 'center'}}>
           <Button
             label={t('createpost.editpost')}
-            color={COLORS.pinkPastel}
+            color={isLoading ? COLORS.inactiveColor : COLORS.pinkPastel}
+            disabled={isLoading ? true : false}
             onPress={handleSubmit(onSubmit)}
           />
         </View>

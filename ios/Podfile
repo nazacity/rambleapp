@@ -4,6 +4,11 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '10.0'
 
 target 'Ramble' do
+  
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
 
   config = use_native_modules!
 
@@ -14,7 +19,7 @@ target 'Ramble' do
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
-  
+
 
   target 'RambleTests' do
     inherit! :complete
@@ -37,5 +42,6 @@ target 'Ramble-tvOS' do
   target 'Ramble-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+ 
   end
 end

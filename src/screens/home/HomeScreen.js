@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  RefreshControl,
   View,
   ScrollView,
   BackHandler,
   Alert,
-  StatusBar,
-  Platform,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoading} from '../../redux/actions/AppStateAction';
@@ -14,13 +13,14 @@ import UserDetail from '../../components/home/UserDetail';
 import PromoteActivity from '../../components/home/PromoteActivity';
 import UpcomingActivity from '../../components/home/UpcomingActivity';
 import HistoryActivity from '../../components/home/HistoryActivity';
-import MainAdvertise from '../../components/advertise/MainAdvertise';
+// import MainAdvertise from '../../components/advertise/MainAdvertise';
 import {COLORS} from '../../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {post} from '../../redux/actions/request';
 import MenuButton from '../../components/layout/MenuButton';
 import {refresh} from '../../redux/actions/UserAction';
 import LocalizationContext from '../LocalizationContext';
+// import RatingBar from '../../components/layout/RatingBar';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -70,19 +70,29 @@ const HomeScreen = ({navigation}) => {
     return unsubscribe;
   }, []);
 
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(refresh());
+    setRefreshing(false);
+  }, []);
+
   return (
     <View>
       <MenuButton />
       <ScrollView
         style={{backgroundColor: COLORS.backgroundColor}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         showsVerticalScrollIndicator={false}>
+        {/* <RatingBar size={20} value={rate} onPress={(item) => setRate(item)} /> */}
         <PromoteActivity />
         <UserDetail marginTop={30} editable={true} />
         <UpcomingActivity />
         <HistoryActivity />
         <View style={{margin: 20}} />
-        {/* <MainAdvertise /> */}
-        {/* <MinorAdvertise /> */}
       </ScrollView>
     </View>
   );

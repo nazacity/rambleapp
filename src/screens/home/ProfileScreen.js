@@ -1,23 +1,107 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 import UserDetail from '../../components/home/UserDetail';
 
-import {COLORS} from '../../constants';
+import {COLORS, FONTS, SHADOW} from '../../constants';
 import MenuButton from '../../components/layout/MenuButton';
-// import TopBackground from '../../components/layout/TopBackground';
+import LocalizationContext from '../LocalizationContext';
+import {EmergencyIcon, LocationIcon} from '../../components/Icon';
+import {useNavigation} from '@react-navigation/native';
+import LineConnectDisplay from '../../components/editprofile/LineConnectDisplay';
+import VerifyIdentifyDisplay from '../../components/editprofile/VerifyIdentifyDisplay';
+import VerifyVaccineDisplay from '../../components/editprofile/VerifyVaccineDisplay';
+
 const ProfileScreen = () => {
+  const {t} = React.useContext(LocalizationContext);
+  const navigation = useNavigation();
   return (
     <View style={{flex: 1, backgroundColor: COLORS.backgroundColor}}>
       <MenuButton />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <TopBackground /> */}
         <View
           style={{
             backgroundColor: COLORS.primary,
-            height: 200,
+            height: 100,
           }}></View>
-        <UserDetail marginTop={-90} editable={true} />
+        <UserDetail marginTop={-30} editable={true} />
+        <View
+          style={{
+            paddingHorizontal: 20,
+            marginBottom: 10,
+            flexDirection: 'row',
+          }}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('Address');
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: COLORS.white,
+              padding: 10,
+              borderRadius: 5,
+              borderWidth: 2,
+              borderColor: COLORS.lightOpcaityBlack,
+              width: 150,
+              flex: 1,
+            }}>
+            <LocationIcon color={COLORS.opcaityBlack} size={24} />
+            <Text
+              style={[FONTS.h4, {color: COLORS.opcaityBlack, marginLeft: 10}]}>
+              {t('drawer.address')}
+            </Text>
+          </TouchableOpacity>
+          <View style={{margin: 5}} />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('EmergencyContact');
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: COLORS.white,
+              padding: 10,
+              borderRadius: 5,
+              borderWidth: 2,
+              width: 150,
+              borderColor: COLORS.lightOpcaityBlack,
+              flex: 1,
+            }}>
+            <EmergencyIcon color={COLORS.opcaityBlack} size={20} />
+            <Text
+              style={[FONTS.h4, {color: COLORS.opcaityBlack, marginLeft: 10}]}>
+              {t('drawer.emergencycontact')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={[
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginHorizontal: 20,
+              backgroundColor: COLORS.white,
+              borderRadius: 5,
+              marginBottom: 10,
+              borderWidth: 2,
+              borderColor: COLORS.lightOpcaityBlack,
+            },
+          ]}>
+          <LineConnectDisplay />
+          <View style={styles.verticalLine} />
+          <VerifyIdentifyDisplay />
+          <View style={styles.verticalLine} />
+          <VerifyVaccineDisplay />
+        </View>
       </ScrollView>
     </View>
   );
@@ -25,4 +109,10 @@ const ProfileScreen = () => {
 
 export default ProfileScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  verticalLine: {
+    height: 50,
+    borderColor: COLORS.lightOpcaityBlack,
+    borderWidth: 0.5,
+  },
+});

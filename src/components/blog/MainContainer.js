@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Animated, ActivityIndicator} from 'react-native';
+import {View, Animated, ActivityIndicator} from 'react-native';
 import Tabs from './mainslides/Tabs';
 import {COLORS, SIZES} from '../../constants';
-import {ScrollView} from 'react-native';
 import BlogSlide from './mainslides/BlogSlide';
 import {useDispatch} from 'react-redux';
 import {getSocial} from '../../redux/actions/request';
@@ -90,10 +89,3 @@ const MainContainer = () => {
 };
 
 export default MainContainer;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

@@ -11,20 +11,18 @@ const BackButton = ({backTo, top}) => {
     <View
       style={{
         position: 'absolute',
-        top: top ? top : Platform.OS === 'ios' ? 40 : StatusBar.currentHeight,
+        top: top ? top : Platform.OS === 'ios' ? 40 : 20,
         left: 10,
         zIndex: 100,
+        backgroundColor: '#fff',
+        borderRadius: 50,
+        width: 30,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
       <TouchableOpacity
         activeOpacity={0.8}
-        style={{
-          backgroundColor: '#fff',
-          borderRadius: 50,
-          width: 30,
-          height: 30,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
         onPress={() => {
           if (backTo) {
             navigation.replace(backTo);

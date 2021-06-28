@@ -1,13 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {get} from '../../redux/actions/request';
 import {SHADOW, SIZES, FONTS, COLORS} from '../../constants';
@@ -15,8 +8,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import Swiper from 'react-native-swiper';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import LocalizationContext from '../../screens/LocalizationContext';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const PromoteActivity = () => {
   const {t} = React.useContext(LocalizationContext);
@@ -24,19 +18,19 @@ const PromoteActivity = () => {
   dayjs.locale(lang);
   const navigation = useNavigation();
   const [promote_activities, setPromote_activities] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading1] = useState(true);
+  const dispatch = useDispatch();
   const fetchPromoteActivity = async () => {
     try {
       const res = await get('/api/users/getpromoteactivities');
       if (res.status === 200) {
         setPromote_activities(res.data);
       }
-      console.log(error);
 
-      setLoading(false);
+      setLoading1(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      setLoading1(false);
     }
   };
   useEffect(() => {
@@ -69,47 +63,59 @@ const PromoteActivity = () => {
           style={{
             flexDirection: 'row',
             position: 'absolute',
-            bottom: 40,
+            bottom: 20,
             left: 20,
             alignItems: 'center',
           }}>
           <View style={{flex: 1}}>
             <Text style={[FONTS.h4, {color: '#fff'}]}>{item.title}</Text>
             <Text style={[FONTS.h1, {color: '#fff'}]}>
-              {dayjs(item.actual_date).format('DD MMMM YY')}
+              {dayjs(item.actual_date).format('D MMMM YY')}
             </Text>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
+          <View
             style={[
+              SHADOW.default,
               {
-                borderRadius: 10,
-                height: 50,
-                width: 130,
-                justifyContent: 'center',
-                alignItems: 'center',
+                borderRadius: 5,
+                height: 40,
+                width: 100,
                 backgroundColor: COLORS.primary,
                 marginRight: 30,
               },
-              SHADOW.default,
-            ]}
-            onPress={() => {
-              navigation.navigate('ActivityDetail', {
-                activityId: item._id,
-                from: 'HomeScreen',
-              });
-            }}>
-            <Text
+            ]}>
+            <TouchableOpacity
+              activeOpacity={0.6}
               style={[
                 {
-                  color: '#fff',
-                  textAlign: 'center',
+                  borderRadius: 5,
+                  height: 40,
+                  width: 100,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: COLORS.primary,
                 },
-                FONTS.h3,
-              ]}>
-              {t('promoteactivity.detail')}
-            </Text>
-          </TouchableOpacity>
+                SHADOW.default,
+              ]}
+              onPress={() => {
+                dispatch(setLoading(true));
+                navigation.navigate('ActivityDetail', {
+                  activityId: item._id,
+                  from: 'HomeScreen',
+                });
+              }}>
+              <Text
+                style={[
+                  {
+                    color: '#fff',
+                    textAlign: 'center',
+                  },
+                  FONTS.h3,
+                ]}>
+                {t('promoteactivity.detail')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
     );
@@ -122,9 +128,9 @@ const PromoteActivity = () => {
           height: (SIZES.width * 2) / 3,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: COLORS.primary,
+          backgroundColor: COLORS.backgroundColor,
         }}>
-        <ActivityIndicator color="#fff" size="large" />
+        <ActivityIndicator color={COLORS.primary} size="large" />
       </View>
     );
   }
@@ -148,7 +154,7 @@ const PromoteActivity = () => {
   return (
     <View
       style={{
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.backgroundColor,
       }}>
       <Swiper
         height={(SIZES.width * 2) / 3}
@@ -163,6 +169,4 @@ const PromoteActivity = () => {
   );
 };
 
-export default PromoteActivity;
-
-const styles = StyleSheet.create({});
+export default React.memo(PromoteActivity);

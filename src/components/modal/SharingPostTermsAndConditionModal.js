@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
 import {SIZES, FONTS, COLORS} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
-import Markdown from 'react-native-markdown-display';
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
 
@@ -44,7 +43,7 @@ const SharingPostTermsAndConditionsModal = ({
                 สำหรับการติดต่อเพื่อจุดประสงค์ในการแชร์ริ่ง
               </Text>
               <Text style={[FONTS.body4]}>
-                2. ข้าพเจ้ายอมรับว่าการตกลงการแชร์ริ่งเป็นไประหว่างตัวข้าพ
+                2. ข้าพเจ้ายอมรับว่าการตกลงการแชร์ริ่งเป็นไประหว่างตัวข้าพเจ้า
                 และผู้ใช้งานท่านอื่นเอง แพลตฟอร์มทำหน้าที่เป็นตัวกลางเท่านั้น
                 ไม่ได้มีส่วนได้ส่วนเสียกับเหตุการณ์ที่จะเกิดขึ้น
               </Text>

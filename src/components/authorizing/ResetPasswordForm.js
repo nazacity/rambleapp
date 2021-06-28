@@ -172,7 +172,7 @@ const ResetPasswordForm = () => {
             onPress={handleSubmit(onSubmit)}
           />
         </View>
-        <View
+        {/* <View
           style={{
             justifyContent: 'space-between',
             marginHorizontal: 20,
@@ -202,7 +202,7 @@ const ResetPasswordForm = () => {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
       </View>
     </View>
   );

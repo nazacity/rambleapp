@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 import {View, StatusBar} from 'react-native';
 
@@ -24,6 +25,7 @@ import AddressScreen from './home/AddressScreen';
 import QrcodeScannerScreen from './home/QrcodeScannerScreen';
 import WebViewScreen from './home/WebViewScreen';
 import SettingScreen from './home/SettingScreen';
+import AboutRambleScreen from './home/AboutRambleScreen';
 
 import ActivityScreen from './activity/ActivityScreen';
 import FilteredActivityScreen from './activity/FilteredActivityScreen';
@@ -63,6 +65,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   setAddAddressModal,
   setEmergencyModal,
+  setLoading,
 } from '../redux/actions/AppStateAction';
 
 // AsyncStorage
@@ -70,7 +73,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {ActivityIcon, HomeIcon} from '../components/Icon';
 import SplashScreen from 'react-native-splash-screen';
-import {useIsFocused} from '@react-navigation/native';
 
 const HomeStack = createStackNavigator();
 const ActivityStack = createStackNavigator();
@@ -78,14 +80,10 @@ const CommunityStack = createStackNavigator();
 const OnboardingAndAuthorizingStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-function FocusAwareStatusBar(props) {
-  const isFocused = useIsFocused();
-
-  return isFocused ? <StatusBar {...props} /> : null;
-}
-
 export const MainTabScreen = ({navigation, route}) => {
   const {t} = React.useContext(LocalizationContext);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -122,7 +120,7 @@ export const MainTabScreen = ({navigation, route}) => {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="community"
         component={CommunityStackScreen}
         options={{
@@ -136,7 +134,7 @@ export const MainTabScreen = ({navigation, route}) => {
         //     navigation.jumpTo('community', {screen: 'SelectActivity'});
         //   },
         // }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
@@ -175,6 +173,9 @@ const HomeStackScreen = ({navigation}) => {
       <HomeStack.Screen
         name="ActivityRegister"
         component={ActivityRegisterScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       <HomeStack.Screen
         name="ActivityHistory"
@@ -379,20 +380,22 @@ const HomeStackScreen = ({navigation}) => {
               </View>
             );
           },
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(setAddAddressModal(true));
-              }}
-              style={{marginRight: 10}}>
-              <Ionicons
-                name="add"
-                size={25}
-                backgroundColor="transparent"
-                color="#fff"
-              />
-            </TouchableOpacity>
-          ),
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(setAddAddressModal(true));
+                }}
+                style={{marginRight: 10}}>
+                <Ionicons
+                  name="add"
+                  size={25}
+                  backgroundColor="transparent"
+                  color="#fff"
+                />
+              </TouchableOpacity>
+            );
+          },
         }}
       />
       <HomeStack.Screen
@@ -403,13 +406,14 @@ const HomeStackScreen = ({navigation}) => {
             return (
               <View style={{paddingLeft: 15}}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                  <MenuIcon size={14} color="#fff" />
+                  <Ionicons name="menu-sharp" size={24} color={COLORS.white} />
                 </TouchableOpacity>
               </View>
             );
           },
         }}
       />
+      <HomeStack.Screen name="AboutRamble" component={AboutRambleScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -470,6 +474,13 @@ const ActivityStackScreen = ({navigation}) => {
       <ActivityStack.Screen
         name="FilteredActivity"
         component={FilteredActivityScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ActivityStack.Screen
+        name="ActivityRegister"
+        component={ActivityRegisterScreen}
         options={{
           headerShown: false,
         }}

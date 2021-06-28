@@ -4,7 +4,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
-
+#import <GoogleMaps/GoogleMaps.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 @import RNLine;
 
 #ifdef FB_SONARKIT_ENABLED
@@ -52,6 +53,13 @@ static void InitializeFlipper(UIApplication *application) {
   [RNSplashScreen show];
   // [RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
   [LineLogin setupWithChannelID:@"1655591354" universalLinkURL:nil];
+  +  [GMSServices provideAPIKey:@"AIzaSyCJb7zbQZ1ElwXTZrNYAPiBwPKFpQoXsDg"];
+
+    // You can skip this line if you have the latest version of the SDK installed
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+    didFinishLaunchingWithOptions:launchOptions];
+  // Add any custom logic here.
+
   return YES;
 }
 
@@ -69,7 +77,12 @@ static void InitializeFlipper(UIApplication *application) {
 //
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-  return [LineLogin application:app open:url options:options];
+  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+    return YES;
+  } else {
+
+    return [LineLogin application:app open:url options:options];
+  }
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler

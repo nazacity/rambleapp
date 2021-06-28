@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import Button from '../Button';
 import {COLORS} from '../../constants';
 import LocalizationContext from '../../screens/LocalizationContext';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import NewUserRegisterModal from '../modal/NewUserRegisterModal';
-import {Alert} from 'react-native';
+import {setLoading} from '../../redux/actions/AppStateAction';
 
 const ButtonSection = ({userActivity, activity}) => {
   const {t} = React.useContext(LocalizationContext);
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const handleNewUserRegisterModalClose = () => {
     setOpen(false);
   };
@@ -22,7 +22,8 @@ const ButtonSection = ({userActivity, activity}) => {
     <View style={{alignItems: 'center'}}>
       {userActivity.state === 'unregister' && activity.state === 'registering' && (
         <Button
-          width={200}
+          width={100}
+          height={40}
           label={t('activity.apply')}
           color={COLORS.pinkPastel}
           onPress={() => {
@@ -43,22 +44,19 @@ const ButtonSection = ({userActivity, activity}) => {
       {userActivity.state === 'waiting_payment' &&
         activity.state === 'registering' && (
           <Button
-            width={200}
-            label={t('activity.payment')}
+            width={100}
+            height={40}
+            label={t('activity.pay')}
             color={COLORS.pinkPastel}
             onPress={() => {
+              dispatch(setLoading(true));
               navigation.navigate('Payment', {
-                activity_title: activity.title,
-                activity_picture_url: activity.activity_picture_url,
-                course: userActivity.activity.course,
-                size: userActivity.size,
-                userActivityId: userActivity._id,
-                address: userActivity.address,
+                userActivity: userActivity,
               });
             }}
           />
         )}
-      {userActivity.state === 'upcoming' && !userActivity.user_post && (
+      {/* {userActivity.state === 'upcoming' && !userActivity.user_post && (
         <Button
           label={t('activity.findfriend')}
           color={COLORS.pinkPastel}
@@ -80,7 +78,7 @@ const ButtonSection = ({userActivity, activity}) => {
                   {
                     text: t('community.comment.okay'),
                     onPress: () => {
-                      navigation.navigate('Setting', {
+                      navigation.navigate('Profile', {
                         verfiyIdentifyModalOpen: true,
                       });
                     },
@@ -90,10 +88,11 @@ const ButtonSection = ({userActivity, activity}) => {
             }
           }}
         />
-      )}
-      {userActivity.state === 'actual_date' && (
+      )} */}
+      {/* {userActivity.state === 'actual_date' && (
         <Button
-          width={200}
+          width={100}
+          height={40}
           label={t('activity.checkin')}
           color={COLORS.pinkPastel}
           onPress={() => {
@@ -107,7 +106,8 @@ const ButtonSection = ({userActivity, activity}) => {
       )}
       {userActivity.state === 'checked_in' && (
         <Button
-          width={200}
+          width={100}
+          height={40}
           label={t('activity.checkout')}
           color={COLORS.pinkPastel}
           onPress={() => {
@@ -118,7 +118,7 @@ const ButtonSection = ({userActivity, activity}) => {
             });
           }}
         />
-      )}
+      )} */}
       <NewUserRegisterModal
         open={open}
         handleClose={handleNewUserRegisterModalClose}

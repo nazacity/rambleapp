@@ -198,7 +198,7 @@ const NewUserRegisterModal = ({open, handleClose}) => {
               paddingLeft: 20,
             }}>
             <Text style={[FONTS.body3, {flex: 1}]}>
-              {dayjs(selectedDate).locale(lang).format('DD MMMM YYYY')}
+              {dayjs(selectedDate).locale(lang).format('D MMMM YYYY')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.6}

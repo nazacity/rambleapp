@@ -1,13 +1,14 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {COLORS, FONTS} from '../../constants';
 import Modal from 'react-native-modal';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPDPAModal} from '../../redux/actions/AppStateAction';
 import Button from '../Button';
 import LocalizationContext from '../../screens/LocalizationContext';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const PDPAModal = () => {
+const PDPAModal = ({closable}) => {
   const {t} = React.useContext(LocalizationContext);
   const dispatch = useDispatch();
   const open = useSelector((state) => state.PDPA);
@@ -20,6 +21,26 @@ const PDPAModal = () => {
       style={{margin: 0}}
       onBackdropPress={handleClose}
       onBackButtonPress={handleClose}>
+      {closable && (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{
+            width: 30,
+            height: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 15,
+            position: 'absolute',
+            zIndex: 100,
+            top: 10,
+            right: 10,
+          }}
+          onPress={() => {
+            handleClose();
+          }}>
+          <MaterialIcons name="cancel" color={COLORS.buttonBlue} size={24} />
+        </TouchableOpacity>
+      )}
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{flex: 1, backgroundColor: COLORS.backgroundColor, padding: 20}}>
@@ -88,14 +109,16 @@ const PDPAModal = () => {
             เพื่อจุดประสงค์ที่กล่าวมาข้างต้น
           </Text>
         </View>
-        <View style={{alignItems: 'center', marginBottom: 50}}>
-          <Button
-            width={200}
-            label={t('signup.agree')}
-            color={COLORS.pinkPastel}
-            onPress={handleClose}
-          />
-        </View>
+        {!closable && (
+          <View style={{alignItems: 'center', marginBottom: 50}}>
+            <Button
+              width={200}
+              label={t('signup.agree')}
+              color={COLORS.pinkPastel}
+              onPress={handleClose}
+            />
+          </View>
+        )}
       </ScrollView>
     </Modal>
   );

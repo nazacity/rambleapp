@@ -11,6 +11,7 @@ import {SIZES, FONTS, COLORS, SHADOW} from '../../constants';
 import Distance from './recordcard/Distance1';
 // import Average from './recordcard/Average';
 // import Time from './recordcard/Time';
+import profile from '../../../assets/profile/profile.png';
 
 const RecordCard = ({item}) => {
   const {t} = React.useContext(LocalizationContext);
@@ -23,14 +24,14 @@ const RecordCard = ({item}) => {
           backgroundColor: 'white',
           marginBottom: 10,
           marginHorizontal: 20,
-          borderRadius: 15,
-          marginTop: -90,
+          borderRadius: 10,
+          marginTop: -30,
         },
         SHADOW.default,
       ]}>
       <View
         style={{
-          borderRadius: 15,
+          borderRadius: 10,
           overflow: 'hidden',
         }}>
         <ImageBackground
@@ -49,11 +50,14 @@ const RecordCard = ({item}) => {
             }}>
             <Avatar
               rounded
-              source={{uri: user.user_picture_url}}
+              source={
+                user.user_picture_url ? {uri: user.user_picture_url} : profile
+              }
               size={80}
               containerStyle={{
                 borderColor: COLORS.primary,
                 borderWidth: 2,
+                backgroundColor: COLORS.white,
               }}
             />
             <View
