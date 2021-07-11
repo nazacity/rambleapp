@@ -32,75 +32,83 @@ const AboutRambleScreen = ({navigation}) => {
         flex: 1,
         backgroundColor: COLORS.backgroundColor,
       }}>
-      <View>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            borderRadius: 20,
-            marginLeft: 5,
-            padding: 20,
-            flexDirection: 'row',
-            alignItems: 'center',
-            height: 60,
-          }}
-          onPress={() => {}}>
-          <Text style={[FONTS.body3]}>Ramble Version {ramble.version}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={{
+          borderRadius: 20,
+          marginLeft: 5,
+          padding: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: 60,
+        }}
+        onPress={() => {}}>
+        <Text style={[FONTS.body3]}>Ramble Version {ramble.version}</Text>
+      </TouchableOpacity>
       <View style={styles.line} />
-      <View>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            borderRadius: 20,
-            marginLeft: 5,
-            padding: 20,
-            flexDirection: 'row',
-            alignItems: 'center',
-            height: 60,
-          }}
-          onPress={() => {
-            setPolicyModalOpen(true);
-          }}>
-          <Text style={[FONTS.body3]}>{t('signup.policy')}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={{
+          borderRadius: 20,
+          marginLeft: 5,
+          padding: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: 60,
+        }}
+        onPress={() => {
+          navigation.navigate('ContactUs');
+        }}>
+        <Text style={[FONTS.body3]}>{t('signin.contactus')}</Text>
+      </TouchableOpacity>
       <View style={styles.line} />
-      <View>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            borderRadius: 20,
-            marginLeft: 5,
-            padding: 20,
-            flexDirection: 'row',
-            alignItems: 'center',
-            height: 60,
-          }}
-          onPress={() => {
-            setUserAgreementModalOpen(true);
-          }}>
-          <Text style={[FONTS.body3]}>{t('signup.useragreement')}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={{
+          borderRadius: 20,
+          marginLeft: 5,
+          padding: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: 60,
+        }}
+        onPress={() => {
+          setPolicyModalOpen(true);
+        }}>
+        <Text style={[FONTS.body3]}>{t('signup.policy')}</Text>
+      </TouchableOpacity>
       <View style={styles.line} />
-      <View>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            borderRadius: 20,
-            marginLeft: 5,
-            padding: 20,
-            flexDirection: 'row',
-            alignItems: 'center',
-            height: 60,
-          }}
-          onPress={() => {
-            dispatch(setPDPAModal(true));
-          }}>
-          <Text style={[FONTS.body3]}>{t('signin.pdpa')}</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={{
+          borderRadius: 20,
+          marginLeft: 5,
+          padding: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: 60,
+        }}
+        onPress={() => {
+          setUserAgreementModalOpen(true);
+        }}>
+        <Text style={[FONTS.body3]}>{t('signup.useragreement')}</Text>
+      </TouchableOpacity>
+      <View style={styles.line} />
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={{
+          borderRadius: 20,
+          marginLeft: 5,
+          padding: 20,
+          flexDirection: 'row',
+          alignItems: 'center',
+          height: 60,
+        }}
+        onPress={() => {
+          dispatch(setPDPAModal(true));
+        }}>
+        <Text style={[FONTS.body3]}>{t('signin.pdpa')}</Text>
+      </TouchableOpacity>
       <View style={styles.line} />
       <PolicyModal
         open={policyModalOpen}

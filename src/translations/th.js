@@ -41,6 +41,9 @@ const th = {
     error: 'กรุณาลองใหม่',
     appleloginerror: 'การเข้าสู่ระบบด้วย Apple มีปัญหา',
     rememberusername: 'บันทึกชื่อบัญชีผู้ใช้งาน',
+    contactus: 'ติดต่อเรา',
+    phone: 'โทรศัพท์',
+    website: 'เว็บไซต์',
   },
   forgotpassword: {
     username: 'ชื่อบัญชีผู้ใช่งาน',

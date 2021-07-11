@@ -14,7 +14,7 @@ const blood_type = [
 
 const ramble = {
   account_no: '425-087347-7',
-  version: '1.3.6',
+  version: '1.3.8',
 };
 
 export {

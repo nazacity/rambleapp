@@ -26,6 +26,7 @@ import QrcodeScannerScreen from './home/QrcodeScannerScreen';
 import WebViewScreen from './home/WebViewScreen';
 import SettingScreen from './home/SettingScreen';
 import AboutRambleScreen from './home/AboutRambleScreen';
+import ContactUsScreen from './home/ContactUsScreen';
 
 import ActivityScreen from './activity/ActivityScreen';
 import FilteredActivityScreen from './activity/FilteredActivityScreen';
@@ -414,6 +415,7 @@ const HomeStackScreen = ({navigation}) => {
         }}
       />
       <HomeStack.Screen name="AboutRamble" component={AboutRambleScreen} />
+      <HomeStack.Screen name="ContactUs" component={ContactUsScreen} />
     </HomeStack.Navigator>
   );
 };

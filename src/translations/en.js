@@ -41,6 +41,9 @@ const en = {
     error: 'Please try again',
     appleloginerror: 'Apple sign in was error',
     rememberusername: 'Remember Username',
+    contactus: 'Contact Us',
+    phone: 'Phone number',
+    website: 'Website',
   },
   forgotpassword: {
     username: 'Username',
